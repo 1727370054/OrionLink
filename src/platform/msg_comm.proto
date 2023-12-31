@@ -1,0 +1,74 @@
+syntax = "proto3";	// 版本号
+package msg;		// 命名空间
+
+import "msg_type.proto";
+ 
+/// 消息头
+message MsgHead
+{
+	int32 msg_size = 1;			/// 消息大小(不包含头部)		
+	MsgType msg_type = 2;		/// 消息类型
+	string token = 3;			/// 令牌(登陆消息则为空)
+	string service_name = 4;	/// 微服务名称(用于路由)
+	int64 router_id = 5;	    /// 路由标识
+}
+
+/// 用户登陆请求 MSG_LOGIN_REQ
+message LoginReq
+{
+	string username = 1;		/// 用户名
+	string password = 2;		/// md5后的密码
+}
+
+/// 用户登陆响应 MSG_LOGIN_RES
+message LoginRes
+{
+	enum LoginResType
+	{
+		OK = 0;					/// 登陆成功
+		ERROR = 1;				/// 用户名或密码错误
+		NOUSER = 2;				/// 用户不存在
+	}
+	LoginResType desc = 1;
+	string token = 2;			/// 登陆成功返回令牌，失败为空
+}
+
+/// 目录列表请求 MSG_DIR_REQ
+message DirReq
+{
+	string path = 1;
+}
+
+/// 目录列表响应 MSG_DIR_RES
+message DirRes
+{
+	enum DirResType
+	{
+		OK = 0;					/// 目录获取成功
+		ERROR = 1;				/// 目录获取失败
+		NODIR = 2;				/// 目录不存在
+	}
+	message Dir
+	{
+		string filename = 1;
+		int32 filesize = 2;
+	}
+	DirResType desc = 1;
+	repeated Dir dirs = 2;		/// 目录文件列表
+}
+
+/// 微服务列表
+message ServiceMap
+{
+	message Service
+	{
+		string name = 1;		/// 微服务名称
+		string ip = 2;			/// 微服务ip
+		int32 port = 3;		/// 微服务端口
+	}
+	message ServiceList
+	{
+		repeated Service service = 1;
+	}
+	map<string, ServiceList> service_map = 1;
+}

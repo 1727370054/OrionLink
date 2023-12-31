@@ -1,0 +1,2 @@
+#define XCOM_API __declspec(dllexport)
+#define XCOM_API __declspec(dllimport)
