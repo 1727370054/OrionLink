@@ -14,7 +14,10 @@ OrionLinkDB 是一个 C++ 库，提供了方便的接口来与 MySQL 数据库�
 
 1. 克隆仓库到您的本地机器：
    ```bash
-   git clone https://your-repository-url
+   git https://github.com/1727370054/orion_link_db.git
+   # 需要先安装MySQL依赖
+   make
+   make install
    ```
 2. 根据您的系统和项目设置，编译项目。
 
@@ -22,31 +25,104 @@ OrionLinkDB 是一个 C++ 库，提供了方便的接口来与 MySQL 数据库�
 
 以下是 OrionLinkDB 的基本使用方法：
 
-1. **初始化和连接数据库**：
+1. **初始化和连接数据库**
+
    ```cpp
    ol::OrionLinkDB db;
    db.Init();
    db.Connect("host", "user", "password", "db_name", 3306);
    ```
 
-2. **执行查询**：
+2. ##### 常用设置选项接口
+
+   ``````c++
+   /// 超时时间设置
+   db.SetConnectTimeout(/*超时时间(s)*/);
+   /// 设置自动重连
+   db.SetReconnect(true);
+   ``````
+
+3. ##### **常规SQL语句**
+
    ```cpp
-   db.Query("SELECT * FROM your_table");
+   db.Query("/*你的SQL语句*/");
    ```
 
-3. **获取查询结果**：
+4. ##### 插入数据（字符串数据）
+
+   `````c++
+   KVData kv;
+   kv["字段名"] = "插入的数据";
+   db.Insert(kv, "表名");
+   `````
+
+5. ##### 修改数据（字符串数据）
+
+   ````c++
+   KVData udata;
+   udata["字段名"] = "修改的数据";
+   ol.Update(udata, "表名", "where 条件"); /// 示例:where id=1
+   ````
+
+6. ##### 插入数据（二进制数据）
+
+   `````c++
+   string sql = "";
+   sql = "create table if not exists video( \
+   	   id int auto_increment,		    \
+   	   name varchar(1024),			    \
+   	   data mediumblob,		            \
+   	   size int,					   \
+   	   primary key(id))";
+   if (ol.Query(sql.c_str(), sql.size()))
+   {
+   	cout << "Query success! " << endl;
+   }
+   OLData file;
+   if (!file.LoadFile("../../source/OrionLinkLogo.png"))
+   	return -1;
+   kv["name"] = "OrionLinkLogo.png";
+   kv["data"] = file;
+   kv["size"] = &file.size;
+   db.InsertBin(kv, "video"); // id = 1
+   file.Drop();
+   `````
+
+7. ##### 修改数据（二进制数据）
+
+   ````c++
+   KVData udata;
+   OLData file2;
+   if (!file2.LoadFile("../../source/4.jpg"))
+   	return -1;
+   udata["data"] = file2;
+   udata["name"] = "4.jpg";
+   cout << "UpdateBin" << ol.UpdateBin(udata, "video", "where id =  3") << endl;
+   file2.Drop();
+   ````
+
+8. ##### 下载数据中的二进制文件
+
+   ``````c++
+   for (;;)
+   {
+   	auto row = ol.FetchRow();
+   	if (row.size() == 0) break;
+   	row[2].SaveFile(row[1].data); /// row[2]对应表video的data字段， row[1].data对应name字段，可以自行指定文件名和路径
+   }
+   ``````
+
+9. **获取查询结果**
+
    ```cpp
    auto rows = db.GetResult("SELECT * FROM your_table");
+   db.FreeResult();
+   /// or
+   db.ShowFormatResult(); /// 格式化显示结果，第一个参数可指定表格列宽度
    ```
 
-4. **插入和更新数据**：
-   ```cpp
-   ol::KVData kvData;
-   // 填充 kvData
-   db.Insert(kvData, "your_table");
-   ```
+10. **事务处理**：
 
-5. **事务处理**：
    ```cpp
    db.StartTransaction();
    // 执行事务相关操作
@@ -55,11 +131,10 @@ OrionLinkDB 是一个 C++ 库，提供了方便的接口来与 MySQL 数据库�
 
 ## 构建项目
 
-提供项目构建指南，例如如何生成库文件或可执行文件。
-
-## 测试
-
-描述如何运行项目的自动化测试（如果有）。
+`````bash
+make
+make install
+`````
 
 ## 贡献
 
@@ -72,13 +147,3 @@ OrionLinkDB 是一个 C++ 库，提供了方便的接口来与 MySQL 数据库�
 ## 作者
 
 * **hwk**
-
-## 许可证
-
-此项目根据 MIT 许可证授权 - 请参阅 LICENSE.md 文件了解详情。
-
-## 致谢
-
-* 感谢任何为项目提供灵感的人
-* 感谢任何帮助你的人
-* 任何其他需要致谢的资源
