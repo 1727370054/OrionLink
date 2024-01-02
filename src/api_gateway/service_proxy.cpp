@@ -1,4 +1,4 @@
-#include "service_proxy.h"
+ï»¿#include "service_proxy.h"
 #include "msg_comm.pb.h"
 #include "tools.h"
 
@@ -17,9 +17,9 @@ ServiceProxy::~ServiceProxy()
 
 bool ServiceProxy::Init()
 {
-    /// 1.´Ó×¢²áÖĞĞÄ»ñÈ¡Î¢·şÎñÁĞ±í
+    /// 1.ä»æ³¨å†Œä¸­å¿ƒè·å–å¾®æœåŠ¡åˆ—è¡¨
 
-    ///////////////////²âÊÔÊı¾İ/////////////////////////
+    ///////////////////æµ‹è¯•æ•°æ®/////////////////////////
     ServiceMap service_map;
     auto service_map_ptr = service_map.mutable_service_map();
     ServiceMap::ServiceList list;
@@ -47,8 +47,8 @@ bool ServiceProxy::Init()
 
     cout << service_map.DebugString() << endl;
 
-    /// 2. ÓëÎ¢·şÎñ½¨Á¢Á¬½Ó
-    /// ±éÀú ServiceMap Êı¾İ
+    /// 2. ä¸å¾®æœåŠ¡å»ºç«‹è¿æ¥
+    /// éå† ServiceMap æ•°æ®
     for (const auto& m : (*service_map_ptr))
     {
         client_map_[m.first] = vector<ServiceProxyClient*>();
@@ -81,7 +81,7 @@ void ServiceProxy::DeleteEvent(MsgEvent* event)
 
 bool ServiceProxy::SendMsg(msg::MsgHead* head, Msg* msg, MsgEvent* event)
 {
-    /// 1. ¸ºÔØ¾ùºâÕÒµ½Î¢·şÎñµÄÁ¬½Ó
+    /// 1. è´Ÿè½½å‡è¡¡æ‰¾åˆ°å¾®æœåŠ¡çš„è¿æ¥
 
     if (!head || !msg) return false;
     string service_name = head->service_name();
@@ -94,7 +94,7 @@ bool ServiceProxy::SendMsg(msg::MsgHead* head, Msg* msg, MsgEvent* event)
         return false;
     }
 
-    /// ÂÖÑ¯ÕÒµ½ÉÏÒ»´ÎµÄÎ¢·şÎñÁ¬½Ó
+    /// è½®è¯¢æ‰¾åˆ°ä¸Šä¸€æ¬¡çš„å¾®æœåŠ¡è¿æ¥
     int cur_index = client_map_last_index_[service_name];
     int list_size = client_list->second.size();
     for (int i = 0; i < list_size; i++)
@@ -105,13 +105,13 @@ bool ServiceProxy::SendMsg(msg::MsgHead* head, Msg* msg, MsgEvent* event)
         auto client = client_list->second[cur_index];
         if (client->is_connected())
         {
-            /// ÓÃÓÚÍË³öÇåÀí
+            /// ç”¨äºé€€å‡ºæ¸…ç†
             {
                 Mutex lock(&callbacks_mutex_);
                 callbacks_[event] = client;
             }
 
-            /// ×ª·¢ÏûÏ¢µ½Î¢·şÎñ
+            /// è½¬å‘æ¶ˆæ¯åˆ°å¾®æœåŠ¡
             return client->SendMsg(head, msg, event);
         }
     }
@@ -134,8 +134,8 @@ void ServiceProxy::Main()
 {
     while (!is_exit_)
     {
-        /// ´Ó×¢²áÖĞĞÄ»ñÈ¡ Î¢·şÎñÁĞ±íµÄ¸üĞÂ
-        /// ¶¨Ê±È«²¿ÖØĞÂ»ñÈ¡
+        /// ä»æ³¨å†Œä¸­å¿ƒè·å– å¾®æœåŠ¡åˆ—è¡¨çš„æ›´æ–°
+        /// å®šæ—¶å…¨éƒ¨é‡æ–°è·å–
         for (const auto & m : client_map_)
         {
             for (const auto& c : m.second)

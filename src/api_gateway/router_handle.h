@@ -1,4 +1,4 @@
-#ifndef ROUTER_HANDLE_H
+ï»¿#ifndef ROUTER_HANDLE_H
 #define ROUTER_HANDLE_H
 
 #include "service_handle.h"
@@ -7,13 +7,13 @@ class RouterHandle : public ServiceHandle
 {
 public:
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief ½ÓÊÕÁË¿Í»§¶ËµÄÏûÏ¢£¬½øĞĞÏûÏ¢Â·ÓÉ£¨¸Ãº¯ÊıÖØĞ´ MsgEvent µÄĞéº¯Êı£©
-    /// @param head ·´ĞòÁĞ»¯ºóÏûÏ¢Í·²¿
-    /// @param msg ĞòÁĞ»¯µÄÏûÏ¢ÄÚÈİ
+    /// @brief æ¥æ”¶äº†å®¢æˆ·ç«¯çš„æ¶ˆæ¯ï¼Œè¿›è¡Œæ¶ˆæ¯è·¯ç”±ï¼ˆè¯¥å‡½æ•°é‡å†™ MsgEvent çš„è™šå‡½æ•°ï¼‰
+    /// @param head ååºåˆ—åŒ–åæ¶ˆæ¯å¤´éƒ¨
+    /// @param msg åºåˆ—åŒ–çš„æ¶ˆæ¯å†…å®¹
     virtual void ReadCallback(msg::MsgHead* head, Msg* msg) override;
 
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief ÖØĞ´ ComTask µÄ Close£¬³¬Ê±¡¢Á¬½Ó¹Ø±Õ¡¢´íÎóÊ±£¬»áµ÷ÓÃ
+    /// @brief é‡å†™ ComTask çš„ Closeï¼Œè¶…æ—¶ã€è¿æ¥å…³é—­ã€é”™è¯¯æ—¶ï¼Œä¼šè°ƒç”¨
     virtual void Close() override;
 };
 

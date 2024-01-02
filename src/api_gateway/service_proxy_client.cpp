@@ -1,4 +1,4 @@
-#include "service_proxy_client.h"
+ï»¿#include "service_proxy_client.h"
 #include "tools.h"
 
 std::map<long long, MsgEvent*> ServiceProxyClient::callback_task_;
@@ -8,9 +8,9 @@ void ServiceProxyClient::ReadCallback(msg::MsgHead* head, Msg* msg)
 {
     if (!head || !msg) return;
     LOGDEBUG("ServiceProxyClient::ReadCallback");
-    /// ÏûÏ¢×ª·¢¸ø RouterHandle
-    /// ServiceProxyClient Ã¿¸ö¶ÔÏó¿ÉÄÜ¹ØÁª¶à¸ö RouterHandle£¬
-    /// Ò»¸ö¿Í»§¶Ë£¬¶ÔÓ¦Ò»¸ö RouterHandle ¶ÔÏó
+    /// æ¶ˆæ¯è½¬å‘ç»™ RouterHandle
+    /// ServiceProxyClient æ¯ä¸ªå¯¹è±¡å¯èƒ½å…³è”å¤šä¸ª RouterHandleï¼Œ
+    /// ä¸€ä¸ªå®¢æˆ·ç«¯ï¼Œå¯¹åº”ä¸€ä¸ª RouterHandle å¯¹è±¡
  
     Mutex lock(&callback_task_mutex_);
     auto router = callback_task_.find(head->router_id());

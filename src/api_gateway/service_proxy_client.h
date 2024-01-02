@@ -1,4 +1,4 @@
-#ifndef SERVICE_PROXY_CLIENT_H
+ï»¿#ifndef SERVICE_PROXY_CLIENT_H
 #define SERVICE_PROXY_CLIENT_H
 
 #include "service_client.h"
@@ -10,33 +10,33 @@ class ServiceProxyClient : public ServiceClient
 {
 public:
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief ½ÓÊÕÁËÎ¢·şÎñµÄ·´À¡£¬ÏûÏ¢×ª·¢¸ø¶ÔÓ¦µÄ RouterHandle£¨¸Ãº¯ÊıÖØĞ´ MsgEvent µÄĞéº¯Êı£©
-    /// @param head ·´ĞòÁĞ»¯ºóÏûÏ¢Í·²¿
-    /// @param msg ĞòÁĞ»¯µÄÏûÏ¢ÄÚÈİ
+    /// @brief æ¥æ”¶äº†å¾®æœåŠ¡çš„åé¦ˆï¼Œæ¶ˆæ¯è½¬å‘ç»™å¯¹åº”çš„ RouterHandleï¼ˆè¯¥å‡½æ•°é‡å†™ MsgEvent çš„è™šå‡½æ•°ï¼‰
+    /// @param head ååºåˆ—åŒ–åæ¶ˆæ¯å¤´éƒ¨
+    /// @param msg åºåˆ—åŒ–çš„æ¶ˆæ¯å†…å®¹
     virtual void ReadCallback(msg::MsgHead* head, Msg* msg);
 
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief ¸Ã¿Í»§¶ËÏûÏ¢ÏÈºÍ RouterHandle ½øĞĞ¹ØÁª£¬ÔÙÂ·ÓÉ×ª·¢µ½Î¢·şÎñ¼¯Èº
-    /// @param head ÏûÏ¢Í·²¿
-    /// @param msg ĞòÁĞ»¯µÄÏûÏ¢ÄÚÈİ
-    /// @param event RouterHandle ¶ÔÏó
-    /// @return ·¢ËÍ³É¹¦·µ»Øtrue£¬·ñÔòÏà·´
+    /// @brief è¯¥å®¢æˆ·ç«¯æ¶ˆæ¯å…ˆå’Œ RouterHandle è¿›è¡Œå…³è”ï¼Œå†è·¯ç”±è½¬å‘åˆ°å¾®æœåŠ¡é›†ç¾¤
+    /// @param head æ¶ˆæ¯å¤´éƒ¨
+    /// @param msg åºåˆ—åŒ–çš„æ¶ˆæ¯å†…å®¹
+    /// @param event RouterHandle å¯¹è±¡
+    /// @return å‘é€æˆåŠŸè¿”å›trueï¼Œå¦åˆ™ç›¸å
     ///////////////////////////////////////////////////////////////////////////
     bool SendMsg(msg::MsgHead* head, Msg* msg, MsgEvent* event);
 
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief ×¢²áÒ»¸öÊÂ¼ş (RouterHandle) (Ã¿¸ö¿Í»§¶Ë¶ÔÓ¦Ò»¸ö RouterHandle)
-    /// @param event ÊÂ¼ş¶ÔÏóÖ¸Õë
+    /// @brief æ³¨å†Œä¸€ä¸ªäº‹ä»¶ (RouterHandle) (æ¯ä¸ªå®¢æˆ·ç«¯å¯¹åº”ä¸€ä¸ª RouterHandle)
+    /// @param event äº‹ä»¶å¯¹è±¡æŒ‡é’ˆ
     void RegisterEvent(MsgEvent* event);
 
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief É¾³ıÒ»¸öÊÂ¼ş (RouterHandle)
-    /// @param event ÊÂ¼ş¶ÔÏóÖ¸Õë
+    /// @brief åˆ é™¤ä¸€ä¸ªäº‹ä»¶ (RouterHandle)
+    /// @param event äº‹ä»¶å¯¹è±¡æŒ‡é’ˆ
     void DeleteEvent(MsgEvent* event);
 
 private:
-    /// ÏûÏ¢×ª·¢µÄ¶ÔÏó£¬Ò»¸ö proxy ¶ÔÓ¦¶à¸ö MsgEvent
-    /// ÓÃÖ¸ÕëµÄÖÃ×÷ÎªË÷Òı£¬Òª¼æÈİ64Î»
+    /// æ¶ˆæ¯è½¬å‘çš„å¯¹è±¡ï¼Œä¸€ä¸ª proxy å¯¹åº”å¤šä¸ª MsgEvent
+    /// ç”¨æŒ‡é’ˆçš„ç½®ä½œä¸ºç´¢å¼•ï¼Œè¦å…¼å®¹64ä½
     static std::map<long long, MsgEvent*> callback_task_;
     static std::mutex callback_task_mutex_;
 };

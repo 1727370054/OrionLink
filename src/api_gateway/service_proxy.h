@@ -1,4 +1,4 @@
-#ifndef SERVICE_PROXY_H
+ï»¿#ifndef SERVICE_PROXY_H
 #define SERVICE_PROXY_H
 
 #include "service_proxy_client.h"
@@ -20,33 +20,33 @@ public:
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief ³õÊ¼»¯Î¢·şÎñÁĞ±í(×¢²áÖĞĞÄ»ñÈ¡)£¬ÓëÎ¢·şÎñ½¨Á¢Á¬½Ó
+    /// @brief åˆå§‹åŒ–å¾®æœåŠ¡åˆ—è¡¨(æ³¨å†Œä¸­å¿ƒè·å–)ï¼Œä¸å¾®æœåŠ¡å»ºç«‹è¿æ¥
     bool Init();
 
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief ¸ºÔØ¾ùºâÕÒµ½Î¢·şÎñµÄÁ¬½Ó£¬½øĞĞÊı¾İ·¢ËÍ
-    /// @param head ÏûÏ¢Í·²¿
-    /// @param msg ÏûÏ¢ÄÚÈİ
-    /// @param event RouterHandle ¶ÔÏó
-    /// @return ·¢ËÍ³É¹¦·µ»Øtrue£¬·ñÔòÏà·´
+    /// @brief è´Ÿè½½å‡è¡¡æ‰¾åˆ°å¾®æœåŠ¡çš„è¿æ¥ï¼Œè¿›è¡Œæ•°æ®å‘é€
+    /// @param head æ¶ˆæ¯å¤´éƒ¨
+    /// @param msg æ¶ˆæ¯å†…å®¹
+    /// @param event RouterHandle å¯¹è±¡
+    /// @return å‘é€æˆåŠŸè¿”å›trueï¼Œå¦åˆ™ç›¸å
     ///////////////////////////////////////////////////////////////////////////
     bool SendMsg(msg::MsgHead* head, Msg *msg, MsgEvent * event);
 
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief ÇåÀíÏûÏ¢»Øµ÷
-    /// @param event ÊÂ¼ş¶ÔÏóÖ¸Õë
+    /// @brief æ¸…ç†æ¶ˆæ¯å›è°ƒ
+    /// @param event äº‹ä»¶å¯¹è±¡æŒ‡é’ˆ
     void DeleteEvent(MsgEvent* event);
 
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief ¿ªÆô×Ô¶¯ÖØÁ¬µÄÏß³Ì
+    /// @brief å¼€å¯è‡ªåŠ¨é‡è¿çš„çº¿ç¨‹
     void Start();
 
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief ¹Ø±Õ×Ô¶¯ÖØÁ¬µÄÏß³Ì
+    /// @brief å…³é—­è‡ªåŠ¨é‡è¿çš„çº¿ç¨‹
     void Stop();
 
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief ×Ô¶¯ÖØÁ¬Ïß³Ì»Øµ÷º¯Êı
+    /// @brief è‡ªåŠ¨é‡è¿çº¿ç¨‹å›è°ƒå‡½æ•°
     void Main();
 
 private:
@@ -55,14 +55,14 @@ private:
     ServiceProxy& operator=(const ServiceProxy&) = delete;
 
 private:
-    /// ´æ·Å¸÷¸öÎ¢·şÎñÁ¬½Ó¶ÔÏó
+    /// å­˜æ”¾å„ä¸ªå¾®æœåŠ¡è¿æ¥å¯¹è±¡
     std::map<std::string, std::vector<ServiceProxyClient*>> client_map_;
 
-    /// ¼ÇÂ¼ÉÏÒ»´ÎÂÖÑ¯Ë÷Òı
+    /// è®°å½•ä¸Šä¸€æ¬¡è½®è¯¢ç´¢å¼•
     std::map<std::string, int> client_map_last_index_;
 
-    /// ÓÃÓÚÇåÀí callback_task_ »º´æ (ĞèÒªÖªµÀ RouterHandle ¶ÔÓ¦µÄ ServiceProxyClient
-    /// ·½±ãµ÷ÓÃ¶ÔÓ¦µÄ DeleteEvent º¯Êı)
+    /// ç”¨äºæ¸…ç† callback_task_ ç¼“å­˜ (éœ€è¦çŸ¥é“ RouterHandle å¯¹åº”çš„ ServiceProxyClient
+    /// æ–¹ä¾¿è°ƒç”¨å¯¹åº”çš„ DeleteEvent å‡½æ•°)
     std::map<MsgEvent*, ServiceProxyClient*> callbacks_;
     std::mutex callbacks_mutex_;
 

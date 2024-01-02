@@ -1,10 +1,10 @@
-#include "router_handle.h"
+ï»¿#include "router_handle.h"
 #include "service_proxy.h"
 #include "tools.h"
 
 void RouterHandle::ReadCallback(msg::MsgHead* head, Msg* msg)
 {
-    /// ×ª·¢ÏûÏ¢
+    /// è½¬å‘æ¶ˆæ¯
     LOGDEBUG("RouterHandle::ReadCallback");
     ServiceProxy::GetInstance()->SendMsg(head, msg, this);
 }
