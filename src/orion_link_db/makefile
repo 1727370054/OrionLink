@@ -1,6 +1,6 @@
 SRC=$(wildcard *.cpp)
 OBJS=$(patsubst %.cpp,%.o,$(SRC) )
-TARGET=libLXMysql.so
+TARGET=liboldb.so
 CPPFLAGS= -fPIC  -I/usr/include/mysql
 LIBS=-lpthread 
 # apt-get install libmysqlclient-dev

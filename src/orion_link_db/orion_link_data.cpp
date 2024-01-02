@@ -116,6 +116,26 @@ namespace ol
             data = nullptr;
         }
     }
+
+#ifndef _WIN32
+    static size_t Convart(char* from_char, char* to_char, char* in, size_t inlen, char* out, size_t outlen)
+    {
+        // 转换的上下文
+        iconv_t cd;
+        cd = iconv_open(to_char, from_char);
+        if (cd == 0)
+            return -1;
+        memset(out, 0, outlen);
+        char** pin = &in;
+        char** pout = &out;
+        // 返回转换的字节数，但是转化成GBK时经常不正确 >= 0成功
+        size_t ret = iconv(cd, pin, &inlen, pout, &outlen);
+        if (cd != 0)
+            iconv_close(cd);
+        return ret;
+    }
+#endif
+
     std::string OLData::UTF8ToGBK()
     {
         string gbk = "";
@@ -143,6 +163,7 @@ namespace ol
 #endif
         return gbk;
     }
+    
     std::string OLData::GBKToUTF8()
     {
         string utf8 = "";
@@ -169,23 +190,4 @@ namespace ol
 #endif
         return utf8;
     }
-
-#ifndef _WIN32
-    static size_t Convart(char* from_char, char* to_char, char* in, size_t inlen, char* out, size_t outlen)
-    {
-        // 转换的上下文
-        iconv_t cd;
-        cd = iconv_open(to_char, from_char);
-        if (cd == 0)
-            return -1;
-        memset(out, 0, outlen);
-        char** pin = &in;
-        char** pout = &out;
-        // 返回转换的字节数，但是转化成GBK时经常不正确 >= 0成功
-        size_t ret = iconv(cd, pin, &inlen, pout, &outlen);
-        if (cd != 0)
-            iconv_close(cd);
-        return ret;
-    }
-#endif
 }
