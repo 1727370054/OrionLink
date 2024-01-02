@@ -1,4 +1,4 @@
-#ifndef MSG_H
+ï»¿#ifndef MSG_H
 #define MSG_H
 
 #include "msg_type.pb.h"
@@ -9,16 +9,16 @@
 class Msg
 {
 public:
-    /// Êı¾İµÄ´óĞ¡
+    /// æ•°æ®çš„å¤§å°
     int size = 0;
 
-    /// Êı¾İ´æ·Å(protobufĞòÁĞ»¯µÄÊı¾İ)
+    /// æ•°æ®å­˜æ”¾(protobufåºåˆ—åŒ–çš„æ•°æ®)
     char* data = nullptr;
 
-    /// ÒÑ¾­½ÓÊÕÊı¾İµÄ´óĞ¡
+    /// å·²ç»æ¥æ”¶æ•°æ®çš„å¤§å°
     int recv_size;
 
-    /// ÏûÏ¢µÄÀàĞÍ
+    /// æ¶ˆæ¯çš„ç±»å‹
     msg::MsgType type = msg::NONE_DO_NOT_USE;
 
     bool Alloc(int size)
@@ -35,7 +35,7 @@ public:
         return true;
     }
 
-    /// ÅĞ¶ÏÊı¾İÊÇ·ñ½ÓÊÕÍê³É
+    /// åˆ¤æ–­æ•°æ®æ˜¯å¦æ¥æ”¶å®Œæˆ
     bool recved()
     {
         if (size <= 0) return false;

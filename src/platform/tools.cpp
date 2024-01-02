@@ -1,4 +1,4 @@
-#include "tools.h"
+ï»¿#include "tools.h"
 
 #include <cstdio>
 
@@ -16,11 +16,11 @@ std::string GetDirData(std::string path)
 {
     std::string data;
 #ifdef _WIN32
-    /// file Ò»¸ö½á¹¹Ìå£¬ÓÃÓÚ´æ´¢ÕÒµ½µÄÃ¿¸öÎÄ¼şµÄĞÅÏ¢£¨ÈçÃû³Æ¡¢´óĞ¡¡¢ÊôĞÔµÈ£©
+    /// file ä¸€ä¸ªç»“æ„ä½“ï¼Œç”¨äºå­˜å‚¨æ‰¾åˆ°çš„æ¯ä¸ªæ–‡ä»¶çš„ä¿¡æ¯ï¼ˆå¦‚åç§°ã€å¤§å°ã€å±æ€§ç­‰ï¼‰
     _finddata_t file;
-    /// "paath + /*.*"£¨±íÊ¾²éÕÒËùÓĞÎÄ¼ş£©
+    /// "paath + /*.*"ï¼ˆè¡¨ç¤ºæŸ¥æ‰¾æ‰€æœ‰æ–‡ä»¶ï¼‰
     std::string dir_path = path + "/*.*";
-    /// dir ´æ´¢ËÑË÷µÄÉÏÏÂÎÄ»ò¾ä±ú
+    /// dir å­˜å‚¨æœç´¢çš„ä¸Šä¸‹æ–‡æˆ–å¥æŸ„
     intptr_t dir = _findfirst(dir_path.c_str(), &file);
     if (dir < 0) return data;
 
@@ -44,7 +44,7 @@ std::string GetDirData(std::string path)
 	dp = opendir(dir);
 	if (dp == NULL)
 	{
-		/// ÎŞ·¨´ò¿ªÄ¿Â¼£¬¿ÉÄÜÄ¿Â¼²»´æÔÚ»òÕßÈ¨ÏŞÎÊÌâ
+		/// æ— æ³•æ‰“å¼€ç›®å½•ï¼Œå¯èƒ½ç›®å½•ä¸å­˜åœ¨æˆ–è€…æƒé™é—®é¢˜
 		return data;
 	}
 
@@ -57,16 +57,16 @@ std::string GetDirData(std::string path)
 		}
 		if (S_ISDIR(statbuf.st_mode))
 		{
-			continue; /// Ìø¹ıÄ¿Â¼
+			continue; /// è·³è¿‡ç›®å½•
 		}
 		snprintf(buf, sizeof(buf), "%s,%ld;", entry->d_name, statbuf.st_size);
 		data += buf;
 	}
 
-	closedir(dp); /// ¹Ø±ÕÄ¿Â¼Ö¸Õë
+	closedir(dp); /// å…³é—­ç›®å½•æŒ‡é’ˆ
 #endif // _WIN32
 
-    /// È¥µô½áÎ²·ÖºÅ
+    /// å»æ‰ç»“å°¾åˆ†å·
     if (!data.empty())
     {
         data = data.substr(0, data.size() - 1);

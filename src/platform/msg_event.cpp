@@ -1,4 +1,4 @@
-#include "msg_event.h"
+ï»¿#include "msg_event.h"
 #include "tools.h"
 
 #include <string>
@@ -47,7 +47,7 @@ void MsgEvent::ReadCallback()
     auto msg = GetMsg();
     if (!msg) return;
 
-    /// »Øµ÷ÏûÏ¢º¯Êı
+    /// å›è°ƒæ¶ˆæ¯å‡½æ•°
     LOGDEBUG("service name: " << pb_head_->service_name());
     ReadCallback(pb_head_, msg);
     Clear();
@@ -67,7 +67,7 @@ bool MsgEvent::SendMsg(msg::MsgHead *head, const google::protobuf::Message* mess
 {
     if (!message || !head) return false;
 
-    /// ÏûÏ¢ÄÚÈİĞòÁĞ»¯
+    /// æ¶ˆæ¯å†…å®¹åºåˆ—åŒ–
     std::string msg_str = message->SerializeAsString();
     int msg_size = msg_str.size();
 
@@ -82,21 +82,21 @@ bool MsgEvent::SendMsg(msg::MsgHead* head, Msg* msg)
     if (!head || !msg) return false;
 
     head->set_msg_size(msg->size);
-    /// ÏûÏ¢Í·ĞòÁĞ»¯
+    /// æ¶ˆæ¯å¤´åºåˆ—åŒ–
     std::string head_str;
     head->SerializeToString(&head_str);
-    /// Ò²¿ÉÒÔÓÃ¸Ã½Ó¿Ú»ñÈ¡ĞòÁĞ»¯ºóµÄÊı¾İ head.ByteSizeLong();
+    /// ä¹Ÿå¯ä»¥ç”¨è¯¥æ¥å£è·å–åºåˆ—åŒ–åçš„æ•°æ® head.ByteSizeLong();
     int head_size = head_str.size();
 
-    /// 1. ·¢ËÍÏûÏ¢Í·´óĞ¡ 4×Ö½Ú (ÔİÊ±²»¿¼ÂÇ×Ö½ÚĞòÎÊÌâ)
+    /// 1. å‘é€æ¶ˆæ¯å¤´å¤§å° 4å­—èŠ‚ (æš‚æ—¶ä¸è€ƒè™‘å­—èŠ‚åºé—®é¢˜)
     bool ret = Write(&head_size, sizeof(head_size));
     if (!ret) return false;
 
-    /// 2. ·¢ËÍÏûÏ¢Í· (pbĞòÁĞ»¯)
+    /// 2. å‘é€æ¶ˆæ¯å¤´ (pbåºåˆ—åŒ–)
     ret = Write(head_str.c_str(), head_str.size());
     if (!ret) return false;
 
-    /// 3. ·¢ËÍÏûÏ¢ÄÚÈİ (pbĞòÁĞ»¯)
+    /// 3. å‘é€æ¶ˆæ¯å†…å®¹ (pbåºåˆ—åŒ–)
     ret = Write(msg->data, msg->size);
     if (!ret) return false;
 
@@ -105,9 +105,9 @@ bool MsgEvent::SendMsg(msg::MsgHead* head, Msg* msg)
 
 bool MsgEvent::RecvMsg()
 {
-    /// ½â°ü
+    /// è§£åŒ…
 
-    /// 1.ÏûÏ¢Í·´óĞ¡
+    /// 1.æ¶ˆæ¯å¤´å¤§å°
     if (!head_.size)
     {
         int len = Read(&head_.size, sizeof(head_.size));
@@ -115,7 +115,7 @@ bool MsgEvent::RecvMsg()
         {
             return false;
         }
-        /// ·ÖÅäÏûÏ¢Í·¿Õ¼ä ¶ÁÈ¡ÏûÏ¢Í·£¨¼øÈ¨£¬ÏûÏ¢´óĞ¡£©
+        /// åˆ†é…æ¶ˆæ¯å¤´ç©ºé—´ è¯»å–æ¶ˆæ¯å¤´ï¼ˆé‰´æƒï¼Œæ¶ˆæ¯å¤§å°ï¼‰
         if (!head_.Alloc(head_.size))
         {
             LOGERROR("XMsgEvent::RecvMsg - head_.Alloc failed!");
@@ -123,18 +123,18 @@ bool MsgEvent::RecvMsg()
         }
     }
 
-    /// 2.ÏûÏ¢Í·ÄÚÈİ(¼øÈ¨£¬ÏûÏ¢´óĞ¡)
+    /// 2.æ¶ˆæ¯å¤´å†…å®¹(é‰´æƒï¼Œæ¶ˆæ¯å¤§å°)
     if (!head_.recved())
     {
         int len = Read(head_.data + head_.recv_size, head_.size - head_.recv_size);
         if (len <= 0)
-            return true; /// ½ÓÊÕÁËÏûÏ¢Í·´óĞ¡£¬ÀïÃæ¿ÉÄÜÃ»ÓĞÏûÏ¢Í·ÄÚÈİ
+            return true; /// æ¥æ”¶äº†æ¶ˆæ¯å¤´å¤§å°ï¼Œé‡Œé¢å¯èƒ½æ²¡æœ‰æ¶ˆæ¯å¤´å†…å®¹
         head_.recv_size += len;
 
         if (!head_.recved())
             return true;
 
-        /// ÍêÕûÍ·²¿½ÓÊÕÍê³É£¬·´ĞòÁĞ»¯
+        /// å®Œæ•´å¤´éƒ¨æ¥æ”¶å®Œæˆï¼Œååºåˆ—åŒ–
         if (!pb_head_)
         {
             pb_head_ = new MsgHead();
@@ -145,23 +145,23 @@ bool MsgEvent::RecvMsg()
             return false;
         }
 
-        /// ¼øÈ¨
-        /// ·ÖÅäÏûÏ¢ÄÚÈİ´óĞ¡¿Õ¼ä
+        /// é‰´æƒ
+        /// åˆ†é…æ¶ˆæ¯å†…å®¹å¤§å°ç©ºé—´
         if (!msg_.Alloc(pb_head_->msg_size()))
         {
             LOGERROR("XMsgEvent::RecvMsg - msg_.Alloc failed!");
             return false;
         }
-        /// ±£´æÏûÏ¢ÀàĞÍ
+        /// ä¿å­˜æ¶ˆæ¯ç±»å‹
         msg_.type = pb_head_->msg_type();
     }
 
-    /// 3.ÏûÏ¢ÄÚÈİ
+    /// 3.æ¶ˆæ¯å†…å®¹
     if (!msg_.recved())
     {
         int len = Read(msg_.data + msg_.recv_size, msg_.size - msg_.recv_size);
         if (len <= 0)
-            return true; /// ½ÓÊÕÁËÏûÏ¢Í·´óĞ¡£¬ÀïÃæ¿ÉÄÜÃ»ÓĞÏûÏ¢ÄÚÈİ
+            return true; /// æ¥æ”¶äº†æ¶ˆæ¯å¤´å¤§å°ï¼Œé‡Œé¢å¯èƒ½æ²¡æœ‰æ¶ˆæ¯å†…å®¹
         msg_.recv_size += len;
     }
 

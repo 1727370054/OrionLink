@@ -1,14 +1,14 @@
-syntax = "proto3";
+锘縮yntax = "proto3";
 package msg;
 
 enum MsgType
 {
 	NONE_DO_NOT_USE = 0;
 
-	MSG_LOGIN_REQ = 1;	/// 登陆请求 LoginReq
-	MSG_LOGIN_RES = 2;	/// 登陆响应 LoginRes
-	MSG_DIR_REQ = 3;	/// 请求目录列表 DirReq
-	MSG_DIR_RES = 4;	/// 返回目录列表响应 DirRes
+	MSG_LOGIN_REQ = 1;	/// 鐧婚檰璇锋眰 LoginReq
+	MSG_LOGIN_RES = 2;	/// 鐧婚檰鍝嶅簲 LoginRes
+	MSG_DIR_REQ = 3;	/// 璇锋眰鐩綍鍒楄〃 DirReq
+	MSG_DIR_RES = 4;	/// 杩斿洖鐩綍鍒楄〃鍝嶅簲 DirRes
 
 	MSG_MAX_TYPE  = 65535;
 }

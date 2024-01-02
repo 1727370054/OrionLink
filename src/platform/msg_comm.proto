@@ -1,52 +1,52 @@
-syntax = "proto3";	// °æ±¾ºÅ
-package msg;		// ÃüÃû¿Õ¼ä
+ï»¿syntax = "proto3";	// ç‰ˆæœ¬å·
+package msg;		// å‘½åç©ºé—´
 
 import "msg_type.proto";
  
-/// ÏûÏ¢Í·
+/// æ¶ˆæ¯å¤´
 message MsgHead
 {
-	int32 msg_size = 1;			/// ÏûÏ¢´óĞ¡(²»°üº¬Í·²¿)		
-	MsgType msg_type = 2;		/// ÏûÏ¢ÀàĞÍ
-	string token = 3;			/// ÁîÅÆ(µÇÂ½ÏûÏ¢ÔòÎª¿Õ)
-	string service_name = 4;	/// Î¢·şÎñÃû³Æ(ÓÃÓÚÂ·ÓÉ)
-	int64 router_id = 5;	    /// Â·ÓÉ±êÊ¶
+	int32 msg_size = 1;			/// æ¶ˆæ¯å¤§å°(ä¸åŒ…å«å¤´éƒ¨)		
+	MsgType msg_type = 2;		/// æ¶ˆæ¯ç±»å‹
+	string token = 3;			/// ä»¤ç‰Œ(ç™»é™†æ¶ˆæ¯åˆ™ä¸ºç©º)
+	string service_name = 4;	/// å¾®æœåŠ¡åç§°(ç”¨äºè·¯ç”±)
+	int64 router_id = 5;	    /// è·¯ç”±æ ‡è¯†
 }
 
-/// ÓÃ»§µÇÂ½ÇëÇó MSG_LOGIN_REQ
+/// ç”¨æˆ·ç™»é™†è¯·æ±‚ MSG_LOGIN_REQ
 message LoginReq
 {
-	string username = 1;		/// ÓÃ»§Ãû
-	string password = 2;		/// md5ºóµÄÃÜÂë
+	string username = 1;		/// ç”¨æˆ·å
+	string password = 2;		/// md5åçš„å¯†ç 
 }
 
-/// ÓÃ»§µÇÂ½ÏìÓ¦ MSG_LOGIN_RES
+/// ç”¨æˆ·ç™»é™†å“åº” MSG_LOGIN_RES
 message LoginRes
 {
 	enum LoginResType
 	{
-		OK = 0;					/// µÇÂ½³É¹¦
-		ERROR = 1;				/// ÓÃ»§Ãû»òÃÜÂë´íÎó
-		NOUSER = 2;				/// ÓÃ»§²»´æÔÚ
+		OK = 0;					/// ç™»é™†æˆåŠŸ
+		ERROR = 1;				/// ç”¨æˆ·åæˆ–å¯†ç é”™è¯¯
+		NOUSER = 2;				/// ç”¨æˆ·ä¸å­˜åœ¨
 	}
 	LoginResType desc = 1;
-	string token = 2;			/// µÇÂ½³É¹¦·µ»ØÁîÅÆ£¬Ê§°ÜÎª¿Õ
+	string token = 2;			/// ç™»é™†æˆåŠŸè¿”å›ä»¤ç‰Œï¼Œå¤±è´¥ä¸ºç©º
 }
 
-/// Ä¿Â¼ÁĞ±íÇëÇó MSG_DIR_REQ
+/// ç›®å½•åˆ—è¡¨è¯·æ±‚ MSG_DIR_REQ
 message DirReq
 {
 	string path = 1;
 }
 
-/// Ä¿Â¼ÁĞ±íÏìÓ¦ MSG_DIR_RES
+/// ç›®å½•åˆ—è¡¨å“åº” MSG_DIR_RES
 message DirRes
 {
 	enum DirResType
 	{
-		OK = 0;					/// Ä¿Â¼»ñÈ¡³É¹¦
-		ERROR = 1;				/// Ä¿Â¼»ñÈ¡Ê§°Ü
-		NODIR = 2;				/// Ä¿Â¼²»´æÔÚ
+		OK = 0;					/// ç›®å½•è·å–æˆåŠŸ
+		ERROR = 1;				/// ç›®å½•è·å–å¤±è´¥
+		NODIR = 2;				/// ç›®å½•ä¸å­˜åœ¨
 	}
 	message Dir
 	{
@@ -54,17 +54,17 @@ message DirRes
 		int32 filesize = 2;
 	}
 	DirResType desc = 1;
-	repeated Dir dirs = 2;		/// Ä¿Â¼ÎÄ¼şÁĞ±í
+	repeated Dir dirs = 2;		/// ç›®å½•æ–‡ä»¶åˆ—è¡¨
 }
 
-/// Î¢·şÎñÁĞ±í
+/// å¾®æœåŠ¡åˆ—è¡¨
 message ServiceMap
 {
 	message Service
 	{
-		string name = 1;		/// Î¢·şÎñÃû³Æ
-		string ip = 2;			/// Î¢·şÎñip
-		int32 port = 3;		/// Î¢·şÎñ¶Ë¿Ú
+		string name = 1;		/// å¾®æœåŠ¡åç§°
+		string ip = 2;			/// å¾®æœåŠ¡ip
+		int32 port = 3;		/// å¾®æœåŠ¡ç«¯å£
 	}
 	message ServiceList
 	{

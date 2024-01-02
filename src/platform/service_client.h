@@ -1,4 +1,4 @@
-#ifndef SERVICE_CLIENT_H
+ï»¿#ifndef SERVICE_CLIENT_H
 #define SERVICE_CLIENT_H
 
 #include "msg_event.h"
@@ -11,7 +11,7 @@ public:
     ~ServiceClient();
 
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief ½«ÈÎÎñ¼ÓÈëµ½Ïß³Ì³ØÖÐ£¬½øÐÐÁ¬½Ó£¬µ÷ÓÃµÄÊÇ ComTask ÀàµÄ Init ½øÐÐÁ¬½Ó
+    /// @brief å°†ä»»åŠ¡åŠ å…¥åˆ°çº¿ç¨‹æ± ä¸­ï¼Œè¿›è¡Œè¿žæŽ¥ï¼Œè°ƒç”¨çš„æ˜¯ ComTask ç±»çš„ Init è¿›è¡Œè¿žæŽ¥
     virtual void StartConnect();
 
 private:

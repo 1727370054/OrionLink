@@ -1,4 +1,4 @@
-#include "service_handle.h"
+﻿#include "service_handle.h"
 
 #include <cstring>
 

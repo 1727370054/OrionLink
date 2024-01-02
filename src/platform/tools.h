@@ -1,4 +1,4 @@
-#ifndef TOOLS_H
+﻿#ifndef TOOLS_H
 #define TOOLS_H
 
 #ifdef _WIN32

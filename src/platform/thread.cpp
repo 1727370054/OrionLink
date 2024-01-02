@@ -1,4 +1,4 @@
-#include "thread.h"
+ï»¿#include "thread.h"
 #include "task.h"
 #include "tools.h"
 
@@ -48,7 +48,7 @@ void Thread::Main()
 
     while (!is_exit_)
     {
-        /// Ò»´Î´¦Àí¶à¸öÏûÏ¢
+        /// ä¸€æ¬¡å¤„ç†å¤šä¸ªæ¶ˆæ¯
         event_base_loop(base_, EVLOOP_NONBLOCK);
         this_thread::sleep_for(1ms);
     }
@@ -61,7 +61,7 @@ void Thread::Main()
 }
 
 
-/// ¼¤»îÏß³ÌÈÎÎñ»Øµ÷º¯Êı
+/// æ¿€æ´»çº¿ç¨‹ä»»åŠ¡å›è°ƒå‡½æ•°
 static void NotifyCallBack(int fd, short what, void * arg)
 {
     Thread * t = static_cast<Thread *>(arg);
@@ -88,7 +88,7 @@ void Thread::Notify(int fd, short what)
     ss << id_ << " recv " << buf;
     LOGDEBUG(ss.str().c_str());
 
-    /// »ñÈ¡ÈÎÎñ,³õÊ¼»¯ÈÎÎñ
+    /// è·å–ä»»åŠ¡,åˆå§‹åŒ–ä»»åŠ¡
     Task * task = nullptr;
     tasks_mutex_.lock();
     if (tasks_.empty())
@@ -106,18 +106,18 @@ void Thread::Notify(int fd, short what)
 bool Thread::Setup()
 {
 #ifdef _WIN32
-    /// ´´½¨socket pair »¥ÏàÍ¨ĞÅ£¬fds[0]: ¶Á fds[1]: Ğ´
+    /// åˆ›å»ºsocket pair äº’ç›¸é€šä¿¡ï¼Œfds[0]: è¯» fds[1]: å†™
     evutil_socket_t fds[2];
     if (evutil_socketpair(AF_INET, SOCK_STREAM, 0, fds) < 0)
     {
         LOGERROR("evutil_socketpair failed! ");
         return false;
     }
-    /// ÉèÖÃ³É·Ç×èÈû
+    /// è®¾ç½®æˆéé˜»å¡
     evutil_make_socket_nonblocking(fds[0]);
     evutil_make_socket_nonblocking(fds[1]);
 #else
-    // linux ¹ÜµÀ
+    // linux ç®¡é“
     int fds[2];
     if (pipe(fds))
     {
@@ -126,10 +126,10 @@ bool Thread::Setup()
     }
 #endif // _WIN32
 
-    /// ¶ÁÈ¡°ó¶¨µ½eventÊÂ¼ş¼¯ÖĞ£¬Ğ´ÈëÒª±£´æ
+    /// è¯»å–ç»‘å®šåˆ°eventäº‹ä»¶é›†ä¸­ï¼Œå†™å…¥è¦ä¿å­˜
     this->notify_send_fd_ = fds[1];
 
-    /// ´´½¨libeventÉÏÏÂÎÄ(ÎŞËø)
+    /// åˆ›å»ºlibeventä¸Šä¸‹æ–‡(æ— é”)
     event_config * ev_conf = event_config_new();
     event_config_set_flag(ev_conf, EVENT_BASE_FLAG_NOLOCK);
     this->base_ = event_base_new_with_config(ev_conf);
@@ -140,7 +140,7 @@ bool Thread::Setup()
         return false;
     }
 
-    /// Ìí¼Ó¹ÜµÀ¼àÌıÊÂ¼ş£¬ÓÃÓÚ¼¤»îÏß³ÌÖ´ĞĞÈÎÎñ
+    /// æ·»åŠ ç®¡é“ç›‘å¬äº‹ä»¶ï¼Œç”¨äºæ¿€æ´»çº¿ç¨‹æ‰§è¡Œä»»åŠ¡
     event * ev = event_new(base_, fds[0], EV_READ | EV_PERSIST, NotifyCallBack, this);
     event_add(ev, 0);
     

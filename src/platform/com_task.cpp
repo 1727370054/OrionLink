@@ -1,4 +1,4 @@
-#include "com_task.h"
+ï»¿#include "com_task.h"
 #include "tools.h"
 
 #include <iostream>
@@ -42,7 +42,7 @@ ComTask::~ComTask()
 
 bool ComTask::InitBufferevent(int sock)
 {
-    /// -1£º×Ô¶¯´´½¨socket
+    /// -1ï¼šè‡ªåŠ¨åˆ›å»ºsocket
     bev_ = bufferevent_socket_new(base_, sock, BEV_OPT_CLOSE_ON_FREE);
     if (!bev_)
     {
@@ -50,7 +50,7 @@ bool ComTask::InitBufferevent(int sock)
         return false;
     }
 
-    /// ÉèÖÃ»Øµ÷
+    /// è®¾ç½®å›žè°ƒ
     bufferevent_setcb(bev_, SReadCallback, SWriteCallback, SEventCallback, this);
     bufferevent_enable(bev_, EV_READ | EV_WRITE);
 
@@ -62,7 +62,7 @@ bool ComTask::InitBufferevent(int sock)
 
 bool ComTask::Connect()
 {
-    /// bufferevent ½¨Á¢Á¬½Ó
+    /// bufferevent å»ºç«‹è¿žæŽ¥
     struct sockaddr_in remote;
     memset(&remote, 0, sizeof(remote));
     remote.sin_family = AF_INET;
@@ -93,7 +93,7 @@ bool ComTask::Connect()
 
 bool ComTask::Init()
 {
-    /// Çø·Ö·þÎñ¶Ë»¹ÊÇ¿Í»§¶Ë
+    /// åŒºåˆ†æœåŠ¡ç«¯è¿˜æ˜¯å®¢æˆ·ç«¯
     int comsocket = this->sock();
     if (comsocket <= 0)
         comsocket = -1;
@@ -160,7 +160,7 @@ void ComTask::EventCallback(short what)
         ConnectCallback();
     }
 
-    /// ÍË³öÒª´¦Àí»º³åÎÊÌâ
+    /// é€€å‡ºè¦å¤„ç†ç¼“å†²é—®é¢˜
     if (what & BEV_EVENT_ERROR || what & BEV_EVENT_TIMEOUT)
     {
         LOGERROR("BEV_EVENT_ERROR or BEV_EVENT_TIMEOUT");
