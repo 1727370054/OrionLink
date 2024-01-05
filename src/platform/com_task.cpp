@@ -7,21 +7,26 @@
 #include <event2/event.h>
 #include <event2/bufferevent.h>
 
+using namespace std;
+
 static void SReadCallback(struct bufferevent* bev, void* arg)
 {
     auto task = static_cast<ComTask*>(arg);
+    if (!task) return;
     task->ReadCallback();
 }
 
 static void SWriteCallback(struct bufferevent* bev, void* arg)
 {
     auto task = static_cast<ComTask*>(arg);
+    if (!task) return;
     task->WriteCallback();
 }
 
 static void SEventCallback(struct bufferevent* bev,short what ,void* arg)
 {
     auto task = static_cast<ComTask*>(arg);
+    if (!task) return;
     task->EventCallback(what);
 }
 
@@ -111,12 +116,18 @@ bool ComTask::Init()
 
 void ComTask::Close()
 {
-    Mutex lock(mtx_);
-    is_connected_ = false;
-    is_connecting_ = false;
+    {
+        Mutex lock(mtx_);
+        is_connected_ = false;
+        is_connecting_ = false;
 
-    if (bev_) bufferevent_free(bev_);
-    bev_ = NULL;
+        if (bev_) bufferevent_free(bev_);
+        bev_ = NULL;
+    }
+    if (auto_delete_ )
+    {
+        delete this;
+    }
 }
 
 int ComTask::Read(void* data, int size)
@@ -171,4 +182,17 @@ void ComTask::EventCallback(short what)
         LOGERROR("BEV_EVENT_EOF");
         Close();
     }
+}
+
+bool ComTask::WaitConnected(int timeout_sec)
+{
+    /// 10 秒监听一次
+    int count = timeout_sec * 100;
+    for (int i = 0; i < count; i++)
+    {
+        if (is_connected())
+            return true;
+        this_thread::sleep_for(10ms);
+    }
+    return is_connected();
 }

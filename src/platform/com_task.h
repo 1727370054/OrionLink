@@ -61,10 +61,18 @@ public:
     /// @param size 数据大小
     virtual bool Write(const void* data, int size);
 
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 等待连接成功
+    /// @param timeout_sec 最大等待时间
+    bool WaitConnected(int timeout_sec);
+
     void set_server_ip(const char* ip);
-    void set_port(int port) { server_port_ = port; }
+    const char* server_ip() { return server_ip_; }
+    void set_server_port(int port) { server_port_ = port; }
+    int server_port() { return server_port_; }
     bool is_connecting() { return is_connecting_; }
     bool is_connected() { return is_connected_; }
+    void set_auto_delete(bool auto_delete) { auto_delete_ = auto_delete; }
 protected:
     /// 文件内容数据缓存区
     char read_buf_[4096];
@@ -73,6 +81,9 @@ private:
     bool InitBufferevent(int sock);
 
     struct bufferevent* bev_ = nullptr;
+
+    /// 连接断开是否自动清理对象
+    bool auto_delete_ = true;
 
     /// 服务器IP
     char server_ip_[16] = {0};

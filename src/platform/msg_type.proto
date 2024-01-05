@@ -5,10 +5,14 @@ enum MsgType
 {
 	NONE_DO_NOT_USE = 0;
 
-	MSG_LOGIN_REQ = 1;	/// 登陆请求 LoginReq
-	MSG_LOGIN_RES = 2;	/// 登陆响应 LoginRes
-	MSG_DIR_REQ = 3;	/// 请求目录列表 DirReq
-	MSG_DIR_RES = 4;	/// 返回目录列表响应 DirRes
+	MSG_LOGIN_REQ = 1;			/// 登陆请求 LoginReq
+	MSG_LOGIN_RES = 2;			/// 登陆响应 LoginRes
+	MSG_DIR_REQ = 3;			/// 请求目录列表 DirReq
+	MSG_DIR_RES = 4;			/// 返回目录列表响应 DirRes
+	MSG_REGISTER_REQ = 5;		/// 注册服务请求 RegisterReq
+	MSG_REGISTER_RES = 6;		/// 注册服务响应 MessageRes
+	MSG_GET_SERVICE_REQ = 7;	/// 发现服务的请求 GetServiceReq
+	MSG_GET_SERVICE_RES = 8;	/// 发现服务的响应 ServiceMap
 
 	MSG_MAX_TYPE  = 65535;
 }

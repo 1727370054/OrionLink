@@ -57,6 +57,26 @@ message DirRes
 	repeated Dir dirs = 2;		/// 目录文件列表
 }
 
+// 服务注册请求 MSG_REGISTER_REQ
+message RegisterReq
+{
+	string name = 1;			/// 微服务名称
+	string ip = 2;				/// 微服务ip
+	int32 port = 3;				/// 微服务端口
+}
+
+/// 通用响应 
+message MessageRes
+{
+	enum Return
+	{
+		OK = 0;					/// 成功
+		ERROR = 1;				/// 失败
+	}
+	Return return = 1;
+	bytes desc = 2;				/// 响应描述
+}
+
 /// 微服务列表
 message ServiceMap
 {
@@ -64,11 +84,24 @@ message ServiceMap
 	{
 		string name = 1;		/// 微服务名称
 		string ip = 2;			/// 微服务ip
-		int32 port = 3;		/// 微服务端口
+		int32 port = 3;			/// 微服务端口
 	}
 	message ServiceList
 	{
 		repeated Service service = 1;
 	}
 	map<string, ServiceList> service_map = 1;
+	MessageRes response = 2;
+}
+
+/// 发现服务请求 MSG_GET_SERVICE_REQ
+message GetServiceReq
+{
+	string name = 1;			/// 服务名称
+	enum Type
+	{
+		ONE = 0;				/// 只取一类服务
+		ALL = 1;				/// 获取所有服务
+	}
+	Type type = 2;
 }

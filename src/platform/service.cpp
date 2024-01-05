@@ -1,4 +1,4 @@
-#include "service.h"
+﻿#include "service.h"
 #include "tools.h"
 
 #include <event2/listener.h>
@@ -33,7 +33,7 @@ bool Service::Init()
         LOGERROR("server port not set");
         return false;
     }
-    /// �󶨶˿�
+    /// 绑定端口
     sockaddr_in local;
     memset(&local, 0, sizeof(local));
     local.sin_family = AF_INET;
@@ -84,6 +84,6 @@ void Service::ListenCallback(int client_socket, sockaddr* client_addr, int sockl
     handle->set_client_ip(ip);
     handle->set_client_port(port);
 
-    /// ���뵽�̳߳�
+    /// 加入到线程池
     thread_handle_pool_->Dispatch(handle);
 }

@@ -11,6 +11,6 @@ void RouterHandle::ReadCallback(msg::MsgHead* head, Msg* msg)
 
 void RouterHandle::Close()
 {
-    MsgEvent::Close();
     ServiceProxy::GetInstance()->DeleteEvent(this);
+    MsgEvent::Close();
 }

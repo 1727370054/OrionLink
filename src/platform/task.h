@@ -11,8 +11,6 @@
 #define XCOM_API
 #endif // _WIN32
 
-#include <functional>
-
 class XCOM_API Task
 {
 public:

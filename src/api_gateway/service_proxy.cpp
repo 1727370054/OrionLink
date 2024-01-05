@@ -1,5 +1,6 @@
 ﻿#include "service_proxy.h"
 #include "msg_comm.pb.h"
+#include "register_client.h"
 #include "tools.h"
 
 #include <thread>
@@ -13,57 +14,6 @@ ServiceProxy::ServiceProxy()
 
 ServiceProxy::~ServiceProxy()
 {
-}
-
-bool ServiceProxy::Init()
-{
-    /// 1.从注册中心获取微服务列表
-
-    ///////////////////测试数据/////////////////////////
-    ServiceMap service_map;
-    auto service_map_ptr = service_map.mutable_service_map();
-    ServiceMap::ServiceList list;
-    {
-        auto service = list.add_service();
-        service->set_name("dir");
-        service->set_ip("127.0.0.1");
-        service->set_port(9999);
-        (*service_map_ptr)["dir"] = list;
-    }
-    {
-        auto service = list.add_service();
-        service->set_name("dir");
-        service->set_ip("127.0.0.1");
-        service->set_port(10000);
-        (*service_map_ptr)["dir"] = list;
-    }
-    {
-        auto service = list.add_service();
-        service->set_name("dir");
-        service->set_ip("127.0.0.1");
-        service->set_port(10001);
-        (*service_map_ptr)["dir"] = list;
-    }
-
-    cout << service_map.DebugString() << endl;
-
-    /// 2. 与微服务建立连接
-    /// 遍历 ServiceMap 数据
-    for (const auto& m : (*service_map_ptr))
-    {
-        client_map_[m.first] = vector<ServiceProxyClient*>();
-        for (const auto& s : m.second.service())
-        {
-            auto proxy = new ServiceProxyClient();
-            proxy->set_server_ip(s.ip().c_str());
-            proxy->set_port(s.port());
-            proxy->StartConnect();
-            client_map_[m.first].push_back(proxy);
-            client_map_last_index_[m.first] = 0;
-        }
-    }
-
-    return true;
 }
 
 void ServiceProxy::DeleteEvent(MsgEvent* event)
@@ -85,6 +35,7 @@ bool ServiceProxy::SendMsg(msg::MsgHead* head, Msg* msg, MsgEvent* event)
 
     if (!head || !msg) return false;
     string service_name = head->service_name();
+    Mutex lock_guard(&client_map_mutex_);
     auto client_list = client_map_.find(service_name);
     if (client_list == client_map_.end())
     {
@@ -134,8 +85,67 @@ void ServiceProxy::Main()
 {
     while (!is_exit_)
     {
-        /// 从注册中心获取 微服务列表的更新
+        /// 从注册中心获取微服务列表的更新
         /// 定时全部重新获取
+
+        RegisterClient::GetInstance()->GetServiceListReq(NULL);
+        auto service_map = RegisterClient::GetInstance()->GetAllServiceList();
+        if (!service_map)
+        {
+            LOGDEBUG("service_map is empty");
+            this_thread::sleep_for(1s);
+            continue;
+        }
+        auto smap = service_map->service_map();
+        if (smap.empty())
+        {
+            LOGDEBUG("service_map->service_map() is empty");
+            this_thread::sleep_for(1s);
+            continue;
+        }
+
+        /// 遍历所有的微服务名称列表
+        for (const auto& m : smap)
+        {
+            /// 遍历单个微服务
+            for (const auto& s : m.second.service())
+            {
+                /// 此微服务是否已经连接
+                string service_name = s.name();
+
+                /// 不连接自己
+                if (service_name == API_GATEWAY_NAME)
+                    continue;
+
+                Mutex lock_guard(&client_map_mutex_);
+                /// 第一个微服务创建对象，开启连接
+                if (client_map_.find(service_name) == client_map_.end())
+                {
+                    client_map_[service_name] = vector<ServiceProxyClient*>();
+                }
+                /// 列表是否有此微服务
+                bool isfind = false;
+                for (const auto& c : client_map_[service_name])
+                {
+                    if (c->server_ip() == s.ip() && c->server_port() == s.port())
+                    {
+                        isfind = true;
+                        break;
+                    }
+                }
+                if (isfind)
+                    continue;
+
+                auto proxy = new ServiceProxyClient();
+                proxy->set_server_ip(s.ip().c_str());
+                proxy->set_server_port(s.port());
+                proxy->set_auto_delete(false); /// 设置关闭后对象自动清理
+                proxy->StartConnect();
+                client_map_[service_name].push_back(proxy);
+                client_map_last_index_[service_name] = 0;
+            }
+        }
+
         for (const auto & m : client_map_)
         {
             for (const auto& c : m.second)

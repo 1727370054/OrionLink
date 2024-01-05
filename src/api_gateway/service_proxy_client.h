@@ -37,8 +37,8 @@ public:
 private:
     /// 消息转发的对象，一个 proxy 对应多个 MsgEvent
     /// 用指针的置作为索引，要兼容64位
-    static std::map<long long, MsgEvent*> callback_task_;
-    static std::mutex callback_task_mutex_;
+    std::map<long long, MsgEvent*> callback_task_;
+    std::mutex callback_task_mutex_;
 };
 
 #endif // SERVICE_PROXY_CLIENT_H

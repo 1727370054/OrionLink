@@ -38,19 +38,22 @@ void MsgEvent::ReadCallback(msg::MsgHead* head, Msg* msg)
 
 void MsgEvent::ReadCallback()
 {
-    LOGDEBUG("MsgEvent::ReadCallback");
-    if (!RecvMsg())
+    while (true)
     {
-        Clear();
-        return;
-    }
-    auto msg = GetMsg();
-    if (!msg) return;
+        if (!RecvMsg())
+        {
+            Clear();
+            return;
+        }
+        if (!pb_head_) break;
+        auto msg = GetMsg();
+        if (!msg) break;
 
-    /// 回调消息函数
-    LOGDEBUG("service name: " << pb_head_->service_name());
-    ReadCallback(pb_head_, msg);
-    Clear();
+        /// 回调消息函数
+        LOGDEBUG("service name: " << pb_head_->service_name());
+        ReadCallback(pb_head_, msg);
+        Clear();
+    }
 }
 
 bool MsgEvent::SendMsg(MsgType type, const Message* message)
@@ -183,8 +186,12 @@ Msg* MsgEvent::GetMsg()
 void MsgEvent::Close()
 {
     Clear();
+    if (pb_head_)
+    {
+        delete pb_head_;
+        pb_head_ = nullptr;
+    }
     ComTask::Close();
-    delete pb_head_;
 }
 
 void MsgEvent::Clear()
