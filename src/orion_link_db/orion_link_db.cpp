@@ -4,6 +4,8 @@
 #include <iostream>
 #include <sstream>
 #include <iomanip>
+#include <cstring>
+#include <climits>
 
 using namespace std;
 
