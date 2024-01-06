@@ -1,4 +1,4 @@
-#include "config_handle.h"
+﻿#include "config_handle.h"
 #include "msg_comm.pb.h"
 #include "config_dao.h"
 #include "tools.h"
@@ -9,11 +9,12 @@ using namespace msg;
 void ConfigHandle::RegisterMsgCallback()
 {
     RegisterCallback(MSG_SAVE_CONFIG_REQ, (MsgCBFunc)&ConfigHandle::SaveConfig);
+    RegisterCallback(MSG_LOAD_CONFIG_REQ, (MsgCBFunc)&ConfigHandle::LoadConfig);
 }
 
 void ConfigHandle::SaveConfig(msg::MsgHead* head, Msg* msg)
 {
-    LOGDEBUG("���յ��������õ�����");
+    LOGDEBUG("接收到保存配置的请求");
     MessageRes response;
     Config config;
     if (!config.ParseFromArray(msg->data, msg->size))
@@ -35,4 +36,21 @@ void ConfigHandle::SaveConfig(msg::MsgHead* head, Msg* msg)
     response.set_return_(MessageRes::OK);
     response.set_desc("save success");
     SendMsg(MSG_SAVE_CONFIG_RES, &response);
+}
+
+void ConfigHandle::LoadConfig(msg::MsgHead* head, Msg* msg)
+{
+    LOGDEBUG("接收到下载配置的请求");
+    LoadConfigReq request;
+    if (!request.ParseFromArray(msg->data, msg->size))
+    {
+        LOGDEBUG("ConfigHandle::LoadConfig failed! ParseFromArray error");
+        return;
+    }
+    /// 根据IP和端口获取配置项
+    string service_ip = request.service_ip();
+    if (service_ip.empty())
+        service_ip = this->client_ip();
+    Config config = ConfigDao::GetInstance()->LoadConfig(service_ip.c_str(), request.service_port());
+    SendMsg(MSG_LOAD_CONFIG_RES, &config);
 }

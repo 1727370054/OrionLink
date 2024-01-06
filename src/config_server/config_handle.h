@@ -1,4 +1,4 @@
-#ifndef CONFIG_HANDLE_H
+ï»¿#ifndef CONFIG_HANDLE_H
 #define CONFIG_HANDLE_H
 
 #include "service_handle.h"
@@ -7,14 +7,20 @@ class ConfigHandle : public ServiceHandle
 {
 public:
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief ×¢²áÏûÏ¢´¦ÀíµÄ»Øµ÷º¯Êı
+    /// @brief æ³¨å†Œæ¶ˆæ¯å¤„ç†çš„å›è°ƒå‡½æ•°
     static void RegisterMsgCallback();
 
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief ½ÓÊÕµ½±£´æÅäÖÃµÄÇëÇó
-    /// @param head ·´ĞòÁĞ»¯Í·²¿
-    /// @param msg ĞòÁĞ»¯µÄÏûÏ¢
+    /// @brief æ¥æ”¶åˆ°ä¿å­˜é…ç½®çš„è¯·æ±‚
+    /// @param head ååºåˆ—åŒ–å¤´éƒ¨
+    /// @param msg åºåˆ—åŒ–çš„æ¶ˆæ¯
     void SaveConfig(msg::MsgHead *head, Msg * msg);
+
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief æ¥æ”¶åˆ°ä¸‹è½½é…ç½®çš„è¯·æ±‚
+    /// @param head ååºåˆ—åŒ–å¤´éƒ¨
+    /// @param msg åºåˆ—åŒ–çš„æ¶ˆæ¯
+    void LoadConfig(msg::MsgHead* head, Msg* msg);
 };
 
 #endif // CONFIG_HANDLE_H

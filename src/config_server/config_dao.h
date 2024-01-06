@@ -1,4 +1,4 @@
-#ifndef CONFIG_DAO_H
+ï»¿#ifndef CONFIG_DAO_H
 #define CONFIG_DAO_H
 
 #include "msg_comm.pb.h"
@@ -19,35 +19,35 @@ public:
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief ³õÊ¼»¯£¬¿ªÊ¼Á¬½ÓÊı¾İ¿â
-    /// @param host Ö÷»úIPµØÖ·
-    /// @param user ÓÃ»§Ãû
-    /// @param password ÃÜÂë
-    /// @param db Êı¾İ¿â
-    /// @param port ¶Ë¿ÚºÅ
-    /// @return Á¬½ÓÊÇ·ñ³É¹¦
+    /// @brief åˆå§‹åŒ–ï¼Œå¼€å§‹è¿æ¥æ•°æ®åº“
+    /// @param host ä¸»æœºIPåœ°å€
+    /// @param user ç”¨æˆ·å
+    /// @param password å¯†ç 
+    /// @param db æ•°æ®åº“
+    /// @param port ç«¯å£å·
+    /// @return è¿æ¥æ˜¯å¦æˆåŠŸ
     ///////////////////////////////////////////////////////////////////////////
     bool Init(const char* host, const char* user, const char* password,
         const char* db, unsigned short port = 3306);
 
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief °²×°Êı¾İ¿âµÄ±í
-    /// @return °²×°ÊÇ·ñ³É¹¦
+    /// @brief å®‰è£…æ•°æ®åº“çš„è¡¨
+    /// @return å®‰è£…æ˜¯å¦æˆåŠŸ
     ///////////////////////////////////////////////////////////////////////////
     bool Install();
 
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief ±£´æÅäÖÃÏî£¬Èç¹ûÒÑÓĞ£¬¾Í¸üĞÂ
-    /// @param config ½á¹¹»¯ÅäÖÃĞÅÏ¢
-    /// @return ±£´æÊÇ·ñ³É¹¦
+    /// @brief ä¿å­˜é…ç½®é¡¹ï¼Œå¦‚æœå·²æœ‰ï¼Œå°±æ›´æ–°
+    /// @param config ç»“æ„åŒ–é…ç½®ä¿¡æ¯
+    /// @return ä¿å­˜æ˜¯å¦æˆåŠŸ
     ///////////////////////////////////////////////////////////////////////////
     bool SaveConfig(const msg::Config * config);
 
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief ¶ÁÈ¡ÅäÖÃ
-    /// @param ip Î¢·şÎñIP
-    /// @param port Î¢·şÎñ¶Ë¿Ú
-    /// @return ·µ»ØÅäÖÃĞÅÏ¢
+    /// @brief è¯»å–é…ç½®
+    /// @param ip å¾®æœåŠ¡IP
+    /// @param port å¾®æœåŠ¡ç«¯å£
+    /// @return è¿”å›é…ç½®ä¿¡æ¯
     ///////////////////////////////////////////////////////////////////////////
     msg::Config LoadConfig(const char *ip, int port);
 private:
@@ -55,7 +55,7 @@ private:
     ConfigDao(const ConfigDao &) = delete;
     ConfigDao& operator=(const ConfigDao&) = delete;
 private:
-    /// MYSQL Êı¾İ¿âÉÏÏÂÎÄ
+    /// MYSQL æ•°æ®åº“ä¸Šä¸‹æ–‡
     ol::OrionLinkDB* oldb_ = nullptr;
 };
 

@@ -1,4 +1,4 @@
-#include <iostream>
+ï»¿#include <iostream>
 
 #include "tools.h"
 #include "config_dao.h"
@@ -35,10 +35,10 @@ int main(int argc, char *argv[])
 	}
 	LOGINFO("connect mysql success!");
 
-	/// ²âÊÔ°²×°
+	/// æµ‹è¯•å®‰è£…
 	ConfigDao::GetInstance()->Install();
 
-	/// ²âÊÔÅäÖÃ±£´æ
+	/// æµ‹è¯•é…ç½®ä¿å­˜
 	Config config;
 	config.set_service_name("test1");
 	config.set_service_ip("127.0.0.1");
@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
 	config.set_private_pb(pb.c_str());
 	ConfigDao::GetInstance()->SaveConfig(&config);
 
-	/// ²âÊÔ¶ÁÈ¡ÅäÖÃ
+	/// æµ‹è¯•è¯»å–é…ç½®
 	Config read_config = ConfigDao::GetInstance()->LoadConfig("127.0.0.1", 20050);
 	LOGDEBUG(read_config.DebugString().c_str());
 #endif

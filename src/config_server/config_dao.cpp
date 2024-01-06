@@ -1,4 +1,4 @@
-#include "config_dao.h"
+ï»¿#include "config_dao.h"
 #include "orion_link_db.h"
 #include "tools.h"
 
@@ -85,12 +85,15 @@ bool ConfigDao::SaveConfig(const msg::Config* config)
     data["service_name"] = OLData(config->service_name().c_str());
     data["service_port"] = OLData(&service_port);
     data["service_ip"] = OLData(service_ip.c_str());
-    data["private_pb"].data = config->private_pb().c_str();
-    data["private_pb"].size = config->private_pb().size();
+
+    /// å†åºåˆ—åŒ–ä¸€æ¬¡ï¼ŒæŠŠæ•´ä¸ªconfigåºåˆ—åŒ–å­˜åˆ°
+    string private_pb = config->SerializeAsString();
+    data["private_pb"].data = private_pb.c_str();
+    data["private_pb"].size = private_pb.size();
     data["protocol"].data = config->protocol().c_str();
     data["protocol"].size = config->protocol().size();
 
-    /// Èç¹û¼ÇÂ¼´æÔÚ£¬ÔòĞŞ¸ÄÅäÖÃĞÅÏ¢
+    /// å¦‚æœè®°å½•å­˜åœ¨ï¼Œåˆ™ä¿®æ”¹é…ç½®ä¿¡æ¯
     stringstream ss;
     ss << " where service_ip='" << service_ip << "' and service_port=" << service_port;
     string where = ss.str();
@@ -103,18 +106,18 @@ bool ConfigDao::SaveConfig(const msg::Config* config)
         int count = oldb_->UpdateBin(data, table_name, where);
         if (count >= 0)
         {
-            LOGDEBUG("ÅäÖÃ¸üĞÂ³É¹¦!");
+            LOGDEBUG("é…ç½®æ›´æ–°æˆåŠŸ!");
             return true;
         }
-        LOGDEBUG("ÅäÖÃ¸üĞÂÊ§°Ü!");
+        LOGDEBUG("é…ç½®æ›´æ–°å¤±è´¥!");
         return false;
     }
 
     bool ret = oldb_->InsertBin(data,table_name);
     if (ret)
-        LOGDEBUG("ÅäÖÃ²åÈë³É¹¦!");
+        LOGDEBUG("é…ç½®æ’å…¥æˆåŠŸ!");
     else
-        LOGDEBUG("ÅäÖÃ²åÈëÊ§°Ü!");
+        LOGDEBUG("é…ç½®æ’å…¥å¤±è´¥!");
     return ret;
 }
 
@@ -144,7 +147,7 @@ msg::Config ConfigDao::LoadConfig(const char* ip, int port)
         return config;
     }
 
-    /// Ö»È¡Ò»ÌõÊı¾İ
+    /// åªå–ä¸€æ¡æ•°æ®
     auto row = rows[0];
     if (!config.ParseFromArray(row[0].data, row[0].size))
     {

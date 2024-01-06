@@ -1,4 +1,4 @@
-#include "config_server.h"
+ï»¿#include "config_server.h"
 #include "config_handle.h"
 #include "thread_pool.h"
 #include "register_client.h"
@@ -12,7 +12,7 @@ void ConfigServer::main(int argc, char* argv[])
 {
     ConfigHandle::RegisterMsgCallback();
 
-    /// ×¢²áÖÐÐÄµÄÅäÖÃ
+    /// æ³¨å†Œä¸­å¿ƒçš„é…ç½®
     string register_ip = "127.0.0.1";
     if (argc > 1)
         register_ip = argv[1];
@@ -21,14 +21,14 @@ void ConfigServer::main(int argc, char* argv[])
     if (argc > 2)
         register_port = atoi(argv[2]);
 
-    /// ÅäÖÃÖÐÐÄ¶Ë¿Ú
+    /// é…ç½®ä¸­å¿ƒç«¯å£
     int port = CONFIG_PORT;
     if (argc > 3)
         port = std::atoi(argv[3]);
-    /// ÉèÖÃ·þÎñ¼àÌý¶Ë¿Ú
+    /// è®¾ç½®æœåŠ¡ç›‘å¬ç«¯å£
     set_server_port(port);
 
-    /// Ïò×¢²áÖÐÐÄ×¢²á·þÎñ
+    /// å‘æ³¨å†Œä¸­å¿ƒæ³¨å†ŒæœåŠ¡
     RegisterClient::GetInstance()->RegisterService(CONFIG_NAME, NULL, port);
 }
 

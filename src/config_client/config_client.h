@@ -1,4 +1,4 @@
-#ifndef CONFIG_CLIENT_H
+﻿#ifndef CONFIG_CLIENT_H
 #define CONFIG_CLIENT_H
 
 #include "service_client.h"
@@ -9,7 +9,7 @@ public:
     virtual ~ConfigClient() {};
 
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief ��ȡ��������
+    /// @brief 获取单例对象
     static ConfigClient* GetInstance()
     {
         static ConfigClient* register_client = nullptr;
@@ -27,19 +27,39 @@ public:
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief ע����Ϣ�����Ļص�����
+    /// @brief 获取配置项
+    /// @param ip 微服务IP
+    /// @param port 微服务端口
+    /// @param out_config 存在该配置项，拷贝返回，输出型参数
+    /// @return 存在返回true，不存在返回false
+    bool GetConfig(const char* ip, int port, msg::Config* out_config);
+
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 注册消息处理的回调函数
     static void RegisterMsgCallback();
 
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief ���ͱ�����������
-    /// @param config ������Ϣ(�ṹ������)
+    /// @brief 发送上传配置请求
+    /// @param config 配置信息(结构化数据)
     void SendConfigReq(msg::Config *config);
 
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief ���յ��������õ���Ӧ
-    /// @param head �����л�ͷ��
-    /// @param msg ���л�����Ϣ
+    /// @brief 接收到上传配置的响应
+    /// @param head 反序列化头部
+    /// @param msg 序列化的消息
     void RecvConfigRes(msg::MsgHead* head, Msg* msg);
+
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 发送下载配置请求，如果IP为null，则取连接配置中心的地址
+    /// @param ip 微服务IP
+    /// @param port 微服务端口
+    void LoadConfigReq(const char *ip, int port);
+
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 下载配置响应
+    /// @param head 反序列化头部
+    /// @param msg 序列化的消息
+    void LoadConfigRes(msg::MsgHead* head, Msg* msg);
 private:
     ConfigClient() {};
     ConfigClient(const ConfigClient&) = delete;
