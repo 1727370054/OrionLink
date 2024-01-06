@@ -2,7 +2,6 @@
 #include <string>
 
 #include "register_client.h"
-#include "thread_pool.h"
 #include "tools.h"
 
 using namespace std;
@@ -31,7 +30,7 @@ int main(int argc, char*argv[])
 		this_thread::sleep_for(1000ms);
 	}
 
-	ThreadPool::Wait();
+	RegisterClient::GetInstance()->Wait();
 	return 0;
 }
 

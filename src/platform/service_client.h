@@ -14,6 +14,9 @@ public:
     /// @brief 将任务加入到线程池中，进行连接，调用的是 ComTask 类的 Init 进行连接
     virtual void StartConnect();
 
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 阻塞等待线程退出
+    void Wait();
 private:
     ThreadPool* thread_pool_ = nullptr;
 };

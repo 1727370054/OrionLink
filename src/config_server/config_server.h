@@ -1,22 +1,21 @@
-ï»¿#ifndef REGISTER_SERVER_H
-#define REGISTER_SERVER_H
+#ifndef CONFIG_SERVER_H
+#define CONFIG_SERVER_H
 
 #include "service.h"
 
-class RegisterServer : public Service
+class ConfigServer : public Service
 {
 public:
-
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief æ ¹æ®å‘½ä»¤è¡Œå‚æ•°ï¼Œåˆå§‹åŒ–æœåŠ¡ï¼Œéœ€è¦å…ˆè°ƒç”¨
+    /// @brief ¸ù¾İÃüÁîĞĞ²ÎÊı£¬³õÊ¼»¯·şÎñ£¬ĞèÒªÏÈµ÷ÓÃ
     void main(int argc, char* argv[]);
 
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief æ¯ä¸ªè¿æ¥è¿›å…¥ï¼Œè°ƒç”¨è¯¥å‡½æ•°åˆ›å»ºå¤„ç†å¯¹è±¡ï¼ŒåŠ å…¥åˆ°çº¿ç¨‹æ± 
-    /// @return è¿”å›å…·ä½“ä»»åŠ¡å¯¹è±¡
+    /// @brief Ã¿¸öÁ¬½Ó½øÈë£¬µ÷ÓÃ¸Ãº¯Êı´´½¨´¦Àí¶ÔÏó£¬¼ÓÈëµ½Ïß³Ì³Ø
+    /// @return ·µ»Ø¾ßÌåÈÎÎñ¶ÔÏó
     ///////////////////////////////////////////////////////////////////////////
     virtual ServiceHandle* CreateServiceHandle() override;
 };
 
-#endif // REGISTER_SERVER_H
+#endif // CONFIG_SERVER_H
 

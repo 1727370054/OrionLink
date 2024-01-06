@@ -105,3 +105,13 @@ message GetServiceReq
 	}
 	Type type = 2;
 }
+
+/// 存储配置内容
+message Config
+{
+	string service_name = 1;
+	int32 service_port  = 2;
+	string service_ip   = 3;
+	bytes private_pb    = 4;
+	bytes protocol	    = 5;
+}

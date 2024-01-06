@@ -87,3 +87,8 @@ void Service::ListenCallback(int client_socket, sockaddr* client_addr, int sockl
     /// 加入到线程池
     thread_handle_pool_->Dispatch(handle);
 }
+
+void Service::Wait()
+{
+    ThreadPool::Wait();
+}

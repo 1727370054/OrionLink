@@ -13,6 +13,10 @@ enum MsgType
 	MSG_REGISTER_RES = 6;		/// 注册服务响应 MessageRes
 	MSG_GET_SERVICE_REQ = 7;	/// 发现服务的请求 GetServiceReq
 	MSG_GET_SERVICE_RES = 8;	/// 发现服务的响应 ServiceMap
+	MSG_SAVE_CONFIG_REQ = 9;	/// 上传配置请求
+	MSG_SAVE_CONFIG_RES = 10;	/// 上传配置响应
+	MSG_LOAD_CONFIG_REQ = 11;	/// 下载配置请求
+	MSG_LOAD_CONFIG_RES = 12;	/// 下载配置响应
 
 	MSG_MAX_TYPE  = 65535;
 }

@@ -7,6 +7,8 @@
 #define API_GATEWAY_PORT 20010
 #define API_GATEWAY_NAME "gateway"
 #define REGISTER_PORT 20018
+#define CONFIG_NAME "config"
+#define CONFIG_PORT 20019
 
 class Msg
 {

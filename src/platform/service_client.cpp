@@ -19,3 +19,8 @@ void ServiceClient::StartConnect()
         thread_pool_->Dispatch(this);
     }
 }
+
+void ServiceClient::Wait()
+{
+    ThreadPool::Wait();
+}

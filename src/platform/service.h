@@ -29,6 +29,10 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     bool Start();
 
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 阻塞等待线程退出
+    void Wait();
+
     void ListenCallback(int client_socket,struct sockaddr* client_addr, int socklen);
 
     void set_server_port(int port) { server_port_ = port; }

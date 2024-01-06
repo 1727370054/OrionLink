@@ -17,7 +17,3 @@ ServiceHandle* RegisterServer::CreateServiceHandle()
     return new RegisterHandle();
 }
 
-void RegisterServer::Wait()
-{
-    ThreadPool::Wait();
-}

@@ -4,8 +4,6 @@
 #include <iostream>
 #include <sstream>
 #include <iomanip>
-#include <cstring>
-#include <climits>
 
 using namespace std;
 
@@ -488,8 +486,9 @@ namespace ol
             mysql_stmt_close(stmt);
             return -1;
         }
+        int count = mysql_stmt_affected_rows(stmt);
         mysql_stmt_close(stmt);
-        return mysql_stmt_affected_rows(stmt);
+        return count;
     }
 
     bool OrionLinkDB::StartTransaction()

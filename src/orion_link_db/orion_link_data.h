@@ -5,6 +5,9 @@
 #include <vector>
 #include <string>
 
+#ifdef ORIONLINKDB_STATIC   /// 静态库
+#define ORIONLINKDB_API
+#else                       /// 动态库
 #ifdef _WIN32
 #ifdef ORIONLINKDB_EXPORTS
 #define ORIONLINKDB_API __declspec(dllexport)
@@ -14,7 +17,7 @@
 #else  // linux mac
 #define ORIONLINKDB_API
 #endif // _WIN32
-
+#endif // ORIONLINKDB_STATIC
 
 namespace ol
 {

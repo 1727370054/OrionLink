@@ -72,7 +72,25 @@ class GetServiceReqDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<GetServiceReq> _instance;
 } _GetServiceReq_default_instance_;
+class ConfigDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Config> _instance;
+} _Config_default_instance_;
 }  // namespace msg
+static void InitDefaultsscc_info_Config_msg_5fcomm_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::msg::_Config_default_instance_;
+    new (ptr) ::msg::Config();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::msg::Config::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Config_msg_5fcomm_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_Config_msg_5fcomm_2eproto}, {}};
+
 static void InitDefaultsscc_info_DirReq_msg_5fcomm_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -259,7 +277,7 @@ static void InitDefaultsscc_info_ServiceMap_ServiceMapEntry_DoNotUse_msg_5fcomm_
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_ServiceMap_ServiceMapEntry_DoNotUse_msg_5fcomm_2eproto}, {
       &scc_info_ServiceMap_ServiceList_msg_5fcomm_2eproto.base,}};
 
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_msg_5fcomm_2eproto[13];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_msg_5fcomm_2eproto[14];
 static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_msg_5fcomm_2eproto[4];
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_msg_5fcomm_2eproto = nullptr;
 
@@ -360,6 +378,16 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_msg_5fcomm_2eproto::offsets[] 
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::msg::GetServiceReq, name_),
   PROTOBUF_FIELD_OFFSET(::msg::GetServiceReq, type_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::msg::Config, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::msg::Config, service_name_),
+  PROTOBUF_FIELD_OFFSET(::msg::Config, service_port_),
+  PROTOBUF_FIELD_OFFSET(::msg::Config, service_ip_),
+  PROTOBUF_FIELD_OFFSET(::msg::Config, private_pb_),
+  PROTOBUF_FIELD_OFFSET(::msg::Config, protocol_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::msg::MsgHead)},
@@ -375,6 +403,7 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 73, 80, sizeof(::msg::ServiceMap_ServiceMapEntry_DoNotUse)},
   { 82, -1, sizeof(::msg::ServiceMap)},
   { 89, -1, sizeof(::msg::GetServiceReq)},
+  { 96, -1, sizeof(::msg::Config)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -391,6 +420,7 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::msg::_ServiceMap_ServiceMapEntry_DoNotUse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::msg::_ServiceMap_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::msg::_GetServiceReq_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::msg::_Config_default_instance_),
 };
 
 const char descriptor_table_protodef_msg_5fcomm_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
@@ -420,12 +450,16 @@ const char descriptor_table_protodef_msg_5fcomm_2eproto[] PROTOBUF_SECTION_VARIA
   "2\033.msg.ServiceMap.ServiceList:\0028\001\"^\n\rGet"
   "ServiceReq\022\014\n\004name\030\001 \001(\t\022%\n\004type\030\002 \001(\0162\027"
   ".msg.GetServiceReq.Type\"\030\n\004Type\022\007\n\003ONE\020\000"
-  "\022\007\n\003ALL\020\001b\006proto3"
+  "\022\007\n\003ALL\020\001\"n\n\006Config\022\024\n\014service_name\030\001 \001("
+  "\t\022\024\n\014service_port\030\002 \001(\005\022\022\n\nservice_ip\030\003 "
+  "\001(\t\022\022\n\nprivate_pb\030\004 \001(\014\022\020\n\010protocol\030\005 \001("
+  "\014b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_msg_5fcomm_2eproto_deps[1] = {
   &::descriptor_table_msg_5ftype_2eproto,
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_msg_5fcomm_2eproto_sccs[13] = {
+static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_msg_5fcomm_2eproto_sccs[14] = {
+  &scc_info_Config_msg_5fcomm_2eproto.base,
   &scc_info_DirReq_msg_5fcomm_2eproto.base,
   &scc_info_DirRes_msg_5fcomm_2eproto.base,
   &scc_info_DirRes_Dir_msg_5fcomm_2eproto.base,
@@ -443,10 +477,10 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_msg
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_msg_5fcomm_2eproto_once;
 static bool descriptor_table_msg_5fcomm_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_msg_5fcomm_2eproto = {
-  &descriptor_table_msg_5fcomm_2eproto_initialized, descriptor_table_protodef_msg_5fcomm_2eproto, "msg_comm.proto", 1057,
-  &descriptor_table_msg_5fcomm_2eproto_once, descriptor_table_msg_5fcomm_2eproto_sccs, descriptor_table_msg_5fcomm_2eproto_deps, 13, 1,
+  &descriptor_table_msg_5fcomm_2eproto_initialized, descriptor_table_protodef_msg_5fcomm_2eproto, "msg_comm.proto", 1169,
+  &descriptor_table_msg_5fcomm_2eproto_once, descriptor_table_msg_5fcomm_2eproto_sccs, descriptor_table_msg_5fcomm_2eproto_deps, 14, 1,
   schemas, file_default_instances, TableStruct_msg_5fcomm_2eproto::offsets,
-  file_level_metadata_msg_5fcomm_2eproto, 13, file_level_enum_descriptors_msg_5fcomm_2eproto, file_level_service_descriptors_msg_5fcomm_2eproto,
+  file_level_metadata_msg_5fcomm_2eproto, 14, file_level_enum_descriptors_msg_5fcomm_2eproto, file_level_service_descriptors_msg_5fcomm_2eproto,
 };
 
 // Force running AddDescriptors() at dynamic initialization time.
@@ -4167,6 +4201,430 @@ void GetServiceReq::InternalSwap(GetServiceReq* other) {
 }
 
 
+// ===================================================================
+
+void Config::InitAsDefaultInstance() {
+}
+class Config::_Internal {
+ public:
+};
+
+Config::Config()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:msg.Config)
+}
+Config::Config(const Config& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  service_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_service_name().empty()) {
+    service_name_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.service_name_);
+  }
+  service_ip_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_service_ip().empty()) {
+    service_ip_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.service_ip_);
+  }
+  private_pb_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_private_pb().empty()) {
+    private_pb_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.private_pb_);
+  }
+  protocol_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_protocol().empty()) {
+    protocol_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.protocol_);
+  }
+  service_port_ = from.service_port_;
+  // @@protoc_insertion_point(copy_constructor:msg.Config)
+}
+
+void Config::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_Config_msg_5fcomm_2eproto.base);
+  service_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  service_ip_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  private_pb_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  protocol_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  service_port_ = 0;
+}
+
+Config::~Config() {
+  // @@protoc_insertion_point(destructor:msg.Config)
+  SharedDtor();
+}
+
+void Config::SharedDtor() {
+  service_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  service_ip_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  private_pb_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  protocol_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void Config::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const Config& Config::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Config_msg_5fcomm_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void Config::Clear() {
+// @@protoc_insertion_point(message_clear_start:msg.Config)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  service_name_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  service_ip_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  private_pb_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  protocol_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  service_port_ = 0;
+  _internal_metadata_.Clear();
+}
+
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* Config::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // string service_name = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(_internal_mutable_service_name(), ptr, ctx, "msg.Config.service_name");
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 service_port = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+          service_port_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string service_ip = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(_internal_mutable_service_ip(), ptr, ctx, "msg.Config.service_ip");
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // bytes private_pb = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(_internal_mutable_private_pb(), ptr, ctx);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // bytes protocol = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(_internal_mutable_protocol(), ptr, ctx);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+bool Config::MergePartialFromCodedStream(
+    ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+  // @@protoc_insertion_point(parse_start:msg.Config)
+  for (;;) {
+    ::std::pair<::PROTOBUF_NAMESPACE_ID::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // string service_name = 1;
+      case 1: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (10 & 0xFF)) {
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadString(
+                input, this->_internal_mutable_service_name()));
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+            this->_internal_service_name().data(), static_cast<int>(this->_internal_service_name().length()),
+            ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE,
+            "msg.Config.service_name"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 service_port = 2;
+      case 2: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (16 & 0xFF)) {
+
+          DO_((::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadPrimitive<
+                   ::PROTOBUF_NAMESPACE_ID::int32, ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32>(
+                 input, &service_port_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string service_ip = 3;
+      case 3: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (26 & 0xFF)) {
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadString(
+                input, this->_internal_mutable_service_ip()));
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+            this->_internal_service_ip().data(), static_cast<int>(this->_internal_service_ip().length()),
+            ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE,
+            "msg.Config.service_ip"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // bytes private_pb = 4;
+      case 4: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (34 & 0xFF)) {
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadBytes(
+                input, this->_internal_mutable_private_pb()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // bytes protocol = 5;
+      case 5: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (42 & 0xFF)) {
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadBytes(
+                input, this->_internal_mutable_protocol()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:msg.Config)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:msg.Config)
+  return false;
+#undef DO_
+}
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+
+::PROTOBUF_NAMESPACE_ID::uint8* Config::InternalSerializeWithCachedSizesToArray(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:msg.Config)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string service_name = 1;
+  if (this->service_name().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_service_name().data(), static_cast<int>(this->_internal_service_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "msg.Config.service_name");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_service_name(), target);
+  }
+
+  // int32 service_port = 2;
+  if (this->service_port() != 0) {
+    stream->EnsureSpace(&target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->service_port(), target);
+  }
+
+  // string service_ip = 3;
+  if (this->service_ip().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_service_ip().data(), static_cast<int>(this->_internal_service_ip().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "msg.Config.service_ip");
+    target = stream->WriteStringMaybeAliased(
+        3, this->_internal_service_ip(), target);
+  }
+
+  // bytes private_pb = 4;
+  if (this->private_pb().size() > 0) {
+    target = stream->WriteBytesMaybeAliased(
+        4, this->_internal_private_pb(), target);
+  }
+
+  // bytes protocol = 5;
+  if (this->protocol().size() > 0) {
+    target = stream->WriteBytesMaybeAliased(
+        5, this->_internal_protocol(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:msg.Config)
+  return target;
+}
+
+size_t Config::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:msg.Config)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string service_name = 1;
+  if (this->service_name().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_service_name());
+  }
+
+  // string service_ip = 3;
+  if (this->service_ip().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_service_ip());
+  }
+
+  // bytes private_pb = 4;
+  if (this->private_pb().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_private_pb());
+  }
+
+  // bytes protocol = 5;
+  if (this->protocol().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_protocol());
+  }
+
+  // int32 service_port = 2;
+  if (this->service_port() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->service_port());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void Config::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:msg.Config)
+  GOOGLE_DCHECK_NE(&from, this);
+  const Config* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Config>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:msg.Config)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:msg.Config)
+    MergeFrom(*source);
+  }
+}
+
+void Config::MergeFrom(const Config& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:msg.Config)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.service_name().size() > 0) {
+
+    service_name_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.service_name_);
+  }
+  if (from.service_ip().size() > 0) {
+
+    service_ip_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.service_ip_);
+  }
+  if (from.private_pb().size() > 0) {
+
+    private_pb_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.private_pb_);
+  }
+  if (from.protocol().size() > 0) {
+
+    protocol_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.protocol_);
+  }
+  if (from.service_port() != 0) {
+    set_service_port(from.service_port());
+  }
+}
+
+void Config::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:msg.Config)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void Config::CopyFrom(const Config& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:msg.Config)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Config::IsInitialized() const {
+  return true;
+}
+
+void Config::InternalSwap(Config* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  service_name_.Swap(&other->service_name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  service_ip_.Swap(&other->service_ip_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  private_pb_.Swap(&other->private_pb_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  protocol_.Swap(&other->protocol_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  swap(service_port_, other->service_port_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata Config::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace msg
 PROTOBUF_NAMESPACE_OPEN
@@ -4208,6 +4666,9 @@ template<> PROTOBUF_NOINLINE ::msg::ServiceMap* Arena::CreateMaybeMessage< ::msg
 }
 template<> PROTOBUF_NOINLINE ::msg::GetServiceReq* Arena::CreateMaybeMessage< ::msg::GetServiceReq >(Arena* arena) {
   return Arena::CreateInternal< ::msg::GetServiceReq >(arena);
+}
+template<> PROTOBUF_NOINLINE ::msg::Config* Arena::CreateMaybeMessage< ::msg::Config >(Arena* arena) {
+  return Arena::CreateInternal< ::msg::Config >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 
