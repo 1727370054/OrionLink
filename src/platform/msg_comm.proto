@@ -115,3 +115,15 @@ message Config
 	bytes private_pb    = 4;
 	bytes protocol	    = 5;
 }
+
+/// 下载配置的请求
+message LoadConfigReq
+{
+	string service_ip = 1;
+	int32 service_port = 2;
+}
+
+message DirConfig
+{
+	string root = 1;
+}

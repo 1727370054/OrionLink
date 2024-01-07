@@ -52,7 +52,7 @@ struct TableStruct_msg_5fcomm_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[14]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[16]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -63,6 +63,9 @@ namespace msg {
 class Config;
 class ConfigDefaultTypeInternal;
 extern ConfigDefaultTypeInternal _Config_default_instance_;
+class DirConfig;
+class DirConfigDefaultTypeInternal;
+extern DirConfigDefaultTypeInternal _DirConfig_default_instance_;
 class DirReq;
 class DirReqDefaultTypeInternal;
 extern DirReqDefaultTypeInternal _DirReq_default_instance_;
@@ -75,6 +78,9 @@ extern DirRes_DirDefaultTypeInternal _DirRes_Dir_default_instance_;
 class GetServiceReq;
 class GetServiceReqDefaultTypeInternal;
 extern GetServiceReqDefaultTypeInternal _GetServiceReq_default_instance_;
+class LoadConfigReq;
+class LoadConfigReqDefaultTypeInternal;
+extern LoadConfigReqDefaultTypeInternal _LoadConfigReq_default_instance_;
 class LoginReq;
 class LoginReqDefaultTypeInternal;
 extern LoginReqDefaultTypeInternal _LoginReq_default_instance_;
@@ -105,10 +111,12 @@ extern ServiceMap_ServiceMapEntry_DoNotUseDefaultTypeInternal _ServiceMap_Servic
 }  // namespace msg
 PROTOBUF_NAMESPACE_OPEN
 template<> ::msg::Config* Arena::CreateMaybeMessage<::msg::Config>(Arena*);
+template<> ::msg::DirConfig* Arena::CreateMaybeMessage<::msg::DirConfig>(Arena*);
 template<> ::msg::DirReq* Arena::CreateMaybeMessage<::msg::DirReq>(Arena*);
 template<> ::msg::DirRes* Arena::CreateMaybeMessage<::msg::DirRes>(Arena*);
 template<> ::msg::DirRes_Dir* Arena::CreateMaybeMessage<::msg::DirRes_Dir>(Arena*);
 template<> ::msg::GetServiceReq* Arena::CreateMaybeMessage<::msg::GetServiceReq>(Arena*);
+template<> ::msg::LoadConfigReq* Arena::CreateMaybeMessage<::msg::LoadConfigReq>(Arena*);
 template<> ::msg::LoginReq* Arena::CreateMaybeMessage<::msg::LoginReq>(Arena*);
 template<> ::msg::LoginRes* Arena::CreateMaybeMessage<::msg::LoginRes>(Arena*);
 template<> ::msg::MessageRes* Arena::CreateMaybeMessage<::msg::MessageRes>(Arena*);
@@ -2407,6 +2415,293 @@ class Config :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_msg_5fcomm_2eproto;
 };
+// -------------------------------------------------------------------
+
+class LoadConfigReq :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:msg.LoadConfigReq) */ {
+ public:
+  LoadConfigReq();
+  virtual ~LoadConfigReq();
+
+  LoadConfigReq(const LoadConfigReq& from);
+  LoadConfigReq(LoadConfigReq&& from) noexcept
+    : LoadConfigReq() {
+    *this = ::std::move(from);
+  }
+
+  inline LoadConfigReq& operator=(const LoadConfigReq& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline LoadConfigReq& operator=(LoadConfigReq&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const LoadConfigReq& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const LoadConfigReq* internal_default_instance() {
+    return reinterpret_cast<const LoadConfigReq*>(
+               &_LoadConfigReq_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    14;
+
+  friend void swap(LoadConfigReq& a, LoadConfigReq& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(LoadConfigReq* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline LoadConfigReq* New() const final {
+    return CreateMaybeMessage<LoadConfigReq>(nullptr);
+  }
+
+  LoadConfigReq* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<LoadConfigReq>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const LoadConfigReq& from);
+  void MergeFrom(const LoadConfigReq& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  #else
+  bool MergePartialFromCodedStream(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(LoadConfigReq* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "msg.LoadConfigReq";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_msg_5fcomm_2eproto);
+    return ::descriptor_table_msg_5fcomm_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kServiceIpFieldNumber = 1,
+    kServicePortFieldNumber = 2,
+  };
+  // string service_ip = 1;
+  void clear_service_ip();
+  const std::string& service_ip() const;
+  void set_service_ip(const std::string& value);
+  void set_service_ip(std::string&& value);
+  void set_service_ip(const char* value);
+  void set_service_ip(const char* value, size_t size);
+  std::string* mutable_service_ip();
+  std::string* release_service_ip();
+  void set_allocated_service_ip(std::string* service_ip);
+  private:
+  const std::string& _internal_service_ip() const;
+  void _internal_set_service_ip(const std::string& value);
+  std::string* _internal_mutable_service_ip();
+  public:
+
+  // int32 service_port = 2;
+  void clear_service_port();
+  ::PROTOBUF_NAMESPACE_ID::int32 service_port() const;
+  void set_service_port(::PROTOBUF_NAMESPACE_ID::int32 value);
+
+  // @@protoc_insertion_point(class_scope:msg.LoadConfigReq)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr service_ip_;
+  ::PROTOBUF_NAMESPACE_ID::int32 service_port_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_msg_5fcomm_2eproto;
+};
+// -------------------------------------------------------------------
+
+class DirConfig :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:msg.DirConfig) */ {
+ public:
+  DirConfig();
+  virtual ~DirConfig();
+
+  DirConfig(const DirConfig& from);
+  DirConfig(DirConfig&& from) noexcept
+    : DirConfig() {
+    *this = ::std::move(from);
+  }
+
+  inline DirConfig& operator=(const DirConfig& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline DirConfig& operator=(DirConfig&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const DirConfig& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const DirConfig* internal_default_instance() {
+    return reinterpret_cast<const DirConfig*>(
+               &_DirConfig_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    15;
+
+  friend void swap(DirConfig& a, DirConfig& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(DirConfig* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline DirConfig* New() const final {
+    return CreateMaybeMessage<DirConfig>(nullptr);
+  }
+
+  DirConfig* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<DirConfig>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const DirConfig& from);
+  void MergeFrom(const DirConfig& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  #else
+  bool MergePartialFromCodedStream(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(DirConfig* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "msg.DirConfig";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_msg_5fcomm_2eproto);
+    return ::descriptor_table_msg_5fcomm_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kRootFieldNumber = 1,
+  };
+  // string root = 1;
+  void clear_root();
+  const std::string& root() const;
+  void set_root(const std::string& value);
+  void set_root(std::string&& value);
+  void set_root(const char* value);
+  void set_root(const char* value, size_t size);
+  std::string* mutable_root();
+  std::string* release_root();
+  void set_allocated_root(std::string* root);
+  private:
+  const std::string& _internal_root() const;
+  void _internal_set_root(const std::string& value);
+  std::string* _internal_mutable_root();
+  public:
+
+  // @@protoc_insertion_point(class_scope:msg.DirConfig)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr root_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_msg_5fcomm_2eproto;
+};
 // ===================================================================
 
 
@@ -3771,9 +4066,155 @@ inline void Config::set_allocated_protocol(std::string* protocol) {
   // @@protoc_insertion_point(field_set_allocated:msg.Config.protocol)
 }
 
+// -------------------------------------------------------------------
+
+// LoadConfigReq
+
+// string service_ip = 1;
+inline void LoadConfigReq::clear_service_ip() {
+  service_ip_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& LoadConfigReq::service_ip() const {
+  // @@protoc_insertion_point(field_get:msg.LoadConfigReq.service_ip)
+  return _internal_service_ip();
+}
+inline void LoadConfigReq::set_service_ip(const std::string& value) {
+  _internal_set_service_ip(value);
+  // @@protoc_insertion_point(field_set:msg.LoadConfigReq.service_ip)
+}
+inline std::string* LoadConfigReq::mutable_service_ip() {
+  // @@protoc_insertion_point(field_mutable:msg.LoadConfigReq.service_ip)
+  return _internal_mutable_service_ip();
+}
+inline const std::string& LoadConfigReq::_internal_service_ip() const {
+  return service_ip_.GetNoArena();
+}
+inline void LoadConfigReq::_internal_set_service_ip(const std::string& value) {
+  
+  service_ip_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void LoadConfigReq::set_service_ip(std::string&& value) {
+  
+  service_ip_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:msg.LoadConfigReq.service_ip)
+}
+inline void LoadConfigReq::set_service_ip(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  service_ip_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:msg.LoadConfigReq.service_ip)
+}
+inline void LoadConfigReq::set_service_ip(const char* value, size_t size) {
+  
+  service_ip_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:msg.LoadConfigReq.service_ip)
+}
+inline std::string* LoadConfigReq::_internal_mutable_service_ip() {
+  
+  return service_ip_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* LoadConfigReq::release_service_ip() {
+  // @@protoc_insertion_point(field_release:msg.LoadConfigReq.service_ip)
+  
+  return service_ip_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void LoadConfigReq::set_allocated_service_ip(std::string* service_ip) {
+  if (service_ip != nullptr) {
+    
+  } else {
+    
+  }
+  service_ip_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), service_ip);
+  // @@protoc_insertion_point(field_set_allocated:msg.LoadConfigReq.service_ip)
+}
+
+// int32 service_port = 2;
+inline void LoadConfigReq::clear_service_port() {
+  service_port_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 LoadConfigReq::service_port() const {
+  // @@protoc_insertion_point(field_get:msg.LoadConfigReq.service_port)
+  return service_port_;
+}
+inline void LoadConfigReq::set_service_port(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  service_port_ = value;
+  // @@protoc_insertion_point(field_set:msg.LoadConfigReq.service_port)
+}
+
+// -------------------------------------------------------------------
+
+// DirConfig
+
+// string root = 1;
+inline void DirConfig::clear_root() {
+  root_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& DirConfig::root() const {
+  // @@protoc_insertion_point(field_get:msg.DirConfig.root)
+  return _internal_root();
+}
+inline void DirConfig::set_root(const std::string& value) {
+  _internal_set_root(value);
+  // @@protoc_insertion_point(field_set:msg.DirConfig.root)
+}
+inline std::string* DirConfig::mutable_root() {
+  // @@protoc_insertion_point(field_mutable:msg.DirConfig.root)
+  return _internal_mutable_root();
+}
+inline const std::string& DirConfig::_internal_root() const {
+  return root_.GetNoArena();
+}
+inline void DirConfig::_internal_set_root(const std::string& value) {
+  
+  root_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void DirConfig::set_root(std::string&& value) {
+  
+  root_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:msg.DirConfig.root)
+}
+inline void DirConfig::set_root(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  root_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:msg.DirConfig.root)
+}
+inline void DirConfig::set_root(const char* value, size_t size) {
+  
+  root_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:msg.DirConfig.root)
+}
+inline std::string* DirConfig::_internal_mutable_root() {
+  
+  return root_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* DirConfig::release_root() {
+  // @@protoc_insertion_point(field_release:msg.DirConfig.root)
+  
+  return root_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void DirConfig::set_allocated_root(std::string* root) {
+  if (root != nullptr) {
+    
+  } else {
+    
+  }
+  root_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), root);
+  // @@protoc_insertion_point(field_set_allocated:msg.DirConfig.root)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

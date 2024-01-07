@@ -66,6 +66,15 @@ public:
     /// @param timeout_sec 最大等待时间
     bool WaitConnected(int timeout_sec);
 
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 设置定时器，只能设置一个定时器，定时调用TimerCallback回调(在Init函数调用)
+    /// @param ms 定时调用的毫秒
+    virtual void SetTimer(int ms);
+
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 定时器回调函数
+    virtual void TimerCallback() {}
+
     void set_server_ip(const char* ip);
     const char* server_ip() { return server_ip_; }
     void set_server_port(int port) { server_port_ = port; }
@@ -98,6 +107,8 @@ private:
     bool is_connecting_ = false;
     bool is_connected_ = false;
     std::mutex* mtx_ = nullptr;
+
+    struct event* timer_event_ = nullptr;
 };
 
 #endif // COM_TASH_H

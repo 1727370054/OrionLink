@@ -30,6 +30,13 @@ static void SEventCallback(struct bufferevent* bev,short what ,void* arg)
     task->EventCallback(what);
 }
 
+static void STimerCallback(evutil_socket_t sock, short what, void* arg)
+{
+    auto task = static_cast<ComTask*>(arg);
+    if (!task) return;
+    task->TimerCallback();
+}
+
 void ComTask::set_server_ip(const char* ip)
 {
     strncpy(this->server_ip_, ip, sizeof(server_ip_));
@@ -195,4 +202,23 @@ bool ComTask::WaitConnected(int timeout_sec)
         this_thread::sleep_for(10ms);
     }
     return is_connected();
+}
+
+void ComTask::SetTimer(int ms)
+{
+    if (!base_)
+    {
+        LOGERROR("SetTimer failed! base is null");
+        return;
+    }
+    timer_event_ = event_new(base_, -1, EV_PERSIST,STimerCallback, this);
+    if (!timer_event_)
+    {
+        LOGERROR("SetTimer failed! event_new error");
+        return;
+    }
+    int sec = ms / 1000;            /// 秒
+    int us = (ms % 1000) * 1000;    /// 微秒
+    timeval tv = { sec, us};
+    event_add(timer_event_, &tv);
 }
