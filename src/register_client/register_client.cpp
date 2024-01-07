@@ -31,6 +31,63 @@ msg::ServiceMap* RegisterClient::GetAllServiceList()
     return client_map;
 }
 
+msg::ServiceMap::ServiceList RegisterClient::GetServices(const char* service_name, int timeout_sec)
+{
+    msg::ServiceMap::ServiceList list;
+    /// 10毫秒判断一次
+    int total_count = timeout_sec * 100;
+    int count = 0;
+    /// 1.等待连接成功 
+    while (count < total_count)
+    {
+        if (is_connected())
+            break;
+        this_thread::sleep_for(10ms);
+        count++;
+    }
+    if (!is_connected())
+    {
+        LOGDEBUG("连接等待超时");
+        return list;
+    }
+    
+    /// 2.发送获取微服务列表请求
+    GetServiceListReq(service_name);
+ 
+    /// 3.等待获取微服务消息反馈(有可能拿到上一次的内容)
+    while (count < total_count)
+    {
+        Mutex lock(&service_map_mutex);
+        if (!service_map)
+        {
+            this_thread::sleep_for(10ms);
+            count++;
+            continue;
+        }
+        auto m = service_map->mutable_service_map();
+        if (m->empty() || !m)
+        {
+            /// 还没有找到指定微服务
+            GetServiceListReq(service_name);
+            this_thread::sleep_for(100ms);
+            count += 10;
+            continue;
+        }
+        auto iter = m->find(service_name);
+        if (iter == m->end())
+        {
+            GetServiceListReq(service_name);
+            this_thread::sleep_for(100ms);
+            count += 10;
+            continue;
+        }
+        list.CopyFrom(iter->second);
+        return list;
+    }
+
+    return list;
+}
+
 void RegisterClient::RegisterMsgCallback()
 {
     RegisterCallback(MSG_REGISTER_RES, (MsgCBFunc)& RegisterClient::RegisterRes);
@@ -67,7 +124,6 @@ void RegisterClient::GetServiceRes(msg::MsgHead* head, Msg* msg)
         LOGDEBUG("ServiceMap ParseFromArray failed!");
         return;
     }
-    LOGDEBUG(service_map->DebugString().c_str());
 }
 
 void RegisterClient::GetServiceListReq(const char* service_name)

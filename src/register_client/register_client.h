@@ -62,6 +62,15 @@ public:
     msg::ServiceMap* GetAllServiceList();
 
     ///////////////////////////////////////////////////////////////////////////
+    /// @brief 获取指定名称的微服务列表 (阻塞函数)
+    /// 1.等待连接成功 2.发送获取微服务列表请求 3.等待获取微服务消息反馈(有可能拿到上一次的内容)
+    /// @param service_name 微服务名称
+    /// @param timeout_sec 超时时间
+    /// @return 微服务列表
+    ///////////////////////////////////////////////////////////////////////////
+    msg::ServiceMap::ServiceList GetServices(const char *service_name, int timeout_sec);
+
+    ///////////////////////////////////////////////////////////////////////////
     /// @brief 注册消息处理的回调函数
     static void RegisterMsgCallback();
 private:
