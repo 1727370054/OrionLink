@@ -27,6 +27,32 @@ public:
     }
 
     ///////////////////////////////////////////////////////////////////////////
+    /// @brief 开始连接配置中心，开启定时器获取配置
+    /// @param server_ip 配置中心IP
+    /// @param server_port 配置中心端口
+    /// @param conf_message 配置对象
+    /// @param timeout_sec 等待连接配置中心的超时时间
+    /// @return 成功返回true
+    bool StartGetConf(const char* server_ip, int server_port,
+        const char *local_ip, int local_port,
+        google::protobuf::Message* conf_message, int timeout_sec = 10);
+
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 定时器回调函数
+    virtual void TimerCallback() override;
+
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 获取下载的本地参数配置信息
+    /// @param key 字段名称
+    /// @return 成功返回对应配置信息，失败返回 0
+    int GetInt(const char* key);
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 获取下载的本地参数配置信息
+    /// @param key 字段名称
+    /// @return 成功返回对应配置信息，失败返回 空串
+    std::string GetString(const char* key);
+
+    ///////////////////////////////////////////////////////////////////////////
     /// @brief 获取配置项
     /// @param ip 微服务IP
     /// @param port 微服务端口
@@ -60,12 +86,21 @@ public:
     /// @param head 反序列化头部
     /// @param msg 序列化的消息
     void LoadConfigRes(msg::MsgHead* head, Msg* msg);
+
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 设置当前配置对象
+    /// @param message 配置对象
+    void SetCurServiceMessage(google::protobuf::Message* message);
 private:
     ConfigClient() {};
     ConfigClient(const ConfigClient&) = delete;
     ConfigClient& operator=(const ConfigClient&) = delete;
 private:
     static std::mutex mutex_;
+
+    /// 本地微服务的IP和端口
+    char local_ip_[16] = { 0 };
+    int local_port_ = 0;
 };
 
 #endif // CONFIG_CLIENT_H
