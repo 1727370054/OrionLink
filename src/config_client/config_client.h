@@ -12,18 +12,18 @@ public:
     /// @brief 获取单例对象
     static ConfigClient* GetInstance()
     {
-        static ConfigClient* register_client = nullptr;
-        if (register_client == nullptr)
+        static ConfigClient* config_client = nullptr;
+        if (config_client == nullptr)
         {
             mutex_.lock();
-            if (register_client == nullptr)
+            if (config_client == nullptr)
             {
-                register_client = new ConfigClient();
-                register_client->set_auto_delete(false);
+                config_client = new ConfigClient();
+                config_client->set_auto_delete(false);
             }
             mutex_.unlock();
         }
-        return register_client;
+        return config_client;
     }
 
     ///////////////////////////////////////////////////////////////////////////

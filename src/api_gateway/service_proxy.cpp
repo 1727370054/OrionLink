@@ -27,6 +27,7 @@ void ServiceProxy::DeleteEvent(MsgEvent* event)
         return;
     }
     call->second->DeleteEvent(event);
+    callbacks_.erase(event);
 }
 
 bool ServiceProxy::SendMsg(msg::MsgHead* head, Msg* msg, MsgEvent* event)
