@@ -12,18 +12,9 @@ public:
     /// @brief 获取单例对象
     static RegisterClient* GetInstance()
     {
-        static RegisterClient* register_client = nullptr;
-        if (register_client == nullptr)
-        {
-            mutex_.lock();
-            if (register_client == nullptr)
-            {
-                register_client = new RegisterClient();
-                register_client->set_auto_delete(false);
-            }
-            mutex_.unlock();
-        }
-        return register_client;
+        static RegisterClient register_client;
+        register_client.set_auto_delete(false);
+        return &register_client;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -81,8 +72,6 @@ private:
     char service_name_[32] = { 0 };
     char service_ip_[16] = { 0 };
     int service_port_ = 0;
-
-    static std::mutex mutex_;
 };
 
 #endif // REGISTER_CLIENT_H

@@ -112,9 +112,9 @@ message Config
 	string service_name = 1;
 	int32 service_port  = 2;
 	string service_ip   = 3;
-	bytes private_pb    = 4;
-	bytes protocol	    = 5;
-}
+	bytes private_pb    = 4;	/// 存储微服务单独的配置信息(pb数据)
+	bytes protocol	    = 5;	/// 存储微服务单独的配置信息(未序列化的描述信息) --
+}								/// -- 让配置管理工具通过反射机制生成对应的message对象，反序列化 private_pb 数据
 
 /// 下载配置的请求
 message LoadConfigReq
@@ -126,4 +126,18 @@ message LoadConfigReq
 message DirConfig
 {
 	string root = 1;
+}
+
+/// 获取所有配置请求 MSG_LOAD_ALL_CONFIG_REQ
+message LoadAllConfigReq
+{
+	int32 page = 1;				/// 分页的第几页 从第一页开始
+	int32 page_count = 2;		/// 每页显示的记录数量
+}
+
+/// 响应配置列表 MSG_LOAD_ALL_CONFIG_RES
+/// 只包含微服务名称、IP、端口 
+message ConfigList
+{
+	repeated Config configs = 1;
 }

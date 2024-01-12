@@ -3,27 +3,40 @@
 
 #include "service_client.h"
 
+namespace google
+{
+    namespace protobuf
+    {
+        namespace compiler
+        {
+            class Importer;
+            class DiskSourceTree;
+        }
+    }
+}
+
+/// 消息回调函数的消息类型
+enum MsgCBType
+{
+    MSG_SAVE_TYPE = 1,  /// 界面保存配置
+    MSG_DEL_TYPE = 2    /// 界面删除配置
+};
+
+/// 对配置信息变动的消息回调函数(界面端使用)
+typedef void (*ConfigResCBFunc) (MsgCBType type,bool is_ok, const char* desc);
+
 class ConfigClient : public ServiceClient
 {
 public:
-    virtual ~ConfigClient() {};
+    virtual ~ConfigClient();
 
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 获取单例对象
     static ConfigClient* GetInstance()
     {
-        static ConfigClient* config_client = nullptr;
-        if (config_client == nullptr)
-        {
-            mutex_.lock();
-            if (config_client == nullptr)
-            {
-                config_client = new ConfigClient();
-                config_client->set_auto_delete(false);
-            }
-            mutex_.unlock();
-        }
-        return config_client;
+        static ConfigClient config_client;
+        config_client.set_auto_delete(false);
+        return &config_client;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -53,14 +66,6 @@ public:
     std::string GetString(const char* key);
 
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief 获取配置项
-    /// @param ip 微服务IP
-    /// @param port 微服务端口
-    /// @param out_config 存在该配置项，拷贝返回，输出型参数
-    /// @return 存在返回true，不存在返回false
-    bool GetConfig(const char* ip, int port, msg::Config* out_config);
-
-    ///////////////////////////////////////////////////////////////////////////
     /// @brief 注册消息处理的回调函数
     static void RegisterMsgCallback();
 
@@ -73,7 +78,7 @@ public:
     /// @brief 接收到上传配置的响应
     /// @param head 反序列化头部
     /// @param msg 序列化的消息
-    void RecvConfigRes(msg::MsgHead* head, Msg* msg);
+    void SendConfigRes(msg::MsgHead* head, Msg* msg);
 
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 发送下载配置请求，如果IP为null，则取连接配置中心的地址
@@ -82,25 +87,81 @@ public:
     void LoadConfigReq(const char *ip, int port);
 
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief 下载配置响应
+    /// @brief 下载配置响应，保存到本地
     /// @param head 反序列化头部
     /// @param msg 序列化的消息
     void LoadConfigRes(msg::MsgHead* head, Msg* msg);
 
     ///////////////////////////////////////////////////////////////////////////
+    /// @brief 获取配置项
+    /// @param ip 微服务IP
+    /// @param port 微服务端口
+    /// @param out_config 存在该配置项，拷贝返回，输出型参数
+    /// @return 存在返回true，不存在返回false
+    ///////////////////////////////////////////////////////////////////////////
+    bool GetConfig(const char* ip, int port, msg::Config* out_config);
+
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 发送下载全部配置请求(分页) 1.断开连接自动重连 2.等待结果返回
+    /// @param page 页数，从1开始
+    /// @param page_count 页显示的记录数量
+    /// @param timeout_sec 超时时间
+    /// @return 返回微服务列表
+    msg::ConfigList GetAllConfig(int page, int page_count, int timeout_sec);
+
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 下载全部配置响应
+    /// @param head 反序列化头部
+    /// @param msg 序列化的消息
+    void LoadAllConfigRes(msg::MsgHead* head, Msg* msg);
+
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 发送删除配置的请求
+    /// @param service_ip 微服务IP
+    /// @param service_port 微服务端口
+    void DeleteConfigReq(const char *service_ip, int service_port);
+
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 删除配置的响应
+    /// @param head 反序列化头部
+    /// @param msg 序列化的消息
+    void DeleteConfigRes(msg::MsgHead* head, Msg* msg);
+
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 载入proto文件 (线程不安全)
+    /// @param filename 文件路径
+    /// @param class_name 配置类型 (如果class_name为空，取第一个类型)
+    /// @param out_proto_code 返回读取到的代码，包含命名空间和版本
+    /// @return 成功返回动态生成的message，失败返回NULL，第二次调用会清理上一次空间
+    ///////////////////////////////////////////////////////////////////////////
+    google::protobuf::Message* LoadProto(const std::string& filename,
+        const std::string& class_name, std::string &out_proto_code);
+
+    ///////////////////////////////////////////////////////////////////////////
     /// @brief 设置当前配置对象
     /// @param message 配置对象
     void SetCurServiceMessage(google::protobuf::Message* message);
+
+    void set_config_res_cb(ConfigResCBFunc func) { ConfigResCB = func; }
 private:
-    ConfigClient() {};
+    ConfigClient();
     ConfigClient(const ConfigClient&) = delete;
     ConfigClient& operator=(const ConfigClient&) = delete;
 private:
-    static std::mutex mutex_;
+    /// 对配置信息变动的消息回调函数(界面端使用)
+    ConfigResCBFunc ConfigResCB = nullptr;
 
     /// 本地微服务的IP和端口
     char local_ip_[16] = { 0 };
     int local_port_ = 0;
+
+    /// 动态解析proto文件
+    google::protobuf::compiler::Importer* importer_ = nullptr;
+    /// 解析文件的管理对象
+    google::protobuf::compiler::DiskSourceTree* source_tree_ = nullptr;
+
+    /// 根据proto文件动态加载的message对象
+    google::protobuf::Message* dynamic_msg_ = nullptr;
 };
 
 #endif // CONFIG_CLIENT_H

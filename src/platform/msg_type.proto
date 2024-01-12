@@ -5,18 +5,22 @@ enum MsgType
 {
 	NONE_DO_NOT_USE = 0;
 
-	MSG_LOGIN_REQ = 1;			/// 登陆请求 LoginReq
-	MSG_LOGIN_RES = 2;			/// 登陆响应 LoginRes
-	MSG_DIR_REQ = 3;			/// 请求目录列表 DirReq
-	MSG_DIR_RES = 4;			/// 返回目录列表响应 DirRes
-	MSG_REGISTER_REQ = 5;		/// 注册服务请求 RegisterReq
-	MSG_REGISTER_RES = 6;		/// 注册服务响应 MessageRes
-	MSG_GET_SERVICE_REQ = 7;	/// 发现服务的请求 GetServiceReq
-	MSG_GET_SERVICE_RES = 8;	/// 发现服务的响应 ServiceMap
-	MSG_SAVE_CONFIG_REQ = 9;	/// 上传配置请求
-	MSG_SAVE_CONFIG_RES = 10;	/// 上传配置响应
-	MSG_LOAD_CONFIG_REQ = 11;	/// 下载配置请求
-	MSG_LOAD_CONFIG_RES = 12;	/// 下载配置响应
+	MSG_LOGIN_REQ = 1;				/// 登陆请求 LoginReq
+	MSG_LOGIN_RES = 2;				/// 登陆响应 LoginRes
+	MSG_DIR_REQ = 3;				/// 请求目录列表 DirReq
+	MSG_DIR_RES = 4;				/// 返回目录列表响应 DirRes
+	MSG_REGISTER_REQ = 5;			/// 注册服务请求 RegisterReq
+	MSG_REGISTER_RES = 6;			/// 注册服务响应 MessageRes
+	MSG_GET_SERVICE_REQ = 7;		/// 发现服务的请求 GetServiceReq
+	MSG_GET_SERVICE_RES = 8;		/// 发现服务的响应 ServiceMap
+	MSG_SAVE_CONFIG_REQ = 9;		/// 上传配置请求 Config
+	MSG_SAVE_CONFIG_RES = 10;		/// 上传配置响应 MessageRes
+	MSG_LOAD_CONFIG_REQ = 11;		/// 下载配置请求 LoadConfigReq
+	MSG_LOAD_CONFIG_RES = 12;		/// 下载配置响应 Config
+	MSG_LOAD_ALL_CONFIG_REQ = 13;	/// 下载所有配置请求 LoadAllConfigReq
+	MSG_LOAD_ALL_CONFIG_RES = 14;	/// 下载所有配置响应 ConfigList
+	MSG_DEL_CONFIG_REQ = 15;		/// 删除配置的请求 LoadConfigReq
+	MSG_DEL_CONFIG_RES = 16;		/// 删除配置的响应 MessageRes
 
 	MSG_MAX_TYPE  = 65535;
 }

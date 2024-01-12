@@ -1,6 +1,5 @@
 ﻿#include "config_server.h"
 #include "config_handle.h"
-#include "thread_pool.h"
 #include "register_client.h"
 #include "tools.h"
 
@@ -29,6 +28,9 @@ void ConfigServer::main(int argc, char* argv[])
     set_server_port(port);
 
     /// 向注册中心注册服务
+    /// 设置注册中心的IP和端口
+    RegisterClient::GetInstance()->set_server_ip(register_ip.c_str());
+    RegisterClient::GetInstance()->set_server_port(register_port);
     RegisterClient::GetInstance()->RegisterService(CONFIG_NAME, NULL, port);
 }
 

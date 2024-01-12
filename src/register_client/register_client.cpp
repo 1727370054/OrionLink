@@ -9,15 +9,18 @@ static ServiceMap* service_map = nullptr;
 static ServiceMap* client_map = nullptr;
 static mutex  service_map_mutex;
 
-/// 单例模式锁
-std::mutex RegisterClient::mutex_;
-
 RegisterClient::RegisterClient()
 {
 }
 
 RegisterClient::~RegisterClient()
 {
+}
+
+void RegisterClient::RegisterMsgCallback()
+{
+    RegisterCallback(MSG_REGISTER_RES, (MsgCBFunc)&RegisterClient::RegisterRes);
+    RegisterCallback(MSG_GET_SERVICE_RES, (MsgCBFunc)&RegisterClient::GetServiceRes);
 }
 
 msg::ServiceMap* RegisterClient::GetAllServiceList()
@@ -86,12 +89,6 @@ msg::ServiceMap::ServiceList RegisterClient::GetServices(const char* service_nam
     }
 
     return list;
-}
-
-void RegisterClient::RegisterMsgCallback()
-{
-    RegisterCallback(MSG_REGISTER_RES, (MsgCBFunc)& RegisterClient::RegisterRes);
-    RegisterCallback(MSG_GET_SERVICE_RES, (MsgCBFunc)&RegisterClient::GetServiceRes);
 }
 
 void RegisterClient::RegisterRes(msg::MsgHead* head, Msg* msg)

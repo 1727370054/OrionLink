@@ -10,6 +10,8 @@ void ConfigHandle::RegisterMsgCallback()
 {
     RegisterCallback(MSG_SAVE_CONFIG_REQ, (MsgCBFunc)&ConfigHandle::SaveConfig);
     RegisterCallback(MSG_LOAD_CONFIG_REQ, (MsgCBFunc)&ConfigHandle::LoadConfig);
+    RegisterCallback(MSG_LOAD_ALL_CONFIG_REQ, (MsgCBFunc)&ConfigHandle::LoadAllConfig);
+    RegisterCallback(MSG_DEL_CONFIG_REQ, (MsgCBFunc)&ConfigHandle::DeleteConfig);
 }
 
 void ConfigHandle::SaveConfig(msg::MsgHead* head, Msg* msg)
@@ -53,4 +55,44 @@ void ConfigHandle::LoadConfig(msg::MsgHead* head, Msg* msg)
         service_ip = this->client_ip();
     Config config = ConfigDao::GetInstance()->LoadConfig(service_ip.c_str(), request.service_port());
     SendMsg(MSG_LOAD_CONFIG_RES, &config);
+}
+
+void ConfigHandle::LoadAllConfig(msg::MsgHead* head, Msg* msg)
+{
+    LOGDEBUG("接收到下载全部配置的请求");
+    LoadAllConfigReq request;
+    if (!request.ParseFromArray(msg->data, msg->size))
+    {
+        LOGDEBUG("ConfigHandle::LoadAllConfig failed! ParseFromArray error");
+        return;
+    }
+    auto confs = ConfigDao::GetInstance()->LoadAllConfig(request.page(), request.page_count());
+    SendMsg(MSG_LOAD_ALL_CONFIG_RES, &confs);
+}
+
+void ConfigHandle::DeleteConfig(msg::MsgHead* head, Msg* msg)
+{
+    LOGDEBUG("接收到删除配置的请求");
+    LoadConfigReq request;
+    /// 响应信息
+    MessageRes response;
+    if (!request.ParseFromArray(msg->data, msg->size))
+    {
+        LOGDEBUG("ConfigHandle::DeleteConfig failed! ParseFromArray error");
+        response.set_return_(MessageRes::ERROR);
+        response.set_desc("ParseFromArray error");
+        SendMsg(MSG_DEL_CONFIG_RES, &response);
+        return;
+    }
+    if (!ConfigDao::GetInstance()->DeleteConfig(request.service_ip().c_str(), request.service_port()))
+    {
+        LOGDEBUG("ConfigHandle::DeleteConfig failed! DeleteConfig error");
+        response.set_return_(MessageRes::ERROR);
+        response.set_desc("Delete error, DAO failed");
+        SendMsg(MSG_DEL_CONFIG_RES, &response);
+        return;
+    }
+    response.set_return_(MessageRes::OK);
+    response.set_desc("Delete config success");
+    SendMsg(MSG_DEL_CONFIG_RES, &response);
 }

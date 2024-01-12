@@ -67,6 +67,11 @@ public:
     bool WaitConnected(int timeout_sec);
 
     ///////////////////////////////////////////////////////////////////////////
+    /// @brief 建立连接，如果断开自动重连，直到连接成功或者超时返回
+    /// @param timeout_sec 最大等待时间
+    bool AutoConnect(int timeout_sec);
+
+    ///////////////////////////////////////////////////////////////////////////
     /// @brief 设置定时器，只能设置一个定时器，定时调用TimerCallback回调(在Init函数调用)
     /// @param ms 定时调用的毫秒
     virtual void SetTimer(int ms);

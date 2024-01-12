@@ -193,7 +193,7 @@ void ComTask::EventCallback(short what)
 
 bool ComTask::WaitConnected(int timeout_sec)
 {
-    /// 10 秒监听一次
+    /// 10 毫秒监听一次
     int count = timeout_sec * 100;
     for (int i = 0; i < count; i++)
     {
@@ -202,6 +202,15 @@ bool ComTask::WaitConnected(int timeout_sec)
         this_thread::sleep_for(10ms);
     }
     return is_connected();
+}
+
+bool ComTask::AutoConnect(int timeout_sec)
+{
+    if (is_connected())
+        return true;
+    if (!is_connecting())
+        Connect();
+    return WaitConnected(timeout_sec);
 }
 
 void ComTask::SetTimer(int ms)

@@ -44,12 +44,26 @@ public:
     bool SaveConfig(const msg::Config * config);
 
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief 读取配置
+    /// @brief 读取配置(微服务获取自己的配置项)
     /// @param ip 微服务IP
     /// @param port 微服务端口
     /// @return 返回配置信息
     ///////////////////////////////////////////////////////////////////////////
     msg::Config LoadConfig(const char *ip, int port);
+
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 读取分页配置列表(配置管理工具获取配置)
+    /// @param page 页数，从1开始
+    /// @param page_count 页显示的记录数量
+    /// @return 返回所有分页的配置信息
+    ///////////////////////////////////////////////////////////////////////////
+    msg::ConfigList LoadAllConfig(int page, int page_count);
+
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 删除配置(通过ip和端口来删除配置项)
+    /// @param ip 微服务IP
+    /// @param port 微服务端口
+    bool DeleteConfig(const char* ip, int port);
 private:
     ConfigDao();
     ConfigDao(const ConfigDao &) = delete;

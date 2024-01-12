@@ -51,9 +51,9 @@ bool ConfigDao::Install()
     string sql = "";
     sql = "CREATE TABLE IF NOT EXISTS `ol_service_config` (                         \
         `id` INT(11) NOT NULL AUTO_INCREMENT,                                       \
-        `service_name` VARCHAR(64) COLLATE utf8_bin NOT NULL,                       \
-        `service_port` INT(11) NOT NULL,                                            \
+        `service_name` VARCHAR(64) COLLATE utf8_bin NOT NULL,                       \                                           \
         `service_ip` VARCHAR(16) COLLATE utf8_bin NOT NULL,                         \
+        `service_port` INT(11) NOT NULL,                                            \
         `private_pb` VARCHAR(4096) CHARACTER                                        \
         SET utf8 COLLATE utf8_bin DEFAULT '',                                       \
         `protocol` VARCHAR(4096) CHARACTER                                          \
@@ -157,6 +157,60 @@ msg::Config ConfigDao::LoadConfig(const char* ip, int port)
     LOGDEBUG("download config success!");
 
     return config;
+}
+
+msg::ConfigList ConfigDao::LoadAllConfig(int page, int page_count)
+{
+    msg::ConfigList config_list;
+    LOGDEBUG("LoadAllConfig");
+    Mutex lock(&oldb_mutex);
+    if (!oldb_)
+    {
+        LOGERROR("download all config failed! mysql not init");
+        return config_list;
+    }
+    if (page <= 0 || page_count <= 0)
+    {
+        LOGERROR("download all config failed! page or page_count error");
+        return config_list;
+    }
+    string table_name = CONFIG_TABLE;
+    stringstream ss;
+    /// select * from table limit 0, 10 ... 10,10, ... 20, 10
+    ss << "select `service_name`, `service_ip`, `service_port` from " << table_name;
+    ss << " order by id desc";
+    ss << " limit " << (page - 1) * page_count << ", " << page_count;
+    auto rows = oldb_->GetResult(ss.str().c_str());
+    /// 遍历结果集插入到proto中
+    for (const auto& row : rows)
+    {
+        auto conf = config_list.add_configs();
+        conf->set_service_name(row[0].data);
+        conf->set_service_ip(row[1].data);
+        conf->set_service_port(atoi(row[2].data));
+    }
+
+    return config_list;
+}
+
+bool ConfigDao::DeleteConfig(const char* ip, int port)
+{
+    Mutex lock(&oldb_mutex);
+    if (!oldb_)
+    {
+        LOGERROR("delete config failed! mysql not init");
+        return false;
+    }
+    if (!ip || strlen(ip) == 0 || port < 0 || port > 65535)
+    {
+        LOGDEBUG("delete config failed! ip or port error");
+        return false;
+    }
+    string table_name = CONFIG_TABLE;
+    stringstream ss;
+    ss << "delete from " << table_name;
+    ss << " where service_ip='" << ip << "' and service_port=" << port;
+    return oldb_->Query(ss.str().c_str(), ss.str().size());
 }
 
 ConfigDao::ConfigDao()
