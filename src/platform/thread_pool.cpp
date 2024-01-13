@@ -7,7 +7,7 @@
 #include <mutex>
 #include <iostream>
 #ifdef _WIN32
-//和protobuf头文件会有冲突 ，protobuf的头文件要在windows.h之前
+// 和protobuf头文件会有冲突 ，protobuf的头文件要在windows.h之前
 #include <windows.h>
 #else
 #include <signal.h>
@@ -17,7 +17,7 @@ using namespace std;
 
 /// 管理所有线程对象
 static atomic<bool> is_exit_all(false);
-static vector<Thread*> all_threads;
+static vector<Thread *> all_threads;
 static mutex all_threads_mutex;
 
 void ThreadPool::ExitAllThread()
@@ -49,7 +49,7 @@ public:
         this->last_thread_ = -1;
         for (int i = 0; i < thread_count; i++)
         {
-            Thread* t = new Thread();
+            Thread *t = new Thread();
             t->set_id(i + 1);
             t->Start();
             this->threads_.push_back(t);
@@ -59,14 +59,15 @@ public:
         }
     }
 
-    void Dispatch(Task* task)
+    void Dispatch(Task *task)
     {
         /// 轮询方式
-        if (!task) return;
+        if (!task)
+            return;
 
         int tid = (this->last_thread_ + 1) % this->thread_count_;
         this->last_thread_ = tid;
-        Thread* t = this->threads_[tid];
+        Thread *t = this->threads_[tid];
 
         /// 添加任务
         t->AddTask(task);
@@ -81,10 +82,10 @@ private:
     /// 上一次分发到的线程，用于轮询
     int last_thread_ = -1;
     /// 线程池线程列表
-    std::vector<Thread*> threads_;
+    std::vector<Thread *> threads_;
 };
 
-ThreadPool* ThreadPoolFactory::Create()
+ThreadPool *ThreadPoolFactory::Create()
 {
     /// socket库初始化
     static mutex mtx;
@@ -92,14 +93,15 @@ ThreadPool* ThreadPoolFactory::Create()
     mtx.lock();
     if (!is_init)
     {
-        is_init = true;
-#ifdef _WIN32 
+
+#ifdef _WIN32
         WSADATA wsa;
         WSAStartup(MAKEWORD(2, 2), &wsa);
 #else
         if (signal(SIGPIPE, SIG_IGN) == SIG_ERR)
-            return 1;
+            return nullptr;
 #endif
+        is_init = true;
     }
     mtx.unlock();
     return new CThreadPool();

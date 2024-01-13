@@ -3,6 +3,7 @@
 #include "tools.h"
 
 #include <iostream>
+#include <thread>
 #include <mutex>
 #include <cstring>
 #include <event2/event.h>
@@ -11,35 +12,39 @@
 
 using namespace std;
 
-static void SReadCallback(struct bufferevent* bev, void* arg)
+static void SReadCallback(struct bufferevent *bev, void *arg)
 {
-    auto task = static_cast<ComTask*>(arg);
-    if (!task) return;
+    auto task = static_cast<ComTask *>(arg);
+    if (!task)
+        return;
     task->ReadCallback();
 }
 
-static void SWriteCallback(struct bufferevent* bev, void* arg)
+static void SWriteCallback(struct bufferevent *bev, void *arg)
 {
-    auto task = static_cast<ComTask*>(arg);
-    if (!task) return;
+    auto task = static_cast<ComTask *>(arg);
+    if (!task)
+        return;
     task->WriteCallback();
 }
 
-static void SEventCallback(struct bufferevent* bev,short what ,void* arg)
+static void SEventCallback(struct bufferevent *bev, short what, void *arg)
 {
-    auto task = static_cast<ComTask*>(arg);
-    if (!task) return;
+    auto task = static_cast<ComTask *>(arg);
+    if (!task)
+        return;
     task->EventCallback(what);
 }
 
-static void STimerCallback(evutil_socket_t sock, short what, void* arg)
+static void STimerCallback(evutil_socket_t sock, short what, void *arg)
 {
-    auto task = static_cast<ComTask*>(arg);
-    if (!task) return;
+    auto task = static_cast<ComTask *>(arg);
+    if (!task)
+        return;
     task->TimerCallback();
 }
 
-void ComTask::set_server_ip(const char* ip)
+void ComTask::set_server_ip(const char *ip)
 {
     strncpy(this->server_ip_, ip, sizeof(server_ip_));
 }
@@ -70,16 +75,16 @@ bool ComTask::InitBufferevent(int sock)
     else /// 加密通信
     {
         OLSSL olssl = ssl_ctx()->NewSSL(sock);
-        if (sock < 0)  /// 客户端
+        if (sock < 0) /// 客户端
         {
-            bev_ = bufferevent_openssl_socket_new(base_, sock, olssl.ssl(), 
-                BUFFEREVENT_SSL_CONNECTING, BEV_OPT_CLOSE_ON_FREE /*bufferevent_free函数会同时关闭ssl和socket*/
+            bev_ = bufferevent_openssl_socket_new(base_, sock, olssl.ssl(),
+                                                  BUFFEREVENT_SSL_CONNECTING, BEV_OPT_CLOSE_ON_FREE /*bufferevent_free函数会同时关闭ssl和socket*/
             );
         }
         else /// 服务端
         {
             bev_ = bufferevent_openssl_socket_new(base_, sock, olssl.ssl(),
-                BUFFEREVENT_SSL_ACCEPTING, BEV_OPT_CLOSE_ON_FREE /*bufferevent_free函数会同时关闭ssl和socket*/
+                                                  BUFFEREVENT_SSL_ACCEPTING, BEV_OPT_CLOSE_ON_FREE /*bufferevent_free函数会同时关闭ssl和socket*/
             );
         }
 
@@ -94,8 +99,8 @@ bool ComTask::InitBufferevent(int sock)
     bufferevent_setcb(bev_, SReadCallback, SWriteCallback, SEventCallback, this);
     bufferevent_enable(bev_, EV_READ | EV_WRITE);
 
-    //timeval tl = { 10, 0 };
-    //bufferevent_set_timeouts(bev_, &tl, &tl);
+    // timeval tl = { 10, 0 };
+    // bufferevent_set_timeouts(bev_, &tl, &tl);
 
     return true;
 }
@@ -112,14 +117,15 @@ bool ComTask::Connect()
     Mutex lock(mtx_);
     is_connected_ = false;
     is_connecting_ = false;
-    if (!bev_) InitBufferevent(-1);
+    if (!bev_)
+        InitBufferevent(-1);
     if (!bev_)
     {
         LOGERROR("ComTask::Connect - bev is null");
         return false;
     }
 
-    int ret = bufferevent_socket_connect(bev_, (struct sockaddr*)&remote, sizeof(remote));
+    int ret = bufferevent_socket_connect(bev_, (struct sockaddr *)&remote, sizeof(remote));
     if (ret != 0)
     {
         LOGERROR("ComTask::Init() - connect remote failed!");
@@ -156,16 +162,17 @@ void ComTask::Close()
         is_connected_ = false;
         is_connecting_ = false;
 
-        if (bev_) bufferevent_free(bev_); /// 包含释放ssl和socket
+        if (bev_)
+            bufferevent_free(bev_); /// 包含释放ssl和socket
         bev_ = NULL;
     }
-    if (auto_delete_ )
+    if (auto_delete_)
     {
         delete this;
     }
 }
 
-int ComTask::Read(void* data, int size)
+int ComTask::Read(void *data, int size)
 {
     if (!bev_)
     {
@@ -178,17 +185,20 @@ int ComTask::Read(void* data, int size)
 
 void ComTask::TriggerWrite()
 {
-    if (!bev_) return;
+    if (!bev_)
+        return;
     bufferevent_trigger(bev_, EV_WRITE, 0);
 }
 
-bool ComTask::Write(const void* data, int size)
+bool ComTask::Write(const void *data, int size)
 {
     Mutex lock(mtx_);
-    if (!bev_ || !data || size <= 0) return false;
+    if (!bev_ || !data || size <= 0)
+        return false;
 
     int ret = bufferevent_write(bev_, data, size);
-    if (ret != 0) return false;
+    if (ret != 0)
+        return false;
 
     return true;
 }
@@ -259,14 +269,14 @@ void ComTask::SetTimer(int ms)
         LOGERROR("SetTimer failed! base is null");
         return;
     }
-    timer_event_ = event_new(base_, -1, EV_PERSIST,STimerCallback, this);
+    timer_event_ = event_new(base_, -1, EV_PERSIST, STimerCallback, this);
     if (!timer_event_)
     {
         LOGERROR("SetTimer failed! event_new error");
         return;
     }
-    int sec = ms / 1000;            /// 秒
-    int us = (ms % 1000) * 1000;    /// 微秒
-    timeval tv = { sec, us};
+    int sec = ms / 1000;         /// 秒
+    int us = (ms % 1000) * 1000; /// 微秒
+    timeval tv = {sec, us};
     event_add(timer_event_, &tv);
 }
