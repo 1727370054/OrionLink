@@ -5,7 +5,7 @@ void ServiceProxyClient::ReadCallback(msg::MsgHead* head, Msg* msg)
 {
     if (!head || !msg) return;
     LOGDEBUG("ServiceProxyClient::ReadCallback");
-    /// 消息转发给 RouterHandle
+    /// 通过 RouterHandle 将消息转发给客户端
     /// ServiceProxyClient 每个对象可能关联多个 RouterHandle，
     /// 一个客户端，对应一个 RouterHandle 对象
  

@@ -56,6 +56,18 @@ std::string ConfigClient::GetString(const char* key)
     return cur_service_conf->GetReflection()->GetString(*cur_service_conf, field);
 }
 
+bool ConfigClient::GetBool(const char* key)
+{
+    Mutex lock(&cur_service_conf_mutex);
+    if (!key || !cur_service_conf) return false;
+    /// 获取描述对象->获取字段
+    auto field = cur_service_conf->GetDescriptor()->FindFieldByName(key);
+    if (!field) return false;
+
+    /// 通过反射对象获取字段信息
+    return cur_service_conf->GetReflection()->GetBool(*cur_service_conf, field);
+}
+
 void ConfigClient::SetCurServiceMessage(google::protobuf::Message* message)
 {
     Mutex lock(&cur_service_conf_mutex);
@@ -83,7 +95,7 @@ bool ConfigClient::StartGetConf(const char* server_ip, int server_port,
         LOGDEBUG("配置中心连接失败");
         return false;
     }
-    /// 开启定时器, 设置获取配置定时时间1000毫秒
+    /// 开启定时器, 设置获取配置定时时间3000毫秒
     SetTimer(3000);
     return true;
 }
@@ -159,7 +171,7 @@ void ConfigClient::LoadConfigRes(msg::MsgHead* head, Msg* msg)
     if (local_port_ > 0 && local_port_ <= 65535 && cur_service_conf)
     {
         stringstream local_key;
-        local_key << local_ip_ << "_" << local_port_;
+        local_key << config.service_ip() << "_" << local_port_;
         if (key.str() == local_key.str())
         {
             Mutex lock(&cur_service_conf_mutex);
