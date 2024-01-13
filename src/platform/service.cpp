@@ -72,6 +72,7 @@ void Service::ListenCallback(int client_socket, sockaddr* client_addr, int sockl
 {
     auto handle = CreateServiceHandle();
     handle->set_sock(client_socket);
+    handle->set_ssl_ctx(this->ssl_ctx());
     char ip[16] = { 0 };
     int port = 0;
     auto addr = (struct sockaddr_in*)client_addr;

@@ -141,3 +141,13 @@ message ConfigList
 {
 	repeated Config configs = 1;
 }
+
+/// 网关的配置项
+message GatewayConfig
+{
+	bool is_ssl = 1;			/// 是否开启ssl通信
+	string crt_path = 2;		/// 证书路径
+	string key_path = 3;		/// 私钥路径
+	string ca_path = 4;			/// 证书签名验证路径
+	int32 server_port = 5;	    /// 服务启动端口(非ssl:API_GATEWAY_PORT ssl:API_GATEWAY_SSL_PORT) 
+}

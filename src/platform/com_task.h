@@ -6,6 +6,8 @@
 
 #include <string>
 
+class SSLCtx;
+
 class XCOM_API ComTask : public Task
 {
 public:
@@ -80,12 +82,20 @@ public:
     /// @brief 定时器回调函数
     virtual void TimerCallback() {}
 
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 设置SSL通信的上下文，如果设置了，就是使用SLL加密通信
+    void set_ssl_ctx(SSLCtx* ssl_ctx) { ssl_ctx_ = ssl_ctx; }
+    SSLCtx* ssl_ctx() { return ssl_ctx_; }
+
     void set_server_ip(const char* ip);
     const char* server_ip() { return server_ip_; }
+
     void set_server_port(int port) { server_port_ = port; }
     int server_port() { return server_port_; }
+
     bool is_connecting() { return is_connecting_; }
     bool is_connected() { return is_connected_; }
+
     void set_auto_delete(bool auto_delete) { auto_delete_ = auto_delete; }
 protected:
     /// 文件内容数据缓存区
@@ -93,6 +103,9 @@ protected:
 
 private:
     bool InitBufferevent(int sock);
+
+    /// SSL通信的上下文
+    SSLCtx *ssl_ctx_ = nullptr;
 
     struct bufferevent* bev_ = nullptr;
 

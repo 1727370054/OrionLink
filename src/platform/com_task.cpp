@@ -1,4 +1,5 @@
 ﻿#include "com_task.h"
+#include "ssl_ctx.h"
 #include "tools.h"
 
 #include <iostream>
@@ -6,6 +7,7 @@
 #include <cstring>
 #include <event2/event.h>
 #include <event2/bufferevent.h>
+#include <event2/bufferevent_ssl.h>
 
 using namespace std;
 
@@ -54,12 +56,38 @@ ComTask::~ComTask()
 
 bool ComTask::InitBufferevent(int sock)
 {
-    /// -1：自动创建socket
-    bev_ = bufferevent_socket_new(base_, sock, BEV_OPT_CLOSE_ON_FREE);
-    if (!bev_)
+    /// sock = -1：自动创建socket
+    /// 要区分SLL加密通信和普通通信，区分客户端和服务端
+    if (!ssl_ctx())
     {
-        LOGERROR("bufferevent_socket_new failed!");
-        return false;
+        bev_ = bufferevent_socket_new(base_, sock, BEV_OPT_CLOSE_ON_FREE);
+        if (!bev_)
+        {
+            LOGERROR("bufferevent_socket_new failed!");
+            return false;
+        }
+    }
+    else /// 加密通信
+    {
+        OLSSL olssl = ssl_ctx()->NewSSL(sock);
+        if (sock < 0)  /// 客户端
+        {
+            bev_ = bufferevent_openssl_socket_new(base_, sock, olssl.ssl(), 
+                BUFFEREVENT_SSL_CONNECTING, BEV_OPT_CLOSE_ON_FREE /*bufferevent_free函数会同时关闭ssl和socket*/
+            );
+        }
+        else /// 服务端
+        {
+            bev_ = bufferevent_openssl_socket_new(base_, sock, olssl.ssl(),
+                BUFFEREVENT_SSL_ACCEPTING, BEV_OPT_CLOSE_ON_FREE /*bufferevent_free函数会同时关闭ssl和socket*/
+            );
+        }
+
+        if (!bev_)
+        {
+            LOGERROR("bufferevent_openssl_socket_new failed!");
+            return false;
+        }
     }
 
     /// 设置回调
@@ -128,7 +156,7 @@ void ComTask::Close()
         is_connected_ = false;
         is_connecting_ = false;
 
-        if (bev_) bufferevent_free(bev_);
+        if (bev_) bufferevent_free(bev_); /// 包含释放ssl和socket
         bev_ = NULL;
     }
     if (auto_delete_ )
@@ -175,6 +203,17 @@ void ComTask::EventCallback(short what)
         LOGINFO(ss.str().c_str());
         is_connected_ = true;
         is_connecting_ = false;
+
+        /// 打印ssl信息
+        auto ssl = bufferevent_openssl_get_ssl(bev_);
+        if (ssl)
+        {
+            OLSSL olssl;
+            olssl.set_ssl_st(ssl);
+            olssl.PrintCipher();
+            olssl.PrintCert();
+        }
+
         ConnectCallback();
     }
 

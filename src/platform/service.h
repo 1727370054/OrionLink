@@ -35,9 +35,19 @@ public:
 
     void ListenCallback(int client_socket,struct sockaddr* client_addr, int socklen);
 
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 设置服务器监听的端口号
     void set_server_port(int port) { server_port_ = port; }
+    int server_port() { return server_port_; }
 
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 设置SSL通信的上下文，如果设置了，就是使用SLL加密通信
+    void set_ssl_ctx(SSLCtx* ssl_ctx) { ssl_ctx_ = ssl_ctx; }
+    SSLCtx* ssl_ctx() { return ssl_ctx_; }
 private:
+    // SSL通信的上下文
+    SSLCtx* ssl_ctx_ = nullptr;
+
     /// 接收用户连接的线程池
     ThreadPool* thread_listen_pool_ = nullptr;
     /// 处理用户数据线程池

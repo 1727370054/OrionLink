@@ -1,10 +1,11 @@
-ï»¿#ifndef MSG_H
+#ifndef MSG_H
 #define MSG_H
 
 #include "msg_type.pb.h"
 
 #define MAX_MSG_SIZE 8192
 #define API_GATEWAY_PORT 20010
+#define API_GATEWAY_SSL_PORT 20011
 #define API_GATEWAY_NAME "gateway"
 #define REGISTER_PORT 20018
 #define CONFIG_NAME "config"
@@ -13,16 +14,16 @@
 class Msg
 {
 public:
-    /// æ•°æ®çš„å¤§å°
+    /// Êı¾İµÄ´óĞ¡
     int size = 0;
 
-    /// æ•°æ®å­˜æ”¾(protobufåºåˆ—åŒ–çš„æ•°æ®)
+    /// Êı¾İ´æ·Å(protobufĞòÁĞ»¯µÄÊı¾İ)
     char* data = nullptr;
 
-    /// å·²ç»æ¥æ”¶æ•°æ®çš„å¤§å°
+    /// ÒÑ¾­½ÓÊÕÊı¾İµÄ´óĞ¡
     int recv_size;
 
-    /// æ¶ˆæ¯çš„ç±»å‹
+    /// ÏûÏ¢µÄÀàĞÍ
     msg::MsgType type = msg::NONE_DO_NOT_USE;
 
     bool Alloc(int size)
@@ -39,7 +40,7 @@ public:
         return true;
     }
 
-    /// åˆ¤æ–­æ•°æ®æ˜¯å¦æ¥æ”¶å®Œæˆ
+    /// ÅĞ¶ÏÊı¾İÊÇ·ñ½ÓÊÕÍê³É
     bool recved()
     {
         if (size <= 0) return false;
