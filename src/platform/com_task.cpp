@@ -44,6 +44,14 @@ static void STimerCallback(evutil_socket_t sock, short what, void *arg)
     task->TimerCallback();
 }
 
+void SAutoConnectTimerCallback(evutil_socket_t sock, short what, void *arg)
+{
+    auto task = static_cast<ComTask *>(arg);
+    if (!task)
+        return;
+    task->AutoConnectTimerCallback();
+}
+
 void ComTask::set_server_ip(const char *ip)
 {
     strncpy(this->server_ip_, ip, sizeof(server_ip_));
@@ -152,7 +160,24 @@ bool ComTask::Init()
     if (server_ip_[0] == '\0')
         return true;
 
+    /// 3秒自动重连
+    if (auto_connect_)
+        SetAutoConnectTimer(3000);
     return Connect();
+}
+
+void ComTask::ClearTimer()
+{
+    if (auto_connect_timer_event_)
+    {
+        event_free(auto_connect_timer_event_);
+        auto_connect_timer_event_ = nullptr;
+    }
+    if (timer_event_)
+    {
+        event_free(timer_event_);
+        timer_event_ = nullptr;
+    }
 }
 
 void ComTask::Close()
@@ -168,6 +193,7 @@ void ComTask::Close()
     }
     if (auto_delete_)
     {
+        ClearTimer();
         delete this;
     }
 }
@@ -260,6 +286,39 @@ bool ComTask::AutoConnect(int timeout_sec)
     if (!is_connecting())
         Connect();
     return WaitConnected(timeout_sec);
+}
+
+void ComTask::SetAutoConnectTimer(int ms)
+{
+    if (!base_)
+    {
+        LOGERROR("SetAutoConnectTimer failed! base is null");
+        return;
+    }
+    if (auto_connect_timer_event_) /// 清理上一次资源
+    {
+        event_free(auto_connect_timer_event_);
+        auto_connect_timer_event_ = nullptr;
+    }
+    auto_connect_timer_event_ = event_new(base_, -1, EV_PERSIST, SAutoConnectTimerCallback, this);
+    if (!auto_connect_timer_event_)
+    {
+        LOGERROR("SetAutoConnectTimer failed! event_new error");
+        return;
+    }
+    int sec = ms / 1000;         /// 秒
+    int us = (ms % 1000) * 1000; /// 微秒
+    timeval tv = {sec, us};
+    event_add(auto_connect_timer_event_, &tv);
+}
+
+void ComTask::AutoConnectTimerCallback()
+{
+    LOGDEBUG("AutoConnectTimerCallback");
+    if (is_connected())
+        return;
+    if (!is_connecting())
+        Connect();
 }
 
 void ComTask::SetTimer(int ms)

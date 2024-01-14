@@ -10,7 +10,7 @@ public:
 
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 获取单例对象
-    static RegisterClient* GetInstance()
+    static RegisterClient *GetInstance()
     {
         static RegisterClient register_client;
         register_client.set_auto_delete(false);
@@ -22,23 +22,23 @@ public:
     virtual void ConnectCallback() override;
 
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief 向注册中心注册服务，此函数需要第一个调用，建立连接
+    /// @brief 向注册中心注册服务，此函数需要第一个调用，建立连接(会开启自动重连)
     /// @param service_name 微服务名称
     /// @param ip 微服务IP地址，如果传递NULL，则采用客户端连接地址
     /// @param port 微服务端口
-    void RegisterService(const char* service_name, const char* ip, int port);
+    void RegisterService(const char *service_name, const char *ip, int port);
 
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 处理服务端注册的响应
     /// @param head 反序列化后消息头部
     /// @param msg 消息内容
-    void RegisterRes(msg::MsgHead* head, Msg* msg);
+    void RegisterRes(msg::MsgHead *head, Msg *msg);
 
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 处理服务端返回微服务列表的响应
     /// @param head 反序列化后消息头部
     /// @param msg 消息内容
-    void GetServiceRes(msg::MsgHead* head, Msg* msg);
+    void GetServiceRes(msg::MsgHead *head, Msg *msg);
 
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 发送获取微服务列表的请求
@@ -50,7 +50,7 @@ public:
     /// 此函数和操作 ServiceMap 数据的函数在一个线程
     /// @return 返回复制的数据
     ///////////////////////////////////////////////////////////////////////////
-    msg::ServiceMap* GetAllServiceList();
+    msg::ServiceMap *GetAllServiceList();
 
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 获取指定名称的微服务列表 (阻塞函数)
@@ -64,15 +64,16 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 注册消息处理的回调函数
     static void RegisterMsgCallback();
+
 private:
     RegisterClient();
-    RegisterClient(const RegisterClient&) = delete;
-    RegisterClient& operator=(const RegisterClient&) = delete;
+    RegisterClient(const RegisterClient &) = delete;
+    RegisterClient &operator=(const RegisterClient &) = delete;
+
 private:
-    char service_name_[32] = { 0 };
-    char service_ip_[16] = { 0 };
+    char service_name_[32] = {0};
+    char service_ip_[16] = {0};
     int service_port_ = 0;
 };
 
 #endif // REGISTER_CLIENT_H
-

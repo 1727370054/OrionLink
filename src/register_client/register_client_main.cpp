@@ -1,12 +1,13 @@
 ﻿#include <iostream>
 #include <string>
+#include <thread>
 
 #include "register_client.h"
 #include "tools.h"
 
 using namespace std;
 
-int main(int argc, char*argv[])
+int main(int argc, char *argv[])
 {
 	string ip = "127.0.0.1";
 	int port = REGISTER_PORT;
@@ -20,6 +21,7 @@ int main(int argc, char*argv[])
 	RegisterClient::GetInstance()->WaitConnected(3);
 	RegisterClient::GetInstance()->GetServiceListReq(NULL);
 	RegisterClient::GetInstance()->GetServiceListReq("test");
+	RegisterClient::GetInstance()->Wait();
 
 	for (;;)
 	{
@@ -27,10 +29,9 @@ int main(int argc, char*argv[])
 		auto services = RegisterClient::GetInstance()->GetAllServiceList();
 		if (services)
 			LOGDEBUG(services->DebugString());
-		this_thread::sleep_for(1000ms);
+		std::this_thread::sleep_for(1000ms);
 	}
 
 	RegisterClient::GetInstance()->Wait();
 	return 0;
 }
-
