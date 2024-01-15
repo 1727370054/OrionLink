@@ -1,5 +1,10 @@
 #!/bin/bash
-cd ./src/platform
+cd ../src/platform
+make clean
+make -j8
+make install
+
+cd ../orion_link_db
 make clean
 make -j8
 make install
@@ -17,6 +22,7 @@ make -j8
 cd ../config_server
 make clean
 make -j8
+make watch_config_server
 make install
 
 cd ../config_client
