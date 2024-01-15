@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 
 #include "config_client.h"
 #include "register_client.h"
@@ -10,6 +10,29 @@ using namespace msg;
 #define REG RegisterClient::GetInstance()
 #define CONF ConfigClient::GetInstance()
 
+void ConfigTimer()
+{
+	static string conf_ip = "";
+	static int conf_port = 0;
+	/** 获取配置项***********************************************************************/
+	cout << "root: " << CONF->GetString("root") << endl;
+	if (conf_port <= 0)
+	{
+		/// 从注册中心获取配置中心的IP的端口
+		auto confs = REG->GetServices(CONFIG_NAME, 2);
+		cout << confs.DebugString() << endl;
+		if (confs.service_size() <= 0) return;
+		auto conf = confs.service()[0];
+		if (conf.ip().empty() || conf.port() <= 0) return;
+
+		conf_ip = conf.ip();
+		conf_port = conf.port();
+		CONF->set_server_ip(conf_ip.c_str());
+		CONF->set_server_port(conf_port);
+		CONF->Connect();
+	}
+}
+
 int main(int argc, char *argv)
 {
 	int client_port = 4000;
@@ -17,16 +40,10 @@ int main(int argc, char *argv)
 	REG->set_server_ip("127.0.0.1");
 	REG->set_server_port(REGISTER_PORT);
 	REG->RegisterService("test_client", NULL, client_port);
-	REG->WaitConnected(2);
-	auto confs = REG->GetServices(CONFIG_NAME, 2);
-	cout << confs.DebugString() << endl;
-	this_thread::sleep_for(1000ms);
-	if (confs.service_size() <= 0) return -1;
-	auto conf = confs.service()[0];
-	if (conf.ip().empty() || conf.port() <= 0) return -2;
 
+	/// 初始化配置中心
 	DirConfig tmp_conf;
-	CONF->StartGetConf(conf.ip().c_str(), conf.port(), 0, client_port, &tmp_conf);
+	CONF->StartGetConf(0, client_port, &tmp_conf, ConfigTimer);
 	CONF->WaitConnected(2);
 
 	/** 存储配置项***********************************************************************/
@@ -50,10 +67,6 @@ int main(int argc, char *argv)
 	string pb = message->SerializeAsString();
 	save_conf.set_private_pb(pb.c_str());
 	CONF->SendConfigReq(&save_conf);
-
-	this_thread::sleep_for(200ms);
-	/** 获取配置项***********************************************************************/
-	cout << "root: " << CONF->GetString("root") << endl;
 
 	/** 获取配置列表**********************************************************************/
 	for (;;)

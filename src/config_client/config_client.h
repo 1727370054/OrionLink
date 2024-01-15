@@ -1,4 +1,4 @@
-#ifndef CONFIG_CLIENT_H
+﻿#ifndef CONFIG_CLIENT_H
 #define CONFIG_CLIENT_H
 
 #include "service_client.h"
@@ -22,8 +22,10 @@ enum MsgCBType
     MSG_DEL_TYPE = 2    /// 界面删除配置
 };
 
-/// 对配置信息变动的消息回调函数(界面端使用)
+/// @brief 对配置信息变动的消息回调函数(界面端使用)
 typedef void (*ConfigResCBFunc) (MsgCBType type,bool is_ok, const char* desc);
+/// @brief 定时器回调函数
+typedef void (*ConfigTimerCBFunc) ();
 
 class ConfigClient : public ServiceClient
 {
@@ -38,6 +40,18 @@ public:
         config_client.set_auto_delete(false);
         return &config_client;
     }
+
+    bool Init() override;
+
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 开始连接配置中心，开启定时器获取配置
+    /// @param local_ip 本地IP
+    /// @param local_port 本地端口
+    /// @param conf_message 配置对象
+    /// @param func 定时器回调函数
+    /// @return 成功返回true
+    bool StartGetConf(const char* local_ip, int local_port,
+        google::protobuf::Message* conf_message, ConfigTimerCBFunc func);
 
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 开始连接配置中心，开启定时器获取配置
@@ -148,6 +162,9 @@ private:
 private:
     /// 对配置信息变动的消息回调函数(界面端使用)
     ConfigResCBFunc ConfigResCB = nullptr;
+
+    /// 定时器回调函数
+    ConfigTimerCBFunc ConfigTimerCB = nullptr;
 
     /// 本地微服务的IP和端口
     char local_ip_[16] = { 0 };

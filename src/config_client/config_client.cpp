@@ -1,8 +1,9 @@
-#include "config_client.h"
+﻿#include "config_client.h"
 #include "msg_comm.pb.h"
 #include "tools.h"
 
 #include <map>
+#include <fstream>
 #include <google/protobuf/compiler/importer.h>
 #include <google/protobuf/dynamic_message.h>
 
@@ -74,7 +75,49 @@ void ConfigClient::SetCurServiceMessage(google::protobuf::Message* message)
     cur_service_conf = message;
 }
 
-bool ConfigClient::StartGetConf(const char* server_ip, int server_port, 
+bool ConfigClient::Init()
+{
+    ServiceClient::Init();
+    /// 先调用一次定时器，确保消息及时获取
+    TimerCallback();
+    return true;
+}
+
+bool ConfigClient::StartGetConf(const char* local_ip, int local_port,
+    google::protobuf::Message* conf_message, ConfigTimerCBFunc func)
+{
+    RegisterMsgCallback();
+    SetCurServiceMessage(conf_message);
+    this->ConfigTimerCB = func;
+    /// 存储本地微服务IP和端口
+    if (local_ip)
+        strncpy(local_ip_, local_ip, 16);
+    local_port_ = local_port;
+
+    set_timer_ms(3000);
+
+    /// 读取本地缓存
+    stringstream ss;
+    ss << local_port_ << "_conf.cache";
+    ifstream ifs;
+    ifs.open(ss.str(), ios::binary);
+    if (!ifs.is_open())
+    {
+        LOGDEBUG("load local config failed!");
+    }
+    else
+    {
+        Mutex lock(&cur_service_conf_mutex);
+        if (conf_message)
+            cur_service_conf->ParseFromIstream(&ifs);
+        ifs.close();
+    }
+
+    StartConnect();
+    return true;
+}
+
+bool ConfigClient::StartGetConf(const char* server_ip, int server_port,
     const char* local_ip, int local_port,
     google::protobuf::Message* conf_message, int timeout_sec)
 {
@@ -82,8 +125,9 @@ bool ConfigClient::StartGetConf(const char* server_ip, int server_port,
     /// 设置配置中心的IP和端口
     set_server_ip(server_ip);
     set_server_port(server_port);
-    StartConnect();
     SetCurServiceMessage(conf_message);
+
+    StartConnect();
 
     /// 存储本地微服务IP和端口
     if (local_ip)
@@ -103,6 +147,8 @@ bool ConfigClient::StartGetConf(const char* server_ip, int server_port,
 
 void ConfigClient::TimerCallback()
 {
+    if (ConfigTimerCB)
+        ConfigTimerCB();
     /// 定时发出获取配置请求
     if (local_port_ > 0 && local_port_ <= 65535)
         ConfigClient::GetInstance()->LoadConfigReq(local_ip_, local_port_);
@@ -168,19 +214,37 @@ void ConfigClient::LoadConfigRes(msg::MsgHead* head, Msg* msg)
     conf_map[key.str()] = config;
     conf_map_mutex.unlock();
 
-    /// 存储本地微服务的配置 
-    if (local_port_ > 0 && local_port_ <= 65535 && cur_service_conf)
+    /// 没有本地配置
+    if (local_port_ <= 0 || !cur_service_conf) return;
+    string ip = local_ip_;
+    if (ip.empty())
     {
-        stringstream local_key;
-        local_key << config.service_ip() << "_" << local_port_;
-        if (key.str() == local_key.str())
-        {
-            Mutex lock(&cur_service_conf_mutex);
-            if (cur_service_conf)
-                cur_service_conf->ParseFromString(config.private_pb());
-        }
-        LOGDEBUG("定时获取配置: " << cur_service_conf->DebugString().c_str());
+        ip = config.service_ip();
     }
+    stringstream local_key;
+    local_key << ip << "_" << local_port_;
+    if (key.str() != local_key.str()) return;
+
+    Mutex lock(&cur_service_conf_mutex);
+    if (!cur_service_conf->ParseFromString(config.private_pb()))
+    {
+        LOGDEBUG("local config ParseFromString failed!");
+        return;
+    }
+    /// LOGDEBUG("定时获取配置: " << cur_service_conf->DebugString().c_str());
+    /// 存储到本地文件
+    /// 文件名 [port]_conf.cache  20030_conf.cache
+    stringstream ss;
+    ss << local_port_ << "_conf.cache";
+    ofstream ofs;
+    ofs.open(ss.str(), ios::binary);
+    if (!ofs.is_open())
+    {
+        LOGDEBUG("save local config failed!");
+        return;
+    }
+    cur_service_conf->SerializePartialToOstream(&ofs);
+    ofs.close();
 }
 
 bool ConfigClient::GetConfig(const char* ip, int port, msg::Config* out_config,int timeout_ms)

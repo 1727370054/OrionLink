@@ -11,6 +11,7 @@ static mutex  service_map_mutex;
 
 void RegisterHandle::RegisterMsgCallback()
 {
+    RegisterCallback(MSG_HEART_REQ, (MsgCBFunc)&RegisterHandle::HeartRes);
     RegisterCallback(MSG_REGISTER_REQ, (MsgCBFunc) &RegisterHandle::RegisterReq);
     RegisterCallback(MSG_GET_SERVICE_REQ, (MsgCBFunc)&RegisterHandle::GetServiceReq);
 }

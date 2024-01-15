@@ -13,6 +13,12 @@ message MsgHead
 	int64 router_id = 5;	    /// 路由标识
 }
 
+/// 心跳
+message MsgHeart
+{
+	int64 count = 1;
+}
+
 /// 用户登陆请求 MSG_LOGIN_REQ
 message LoginReq
 {

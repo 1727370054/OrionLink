@@ -252,12 +252,17 @@ void RegisterClient::RegisterService(const char *service_name, const char *ip, i
 
     /// 设置自动重连
     set_auto_connect(true);
-    //SetTimer(3000);
+    /// 设置定时器，发送心跳
+    set_timer_ms(3000);
     /// 投递到线程池中，开始建立连接
     StartConnect();
 }
 
 void RegisterClient::TimerCallback()
 {
-
+    static long long count = 0;
+    count++;
+    msg::MsgHeart request;
+    request.set_count(count);
+    SendMsg(MSG_HEART_REQ, &request);
 }

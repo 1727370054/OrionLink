@@ -103,11 +103,18 @@ bool ComTask::InitBufferevent(int sock)
         }
     }
 
+    /// 设置读超时时间
     if (read_timeout_ms_ > 0)
     {
         timeval read_tv = { read_timeout_ms_ / 1000,
             (read_timeout_ms_ % 1000) * 1000};
         bufferevent_set_timeouts(bev_, &read_tv, 0);
+    }
+
+    /// 定时器的设定
+    if (timer_ms_ > 0)
+    {
+        SetTimer(timer_ms_);
     }
 
     /// 设置回调

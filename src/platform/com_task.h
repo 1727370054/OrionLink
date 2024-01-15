@@ -74,11 +74,6 @@ public:
     bool AutoConnect(int timeout_sec);
 
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief 设置定时器，只能设置一个定时器，定时调用TimerCallback回调(在Init函数调用)
-    /// @param ms 定时调用的毫秒
-    virtual void SetTimer(int ms);
-
-    ///////////////////////////////////////////////////////////////////////////
     /// @brief 定时器回调函数
     virtual void TimerCallback() {}
 
@@ -127,11 +122,23 @@ public:
     /// @brief 服务器设置读超时(需要在加入线程池之前设置)
     /// @param timeout_ms 超时时间(毫秒)
     void set_read_timeout_ms(int timeout_ms) { read_timeout_ms_ = timeout_ms; }
+
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 设置定时器，定时回调TimerCallback(需要在加入线程池之前设置)
+    /// @param timer_ms 定时回调时间
+    void set_timer_ms(int timer_ms) { timer_ms_ = timer_ms; }
 protected:
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 设置定时器，只能设置一个定时器，定时调用TimerCallback回调(在Init函数调用)
+    /// @param ms 定时调用的毫秒
+    virtual void SetTimer(int ms);
+
     /// 文件内容数据缓存区
     char read_buf_[4096];
     
 private:
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 初始化 bufferevent
     bool InitBufferevent(int sock);
 
     /// SSL通信的上下文
@@ -139,7 +146,11 @@ private:
 
     struct bufferevent *bev_ = nullptr;
 
+    /// 读超时时间
     int read_timeout_ms_ = 0;
+
+    /// 定时器调用TimerCallback的时间
+    int timer_ms_ = 0;
 
     /// 连接断开是否自动清理对象
     bool auto_delete_ = true;

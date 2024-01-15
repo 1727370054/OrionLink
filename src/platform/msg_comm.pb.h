@@ -52,7 +52,7 @@ struct TableStruct_msg_5fcomm_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[19]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[20]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -102,6 +102,9 @@ extern MessageResDefaultTypeInternal _MessageRes_default_instance_;
 class MsgHead;
 class MsgHeadDefaultTypeInternal;
 extern MsgHeadDefaultTypeInternal _MsgHead_default_instance_;
+class MsgHeart;
+class MsgHeartDefaultTypeInternal;
+extern MsgHeartDefaultTypeInternal _MsgHeart_default_instance_;
 class RegisterReq;
 class RegisterReqDefaultTypeInternal;
 extern RegisterReqDefaultTypeInternal _RegisterReq_default_instance_;
@@ -133,6 +136,7 @@ template<> ::msg::LoginReq* Arena::CreateMaybeMessage<::msg::LoginReq>(Arena*);
 template<> ::msg::LoginRes* Arena::CreateMaybeMessage<::msg::LoginRes>(Arena*);
 template<> ::msg::MessageRes* Arena::CreateMaybeMessage<::msg::MessageRes>(Arena*);
 template<> ::msg::MsgHead* Arena::CreateMaybeMessage<::msg::MsgHead>(Arena*);
+template<> ::msg::MsgHeart* Arena::CreateMaybeMessage<::msg::MsgHeart>(Arena*);
 template<> ::msg::RegisterReq* Arena::CreateMaybeMessage<::msg::RegisterReq>(Arena*);
 template<> ::msg::ServiceMap* Arena::CreateMaybeMessage<::msg::ServiceMap>(Arena*);
 template<> ::msg::ServiceMap_Service* Arena::CreateMaybeMessage<::msg::ServiceMap_Service>(Arena*);
@@ -424,6 +428,135 @@ class MsgHead :
 };
 // -------------------------------------------------------------------
 
+class MsgHeart :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:msg.MsgHeart) */ {
+ public:
+  MsgHeart();
+  virtual ~MsgHeart();
+
+  MsgHeart(const MsgHeart& from);
+  MsgHeart(MsgHeart&& from) noexcept
+    : MsgHeart() {
+    *this = ::std::move(from);
+  }
+
+  inline MsgHeart& operator=(const MsgHeart& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline MsgHeart& operator=(MsgHeart&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const MsgHeart& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const MsgHeart* internal_default_instance() {
+    return reinterpret_cast<const MsgHeart*>(
+               &_MsgHeart_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  friend void swap(MsgHeart& a, MsgHeart& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(MsgHeart* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline MsgHeart* New() const final {
+    return CreateMaybeMessage<MsgHeart>(nullptr);
+  }
+
+  MsgHeart* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<MsgHeart>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const MsgHeart& from);
+  void MergeFrom(const MsgHeart& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  #else
+  bool MergePartialFromCodedStream(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(MsgHeart* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "msg.MsgHeart";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_msg_5fcomm_2eproto);
+    return ::descriptor_table_msg_5fcomm_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kCountFieldNumber = 1,
+  };
+  // int64 count = 1;
+  void clear_count();
+  ::PROTOBUF_NAMESPACE_ID::int64 count() const;
+  void set_count(::PROTOBUF_NAMESPACE_ID::int64 value);
+
+  // @@protoc_insertion_point(class_scope:msg.MsgHeart)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::int64 count_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_msg_5fcomm_2eproto;
+};
+// -------------------------------------------------------------------
+
 class LoginReq :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:msg.LoginReq) */ {
  public:
@@ -466,7 +599,7 @@ class LoginReq :
                &_LoginReq_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    1;
+    2;
 
   friend void swap(LoginReq& a, LoginReq& b) {
     a.Swap(&b);
@@ -624,7 +757,7 @@ class LoginRes :
                &_LoginRes_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    3;
 
   friend void swap(LoginRes& a, LoginRes& b) {
     a.Swap(&b);
@@ -803,7 +936,7 @@ class DirReq :
                &_DirReq_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    4;
 
   friend void swap(DirReq& a, DirReq& b) {
     a.Swap(&b);
@@ -943,7 +1076,7 @@ class DirRes_Dir :
                &_DirRes_Dir_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    5;
 
   friend void swap(DirRes_Dir& a, DirRes_Dir& b) {
     a.Swap(&b);
@@ -1090,7 +1223,7 @@ class DirRes :
                &_DirRes_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    6;
 
   friend void swap(DirRes& a, DirRes& b) {
     a.Swap(&b);
@@ -1266,7 +1399,7 @@ class RegisterReq :
                &_RegisterReq_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    6;
+    7;
 
   friend void swap(RegisterReq& a, RegisterReq& b) {
     a.Swap(&b);
@@ -1431,7 +1564,7 @@ class MessageRes :
                &_MessageRes_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    8;
 
   friend void swap(MessageRes& a, MessageRes& b) {
     a.Swap(&b);
@@ -1608,7 +1741,7 @@ class ServiceMap_Service :
                &_ServiceMap_Service_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    9;
 
   friend void swap(ServiceMap_Service& a, ServiceMap_Service& b) {
     a.Swap(&b);
@@ -1773,7 +1906,7 @@ class ServiceMap_ServiceList :
                &_ServiceMap_ServiceList_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    10;
 
   friend void swap(ServiceMap_ServiceList& a, ServiceMap_ServiceList& b) {
     a.Swap(&b);
@@ -1890,7 +2023,7 @@ public:
   private:
   static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
     ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_msg_5fcomm_2eproto);
-    return ::descriptor_table_msg_5fcomm_2eproto.file_level_metadata[10];
+    return ::descriptor_table_msg_5fcomm_2eproto.file_level_metadata[11];
   }
 
   public:
@@ -1940,7 +2073,7 @@ class ServiceMap :
                &_ServiceMap_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    12;
 
   friend void swap(ServiceMap& a, ServiceMap& b) {
     a.Swap(&b);
@@ -2100,7 +2233,7 @@ class GetServiceReq :
                &_GetServiceReq_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    13;
 
   friend void swap(GetServiceReq& a, GetServiceReq& b) {
     a.Swap(&b);
@@ -2247,7 +2380,7 @@ class Config :
                &_Config_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    14;
 
   friend void swap(Config& a, Config& b) {
     a.Swap(&b);
@@ -2448,7 +2581,7 @@ class LoadConfigReq :
                &_LoadConfigReq_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    15;
 
   friend void swap(LoadConfigReq& a, LoadConfigReq& b) {
     a.Swap(&b);
@@ -2595,7 +2728,7 @@ class DirConfig :
                &_DirConfig_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    16;
 
   friend void swap(DirConfig& a, DirConfig& b) {
     a.Swap(&b);
@@ -2735,7 +2868,7 @@ class LoadAllConfigReq :
                &_LoadAllConfigReq_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    17;
 
   friend void swap(LoadAllConfigReq& a, LoadAllConfigReq& b) {
     a.Swap(&b);
@@ -2871,7 +3004,7 @@ class ConfigList :
                &_ConfigList_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    17;
+    18;
 
   friend void swap(ConfigList& a, ConfigList& b) {
     a.Swap(&b);
@@ -3006,7 +3139,7 @@ class GatewayConfig :
                &_GatewayConfig_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    18;
+    19;
 
   friend void swap(GatewayConfig& a, GatewayConfig& b) {
     a.Swap(&b);
@@ -3323,6 +3456,24 @@ inline void MsgHead::set_router_id(::PROTOBUF_NAMESPACE_ID::int64 value) {
   
   router_id_ = value;
   // @@protoc_insertion_point(field_set:msg.MsgHead.router_id)
+}
+
+// -------------------------------------------------------------------
+
+// MsgHeart
+
+// int64 count = 1;
+inline void MsgHeart::clear_count() {
+  count_ = PROTOBUF_LONGLONG(0);
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 MsgHeart::count() const {
+  // @@protoc_insertion_point(field_get:msg.MsgHeart.count)
+  return count_;
+}
+inline void MsgHeart::set_count(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  
+  count_ = value;
+  // @@protoc_insertion_point(field_set:msg.MsgHeart.count)
 }
 
 // -------------------------------------------------------------------
@@ -4953,6 +5104,8 @@ inline void GatewayConfig::set_server_port(::PROTOBUF_NAMESPACE_ID::int32 value)
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
