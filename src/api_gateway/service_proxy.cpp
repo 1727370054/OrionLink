@@ -1,4 +1,4 @@
-﻿#include "service_proxy.h"
+#include "service_proxy.h"
 #include "msg_comm.pb.h"
 #include "register_client.h"
 #include "tools.h"

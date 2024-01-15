@@ -1,4 +1,4 @@
-﻿#ifndef ORION_LINK_DATA_H
+#ifndef ORION_LINK_DATA_H
 #define ORION_LINK_DATA_H
 
 #include <map>

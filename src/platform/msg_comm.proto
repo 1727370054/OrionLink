@@ -1,4 +1,4 @@
-﻿syntax = "proto3";	// 版本号
+syntax = "proto3";	// 版本号
 package msg;		// 命名空间
 
 import "msg_type.proto";

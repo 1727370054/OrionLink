@@ -1,4 +1,4 @@
-﻿#include "ssl_ctx.h"
+#include "ssl_ctx.h"
 #include "tools.h"
 
 #include <iostream>

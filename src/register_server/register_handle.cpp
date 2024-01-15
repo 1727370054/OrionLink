@@ -1,4 +1,4 @@
-﻿#include "register_handle.h"
+#include "register_handle.h"
 #include "msg_comm.pb.h"
 #include "tools.h"
 

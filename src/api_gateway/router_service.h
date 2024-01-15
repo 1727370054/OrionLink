@@ -1,4 +1,4 @@
-﻿#ifndef ROUTER_SERVICE_H
+#ifndef ROUTER_SERVICE_H
 #define ROUTER_SERVICE_H
 
 #include "service.h"

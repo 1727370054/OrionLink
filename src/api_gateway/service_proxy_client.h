@@ -1,4 +1,4 @@
-﻿#ifndef SERVICE_PROXY_CLIENT_H
+#ifndef SERVICE_PROXY_CLIENT_H
 #define SERVICE_PROXY_CLIENT_H
 
 #include "service_client.h"

@@ -1,4 +1,4 @@
-﻿#include "orion_link_data.h"
+#include "orion_link_data.h"
 
 #include <cstring>
 #include <fstream>

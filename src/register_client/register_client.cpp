@@ -1,4 +1,4 @@
-﻿#include "register_client.h"
+#include "register_client.h"
 #include "msg_comm.pb.h"
 #include "tools.h"
 

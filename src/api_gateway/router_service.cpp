@@ -1,4 +1,4 @@
-﻿#include "router_service.h"
+#include "router_service.h"
 #include "router_handle.h"
 #include "register_client.h"
 #include "config_client.h"

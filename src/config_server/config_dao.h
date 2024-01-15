@@ -1,4 +1,4 @@
-﻿#ifndef CONFIG_DAO_H
+#ifndef CONFIG_DAO_H
 #define CONFIG_DAO_H
 
 #include "msg_comm.pb.h"

@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 
 #include "config_client.h"
 #include "register_client.h"

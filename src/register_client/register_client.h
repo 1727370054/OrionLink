@@ -1,4 +1,4 @@
-﻿#ifndef REGISTER_CLIENT_H
+#ifndef REGISTER_CLIENT_H
 #define REGISTER_CLIENT_H
 
 #include "service_client.h"

@@ -1,4 +1,4 @@
-﻿#include "msg_event.h"
+#include "msg_event.h"
 #include "tools.h"
 
 #include <string>

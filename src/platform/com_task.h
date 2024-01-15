@@ -1,4 +1,4 @@
-﻿#ifndef COM_TASH_H
+#ifndef COM_TASH_H
 #define COM_TASH_H
 
 #include "task.h"

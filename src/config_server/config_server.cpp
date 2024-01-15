@@ -1,4 +1,4 @@
-﻿#include "config_server.h"
+#include "config_server.h"
 #include "config_handle.h"
 #include "register_client.h"
 #include "tools.h"

@@ -1,4 +1,4 @@
-﻿#ifndef ORION_LINK_DB_H
+#ifndef ORION_LINK_DB_H
 #define ORION_LINK_DB_H
 
 #include "orion_link_data.h"

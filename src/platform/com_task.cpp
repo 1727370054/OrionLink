@@ -1,4 +1,4 @@
-﻿#include "com_task.h"
+#include "com_task.h"
 #include "ssl_ctx.h"
 #include "tools.h"
 

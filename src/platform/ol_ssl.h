@@ -1,4 +1,4 @@
-﻿#ifndef OL_SSL_H
+#ifndef OL_SSL_H
 #define OL_SSL_H
 
 #ifdef _WIN32

@@ -1,4 +1,4 @@
-﻿#ifndef REGISTER_HANDLE_H
+#ifndef REGISTER_HANDLE_H
 #define REGISTER_HANDLE_H
 
 #include "service_handle.h"

@@ -1,4 +1,4 @@
-﻿#ifndef CONFIG_SERVER_H
+#ifndef CONFIG_SERVER_H
 #define CONFIG_SERVER_H
 
 #include "service.h"

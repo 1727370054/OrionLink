@@ -1,4 +1,4 @@
-﻿#include "register_server.h"
+#include "register_server.h"
 #include "register_handle.h"
 #include "thread_pool.h"
 #include "tools.h"

@@ -1,4 +1,4 @@
-﻿#include "ol_ssl.h"
+#include "ol_ssl.h"
 #include "tools.h"
 
 #include <openssl/ssl.h>

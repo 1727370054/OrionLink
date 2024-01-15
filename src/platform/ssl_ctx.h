@@ -1,4 +1,4 @@
-﻿#ifndef SSL_CTX_H
+#ifndef SSL_CTX_H
 #define SSL_CTX_H
 
 #include "ol_ssl.h"

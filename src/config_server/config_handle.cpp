@@ -1,4 +1,4 @@
-﻿#include "config_handle.h"
+#include "config_handle.h"
 #include "msg_comm.pb.h"
 #include "config_dao.h"
 #include "tools.h"

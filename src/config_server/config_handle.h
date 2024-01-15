@@ -1,4 +1,4 @@
-﻿#ifndef CONFIG_HANDLE_H
+#ifndef CONFIG_HANDLE_H
 #define CONFIG_HANDLE_H
 
 #include "service_handle.h"

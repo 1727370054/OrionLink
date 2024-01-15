@@ -1,4 +1,4 @@
-﻿#include "service.h"
+#include "service.h"
 #include "tools.h"
 
 #include <event2/listener.h>

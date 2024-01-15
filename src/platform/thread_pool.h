@@ -1,4 +1,4 @@
-﻿#ifndef THREAD_POOL_H
+#ifndef THREAD_POOL_H
 #define THREAD_POOL_H
 
 #ifdef _WIN32

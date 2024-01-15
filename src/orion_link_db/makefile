@@ -13,6 +13,9 @@ install:
 	cp $(TARGET) $(INSTALL_PATH)
 	@echo $(exist) "check include ..."
 	cp *.h $(INCLUDE_PATH)
-	@echo "install libLXMysql.so success!"
+	@echo "install liboldb.so success!"
+uninstall:
+	rm -rf *.o $(TARGET)
+	rm -rf $(INSTALL_PATH)$(TARGET)
 clean:
 	rm -rf *.o $(TARGET)

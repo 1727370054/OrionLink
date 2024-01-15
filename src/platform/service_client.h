@@ -1,4 +1,4 @@
-﻿#ifndef SERVICE_CLIENT_H
+#ifndef SERVICE_CLIENT_H
 #define SERVICE_CLIENT_H
 
 #include "msg_event.h"

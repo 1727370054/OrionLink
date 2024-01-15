@@ -1,4 +1,4 @@
-﻿#ifndef REGISTER_SERVER_H
+#ifndef REGISTER_SERVER_H
 #define REGISTER_SERVER_H
 
 #include "service.h"

@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 
 #include "tools.h"
 #include "router_service.h"

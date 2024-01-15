@@ -1,4 +1,4 @@
-﻿#ifndef CONFIG_CLIENT_H
+#ifndef CONFIG_CLIENT_H
 #define CONFIG_CLIENT_H
 
 #include "service_client.h"

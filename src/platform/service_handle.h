@@ -1,4 +1,4 @@
-﻿#ifndef SERVICE_HANDLE_H
+#ifndef SERVICE_HANDLE_H
 #define SERVICE_HANDLE_H
 
 #include "msg_event.h"

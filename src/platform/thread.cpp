@@ -1,4 +1,4 @@
-﻿#include "thread.h"
+#include "thread.h"
 #include "task.h"
 #include "tools.h"
 
