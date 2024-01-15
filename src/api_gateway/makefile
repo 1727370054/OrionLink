@@ -5,9 +5,9 @@ OBJS_CC=$(patsubst %.cc,%.o,$(SRC_CC))
 OBJS=$(OBJS_CPP) $(OBJS_CC)
 INCLUDE_PATH=/usr/include/orion_link 
 
-TARGET=register_server
-CPPFLAGS= -I$(INCLUDE_PATH)
-LIBS=-levent -lpthread -lplatform -lprotobuf -lssl 
+TARGET=api_gateway
+CPPFLAGS= -I$(INCLUDE_PATH) 
+LIBS=-levent -lpthread -lplatform -lprotobuf -lssl -lregister_client -lconfig_client
 INSTALL_PATH=/usr/bin/
 
 WATCH=watch_$(TARGET)

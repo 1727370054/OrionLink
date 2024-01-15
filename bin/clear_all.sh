@@ -7,14 +7,17 @@ make uninstall
 cd ../orion_link_db
 make uninstall
 
+cd ../api_gateway
+make uninstall
+
 cd ../register_server
 make uninstall
 
 cd ../register_client
-make clean
+make uninstall
 
 cd ../config_server
 make uninstall
 
 cd ../config_client
-make clean
+make uninstall

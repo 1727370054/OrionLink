@@ -2,11 +2,12 @@ SRC_CPP=$(wildcard *.cpp)
 SRC_CC=$(wildcard *.cc)
 OBJS_CPP=$(patsubst %.cpp,%.o,$(SRC_CPP))
 OBJS_CC=$(patsubst %.cc,%.o,$(SRC_CC))
-OBJS=$(OBJS_CPP) $(OBJS_CC) ../register_client/register_client.o 
+OBJS=$(OBJS_CPP) $(OBJS_CC)
+INCLUDE_PATH=/usr/include/orion_link 
 
 TARGET=config_server
-CPPFLAGS= -I../platform -I../register_client -I../orion_link_db
-LIBS=-levent -lpthread -lplatform -lprotobuf -lssl -loldb
+CPPFLAGS= -I$(INCLUDE_PATH)
+LIBS=-levent -lpthread -lplatform -lprotobuf -lssl -loldb -lregister_client
 INSTALL_PATH=/usr/bin/
 
 WATCH=watch_$(TARGET)

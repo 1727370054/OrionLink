@@ -6,8 +6,10 @@ OBJS=$(OBJS_CPP) $(OBJS_CC)
 
 TARGET=libplatform.so
 CPPFLAGS= -fPIC
-LIBS=-levent -lpthread -levent_openssl
+LIBS=-levent -lpthread -levent_openssl -lssl 
 INSTALL_PATH=/usr/lib/
+INCLUDE_PATH=/usr/include/orion_link 
+exist = $(shell if [ ! -d $(INCLUDE_PATH) ]; then mkdir $(INCLUDE_PATH); fi;)
 
 $(TARGET):$(OBJS)
 	g++ -shared $^ -o $@ $(LIBS)
@@ -18,6 +20,7 @@ proto:
 install:$(TARGET) $(OBJS)
 	@echo "begin install in "$(INSTALL_PATH)
 	@cp *.so $(INSTALL_PATH)
+	cp *.h $(INCLUDE_PATH)
 	@echo "install success!"
 uninstall:
 	rm -rf *.o $(TARGET)

@@ -2,17 +2,20 @@ SRC_CPP=$(wildcard *.cpp)
 SRC_CC=$(wildcard *.cc)
 OBJS_CPP=$(patsubst %.cpp,%.o,$(SRC_CPP))
 OBJS_CC=$(patsubst %.cc,%.o,$(SRC_CC))
-OBJS=$(OBJS_CPP) $(OBJS_CC) ../register_client/register_client.o 
+OBJS=$(OBJS_CPP) $(OBJS_CC)
+INCLUDE_PATH=/usr/include/orion_link 
+exist = $(shell if [ ! -d $(INCLUDE_PATH) ]; then mkdir $(INCLUDE_PATH); fi;)
 
-TARGET=config_client
-CPPFLAGS= -I../platform -I../register_client
-LIBS=-levent -lpthread -lplatform -lprotobuf -lssl 
-INSTALL_PATH=/usr/bin/
+TARGET=libconfig_client.so 
+CPPFLAGS= -fPIC -I$(INCLUDE_PATH)
+LIBS=-levent -lpthread -lplatform -lprotobuf -lssl -lregister_client 
+INSTALL_PATH=/usr/lib/
 
 $(TARGET):$(OBJS)
-	g++ $^ -o $@ $(LIBS)
+	g++ -shared $^ -o $@ $(LIBS)
 install:
 	cp $(TARGET) $(INSTALL_PATH)
+	cp *.h $(INCLUDE_PATH)
 uninstall:
 	rm -rf *.o $(TARGET)
 	rm -rf $(INSTALL_PATH)$(TARGET)
