@@ -115,12 +115,11 @@ void RegisterHandle::RegisterReq(msg::MsgHead* head, Msg* msg)
 
 void RegisterHandle::GetServiceReq(msg::MsgHead* head, Msg* msg)
 {
-    /// 暂时只发送全部
     msg::GetServiceReq request;
 
     /// 错误处理
-    ServiceMap response;
-    response.mutable_response()->set_return_(MessageRes::ERROR);
+    msg::ServiceMap response;
+    response.mutable_response()->set_return_(msg::MessageRes::ERROR);
     if (!request.ParseFromArray(msg->data, msg->size))
     {
         string error = "Failed to resolve the service discovery request";
@@ -129,14 +128,33 @@ void RegisterHandle::GetServiceReq(msg::MsgHead* head, Msg* msg)
         SendMsg(MSG_GET_SERVICE_RES, &response);
         return;
     }
+    
     stringstream ss;
     string service_name = request.name();
     ss << "获取到发现服务请求 service name: " << service_name;
     LOGDEBUG(ss.str().c_str());
+    msg::ServiceMap* send_map = &response;
 
     /// 发送所有微服务数据
     service_map_mutex.lock();
-    service_map->mutable_response()->set_return_(MessageRes::OK);
-    SendMsg(MSG_GET_SERVICE_RES, service_map);
+    if (!service_map) service_map = new ServiceMap();
+
+    /// 返回全部
+    if (request.type() == ServiceType::ALL)
+    {
+        send_map = service_map;
+    }
+    else
+    {
+        auto smap = service_map->mutable_service_map();
+        if (smap && smap->find(service_name) != smap->end())
+        {
+            (*send_map->mutable_service_map())[service_name] = (*smap)[service_name];
+        }
+    }
     service_map_mutex.unlock();
+
+    send_map->set_type(request.type());
+    send_map->mutable_response()->set_return_(msg::MessageRes::OK);
+    SendMsg(MSG_GET_SERVICE_RES, send_map);
 }

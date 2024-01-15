@@ -77,6 +77,12 @@ message MessageRes
 	bytes desc = 2;				/// 响应描述
 }
 
+enum ServiceType
+{
+	ONE = 0;				/// 只取一类服务
+	ALL = 1;				/// 获取所有服务
+}
+
 /// 微服务列表
 message ServiceMap
 {
@@ -92,18 +98,15 @@ message ServiceMap
 	}
 	map<string, ServiceList> service_map = 1;
 	MessageRes response = 2;
+
+	ServiceType type = 3;
 }
 
 /// 发现服务请求 MSG_GET_SERVICE_REQ
 message GetServiceReq
 {
 	string name = 1;			/// 服务名称
-	enum Type
-	{
-		ONE = 0;				/// 只取一类服务
-		ALL = 1;				/// 获取所有服务
-	}
-	Type type = 2;
+	ServiceType type = 2;
 }
 
 /// 存储配置内容

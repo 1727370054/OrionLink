@@ -22,5 +22,6 @@ enum MsgType
 	MSG_DEL_CONFIG_REQ = 15;		/// 删除配置的请求 LoadConfigReq
 	MSG_DEL_CONFIG_RES = 16;		/// 删除配置的响应 MessageRes
 
+	MSG_HEART_REQ = 65534;			//心跳
 	MSG_MAX_TYPE  = 65535;
 }

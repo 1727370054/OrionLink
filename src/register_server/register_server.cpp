@@ -14,6 +14,9 @@ void RegisterServer::main(int argc, char* argv[])
 
 ServiceHandle* RegisterServer::CreateServiceHandle()
 {
-    return new RegisterHandle();
+    auto handle = new RegisterHandle();
+    /// 设置超时时间用于接收心跳包
+    handle->set_read_timeout_ms(5000);
+    return handle;
 }
 

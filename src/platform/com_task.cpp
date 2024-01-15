@@ -103,12 +103,16 @@ bool ComTask::InitBufferevent(int sock)
         }
     }
 
+    if (read_timeout_ms_ > 0)
+    {
+        timeval read_tv = { read_timeout_ms_ / 1000,
+            (read_timeout_ms_ % 1000) * 1000};
+        bufferevent_set_timeouts(bev_, &read_tv, 0);
+    }
+
     /// 设置回调
     bufferevent_setcb(bev_, SReadCallback, SWriteCallback, SEventCallback, this);
     bufferevent_enable(bev_, EV_READ | EV_WRITE);
-
-    // timeval tl = { 10, 0 };
-    // bufferevent_set_timeouts(bev_, &tl, &tl);
 
     return true;
 }
@@ -254,14 +258,19 @@ void ComTask::EventCallback(short what)
     }
 
     /// 退出要处理缓冲问题
-    if (what & BEV_EVENT_ERROR || what & BEV_EVENT_TIMEOUT)
+    if (what & BEV_EVENT_ERROR)
     {
-        LOGERROR("BEV_EVENT_ERROR or BEV_EVENT_TIMEOUT");
+        LOGDEBUG("BEV_EVENT_ERROR");
+        Close();
+    }
+    if (what & BEV_EVENT_TIMEOUT)
+    {
+        LOGDEBUG("BEV_EVENT_TIMEOUT");
         Close();
     }
     if (what & BEV_EVENT_EOF)
     {
-        LOGERROR("BEV_EVENT_EOF");
+        LOGDEBUG("BEV_EVENT_EOF");
         Close();
     }
 }

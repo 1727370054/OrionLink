@@ -65,11 +65,17 @@ public:
     /// @brief 注册消息处理的回调函数
     static void RegisterMsgCallback();
 
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 定时器回调函数，用于发送心跳
+    virtual void TimerCallback() override;
 private:
     RegisterClient();
     RegisterClient(const RegisterClient &) = delete;
     RegisterClient &operator=(const RegisterClient &) = delete;
 
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 读取本地缓存(线程不安全，需要在外部加锁保证内部service_map线程安全)
+    bool LoadLocalCache();
 private:
     char service_name_[32] = {0};
     char service_ip_[16] = {0};

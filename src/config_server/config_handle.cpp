@@ -27,6 +27,8 @@ void ConfigHandle::SaveConfig(msg::MsgHead* head, Msg* msg)
         SendMsg(MSG_SAVE_CONFIG_RES, &response);
         return;
     }
+    if (config.service_ip().empty())
+        config.set_service_ip(this->client_ip());
     if (!ConfigDao::GetInstance()->SaveConfig(&config))
     {
         LOGDEBUG("ConfigHandle::SaveConfig failed! save error");

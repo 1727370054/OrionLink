@@ -1,4 +1,4 @@
-﻿#include "config_client.h"
+#include "config_client.h"
 #include "msg_comm.pb.h"
 #include "tools.h"
 
@@ -95,6 +95,7 @@ bool ConfigClient::StartGetConf(const char* server_ip, int server_port,
         LOGDEBUG("配置中心连接失败");
         return false;
     }
+    
     /// 开启定时器, 设置获取配置定时时间3000毫秒
     SetTimer(3000);
     return true;
@@ -182,21 +183,30 @@ void ConfigClient::LoadConfigRes(msg::MsgHead* head, Msg* msg)
     }
 }
 
-bool ConfigClient::GetConfig(const char* ip, int port, msg::Config* out_config)
+bool ConfigClient::GetConfig(const char* ip, int port, msg::Config* out_config,int timeout_ms)
 {
+    /// 10毫秒监听一次
+    int count = timeout_ms / 10;
     stringstream key;
     key << ip << "_" << port;
-    Mutex lock(&conf_map_mutex);
+    
     /// 查找配置
-    auto config = conf_map.find(key.str());
-    if (config == conf_map.end())
+    for (int i = 0; i < count; i++)
     {
-        LOGDEBUG("Can`t find config");
-        return false;
+        Mutex lock(&conf_map_mutex);
+        auto config = conf_map.find(key.str());
+        if (config == conf_map.end())
+        {
+            this_thread::sleep_for(10ms);
+            continue;
+        }
+        /// 复制配置
+        out_config->CopyFrom(config->second);
+        return true;
     }
-    /// 复制配置
-    out_config->CopyFrom(config->second);
-    return true;
+
+    LOGDEBUG("Can`t find config");
+    return false;
 }
 
 msg::ConfigList ConfigClient::GetAllConfig(int page, int page_count, int timeout_sec)

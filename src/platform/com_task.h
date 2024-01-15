@@ -123,10 +123,14 @@ public:
             auto_delete_ = false;
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 服务器设置读超时(需要在加入线程池之前设置)
+    /// @param timeout_ms 超时时间(毫秒)
+    void set_read_timeout_ms(int timeout_ms) { read_timeout_ms_ = timeout_ms; }
 protected:
     /// 文件内容数据缓存区
     char read_buf_[4096];
-
+    
 private:
     bool InitBufferevent(int sock);
 
@@ -134,6 +138,8 @@ private:
     SSLCtx *ssl_ctx_ = nullptr;
 
     struct bufferevent *bev_ = nullptr;
+
+    int read_timeout_ms_ = 0;
 
     /// 连接断开是否自动清理对象
     bool auto_delete_ = true;

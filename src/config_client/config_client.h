@@ -1,4 +1,4 @@
-﻿#ifndef CONFIG_CLIENT_H
+#ifndef CONFIG_CLIENT_H
 #define CONFIG_CLIENT_H
 
 #include "service_client.h"
@@ -94,9 +94,10 @@ public:
     /// @param ip 微服务IP
     /// @param port 微服务端口
     /// @param out_config 存在该配置项，拷贝返回，输出型参数
+    /// @param timeout_ms 超时时间(毫秒)
     /// @return 存在返回true，不存在返回false
     ///////////////////////////////////////////////////////////////////////////
-    bool GetConfig(const char* ip, int port, msg::Config* out_config);
+    bool GetConfig(const char* ip, int port, msg::Config* out_config, int timeout_ms = 200);
 
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 发送下载全部配置请求(分页) 1.断开连接自动重连 2.等待结果返回

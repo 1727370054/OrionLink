@@ -78,6 +78,12 @@ bool ConfigDao::SaveConfig(const msg::Config* config)
         LOGERROR("save config failed! mysql not init");
         return false;
     }
+    if (!config || config->service_ip().empty())
+    {
+        LOGERROR("save config failed! config is null or service ip empty");
+        return false;
+    }
+
     string table_name = CONFIG_TABLE;
     KVData data; 
     string service_ip = config->service_ip();
