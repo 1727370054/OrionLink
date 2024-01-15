@@ -1,9 +1,10 @@
-#ifndef CONFIG_DAO_H
+﻿#ifndef CONFIG_DAO_H
 #define CONFIG_DAO_H
 
 #include "msg_comm.pb.h"
 
-namespace ol {
+namespace ol
+{
     class OrionLinkDB;
 }
 
@@ -12,7 +13,7 @@ class ConfigDao
 public:
     virtual ~ConfigDao();
 
-    static ConfigDao* GetInstance()
+    static ConfigDao *GetInstance()
     {
         static ConfigDao config_dao;
         return &config_dao;
@@ -27,8 +28,8 @@ public:
     /// @param port 端口号
     /// @return 连接是否成功
     ///////////////////////////////////////////////////////////////////////////
-    bool Init(const char* host, const char* user, const char* password,
-        const char* db, unsigned short port = 3306);
+    bool Init(const char *host, const char *user, const char *password,
+              const char *db, unsigned short port = 3306);
 
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 安装数据库的表
@@ -41,10 +42,10 @@ public:
     /// @param config 结构化配置信息
     /// @return 保存是否成功
     ///////////////////////////////////////////////////////////////////////////
-    bool SaveConfig(const msg::Config * config);
+    bool SaveConfig(const msg::Config *config);
 
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief 读取配置(微服务获取自己的配置项)
+    /// @brief 读取配置(微服务获取自己的配置项) proto序列化存储在private_pb字段
     /// @param ip 微服务IP
     /// @param port 微服务端口
     /// @return 返回配置信息
@@ -63,15 +64,16 @@ public:
     /// @brief 删除配置(通过ip和端口来删除配置项)
     /// @param ip 微服务IP
     /// @param port 微服务端口
-    bool DeleteConfig(const char* ip, int port);
+    bool DeleteConfig(const char *ip, int port);
+
 private:
     ConfigDao();
     ConfigDao(const ConfigDao &) = delete;
-    ConfigDao& operator=(const ConfigDao&) = delete;
+    ConfigDao &operator=(const ConfigDao &) = delete;
+
 private:
     /// MYSQL 数据库上下文
-    ol::OrionLinkDB* oldb_ = nullptr;
+    ol::OrionLinkDB *oldb_ = nullptr;
 };
 
 #endif // CONFIG_DAO_H
-

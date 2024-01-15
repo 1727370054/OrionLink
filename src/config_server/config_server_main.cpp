@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 
 #include "tools.h"
 #include "config_dao.h"
@@ -8,7 +8,7 @@
 using namespace std;
 using namespace msg;
 
-static void Usage(const char* arg)
+static void Usage(const char *arg)
 {
 	stringstream ss;
 	ss << arg << " <register_ip> <register_port> <config_port>";
@@ -18,7 +18,7 @@ static void Usage(const char* arg)
 int main(int argc, char *argv[])
 {
 	Usage(argv[0]);
-	if (!ConfigDao::GetInstance()->Init("127.0.0.1", "root", "HWK5326282003@mysql", "orion_link", 3306))
+	if (!ConfigDao::GetInstance()->Init("localhost", "root", "HWK5326282003@mysql", "orion_link", 3306))
 	{
 		return -1;
 	}
@@ -54,4 +54,3 @@ int main(int argc, char *argv[])
 #endif
 	return 0;
 }
-

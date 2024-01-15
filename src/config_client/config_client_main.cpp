@@ -1,4 +1,5 @@
-#include <iostream>
+﻿#include <iostream>
+#include <thread>
 
 #include "config_client.h"
 #include "register_client.h"
@@ -21,9 +22,11 @@ void ConfigTimer()
 		/// 从注册中心获取配置中心的IP的端口
 		auto confs = REG->GetServices(CONFIG_NAME, 2);
 		cout << confs.DebugString() << endl;
-		if (confs.service_size() <= 0) return;
+		if (confs.service_size() <= 0)
+			return;
 		auto conf = confs.service()[0];
-		if (conf.ip().empty() || conf.port() <= 0) return;
+		if (conf.ip().empty() || conf.port() <= 0)
+			return;
 
 		conf_ip = conf.ip();
 		conf_port = conf.port();
@@ -33,7 +36,7 @@ void ConfigTimer()
 	}
 }
 
-int main(int argc, char *argv)
+int main(int argc, char *argv[])
 {
 	int client_port = 4000;
 	/// 向注册中心注册ip和端口
@@ -60,6 +63,7 @@ int main(int argc, char *argv)
 	ref->SetString(message, field, "/root/test/");
 	cout << message->GetDescriptor()->DebugString() << endl;
 
+	this_thread::sleep_for(2s);
 	msg::Config save_conf;
 	save_conf.set_service_name("test_config");
 	save_conf.set_service_port(client_port);
@@ -114,4 +118,3 @@ int main(int argc, char *argv)
 	ConfigClient::GetInstance()->Wait();
 	return 0;
 }
-

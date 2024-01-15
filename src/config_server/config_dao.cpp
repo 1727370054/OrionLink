@@ -1,4 +1,4 @@
-#include "config_dao.h"
+﻿#include "config_dao.h"
 #include "orion_link_db.h"
 #include "tools.h"
 
@@ -14,8 +14,8 @@ using namespace msg;
 
 static mutex oldb_mutex;
 
-bool ConfigDao::Init(const char* host, const char* user, const char* password, 
-    const char* db, unsigned short port)
+bool ConfigDao::Init(const char *host, const char *user, const char *password,
+                     const char *db, unsigned short port)
 {
     Mutex lock(&oldb_mutex);
     if (!oldb_)
@@ -49,17 +49,14 @@ bool ConfigDao::Install()
         return false;
     }
     string sql = "";
-    sql = "CREATE TABLE IF NOT EXISTS `ol_service_config` (                         \
-        `id` INT(11) NOT NULL AUTO_INCREMENT,                                       \
-        `service_name` VARCHAR(64) COLLATE utf8_bin NOT NULL,                       \                                           \
-        `service_ip` VARCHAR(16) COLLATE utf8_bin NOT NULL,                         \
-        `service_port` INT(11) NOT NULL,                                            \
-        `private_pb` VARCHAR(4096) CHARACTER                                        \
-        SET utf8 COLLATE utf8_bin DEFAULT '',                                       \
-        `protocol` VARCHAR(4096) CHARACTER                                          \
-        SET utf8 COLLATE utf8_bin DEFAULT '',                                       \
-        PRIMARY KEY(`id`)                                                           \
-        ) ENGINE = INNODB DEFAULT CHARSET = utf8 COLLATE = utf8_bin; ";
+    sql = "CREATE TABLE IF NOT EXISTS `ol_service_config` ( \
+        `id` INT AUTO_INCREMENT,                            \
+        `service_name` VARCHAR(16) ,                        \
+        `service_ip` VARCHAR(16) ,                          \
+        `service_port` INT ,                                \
+        `private_pb` BLOB ,                                 \
+        `protocol` VARCHAR(4096) ,                          \
+        PRIMARY KEY(`id`));";
 
     if (!oldb_->Query(sql.c_str(), sql.size()))
     {
@@ -70,7 +67,7 @@ bool ConfigDao::Install()
     return true;
 }
 
-bool ConfigDao::SaveConfig(const msg::Config* config)
+bool ConfigDao::SaveConfig(const msg::Config *config)
 {
     Mutex lock(&oldb_mutex);
     if (!oldb_)
@@ -85,7 +82,7 @@ bool ConfigDao::SaveConfig(const msg::Config* config)
     }
 
     string table_name = CONFIG_TABLE;
-    KVData data; 
+    KVData data;
     string service_ip = config->service_ip();
     int service_port = config->service_port();
     data["service_name"] = OLData(config->service_name().c_str());
@@ -119,7 +116,7 @@ bool ConfigDao::SaveConfig(const msg::Config* config)
         return false;
     }
 
-    bool ret = oldb_->InsertBin(data,table_name);
+    bool ret = oldb_->InsertBin(data, table_name);
     if (ret)
         LOGDEBUG("配置插入成功!");
     else
@@ -127,7 +124,7 @@ bool ConfigDao::SaveConfig(const msg::Config* config)
     return ret;
 }
 
-msg::Config ConfigDao::LoadConfig(const char* ip, int port)
+msg::Config ConfigDao::LoadConfig(const char *ip, int port)
 {
     Config config;
     Mutex lock(&oldb_mutex);
@@ -188,7 +185,7 @@ msg::ConfigList ConfigDao::LoadAllConfig(int page, int page_count)
     ss << " limit " << (page - 1) * page_count << ", " << page_count;
     auto rows = oldb_->GetResult(ss.str().c_str());
     /// 遍历结果集插入到proto中
-    for (const auto& row : rows)
+    for (const auto &row : rows)
     {
         auto conf = config_list.add_configs();
         conf->set_service_name(row[0].data);
@@ -199,7 +196,7 @@ msg::ConfigList ConfigDao::LoadAllConfig(int page, int page_count)
     return config_list;
 }
 
-bool ConfigDao::DeleteConfig(const char* ip, int port)
+bool ConfigDao::DeleteConfig(const char *ip, int port)
 {
     Mutex lock(&oldb_mutex);
     if (!oldb_)

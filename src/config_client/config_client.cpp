@@ -1,8 +1,9 @@
-#include "config_client.h"
+﻿#include "config_client.h"
 #include "msg_comm.pb.h"
 #include "tools.h"
 
 #include <map>
+#include <thread>
 #include <fstream>
 #include <google/protobuf/compiler/importer.h>
 #include <google/protobuf/dynamic_message.h>
@@ -18,11 +19,11 @@ static map<string, Config> conf_map;
 static mutex conf_map_mutex;
 
 /// 存储当前微服务配置
-static google::protobuf::Message* cur_service_conf = nullptr;
+static google::protobuf::Message *cur_service_conf = nullptr;
 static mutex cur_service_conf_mutex;
 
 /// 存储获取的全部微服务配置列表
-static ConfigList* all_config = nullptr;
+static ConfigList *all_config = nullptr;
 static mutex all_config_mutex;
 
 void ConfigClient::RegisterMsgCallback()
@@ -33,43 +34,49 @@ void ConfigClient::RegisterMsgCallback()
     RegisterCallback(MSG_DEL_CONFIG_RES, (MsgCBFunc)&ConfigClient::DeleteConfigRes);
 }
 
-int ConfigClient::GetInt(const char* key)
+int ConfigClient::GetInt(const char *key)
 {
     Mutex lock(&cur_service_conf_mutex);
-    if (!key || !cur_service_conf) return 0;
+    if (!key || !cur_service_conf)
+        return 0;
     /// 获取描述对象->获取字段
     auto field = cur_service_conf->GetDescriptor()->FindFieldByName(key);
-    if (!field) return 0;
+    if (!field)
+        return 0;
 
     /// 通过反射对象获取字段信息
     return cur_service_conf->GetReflection()->GetInt32(*cur_service_conf, field);
 }
 
-std::string ConfigClient::GetString(const char* key)
+std::string ConfigClient::GetString(const char *key)
 {
     Mutex lock(&cur_service_conf_mutex);
-    if (!key || !cur_service_conf) return "";
+    if (!key || !cur_service_conf)
+        return "";
     /// 获取描述对象->获取字段
     auto field = cur_service_conf->GetDescriptor()->FindFieldByName(key);
-    if (!field) return "";
+    if (!field)
+        return "";
 
     /// 通过反射对象获取字段信息
     return cur_service_conf->GetReflection()->GetString(*cur_service_conf, field);
 }
 
-bool ConfigClient::GetBool(const char* key)
+bool ConfigClient::GetBool(const char *key)
 {
     Mutex lock(&cur_service_conf_mutex);
-    if (!key || !cur_service_conf) return false;
+    if (!key || !cur_service_conf)
+        return false;
     /// 获取描述对象->获取字段
     auto field = cur_service_conf->GetDescriptor()->FindFieldByName(key);
-    if (!field) return false;
+    if (!field)
+        return false;
 
     /// 通过反射对象获取字段信息
     return cur_service_conf->GetReflection()->GetBool(*cur_service_conf, field);
 }
 
-void ConfigClient::SetCurServiceMessage(google::protobuf::Message* message)
+void ConfigClient::SetCurServiceMessage(google::protobuf::Message *message)
 {
     Mutex lock(&cur_service_conf_mutex);
     cur_service_conf = message;
@@ -83,8 +90,8 @@ bool ConfigClient::Init()
     return true;
 }
 
-bool ConfigClient::StartGetConf(const char* local_ip, int local_port,
-    google::protobuf::Message* conf_message, ConfigTimerCBFunc func)
+bool ConfigClient::StartGetConf(const char *local_ip, int local_port,
+                                google::protobuf::Message *conf_message, ConfigTimerCBFunc func)
 {
     RegisterMsgCallback();
     SetCurServiceMessage(conf_message);
@@ -117,9 +124,9 @@ bool ConfigClient::StartGetConf(const char* local_ip, int local_port,
     return true;
 }
 
-bool ConfigClient::StartGetConf(const char* server_ip, int server_port,
-    const char* local_ip, int local_port,
-    google::protobuf::Message* conf_message, int timeout_sec)
+bool ConfigClient::StartGetConf(const char *server_ip, int server_port,
+                                const char *local_ip, int local_port,
+                                google::protobuf::Message *conf_message, int timeout_sec)
 {
     RegisterMsgCallback();
     /// 设置配置中心的IP和端口
@@ -139,7 +146,7 @@ bool ConfigClient::StartGetConf(const char* server_ip, int server_port,
         LOGDEBUG("配置中心连接失败");
         return false;
     }
-    
+
     /// 开启定时器, 设置获取配置定时时间3000毫秒
     SetTimer(3000);
     return true;
@@ -159,32 +166,32 @@ void ConfigClient::SendConfigReq(msg::Config *config)
     SendMsg(MSG_SAVE_CONFIG_REQ, config);
 }
 
-void ConfigClient::SendConfigRes(msg::MsgHead* head, Msg* msg)
+void ConfigClient::SendConfigRes(msg::MsgHead *head, Msg *msg)
 {
     MessageRes response;
     if (!response.ParseFromArray(msg->data, msg->size))
     {
         LOGDEBUG("ConfigClient::SendConfigRes failed! ParseFromArray error");
         if (ConfigResCB)
-            ConfigResCB(MSG_SAVE_TYPE,false, "ParseFromArray error");
+            ConfigResCB(MSG_SAVE_TYPE, false, "ParseFromArray error");
         return;
     }
     if (response.return_() == MessageRes::OK)
     {
         LOGDEBUG("上传配置成功!");
         if (ConfigResCB)
-            ConfigResCB(MSG_SAVE_TYPE,true, "上传配置成功!");
+            ConfigResCB(MSG_SAVE_TYPE, true, "上传配置成功!");
         return;
     }
 
     stringstream ss;
     ss << "上传配置失败: " << response.desc();
     if (ConfigResCB)
-        ConfigResCB(MSG_SAVE_TYPE,false, response.desc().c_str());
+        ConfigResCB(MSG_SAVE_TYPE, false, response.desc().c_str());
     LOGDEBUG(ss.str().c_str());
 }
 
-void ConfigClient::LoadConfigReq(const char* ip, int port)
+void ConfigClient::LoadConfigReq(const char *ip, int port)
 {
     if (port <= 0 || port > 65535)
     {
@@ -199,7 +206,7 @@ void ConfigClient::LoadConfigReq(const char* ip, int port)
     SendMsg(MSG_LOAD_CONFIG_REQ, &request);
 }
 
-void ConfigClient::LoadConfigRes(msg::MsgHead* head, Msg* msg)
+void ConfigClient::LoadConfigRes(msg::MsgHead *head, Msg *msg)
 {
     Config config;
     if (!config.ParseFromArray(msg->data, msg->size))
@@ -215,7 +222,8 @@ void ConfigClient::LoadConfigRes(msg::MsgHead* head, Msg* msg)
     conf_map_mutex.unlock();
 
     /// 没有本地配置
-    if (local_port_ <= 0 || !cur_service_conf) return;
+    if (local_port_ <= 0 || !cur_service_conf)
+        return;
     string ip = local_ip_;
     if (ip.empty())
     {
@@ -223,7 +231,8 @@ void ConfigClient::LoadConfigRes(msg::MsgHead* head, Msg* msg)
     }
     stringstream local_key;
     local_key << ip << "_" << local_port_;
-    if (key.str() != local_key.str()) return;
+    if (key.str() != local_key.str())
+        return;
 
     Mutex lock(&cur_service_conf_mutex);
     if (!cur_service_conf->ParseFromString(config.private_pb()))
@@ -247,13 +256,13 @@ void ConfigClient::LoadConfigRes(msg::MsgHead* head, Msg* msg)
     ofs.close();
 }
 
-bool ConfigClient::GetConfig(const char* ip, int port, msg::Config* out_config,int timeout_ms)
+bool ConfigClient::GetConfig(const char *ip, int port, msg::Config *out_config, int timeout_ms)
 {
     /// 10毫秒监听一次
     int count = timeout_ms / 10;
     stringstream key;
     key << ip << "_" << port;
-    
+
     /// 查找配置
     for (int i = 0; i < count; i++)
     {
@@ -309,7 +318,7 @@ msg::ConfigList ConfigClient::GetAllConfig(int page, int page_count, int timeout
     return configs;
 }
 
-void ConfigClient::LoadAllConfigRes(msg::MsgHead* head, Msg* msg)
+void ConfigClient::LoadAllConfigRes(msg::MsgHead *head, Msg *msg)
 {
     Mutex lock(&all_config_mutex);
     if (!all_config)
@@ -321,7 +330,7 @@ void ConfigClient::LoadAllConfigRes(msg::MsgHead* head, Msg* msg)
     }
 }
 
-void ConfigClient::DeleteConfigReq(const char* service_ip, int service_port)
+void ConfigClient::DeleteConfigReq(const char *service_ip, int service_port)
 {
     if (!service_ip || strlen(service_ip) == 0 || service_port < 0 || service_port > 65535)
     {
@@ -334,7 +343,7 @@ void ConfigClient::DeleteConfigReq(const char* service_ip, int service_port)
     SendMsg(MSG_DEL_CONFIG_REQ, &request);
 }
 
-void ConfigClient::DeleteConfigRes(msg::MsgHead* head, Msg* msg)
+void ConfigClient::DeleteConfigRes(msg::MsgHead *head, Msg *msg)
 {
     MessageRes response;
     if (!response.ParseFromArray(msg->data, msg->size))
@@ -363,8 +372,8 @@ void ConfigClient::DeleteConfigRes(msg::MsgHead* head, Msg* msg)
 class ConfigError : public protobuf::compiler::MultiFileErrorCollector
 {
 public:
-    virtual void AddError(const std::string& filename, int line, int column,
-        const std::string& message)
+    virtual void AddError(const std::string &filename, int line, int column,
+                          const std::string &message)
     {
         stringstream ss;
         ss << filename << "|" << line << "|" << column << " " << message;
@@ -374,8 +383,8 @@ public:
 
 static ConfigError config_error;
 
-protobuf::Message* ConfigClient::LoadProto(const string& filename, 
-    const string& class_name, string &out_proto_code)
+protobuf::Message *ConfigClient::LoadProto(const string &filename,
+                                           const string &class_name, string &out_proto_code)
 {
     /// 需要清理空间
     delete importer_;
@@ -396,7 +405,7 @@ protobuf::Message* ConfigClient::LoadProto(const string& filename,
 
     /// 获取消息类型描述符
     /// 如果class_name为空，取第一个类型
-    const protobuf::Descriptor* message_desc = nullptr;
+    const protobuf::Descriptor *message_desc = nullptr;
     if (class_name.empty())
     {
         if (file_desc->message_type_count() <= 0)
@@ -452,13 +461,13 @@ protobuf::Message* ConfigClient::LoadProto(const string& filename,
     dynamic_msg_ = message->New();
 
     /*
-    *  syntax = "proto3";	// 版本号
-    *  package msg;		    // 命名空间
-    *  message DirReq
-    *  {
-	*      string path = 1;
-    *  }
-    */
+     *  syntax = "proto3";	// 版本号
+     *  package msg;		    // 命名空间
+     *  message DirReq
+     *  {
+     *      string path = 1;
+     *  }
+     */
     /// syntax = "proto3";
     out_proto_code = "syntax =\"";
     out_proto_code += file_desc->SyntaxName(file_desc->syntax());
@@ -469,7 +478,7 @@ protobuf::Message* ConfigClient::LoadProto(const string& filename,
     out_proto_code += ";\n";
     /// 存放枚举类型(暂时不支持多文件 import)
     /// 存在多个字段同一个枚举类型(同一个类型，只生成同一个代码)
-    map<string, const protobuf::EnumDescriptor*> enum_desc;
+    map<string, const protobuf::EnumDescriptor *> enum_desc;
     for (int i = 0; i < message_desc->field_count(); i++)
     {
         auto field = message_desc->field(i);
@@ -478,7 +487,7 @@ protobuf::Message* ConfigClient::LoadProto(const string& filename,
             continue;
         }
         string enum_name = field->enum_type()->name();
-        if (enum_desc.find(enum_name) == enum_desc.end())  /// 没有添加过
+        if (enum_desc.find(enum_name) == enum_desc.end()) /// 没有添加过
         {
             out_proto_code += field->enum_type()->DebugString() + "\n";
             enum_desc[enum_name] = field->enum_type();
