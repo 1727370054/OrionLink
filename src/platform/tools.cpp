@@ -1,6 +1,9 @@
 #include "tools.h"
 
 #include <cstdio>
+#include <openssl/bio.h>
+#include <openssl/buffer.h>
+#include <openssl/evp.h>
 
 #ifdef _WIN32
 #include <io.h>
@@ -73,4 +76,81 @@ std::string GetDirData(std::string path)
     }
 
     return data;
+}
+
+int Base64Encode(const unsigned char* in, int len, char* out_base64)
+{
+	if (!in || len <= 0 || !out_base64) return 0;
+
+	// 创建一个内存BIO（BIO_s_mem），用于保存源数据
+	BIO* mem_bio = BIO_new(BIO_s_mem());
+	if (!mem_bio) return 0;
+
+	/// base64的过滤器
+	BIO* b64_bio = BIO_new(BIO_f_base64());
+	if (!b64_bio)
+	{
+		BIO_free(mem_bio);
+		return 0;
+	}
+
+	/// 64字节不加换行符'\n'
+	BIO_set_flags(b64_bio, BIO_FLAGS_BASE64_NO_NL);
+
+	/// 形成BIO链
+	/// b64-mem
+	BIO_push(b64_bio, mem_bio);
+
+	/// 往链表头部写入，base64过滤器处理后转入下一个节点
+	/// 对链表写入会调用编码
+	/// 返回写入数据的大小
+	int ret = BIO_write(b64_bio, in, len);
+	if (ret <= 0)
+	{
+		/// 清理整个链表
+		BIO_free_all(b64_bio);
+		return 0;
+	}
+	/// 刷新缓存，写入链表的mem
+	BIO_flush(b64_bio);
+
+	/// 从链表源mem内存读取
+	BUF_MEM* p_data  = nullptr;
+	BIO_get_mem_ptr(b64_bio, &p_data);
+	int out_size = 0;
+	if (p_data)
+	{
+		memcpy(out_base64, p_data->data, p_data->length);
+		out_size = p_data->length;
+	}
+
+	BIO_free_all(b64_bio);
+	return out_size;
+}
+
+int Base64Decode(const char* in, int len, char* out_data)
+{
+	if (!in || len <= 0 || !out_data) return 0;
+
+	/// 内存源(密文)
+	BIO* mem_bio = BIO_new_mem_buf(in, len);
+	if (!mem_bio) return 0;
+
+	BIO* b64_bio = BIO_new(BIO_f_base64());
+	if (!b64_bio)
+	{
+		BIO_free(mem_bio);
+		return 0;
+	}
+	/// 64字节不加换行符'\n'
+	BIO_set_flags(b64_bio, BIO_FLAGS_BASE64_NO_NL);
+
+	BIO_push(b64_bio, mem_bio);
+
+	/// 读取解码后的数据
+	size_t size;
+	BIO_read_ex(b64_bio, out_data, len, &size);
+	BIO_free_all(b64_bio);
+
+	return size;
 }
