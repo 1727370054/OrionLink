@@ -18,7 +18,7 @@ public:
     int size = 0;
 
     /// 数据存放(protobuf序列化的数据)
-    char* data = nullptr;
+    char *data = nullptr;
 
     /// 已经接收数据的大小
     int recv_size;
@@ -43,7 +43,8 @@ public:
     /// 判断数据是否接收完成
     bool recved()
     {
-        if (size <= 0) return false;
+        if (size < 0)
+            return false;
         return (size == recv_size);
     }
 
@@ -56,4 +57,3 @@ public:
 };
 
 #endif // MSG_H
-

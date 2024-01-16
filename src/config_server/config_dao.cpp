@@ -144,6 +144,8 @@ msg::Config ConfigDao::LoadConfig(const char *ip, int port)
     ss << "select private_pb from " << table_name;
     ss << " where service_ip='" << ip << "' and service_port=" << port;
     auto rows = oldb_->GetResult(ss.str().c_str());
+    config.set_service_ip(ip);
+    config.set_service_port(port);
     if (rows.size() == 0)
     {
         LOGERROR("download config failed! not result");

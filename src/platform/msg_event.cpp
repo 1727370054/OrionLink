@@ -23,7 +23,7 @@ void MsgEvent::RegisterCallback(msg::MsgType type, MsgEvent::MsgCBFunc func)
     msg_callback_t[type] = func;
 }
 
-void MsgEvent::ReadCallback(msg::MsgHead* head, Msg* msg)
+void MsgEvent::ReadCallback(msg::MsgHead *head, Msg *msg)
 {
     auto pos = msg_callback_t.find(msg->type);
     if (pos == msg_callback_t.end())
@@ -45,9 +45,11 @@ void MsgEvent::ReadCallback()
             Clear();
             return;
         }
-        if (!pb_head_) break;
+        if (!pb_head_)
+            break;
         auto msg = GetMsg();
-        if (!msg) break;
+        if (!msg)
+            break;
 
         /// 回调消息函数
         LOGDEBUG("service name: " << pb_head_->service_name());
@@ -56,9 +58,10 @@ void MsgEvent::ReadCallback()
     }
 }
 
-bool MsgEvent::SendMsg(MsgType type, const Message* message)
+bool MsgEvent::SendMsg(MsgType type, const Message *message)
 {
-    if (!message) return false;
+    if (!message)
+        return false;
 
     MsgHead head;
     head.set_msg_type(type);
@@ -66,23 +69,25 @@ bool MsgEvent::SendMsg(MsgType type, const Message* message)
     return SendMsg(&head, message);
 }
 
-bool MsgEvent::SendMsg(msg::MsgHead *head, const google::protobuf::Message* message)
+bool MsgEvent::SendMsg(msg::MsgHead *head, const google::protobuf::Message *message)
 {
-    if (!message || !head) return false;
+    if (!message || !head)
+        return false;
 
     /// 消息内容序列化
     std::string msg_str = message->SerializeAsString();
     int msg_size = msg_str.size();
 
     Msg msg;
-    msg.data = (char*)msg_str.c_str();
+    msg.data = (char *)msg_str.c_str();
     msg.size = msg_size;
     return SendMsg(head, &msg);
 }
 
-bool MsgEvent::SendMsg(msg::MsgHead* head, Msg* msg)
+bool MsgEvent::SendMsg(msg::MsgHead *head, Msg *msg)
 {
-    if (!head || !msg) return false;
+    if (!head || !msg)
+        return false;
 
     head->set_msg_size(msg->size);
     /// 消息头序列化
@@ -93,15 +98,18 @@ bool MsgEvent::SendMsg(msg::MsgHead* head, Msg* msg)
 
     /// 1. 发送消息头大小 4字节 (暂时不考虑字节序问题)
     bool ret = Write(&head_size, sizeof(head_size));
-    if (!ret) return false;
+    if (!ret)
+        return false;
 
     /// 2. 发送消息头 (pb序列化)
     ret = Write(head_str.c_str(), head_str.size());
-    if (!ret) return false;
+    if (!ret)
+        return false;
 
     /// 3. 发送消息内容 (pb序列化)
     ret = Write(msg->data, msg->size);
-    if (!ret) return false;
+    if (!ret)
+        return false;
 
     return true;
 }
@@ -148,12 +156,22 @@ bool MsgEvent::RecvMsg()
             return false;
         }
 
-        /// 鉴权
-        /// 分配消息内容大小空间
-        if (!msg_.Alloc(pb_head_->msg_size()))
+        if (pb_head_->msg_size() == 0) /// 空包
         {
-            LOGERROR("XMsgEvent::RecvMsg - msg_.Alloc failed!");
-            return false;
+            msg_.type = pb_head_->msg_type();
+            msg_.size = 0;
+            LOGDEBUG("Empty package!");
+            return true;
+        }
+        else
+        {
+            /// 鉴权
+            /// 分配消息内容大小空间
+            if (!msg_.Alloc(pb_head_->msg_size()))
+            {
+                LOGERROR("XMsgEvent::RecvMsg - msg_.Alloc failed!");
+                return false;
+            }
         }
         /// 保存消息类型
         msg_.type = pb_head_->msg_type();
@@ -176,7 +194,7 @@ bool MsgEvent::RecvMsg()
     return true;
 }
 
-Msg* MsgEvent::GetMsg()
+Msg *MsgEvent::GetMsg()
 {
     if (msg_.recved())
         return &msg_;
@@ -199,4 +217,3 @@ void MsgEvent::Clear()
     head_.Clear();
     msg_.Clear();
 }
-
