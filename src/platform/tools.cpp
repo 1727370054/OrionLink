@@ -1,9 +1,13 @@
 #include "tools.h"
 
 #include <cstdio>
+#include <string>
+#include <openssl/md5.h>
 #include <openssl/bio.h>
 #include <openssl/buffer.h>
 #include <openssl/evp.h>
+#include <openssl/aes.h>
+#include <openssl/sha.h>
 
 #ifdef _WIN32
 #include <io.h>
@@ -128,7 +132,7 @@ int Base64Encode(const unsigned char* in, int len, char* out_base64)
 	return out_size;
 }
 
-int Base64Decode(const char* in, int len, char* out_data)
+int Base64Decode(const char* in, int len, unsigned char* out_data)
 {
 	if (!in || len <= 0 || !out_data) return 0;
 
@@ -154,3 +158,21 @@ int Base64Decode(const char* in, int len, char* out_data)
 
 	return size;
 }
+
+/// 生成md5 128bit(16字节) 
+unsigned char* OLMD5(const unsigned char* d, unsigned long n, unsigned char* md)
+{
+	return MD5(d, n, md);
+}
+
+/// @brief 生成md5 128bit(16字节) 再经过base64转化为字符串
+std::string OLMD5_base64(const unsigned char* d, unsigned long n)
+{
+	unsigned char buf[16] = { 0 };
+	char base64[25] = { 0 };
+	OLMD5(d, n, buf);
+	Base64Encode(buf, 16, base64);
+	base64[24] = '\n';
+	return base64;
+}
+

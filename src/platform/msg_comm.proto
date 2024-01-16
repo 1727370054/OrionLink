@@ -23,7 +23,7 @@ message MsgHeart
 message LoginReq
 {
 	string username = 1;		/// 用户名
-	string password = 2;		/// md5后的密码
+	bytes password = 2;			/// md5后的密码
 }
 
 /// 用户登陆响应 MSG_LOGIN_RES
