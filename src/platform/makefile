@@ -8,8 +8,14 @@ TARGET=libplatform.so
 CPPFLAGS= -fPIC
 LIBS=-levent -lpthread -levent_openssl -lssl 
 INSTALL_PATH=/usr/lib/
-INCLUDE_PATH=/usr/include/orion_link 
-exist = $(shell if [ ! -d $(INCLUDE_PATH) ]; then mkdir $(INCLUDE_PATH); fi;)
+INCLUDE_PATH=/usr/include/orion_link
+
+.PHONY:all exist
+all:$(TARGET) exist proto  
+exist:
+	@if [ ! -d $(INCLUDE_PATH) ]; then \
+		mkdir -p $(INCLUDE_PATH); \
+	fi
 
 $(TARGET):$(OBJS)
 	g++ -shared $^ -o $@ $(LIBS)
@@ -25,6 +31,7 @@ install:$(TARGET) $(OBJS)
 uninstall:
 	rm -rf *.o $(TARGET)
 	rm -rf $(INSTALL_PATH)$(TARGET)
+	rm -rf $(INCLUDE_PATH)
 clean:
 	rm -rf *.o $(TARGET)
 

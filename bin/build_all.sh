@@ -1,7 +1,6 @@
 #!/bin/bash
 cd ../src/platform
 make clean
-make proto
 make -j8
 make install
 
@@ -38,7 +37,7 @@ make -j8
 make watch_config_server
 make install
 
-
+echo "build all success!"
 
 
 

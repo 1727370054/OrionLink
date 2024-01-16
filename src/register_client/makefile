@@ -3,13 +3,19 @@ SRC_CC=$(wildcard *.cc)
 OBJS_CPP=$(patsubst %.cpp,%.o,$(SRC_CPP))
 OBJS_CC=$(patsubst %.cc,%.o,$(SRC_CC))
 OBJS=$(OBJS_CPP) $(OBJS_CC)
-INCLUDE_PATH=/usr/include/orion_link 
-exist = $(shell if [ ! -d $(INCLUDE_PATH) ]; then mkdir $(INCLUDE_PATH); fi;)
 
+INCLUDE_PATH=/usr/include/orion_link 
 TARGET=libregister_client.so 
 CPPFLAGS= -fPIC -I$(INCLUDE_PATH)
 LIBS=-levent -lpthread -lplatform -lprotobuf -lssl 
 INSTALL_PATH=/usr/lib/
+
+.PHONY:all exist
+all:$(TARGET) exist  
+exist:
+	@if [ ! -d $(INCLUDE_PATH) ]; then \
+		mkdir -p $(INCLUDE_PATH); \
+	fi
 
 $(TARGET):$(OBJS)
 	g++ -shared $^ -o $@ $(LIBS)

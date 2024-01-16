@@ -6,7 +6,13 @@ LIBS=-lpthread -lmysqlclient
 # apt-get install libmysqlclient-dev
 INSTALL_PATH=/usr/lib/
 INCLUDE_PATH=/usr/include/orion_link 
-exist = $(shell if [ ! -d $(INCLUDE_PATH) ]; then mkdir $(INCLUDE_PATH); fi;)
+
+.PHONY:all exist
+all:$(TARGET) exist  
+exist:
+	@if [ ! -d $(INCLUDE_PATH) ]; then \
+		mkdir -p $(INCLUDE_PATH); \
+	fi
 
 $(TARGET):$(OBJS)
 	g++ -shared $+ -o $@ $(LIBS)
