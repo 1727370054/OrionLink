@@ -1,4 +1,4 @@
-﻿#include "appinit.h"
+#include "appinit.h"
 #include "qmutex.h"
 #include "qapplication.h"
 #include "qevent.h"

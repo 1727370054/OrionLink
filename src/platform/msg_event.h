@@ -1,4 +1,4 @@
-#ifndef MSG_EVENT_H
+﻿#ifndef MSG_EVENT_H
 #define MSG_EVENT_H
 
 #include "msg_comm.pb.h"

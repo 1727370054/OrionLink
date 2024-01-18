@@ -1,3 +1,4 @@
+﻿#include "log_client.h"
 #include "com_task.h"
 #include "ssl_ctx.h"
 #include "tools.h"
@@ -11,6 +12,28 @@
 #include <event2/bufferevent_ssl.h>
 
 using namespace std;
+
+XCOM_API const char* GetPortName(unsigned short port)
+{
+    switch (port)
+    {
+    case API_GATEWAY_PORT:
+        return API_GATEWAY_NAME;
+        break;
+    case REGISTER_PORT:
+        return REGISTER_NAME;
+        break;
+    case CONFIG_PORT:
+        return AUTH_NAME;
+        break;
+    case LOG_PORT:
+        return LOG_NAME;
+        break;
+    default:
+        break;
+    }
+    return "";
+}
 
 static void SReadCallback(struct bufferevent *bev, void *arg)
 {
@@ -57,6 +80,11 @@ void ComTask::set_server_ip(const char *ip)
     strncpy(this->server_ip_, ip, sizeof(server_ip_));
 }
 
+void ComTask::set_client_ip(const char* ip)
+{
+    strncpy(this->client_ip_, ip, sizeof(client_ip_));
+}
+
 ComTask::ComTask()
 {
     mtx_ = new std::mutex();
@@ -86,13 +114,13 @@ bool ComTask::InitBufferevent(int sock)
         if (sock < 0) /// 客户端
         {
             bev_ = bufferevent_openssl_socket_new(base_, sock, olssl.ssl(),
-                                                  BUFFEREVENT_SSL_CONNECTING, BEV_OPT_CLOSE_ON_FREE /*bufferevent_free函数会同时关闭ssl和socket*/
+                   BUFFEREVENT_SSL_CONNECTING, BEV_OPT_CLOSE_ON_FREE /*bufferevent_free函数会同时关闭ssl和socket*/
             );
         }
         else /// 服务端
         {
             bev_ = bufferevent_openssl_socket_new(base_, sock, olssl.ssl(),
-                                                  BUFFEREVENT_SSL_ACCEPTING, BEV_OPT_CLOSE_ON_FREE /*bufferevent_free函数会同时关闭ssl和socket*/
+                   BUFFEREVENT_SSL_ACCEPTING, BEV_OPT_CLOSE_ON_FREE /*bufferevent_free函数会同时关闭ssl和socket*/
             );
         }
 

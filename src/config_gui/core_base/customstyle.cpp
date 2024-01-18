@@ -1,4 +1,4 @@
-﻿#include "customstyle.h"
+#include "customstyle.h"
 #include "qapplication.h"
 #include "qpalette.h"
 

@@ -1,3 +1,4 @@
+#include "log_client.h"
 #include "auth_handle.h"
 #include "auth_dao.h"
 #include "tools.h"

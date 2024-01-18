@@ -1,4 +1,4 @@
-﻿#ifndef BASE64HELPER_H
+#ifndef BASE64HELPER_H
 #define BASE64HELPER_H
 
 /**

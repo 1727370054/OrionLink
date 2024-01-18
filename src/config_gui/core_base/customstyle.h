@@ -1,4 +1,4 @@
-﻿#ifndef CUSTOMSTYLE_H
+#ifndef CUSTOMSTYLE_H
 #define CUSTOMSTYLE_H
 
 #include <QObject>

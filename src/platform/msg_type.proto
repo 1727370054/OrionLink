@@ -1,4 +1,4 @@
-syntax = "proto3";
+﻿syntax = "proto3";
 package msg;
 
 enum MsgType
@@ -23,6 +23,8 @@ enum MsgType
 	MSG_DEL_CONFIG_RES = 16;		/// 删除配置的响应 MessageRes
 	MSG_ADD_USER_REQ  = 17;			/// 添加用户请求 AddUserReq
 	MSG_ADD_USER_RES = 18;			/// 添加用户响应 MessageRes
+
+	MSG_ADD_LOG_REQ = 210;			/// 添加日志 AddLogReq，不做响应
 
 	MSG_HEART_REQ = 65534;			//心跳
 	MSG_MAX_TYPE  = 65535;

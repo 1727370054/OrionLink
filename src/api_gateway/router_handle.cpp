@@ -1,3 +1,4 @@
+#include "log_client.h"
 #include "router_handle.h"
 #include "service_proxy.h"
 #include "tools.h"

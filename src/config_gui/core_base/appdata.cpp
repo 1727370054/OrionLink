@@ -1,4 +1,4 @@
-﻿#include "appdata.h"
+#include "appdata.h"
 #include "quihelper.h"
 
 QString AppData::TitleFlag = "";

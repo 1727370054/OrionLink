@@ -1,4 +1,4 @@
-﻿#ifndef QUIHELPER2_H
+#ifndef QUIHELPER2_H
 #define QUIHELPER2_H
 
 #include "head.h"

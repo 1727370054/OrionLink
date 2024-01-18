@@ -1,4 +1,4 @@
-﻿#ifndef APPINIT_H
+#ifndef APPINIT_H
 #define APPINIT_H
 
 #include <QObject>

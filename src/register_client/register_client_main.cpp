@@ -2,6 +2,7 @@
 #include <string>
 #include <thread>
 
+#include "log_client.h"
 #include "register_client.h"
 #include "tools.h"
 

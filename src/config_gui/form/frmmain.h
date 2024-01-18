@@ -1,4 +1,4 @@
-﻿#ifndef FRMMAIN_H
+#ifndef FRMMAIN_H
 #define FRMMAIN_H
 
 #include <QDialog>

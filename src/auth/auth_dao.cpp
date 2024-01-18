@@ -1,3 +1,4 @@
+#include "log_client.h"
 #include "auth_dao.h"
 #include "orion_link_db.h"
 #include "msg_comm.pb.h"
@@ -185,6 +186,49 @@ bool AuthDAO::Login(const msg::LoginReq* user_req, msg::LoginRes* user_res, int 
         LOGDEBUG(ss.str().c_str());
     }
 
+    return true;
+}
+
+bool AuthDAO::CheckToken(msg::MsgHead* head, msg::LoginRes* user_res)
+{
+    LOGDEBUG("ConfigDao::CheckToken");
+    string token = "";
+    user_res->set_desc(LoginRes::ERROR);
+    if (!head || !user_res || head->token().empty())
+    {
+        token = "token is null";
+        LOGERROR(token.c_str());
+        user_res->set_token(token);
+        return false;
+    }
+
+    token = head->token();
+    Mutex lock(&auth_mutex);
+    if (!oldb_)
+    {
+        token = "mysql not init";
+        LOGERROR(token.c_str());
+        user_res->set_token(token);
+        return false;
+    }
+
+    /// 验证token的有效性
+    string table = TOKEN_TABLE;
+    stringstream ss;
+    ss << "select ol_username, ol_rolename, expired_time from " << table
+        << " where token='" << token << "'";
+    auto rows = oldb_->GetResult(ss.str().c_str());
+    if (rows.size() == 0)
+    {
+        token = "token invalid!";
+        LOGERROR(token);
+        user_res->set_token(token);
+        return false;
+    }
+    user_res->set_desc(LoginRes::OK);
+    user_res->set_username(rows[0][0].data);
+    user_res->set_rolename(rows[0][1].data);
+    user_res->set_expired_time(atoi(rows[0][2].data));
     return true;
 }
 

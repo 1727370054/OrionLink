@@ -1,10 +1,12 @@
-#ifndef COM_TASH_H
+﻿#ifndef COM_TASH_H
 #define COM_TASH_H
 
 #include "task.h"
 #include "msg.h"
 
 #include <string>
+
+XCOM_API const char* GetPortName(unsigned short port);
 
 class SSLCtx;
 
@@ -101,6 +103,11 @@ public:
     void set_server_port(int port) { server_port_ = port; }
     int server_port() { return server_port_; }
 
+    void set_client_ip(const char* ip);
+    const char* client_ip() { return client_ip_; }
+    const int client_port() { return client_port_; }
+    void set_client_port(int port) { this->client_port_ = port; }
+
     bool is_connecting() { return is_connecting_; }
     bool is_connected() { return is_connected_; }
 
@@ -136,6 +143,9 @@ protected:
     /// 文件内容数据缓存区
     char read_buf_[4096];
     
+    char client_ip_[16] = { 0 };
+
+    int client_port_ = 0;
 private:
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 初始化 bufferevent

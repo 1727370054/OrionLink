@@ -1,15 +1,25 @@
-#ifndef MSG_H
+﻿#ifndef MSG_H
 #define MSG_H
 
 #include "msg_type.pb.h"
 
 #define MAX_MSG_SIZE 8192
+
 #define API_GATEWAY_PORT 20010
 #define API_GATEWAY_SSL_PORT 20011
 #define API_GATEWAY_NAME "gateway"
+
+#define REGISTER_NAME "register"
 #define REGISTER_PORT 20018
+
 #define CONFIG_NAME "config"
 #define CONFIG_PORT 20019
+
+#define AUTH_PORT 20020
+#define AUTH_NAME "auth"
+
+#define LOG_PORT 20021
+#define LOG_NAME "log"
 
 class Msg
 {
@@ -18,7 +28,7 @@ public:
     int size = 0;
 
     /// 数据存放(protobuf序列化的数据)
-    char *data = nullptr;
+    char* data = nullptr;
 
     /// 已经接收数据的大小
     int recv_size;
@@ -43,8 +53,7 @@ public:
     /// 判断数据是否接收完成
     bool recved()
     {
-        if (size < 0)
-            return false;
+        if (size < 0) return false;
         return (size == recv_size);
     }
 
@@ -57,3 +66,4 @@ public:
 };
 
 #endif // MSG_H
+

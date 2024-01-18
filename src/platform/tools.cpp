@@ -1,4 +1,4 @@
-#include "tools.h"
+﻿#include "tools.h"
 
 #include <cstdio>
 #include <string>
@@ -157,6 +157,16 @@ int Base64Decode(const char* in, int len, unsigned char* out_data)
 	BIO_free_all(b64_bio);
 
 	return size;
+}
+
+std::string GetCurTime(int timestamp, std::string format)
+{
+	char buf[128] = { 0 };
+	time_t tm = timestamp;
+	if (tm <= 0)
+		tm = time(0);
+	strftime(buf, sizeof(buf), format.c_str(), gmtime(&tm));
+	return buf;
 }
 
 /// 生成md5 128bit(16字节) 

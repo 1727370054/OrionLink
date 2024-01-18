@@ -1,4 +1,4 @@
-syntax = "proto3";	// 版本号
+﻿syntax = "proto3";	// 版本号
 package msg;		// 命名空间
 
 import "msg_type.proto";
@@ -8,7 +8,7 @@ message MsgHead
 {
 	int32 msg_size = 1;			/// 消息大小(不包含头部)		
 	MsgType msg_type = 2;		/// 消息类型
-	string token = 3;			/// 令牌(登陆消息则为空)
+	bytes token = 3;			/// 令牌(登陆消息则为空)
 	string service_name = 4;	/// 微服务名称(用于路由)
 	int64 router_id = 5;	    /// 路由标识
 }
@@ -29,6 +29,26 @@ message MessageRes
 message MsgHeart
 {
 	int64 count = 1;
+}
+
+enum LogLevel
+{
+	LOG_DEBUG = 0;
+	LOG_INFO = 1;
+	LOG_ERROR = 2;
+	LOG_FATAL = 3;
+}
+
+message AddLogReq
+{
+	string service_name = 1;
+	string service_ip = 2;
+	int32 service_port = 3;
+	bytes log_txt = 4;
+	int32 log_time = 5;
+	LogLevel log_level = 6;
+	string filename = 7;
+	int32 line = 8;
 }
 
 /// 用户注册 微服务架构的用户系统，只为了做单点登录，不涉及权限，权限有具体的业务处理

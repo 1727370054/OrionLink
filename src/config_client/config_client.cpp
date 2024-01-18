@@ -1,3 +1,4 @@
+#include "log_client.h"
 #include "config_client.h"
 #include "msg_comm.pb.h"
 #include "tools.h"

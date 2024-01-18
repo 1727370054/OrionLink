@@ -33,6 +33,10 @@ class MsgHeartDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<MsgHeart> _instance;
 } _MsgHeart_default_instance_;
+class AddLogReqDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<AddLogReq> _instance;
+} _AddLogReq_default_instance_;
 class AddUserReqDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<AddUserReq> _instance;
@@ -106,6 +110,20 @@ class GatewayConfigDefaultTypeInternal {
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<GatewayConfig> _instance;
 } _GatewayConfig_default_instance_;
 }  // namespace msg
+static void InitDefaultsscc_info_AddLogReq_msg_5fcomm_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::msg::_AddLogReq_default_instance_;
+    new (ptr) ::msg::AddLogReq();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::msg::AddLogReq::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_AddLogReq_msg_5fcomm_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_AddLogReq_msg_5fcomm_2eproto}, {}};
+
 static void InitDefaultsscc_info_AddUserReq_msg_5fcomm_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -405,8 +423,8 @@ static void InitDefaultsscc_info_ServiceMap_ServiceMapEntry_DoNotUse_msg_5fcomm_
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_ServiceMap_ServiceMapEntry_DoNotUse_msg_5fcomm_2eproto}, {
       &scc_info_ServiceMap_ServiceList_msg_5fcomm_2eproto.base,}};
 
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_msg_5fcomm_2eproto[21];
-static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_msg_5fcomm_2eproto[4];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_msg_5fcomm_2eproto[22];
+static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_msg_5fcomm_2eproto[5];
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_msg_5fcomm_2eproto = nullptr;
 
 const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_msg_5fcomm_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
@@ -433,6 +451,19 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_msg_5fcomm_2eproto::offsets[] 
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::msg::MsgHeart, count_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::msg::AddLogReq, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::msg::AddLogReq, service_name_),
+  PROTOBUF_FIELD_OFFSET(::msg::AddLogReq, service_ip_),
+  PROTOBUF_FIELD_OFFSET(::msg::AddLogReq, service_port_),
+  PROTOBUF_FIELD_OFFSET(::msg::AddLogReq, log_txt_),
+  PROTOBUF_FIELD_OFFSET(::msg::AddLogReq, log_time_),
+  PROTOBUF_FIELD_OFFSET(::msg::AddLogReq, log_level_),
+  PROTOBUF_FIELD_OFFSET(::msg::AddLogReq, filename_),
+  PROTOBUF_FIELD_OFFSET(::msg::AddLogReq, line_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::msg::AddUserReq, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -575,30 +606,32 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 0, -1, sizeof(::msg::MsgHead)},
   { 10, -1, sizeof(::msg::MessageRes)},
   { 17, -1, sizeof(::msg::MsgHeart)},
-  { 23, -1, sizeof(::msg::AddUserReq)},
-  { 31, -1, sizeof(::msg::LoginReq)},
-  { 38, -1, sizeof(::msg::LoginRes)},
-  { 48, -1, sizeof(::msg::DirReq)},
-  { 54, -1, sizeof(::msg::DirRes_Dir)},
-  { 61, -1, sizeof(::msg::DirRes)},
-  { 68, -1, sizeof(::msg::RegisterReq)},
-  { 76, -1, sizeof(::msg::ServiceMap_Service)},
-  { 84, -1, sizeof(::msg::ServiceMap_ServiceList)},
-  { 90, 97, sizeof(::msg::ServiceMap_ServiceMapEntry_DoNotUse)},
-  { 99, -1, sizeof(::msg::ServiceMap)},
-  { 107, -1, sizeof(::msg::GetServiceReq)},
-  { 114, -1, sizeof(::msg::Config)},
-  { 124, -1, sizeof(::msg::LoadConfigReq)},
-  { 131, -1, sizeof(::msg::DirConfig)},
-  { 137, -1, sizeof(::msg::LoadAllConfigReq)},
-  { 144, -1, sizeof(::msg::ConfigList)},
-  { 150, -1, sizeof(::msg::GatewayConfig)},
+  { 23, -1, sizeof(::msg::AddLogReq)},
+  { 36, -1, sizeof(::msg::AddUserReq)},
+  { 44, -1, sizeof(::msg::LoginReq)},
+  { 51, -1, sizeof(::msg::LoginRes)},
+  { 61, -1, sizeof(::msg::DirReq)},
+  { 67, -1, sizeof(::msg::DirRes_Dir)},
+  { 74, -1, sizeof(::msg::DirRes)},
+  { 81, -1, sizeof(::msg::RegisterReq)},
+  { 89, -1, sizeof(::msg::ServiceMap_Service)},
+  { 97, -1, sizeof(::msg::ServiceMap_ServiceList)},
+  { 103, 110, sizeof(::msg::ServiceMap_ServiceMapEntry_DoNotUse)},
+  { 112, -1, sizeof(::msg::ServiceMap)},
+  { 120, -1, sizeof(::msg::GetServiceReq)},
+  { 127, -1, sizeof(::msg::Config)},
+  { 137, -1, sizeof(::msg::LoadConfigReq)},
+  { 144, -1, sizeof(::msg::DirConfig)},
+  { 150, -1, sizeof(::msg::LoadAllConfigReq)},
+  { 157, -1, sizeof(::msg::ConfigList)},
+  { 163, -1, sizeof(::msg::GatewayConfig)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::msg::_MsgHead_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::msg::_MessageRes_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::msg::_MsgHeart_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::msg::_AddLogReq_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::msg::_AddUserReq_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::msg::_LoginReq_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::msg::_LoginRes_default_instance_),
@@ -622,52 +655,59 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 const char descriptor_table_protodef_msg_5fcomm_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\016msg_comm.proto\022\003msg\032\016msg_type.proto\"s\n"
   "\007MsgHead\022\020\n\010msg_size\030\001 \001(\005\022\036\n\010msg_type\030\002"
-  " \001(\0162\014.msg.MsgType\022\r\n\005token\030\003 \001(\t\022\024\n\014ser"
+  " \001(\0162\014.msg.MsgType\022\r\n\005token\030\003 \001(\014\022\024\n\014ser"
   "vice_name\030\004 \001(\t\022\021\n\trouter_id\030\005 \001(\003\"_\n\nMe"
   "ssageRes\022&\n\006return\030\001 \001(\0162\026.msg.MessageRe"
   "s.Return\022\014\n\004desc\030\002 \001(\014\"\033\n\006Return\022\006\n\002OK\020\000"
-  "\022\t\n\005ERROR\020\001\"\031\n\010MsgHeart\022\r\n\005count\030\001 \001(\003\"B"
-  "\n\nAddUserReq\022\020\n\010username\030\001 \001(\t\022\020\n\010passwo"
-  "rd\030\002 \001(\014\022\020\n\010rolename\030\003 \001(\t\".\n\010LoginReq\022\020"
-  "\n\010username\030\001 \001(\t\022\020\n\010password\030\002 \001(\014\"\325\001\n\010L"
-  "oginRes\022(\n\004desc\030\001 \001(\0162\032.msg.LoginRes.Log"
-  "inResType\022\r\n\005token\030\002 \001(\014\022\024\n\014expired_time"
-  "\030\003 \001(\005\022\020\n\010rolename\030\004 \001(\t\022\020\n\010username\030\005 \001"
-  "(\t\"V\n\014LoginResType\022\010\n\004NONE\020\000\022\006\n\002OK\020\001\022\013\n\007"
-  "LOGGING\020\002\022\t\n\005ERROR\020\003\022\n\n\006NOUSER\020\004\022\020\n\014SERV"
-  "ER_ERROR\020\005\"\026\n\006DirReq\022\014\n\004path\030\001 \001(\t\"\244\001\n\006D"
-  "irRes\022$\n\004desc\030\001 \001(\0162\026.msg.DirRes.DirResT"
-  "ype\022\035\n\004dirs\030\002 \003(\0132\017.msg.DirRes.Dir\032)\n\003Di"
-  "r\022\020\n\010filename\030\001 \001(\t\022\020\n\010filesize\030\002 \001(\005\"*\n"
-  "\nDirResType\022\006\n\002OK\020\000\022\t\n\005ERROR\020\001\022\t\n\005NODIR\020"
-  "\002\"5\n\013RegisterReq\022\014\n\004name\030\001 \001(\t\022\n\n\002ip\030\002 \001"
-  "(\t\022\014\n\004port\030\003 \001(\005\"\301\002\n\nServiceMap\0224\n\013servi"
-  "ce_map\030\001 \003(\0132\037.msg.ServiceMap.ServiceMap"
-  "Entry\022!\n\010response\030\002 \001(\0132\017.msg.MessageRes"
-  "\022\036\n\004type\030\003 \001(\0162\020.msg.ServiceType\0321\n\007Serv"
-  "ice\022\014\n\004name\030\001 \001(\t\022\n\n\002ip\030\002 \001(\t\022\014\n\004port\030\003 "
-  "\001(\005\0327\n\013ServiceList\022(\n\007service\030\001 \003(\0132\027.ms"
-  "g.ServiceMap.Service\032N\n\017ServiceMapEntry\022"
-  "\013\n\003key\030\001 \001(\t\022*\n\005value\030\002 \001(\0132\033.msg.Servic"
-  "eMap.ServiceList:\0028\001\"=\n\rGetServiceReq\022\014\n"
-  "\004name\030\001 \001(\t\022\036\n\004type\030\002 \001(\0162\020.msg.ServiceT"
-  "ype\"n\n\006Config\022\024\n\014service_name\030\001 \001(\t\022\024\n\014s"
-  "ervice_port\030\002 \001(\005\022\022\n\nservice_ip\030\003 \001(\t\022\022\n"
-  "\nprivate_pb\030\004 \001(\014\022\020\n\010protocol\030\005 \001(\014\"9\n\rL"
-  "oadConfigReq\022\022\n\nservice_ip\030\001 \001(\t\022\024\n\014serv"
-  "ice_port\030\002 \001(\005\"\031\n\tDirConfig\022\014\n\004root\030\001 \001("
-  "\t\"4\n\020LoadAllConfigReq\022\014\n\004page\030\001 \001(\005\022\022\n\np"
-  "age_count\030\002 \001(\005\"*\n\nConfigList\022\034\n\007configs"
-  "\030\001 \003(\0132\013.msg.Config\"i\n\rGatewayConfig\022\016\n\006"
-  "is_ssl\030\001 \001(\010\022\020\n\010crt_path\030\002 \001(\t\022\020\n\010key_pa"
-  "th\030\003 \001(\t\022\017\n\007ca_path\030\004 \001(\t\022\023\n\013server_port"
-  "\030\005 \001(\005*\037\n\013ServiceType\022\007\n\003ONE\020\000\022\007\n\003ALL\020\001b"
-  "\006proto3"
+  "\022\t\n\005ERROR\020\001\"\031\n\010MsgHeart\022\r\n\005count\030\001 \001(\003\"\260"
+  "\001\n\tAddLogReq\022\024\n\014service_name\030\001 \001(\t\022\022\n\nse"
+  "rvice_ip\030\002 \001(\t\022\024\n\014service_port\030\003 \001(\005\022\017\n\007"
+  "log_txt\030\004 \001(\014\022\020\n\010log_time\030\005 \001(\005\022 \n\tlog_l"
+  "evel\030\006 \001(\0162\r.msg.LogLevel\022\020\n\010filename\030\007 "
+  "\001(\t\022\014\n\004line\030\010 \001(\005\"B\n\nAddUserReq\022\020\n\010usern"
+  "ame\030\001 \001(\t\022\020\n\010password\030\002 \001(\014\022\020\n\010rolename\030"
+  "\003 \001(\t\".\n\010LoginReq\022\020\n\010username\030\001 \001(\t\022\020\n\010p"
+  "assword\030\002 \001(\014\"\325\001\n\010LoginRes\022(\n\004desc\030\001 \001(\016"
+  "2\032.msg.LoginRes.LoginResType\022\r\n\005token\030\002 "
+  "\001(\014\022\024\n\014expired_time\030\003 \001(\005\022\020\n\010rolename\030\004 "
+  "\001(\t\022\020\n\010username\030\005 \001(\t\"V\n\014LoginResType\022\010\n"
+  "\004NONE\020\000\022\006\n\002OK\020\001\022\013\n\007LOGGING\020\002\022\t\n\005ERROR\020\003\022"
+  "\n\n\006NOUSER\020\004\022\020\n\014SERVER_ERROR\020\005\"\026\n\006DirReq\022"
+  "\014\n\004path\030\001 \001(\t\"\244\001\n\006DirRes\022$\n\004desc\030\001 \001(\0162\026"
+  ".msg.DirRes.DirResType\022\035\n\004dirs\030\002 \003(\0132\017.m"
+  "sg.DirRes.Dir\032)\n\003Dir\022\020\n\010filename\030\001 \001(\t\022\020"
+  "\n\010filesize\030\002 \001(\005\"*\n\nDirResType\022\006\n\002OK\020\000\022\t"
+  "\n\005ERROR\020\001\022\t\n\005NODIR\020\002\"5\n\013RegisterReq\022\014\n\004n"
+  "ame\030\001 \001(\t\022\n\n\002ip\030\002 \001(\t\022\014\n\004port\030\003 \001(\005\"\301\002\n\n"
+  "ServiceMap\0224\n\013service_map\030\001 \003(\0132\037.msg.Se"
+  "rviceMap.ServiceMapEntry\022!\n\010response\030\002 \001"
+  "(\0132\017.msg.MessageRes\022\036\n\004type\030\003 \001(\0162\020.msg."
+  "ServiceType\0321\n\007Service\022\014\n\004name\030\001 \001(\t\022\n\n\002"
+  "ip\030\002 \001(\t\022\014\n\004port\030\003 \001(\005\0327\n\013ServiceList\022(\n"
+  "\007service\030\001 \003(\0132\027.msg.ServiceMap.Service\032"
+  "N\n\017ServiceMapEntry\022\013\n\003key\030\001 \001(\t\022*\n\005value"
+  "\030\002 \001(\0132\033.msg.ServiceMap.ServiceList:\0028\001\""
+  "=\n\rGetServiceReq\022\014\n\004name\030\001 \001(\t\022\036\n\004type\030\002"
+  " \001(\0162\020.msg.ServiceType\"n\n\006Config\022\024\n\014serv"
+  "ice_name\030\001 \001(\t\022\024\n\014service_port\030\002 \001(\005\022\022\n\n"
+  "service_ip\030\003 \001(\t\022\022\n\nprivate_pb\030\004 \001(\014\022\020\n\010"
+  "protocol\030\005 \001(\014\"9\n\rLoadConfigReq\022\022\n\nservi"
+  "ce_ip\030\001 \001(\t\022\024\n\014service_port\030\002 \001(\005\"\031\n\tDir"
+  "Config\022\014\n\004root\030\001 \001(\t\"4\n\020LoadAllConfigReq"
+  "\022\014\n\004page\030\001 \001(\005\022\022\n\npage_count\030\002 \001(\005\"*\n\nCo"
+  "nfigList\022\034\n\007configs\030\001 \003(\0132\013.msg.Config\"i"
+  "\n\rGatewayConfig\022\016\n\006is_ssl\030\001 \001(\010\022\020\n\010crt_p"
+  "ath\030\002 \001(\t\022\020\n\010key_path\030\003 \001(\t\022\017\n\007ca_path\030\004"
+  " \001(\t\022\023\n\013server_port\030\005 \001(\005*E\n\010LogLevel\022\r\n"
+  "\tLOG_DEBUG\020\000\022\014\n\010LOG_INFO\020\001\022\r\n\tLOG_ERROR\020"
+  "\002\022\r\n\tLOG_FATAL\020\003*\037\n\013ServiceType\022\007\n\003ONE\020\000"
+  "\022\007\n\003ALL\020\001b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_msg_5fcomm_2eproto_deps[1] = {
   &::descriptor_table_msg_5ftype_2eproto,
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_msg_5fcomm_2eproto_sccs[21] = {
+static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_msg_5fcomm_2eproto_sccs[22] = {
+  &scc_info_AddLogReq_msg_5fcomm_2eproto.base,
   &scc_info_AddUserReq_msg_5fcomm_2eproto.base,
   &scc_info_Config_msg_5fcomm_2eproto.base,
   &scc_info_ConfigList_msg_5fcomm_2eproto.base,
@@ -693,10 +733,10 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_msg
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_msg_5fcomm_2eproto_once;
 static bool descriptor_table_msg_5fcomm_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_msg_5fcomm_2eproto = {
-  &descriptor_table_msg_5fcomm_2eproto_initialized, descriptor_table_protodef_msg_5fcomm_2eproto, "msg_comm.proto", 1687,
-  &descriptor_table_msg_5fcomm_2eproto_once, descriptor_table_msg_5fcomm_2eproto_sccs, descriptor_table_msg_5fcomm_2eproto_deps, 21, 1,
+  &descriptor_table_msg_5fcomm_2eproto_initialized, descriptor_table_protodef_msg_5fcomm_2eproto, "msg_comm.proto", 1937,
+  &descriptor_table_msg_5fcomm_2eproto_once, descriptor_table_msg_5fcomm_2eproto_sccs, descriptor_table_msg_5fcomm_2eproto_deps, 22, 1,
   schemas, file_default_instances, TableStruct_msg_5fcomm_2eproto::offsets,
-  file_level_metadata_msg_5fcomm_2eproto, 21, file_level_enum_descriptors_msg_5fcomm_2eproto, file_level_service_descriptors_msg_5fcomm_2eproto,
+  file_level_metadata_msg_5fcomm_2eproto, 22, file_level_enum_descriptors_msg_5fcomm_2eproto, file_level_service_descriptors_msg_5fcomm_2eproto,
 };
 
 // Force running AddDescriptors() at dynamic initialization time.
@@ -775,9 +815,25 @@ constexpr DirRes_DirResType DirRes::DirResType_MIN;
 constexpr DirRes_DirResType DirRes::DirResType_MAX;
 constexpr int DirRes::DirResType_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || _MSC_VER >= 1900)
-const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* ServiceType_descriptor() {
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* LogLevel_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_msg_5fcomm_2eproto);
   return file_level_enum_descriptors_msg_5fcomm_2eproto[3];
+}
+bool LogLevel_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+      return true;
+    default:
+      return false;
+  }
+}
+
+const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* ServiceType_descriptor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_msg_5fcomm_2eproto);
+  return file_level_enum_descriptors_msg_5fcomm_2eproto[4];
 }
 bool ServiceType_IsValid(int value) {
   switch (value) {
@@ -886,10 +942,10 @@ const char* MsgHead::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
           set_msg_type(static_cast<::msg::MsgType>(val));
         } else goto handle_unusual;
         continue;
-      // string token = 3;
+      // bytes token = 3;
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(_internal_mutable_token(), ptr, ctx, "msg.MsgHead.token");
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(_internal_mutable_token(), ptr, ctx);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -964,15 +1020,11 @@ bool MsgHead::MergePartialFromCodedStream(
         break;
       }
 
-      // string token = 3;
+      // bytes token = 3;
       case 3: {
         if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (26 & 0xFF)) {
-          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadString(
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadBytes(
                 input, this->_internal_mutable_token()));
-          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-            this->_internal_token().data(), static_cast<int>(this->_internal_token().length()),
-            ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE,
-            "msg.MsgHead.token"));
         } else {
           goto handle_unusual;
         }
@@ -1047,13 +1099,9 @@ failure:
       2, this->msg_type(), target);
   }
 
-  // string token = 3;
+  // bytes token = 3;
   if (this->token().size() > 0) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_token().data(), static_cast<int>(this->_internal_token().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "msg.MsgHead.token");
-    target = stream->WriteStringMaybeAliased(
+    target = stream->WriteBytesMaybeAliased(
         3, this->_internal_token(), target);
   }
 
@@ -1089,10 +1137,10 @@ size_t MsgHead::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // string token = 3;
+  // bytes token = 3;
   if (this->token().size() > 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
         this->_internal_token());
   }
 
@@ -1713,6 +1761,557 @@ void MsgHeart::InternalSwap(MsgHeart* other) {
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata MsgHeart::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void AddLogReq::InitAsDefaultInstance() {
+}
+class AddLogReq::_Internal {
+ public:
+};
+
+AddLogReq::AddLogReq()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:msg.AddLogReq)
+}
+AddLogReq::AddLogReq(const AddLogReq& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  service_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_service_name().empty()) {
+    service_name_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.service_name_);
+  }
+  service_ip_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_service_ip().empty()) {
+    service_ip_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.service_ip_);
+  }
+  log_txt_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_log_txt().empty()) {
+    log_txt_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.log_txt_);
+  }
+  filename_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_filename().empty()) {
+    filename_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.filename_);
+  }
+  ::memcpy(&service_port_, &from.service_port_,
+    static_cast<size_t>(reinterpret_cast<char*>(&line_) -
+    reinterpret_cast<char*>(&service_port_)) + sizeof(line_));
+  // @@protoc_insertion_point(copy_constructor:msg.AddLogReq)
+}
+
+void AddLogReq::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_AddLogReq_msg_5fcomm_2eproto.base);
+  service_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  service_ip_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  log_txt_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  filename_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  ::memset(&service_port_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&line_) -
+      reinterpret_cast<char*>(&service_port_)) + sizeof(line_));
+}
+
+AddLogReq::~AddLogReq() {
+  // @@protoc_insertion_point(destructor:msg.AddLogReq)
+  SharedDtor();
+}
+
+void AddLogReq::SharedDtor() {
+  service_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  service_ip_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  log_txt_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  filename_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void AddLogReq::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const AddLogReq& AddLogReq::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_AddLogReq_msg_5fcomm_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void AddLogReq::Clear() {
+// @@protoc_insertion_point(message_clear_start:msg.AddLogReq)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  service_name_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  service_ip_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  log_txt_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  filename_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  ::memset(&service_port_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&line_) -
+      reinterpret_cast<char*>(&service_port_)) + sizeof(line_));
+  _internal_metadata_.Clear();
+}
+
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* AddLogReq::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // string service_name = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(_internal_mutable_service_name(), ptr, ctx, "msg.AddLogReq.service_name");
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string service_ip = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(_internal_mutable_service_ip(), ptr, ctx, "msg.AddLogReq.service_ip");
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 service_port = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
+          service_port_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // bytes log_txt = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(_internal_mutable_log_txt(), ptr, ctx);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 log_time = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 40)) {
+          log_time_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // .msg.LogLevel log_level = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 48)) {
+          ::PROTOBUF_NAMESPACE_ID::uint64 val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+          set_log_level(static_cast<::msg::LogLevel>(val));
+        } else goto handle_unusual;
+        continue;
+      // string filename = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 58)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(_internal_mutable_filename(), ptr, ctx, "msg.AddLogReq.filename");
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 line = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 64)) {
+          line_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+bool AddLogReq::MergePartialFromCodedStream(
+    ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+  // @@protoc_insertion_point(parse_start:msg.AddLogReq)
+  for (;;) {
+    ::std::pair<::PROTOBUF_NAMESPACE_ID::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // string service_name = 1;
+      case 1: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (10 & 0xFF)) {
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadString(
+                input, this->_internal_mutable_service_name()));
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+            this->_internal_service_name().data(), static_cast<int>(this->_internal_service_name().length()),
+            ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE,
+            "msg.AddLogReq.service_name"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string service_ip = 2;
+      case 2: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (18 & 0xFF)) {
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadString(
+                input, this->_internal_mutable_service_ip()));
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+            this->_internal_service_ip().data(), static_cast<int>(this->_internal_service_ip().length()),
+            ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE,
+            "msg.AddLogReq.service_ip"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 service_port = 3;
+      case 3: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (24 & 0xFF)) {
+
+          DO_((::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadPrimitive<
+                   ::PROTOBUF_NAMESPACE_ID::int32, ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32>(
+                 input, &service_port_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // bytes log_txt = 4;
+      case 4: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (34 & 0xFF)) {
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadBytes(
+                input, this->_internal_mutable_log_txt()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 log_time = 5;
+      case 5: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (40 & 0xFF)) {
+
+          DO_((::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadPrimitive<
+                   ::PROTOBUF_NAMESPACE_ID::int32, ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32>(
+                 input, &log_time_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // .msg.LogLevel log_level = 6;
+      case 6: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (48 & 0xFF)) {
+          int value = 0;
+          DO_((::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadPrimitive<
+                   int, ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          set_log_level(static_cast< ::msg::LogLevel >(value));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string filename = 7;
+      case 7: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (58 & 0xFF)) {
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadString(
+                input, this->_internal_mutable_filename()));
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+            this->_internal_filename().data(), static_cast<int>(this->_internal_filename().length()),
+            ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE,
+            "msg.AddLogReq.filename"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 line = 8;
+      case 8: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (64 & 0xFF)) {
+
+          DO_((::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadPrimitive<
+                   ::PROTOBUF_NAMESPACE_ID::int32, ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_INT32>(
+                 input, &line_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:msg.AddLogReq)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:msg.AddLogReq)
+  return false;
+#undef DO_
+}
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+
+::PROTOBUF_NAMESPACE_ID::uint8* AddLogReq::InternalSerializeWithCachedSizesToArray(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:msg.AddLogReq)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string service_name = 1;
+  if (this->service_name().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_service_name().data(), static_cast<int>(this->_internal_service_name().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "msg.AddLogReq.service_name");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_service_name(), target);
+  }
+
+  // string service_ip = 2;
+  if (this->service_ip().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_service_ip().data(), static_cast<int>(this->_internal_service_ip().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "msg.AddLogReq.service_ip");
+    target = stream->WriteStringMaybeAliased(
+        2, this->_internal_service_ip(), target);
+  }
+
+  // int32 service_port = 3;
+  if (this->service_port() != 0) {
+    stream->EnsureSpace(&target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(3, this->service_port(), target);
+  }
+
+  // bytes log_txt = 4;
+  if (this->log_txt().size() > 0) {
+    target = stream->WriteBytesMaybeAliased(
+        4, this->_internal_log_txt(), target);
+  }
+
+  // int32 log_time = 5;
+  if (this->log_time() != 0) {
+    stream->EnsureSpace(&target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(5, this->log_time(), target);
+  }
+
+  // .msg.LogLevel log_level = 6;
+  if (this->log_level() != 0) {
+    stream->EnsureSpace(&target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteEnumToArray(
+      6, this->log_level(), target);
+  }
+
+  // string filename = 7;
+  if (this->filename().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_filename().data(), static_cast<int>(this->_internal_filename().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "msg.AddLogReq.filename");
+    target = stream->WriteStringMaybeAliased(
+        7, this->_internal_filename(), target);
+  }
+
+  // int32 line = 8;
+  if (this->line() != 0) {
+    stream->EnsureSpace(&target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(8, this->line(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:msg.AddLogReq)
+  return target;
+}
+
+size_t AddLogReq::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:msg.AddLogReq)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string service_name = 1;
+  if (this->service_name().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_service_name());
+  }
+
+  // string service_ip = 2;
+  if (this->service_ip().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_service_ip());
+  }
+
+  // bytes log_txt = 4;
+  if (this->log_txt().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_log_txt());
+  }
+
+  // string filename = 7;
+  if (this->filename().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_filename());
+  }
+
+  // int32 service_port = 3;
+  if (this->service_port() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->service_port());
+  }
+
+  // int32 log_time = 5;
+  if (this->log_time() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->log_time());
+  }
+
+  // .msg.LogLevel log_level = 6;
+  if (this->log_level() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::EnumSize(this->log_level());
+  }
+
+  // int32 line = 8;
+  if (this->line() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->line());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void AddLogReq::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:msg.AddLogReq)
+  GOOGLE_DCHECK_NE(&from, this);
+  const AddLogReq* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<AddLogReq>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:msg.AddLogReq)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:msg.AddLogReq)
+    MergeFrom(*source);
+  }
+}
+
+void AddLogReq::MergeFrom(const AddLogReq& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:msg.AddLogReq)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.service_name().size() > 0) {
+
+    service_name_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.service_name_);
+  }
+  if (from.service_ip().size() > 0) {
+
+    service_ip_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.service_ip_);
+  }
+  if (from.log_txt().size() > 0) {
+
+    log_txt_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.log_txt_);
+  }
+  if (from.filename().size() > 0) {
+
+    filename_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.filename_);
+  }
+  if (from.service_port() != 0) {
+    set_service_port(from.service_port());
+  }
+  if (from.log_time() != 0) {
+    set_log_time(from.log_time());
+  }
+  if (from.log_level() != 0) {
+    set_log_level(from.log_level());
+  }
+  if (from.line() != 0) {
+    set_line(from.line());
+  }
+}
+
+void AddLogReq::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:msg.AddLogReq)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void AddLogReq::CopyFrom(const AddLogReq& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:msg.AddLogReq)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool AddLogReq::IsInitialized() const {
+  return true;
+}
+
+void AddLogReq::InternalSwap(AddLogReq* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  service_name_.Swap(&other->service_name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  service_ip_.Swap(&other->service_ip_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  log_txt_.Swap(&other->log_txt_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  filename_.Swap(&other->filename_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  swap(service_port_, other->service_port_);
+  swap(log_time_, other->log_time_);
+  swap(log_level_, other->log_level_);
+  swap(line_, other->line_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata AddLogReq::GetMetadata() const {
   return GetMetadataStatic();
 }
 
@@ -7061,6 +7660,9 @@ template<> PROTOBUF_NOINLINE ::msg::MessageRes* Arena::CreateMaybeMessage< ::msg
 }
 template<> PROTOBUF_NOINLINE ::msg::MsgHeart* Arena::CreateMaybeMessage< ::msg::MsgHeart >(Arena* arena) {
   return Arena::CreateInternal< ::msg::MsgHeart >(arena);
+}
+template<> PROTOBUF_NOINLINE ::msg::AddLogReq* Arena::CreateMaybeMessage< ::msg::AddLogReq >(Arena* arena) {
+  return Arena::CreateInternal< ::msg::AddLogReq >(arena);
 }
 template<> PROTOBUF_NOINLINE ::msg::AddUserReq* Arena::CreateMaybeMessage< ::msg::AddUserReq >(Arena* arena) {
   return Arena::CreateInternal< ::msg::AddUserReq >(arena);

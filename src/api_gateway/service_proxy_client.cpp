@@ -1,3 +1,4 @@
+#include "log_client.h"
 #include "service_proxy_client.h"
 #include "tools.h"
 

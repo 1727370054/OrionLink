@@ -77,6 +77,7 @@ enum MsgType : int {
   MSG_DEL_CONFIG_RES = 16,
   MSG_ADD_USER_REQ = 17,
   MSG_ADD_USER_RES = 18,
+  MSG_ADD_LOG_REQ = 210,
   MSG_HEART_REQ = 65534,
   MSG_MAX_TYPE = 65535,
   MsgType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),

@@ -1,3 +1,4 @@
+#include "log_client.h"
 #include "config_server.h"
 #include "config_handle.h"
 #include "register_client.h"

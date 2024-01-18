@@ -1,4 +1,5 @@
-﻿#include "config_client.h"
+#include "log_client.h"
+#include "config_client.h"
 #include "frmmain.h"
 #include "ui_frmmain.h"
 #include "iconhelper.h"

@@ -1,4 +1,4 @@
-﻿#include "config_client.h"
+#include "config_client.h"
 #include "frmmain.h"
 #include "appinit.h"
 #include "quihelper.h"

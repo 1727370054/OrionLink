@@ -1,4 +1,4 @@
-﻿#include "iconhelper.h"
+#include "iconhelper.h"
 
 IconHelper *IconHelper::iconFontAliBaBa = 0;
 IconHelper *IconHelper::iconFontAwesome = 0;

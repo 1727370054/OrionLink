@@ -1,4 +1,4 @@
-﻿#ifndef ICONHELPER_H
+#ifndef ICONHELPER_H
 #define ICONHELPER_H
 
 /**

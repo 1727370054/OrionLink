@@ -1,9 +1,11 @@
-#include "service_handle.h"
+﻿#include "service_handle.h"
 
 #include <cstring>
 
-void ServiceHandle::set_client_ip(const char* ip)
+ServiceHandle::ServiceHandle()
 {
-    if (!ip) return;
-    strncpy(client_ip_, ip, sizeof(client_ip_));
+}
+
+ServiceHandle::~ServiceHandle()
+{
 }

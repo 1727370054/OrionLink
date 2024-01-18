@@ -1,3 +1,4 @@
+#include "log_client.h"
 #include "config_dao.h"
 #include "orion_link_db.h"
 #include "tools.h"

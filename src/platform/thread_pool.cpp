@@ -7,7 +7,7 @@
 #include <mutex>
 #include <iostream>
 #ifdef _WIN32
-// å’Œprotobufå¤´æ–‡ä»¶ä¼šæœ‰å†²çª ï¼Œprotobufçš„å¤´æ–‡ä»¶è¦åœ¨windows.hä¹‹å‰
+// ºÍprotobufÍ·ÎÄ¼ş»áÓĞ³åÍ» £¬protobufµÄÍ·ÎÄ¼şÒªÔÚwindows.hÖ®Ç°
 #include <windows.h>
 #else
 #include <signal.h>
@@ -15,7 +15,7 @@
 
 using namespace std;
 
-/// ç®¡ç†æ‰€æœ‰çº¿ç¨‹å¯¹è±¡
+/// ¹ÜÀíËùÓĞÏß³Ì¶ÔÏó
 static atomic<bool> is_exit_all(false);
 static vector<Thread *> all_threads;
 static mutex all_threads_mutex;
@@ -61,7 +61,7 @@ public:
 
     void Dispatch(Task *task)
     {
-        /// è½®è¯¢æ–¹å¼
+        /// ÂÖÑ¯·½Ê½
         if (!task)
             return;
 
@@ -69,25 +69,25 @@ public:
         this->last_thread_ = tid;
         Thread *t = this->threads_[tid];
 
-        /// æ·»åŠ ä»»åŠ¡
+        /// Ìí¼ÓÈÎÎñ
         t->AddTask(task);
 
-        /// æ¿€æ´»çº¿ç¨‹
+        /// ¼¤»îÏß³Ì
         t->Activate();
     }
 
 private:
-    /// çº¿ç¨‹æ± çº¿ç¨‹æ•°é‡
+    /// Ïß³Ì³ØÏß³ÌÊıÁ¿
     int thread_count_ = 0;
-    /// ä¸Šä¸€æ¬¡åˆ†å‘åˆ°çš„çº¿ç¨‹ï¼Œç”¨äºè½®è¯¢
+    /// ÉÏÒ»´Î·Ö·¢µ½µÄÏß³Ì£¬ÓÃÓÚÂÖÑ¯
     int last_thread_ = -1;
-    /// çº¿ç¨‹æ± çº¿ç¨‹åˆ—è¡¨
+    /// Ïß³Ì³ØÏß³ÌÁĞ±í
     std::vector<Thread *> threads_;
 };
 
 ThreadPool *ThreadPoolFactory::Create()
 {
-    /// socketåº“åˆå§‹åŒ–
+    /// socket¿â³õÊ¼»¯
     static mutex mtx;
     static bool is_init = false;
     mtx.lock();

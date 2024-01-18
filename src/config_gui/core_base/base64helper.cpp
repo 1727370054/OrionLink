@@ -1,4 +1,4 @@
-﻿#include "base64helper.h"
+#include "base64helper.h"
 #include "qbuffer.h"
 #include "qdebug.h"
 

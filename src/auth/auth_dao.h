@@ -42,6 +42,12 @@ public:
     /// @param user_res 返回登陆响应(输出型参数)
     /// @param timeout_sec token超时时间
     bool Login(const msg::LoginReq* user_req, msg::LoginRes* user_res, int timeout_sec);
+
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 验证令牌
+    /// @param head 消息头，包含token
+    /// @param user_res 返回登陆响应(输出型参数)
+    bool CheckToken(msg::MsgHead *head, msg::LoginRes *user_res);
 private:
     AuthDAO();
     AuthDAO(const AuthDAO&) = delete;

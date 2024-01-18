@@ -1,3 +1,4 @@
+﻿#include "log_client.h"
 #include "service.h"
 #include "tools.h"
 

@@ -1,4 +1,4 @@
-﻿#include "quihelper.h"
+#include "quihelper.h"
 #include "qnetworkinterface.h"
 #include "qnetworkproxy.h"
 
