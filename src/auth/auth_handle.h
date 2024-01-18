@@ -17,6 +17,11 @@ public:
     /// @param msg 序列化的消息内容
     void LonginReq(msg::MsgHead * head, Msg* msg);
 
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 处理添加用户的请求
+    /// @param head 反序列化后消息头部
+    /// @param msg 序列化的消息内容
+    void AddUserReq(msg::MsgHead* head, Msg* msg);
 };
 
 #endif // AUTH_HANDLE_H

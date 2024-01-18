@@ -2,9 +2,15 @@
 #include "frmmain.h"
 #include "appinit.h"
 #include "quihelper.h"
+#include "login_gui.h"
+#include "auth_client.h"
 
 int main(int argc, char *argv[])
 {
+    AuthClient::GetInstance()->RegisterMsgCallback();
+    AuthClient::GetInstance()->set_server_ip("127.0.0.1");
+    AuthClient::GetInstance()->set_server_port(AUTH_PORT);
+    AuthClient::GetInstance()->StartConnect();
     /// 初始化配置中心客户端，创建线程池
     ConfigClient::GetInstance()->StartGetConf("127.0.0.1",CONFIG_PORT, 0, 0, 0);
 

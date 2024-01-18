@@ -1,4 +1,4 @@
-﻿#ifndef CONFIG_DAO_H
+#ifndef CONFIG_DAO_H
 #define CONFIG_DAO_H
 
 #include "msg_comm.pb.h"
@@ -20,16 +20,8 @@ public:
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief 初始化，开始连接数据库
-    /// @param host 主机IP地址
-    /// @param user 用户名
-    /// @param password 密码
-    /// @param db 数据库
-    /// @param port 端口号
-    /// @return 连接是否成功
-    ///////////////////////////////////////////////////////////////////////////
-    bool Init(const char *host, const char *user, const char *password,
-              const char *db, unsigned short port = 3306);
+    /// @brief 初始化数据库，开始连接数据库(数据库信息会读取配置文件)
+    bool Init();
 
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 安装数据库的表

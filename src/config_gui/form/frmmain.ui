@@ -716,6 +716,10 @@ color: rgb(225, 225, 225);
  </widget>
  <resources>
   <include location="../other/main.qrc"/>
+  <include location="../core_qss/qss.qrc"/>
+  <include location="../core_base/qrc/font.qrc"/>
+  <include location="../core_base/qrc/image.qrc"/>
+  <include location="../core_base/qrc/qm.qrc"/>
  </resources>
  <connections>
   <connection>

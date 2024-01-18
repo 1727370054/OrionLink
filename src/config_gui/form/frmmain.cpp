@@ -3,6 +3,7 @@
 #include "ui_frmmain.h"
 #include "iconhelper.h"
 #include "quihelper.h"
+#include "login_gui.h"
 #include "tools.h"
 
 #include <string>
@@ -23,6 +24,11 @@ frmMain::frmMain(QWidget *parent) : QDialog(parent), ui(new Ui::frmMain)
     ui->setupUi(this);
     cur_frmMain = this;
     this->initForm();
+    LoginUI gui;
+    if (gui.exec() != QDialog::Accepted)
+    {
+        return;
+    }
     Refresh();
     ConfigClient::GetInstance()->set_config_res_cb(SMessgeCB);
     connect(this, &frmMain::SigSaveMessgeCB, this, &frmMain::SaveMessgeCB);
@@ -59,7 +65,6 @@ void frmMain::Refresh()
     ConfigClient::GetInstance()->set_server_ip(server_ip.c_str());
     ConfigClient::GetInstance()->set_server_port(server_port);
 
-
     if (!ConfigClient::GetInstance()->AutoConnect(2))
     {
         AddLog("连接配置中心失败");
@@ -68,7 +73,7 @@ void frmMain::Refresh()
     AddLog("连接配置中心成功");
 
     /// 从配置中心获取列表
-    auto confs = ConfigClient::GetInstance()->GetAllConfig(1, 100, 5);
+    auto confs = ConfigClient::GetInstance()->GetAllConfig(1, 100, 2);
     LOGDEBUG(confs.DebugString());
 
     /// 插入获取的列表

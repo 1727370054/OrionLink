@@ -6,8 +6,14 @@ TARGET      = config_gui
 TEMPLATE    = app
 
 HEADERS     += head.h \
+			   login_gui.h
 SOURCES     += main.cpp \
-RESOURCES   += other/main.qrc
+			   login_gui.cpp
+FORMS += \
+    login_gui.ui
+
+RESOURCES   += other/main.qrc \
+			   login_gui.qrc
 RESOURCES   += $$PWD/./core_qss/qss.qrc
 
 INCLUDEPATH += $$PWD

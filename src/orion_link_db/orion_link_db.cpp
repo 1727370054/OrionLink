@@ -2,6 +2,7 @@
 
 #include <mysql.h>
 #include <iostream>
+#include <fstream>
 #include <sstream>
 #include <iomanip>
 #include <climits>
@@ -9,8 +10,102 @@
 
 using namespace std;
 
+#ifdef _WIN32
+#include <conio.h>
+#define MYSQL_CONFIG_PATH "ol_mysql_init.conf" 
+static int GetPassword(char* out, int out_size)
+{
+    for (int i = 0; i < out_size; i++)
+    {
+        char p = _getch();
+        if (p == '\r' || p == '\n')
+        {
+            return i;
+        }
+        cout << "*" << flush;
+        out[i] = p;
+    }
+    return 0;
+}
+#else
+#define MYSQL_CONFIG_PATH "/etc/ol_mysql_init.conf" 
+static int GetPassword(char* out, int out_size)
+{
+    bool is_begin = false;
+    for (int i = 0; i < out_size; )
+    {
+        system("stty -echo");
+        char p = cin.get();
+        if (p != '\r' || p != '\n')
+            is_begin = true;
+        if (!is_begin) continue;
+        system("stty echo");
+        if (p == '\r' || p == '\n')
+            return i;
+        cout << "*" << flush;
+        out[i] = p;
+        i++;
+    }
+    return 0;
+}
+#endif // _WIN32
+
 namespace ol
 {
+    struct MySQLInfo
+    {
+        char host[128] = { 0 };
+        char user[128] = { 0 };
+        char pass[128] = { 0 };
+        char db_name[128] = { 0 };
+        int port = 3306;
+    };
+
+    bool OrionLinkDB::InputDBConfig()
+    {
+        if (!mysql_ && !Init())
+        {
+            cerr << "InputDBConfig failed! msyql is not init!" << endl;
+            return false;
+        }
+
+        ifstream ifs;
+        MySQLInfo info;
+        ifs.open(MYSQL_CONFIG_PATH, ios::binary);
+        if (ifs.is_open())
+        {
+            ifs.read((char*)&info, sizeof(info));
+            if (ifs.gcount() == sizeof(info))
+            {
+                ifs.close();
+                return Connect(info.host, info.user, info.pass, info.db_name, info.port);
+            }
+            ifs.close();
+        }
+
+        cout << "input the db set" << endl;
+        cout << "input db host:";
+        cin >> info.host;
+        cout << "input db user:";
+        cin >> info.user;
+        cout << "input db pass:";
+        GetPassword(info.pass, sizeof(info.pass) - 1);
+        cout << endl;
+        cout << "input db dbname(orion_link):";
+        cin >> info.db_name;
+        cout << "input db port(3306):";
+        cin >> info.port;
+
+        ofstream ofs;
+        ofs.open(MYSQL_CONFIG_PATH, ios::binary);
+        if (ofs.is_open())
+        {
+            ofs.write((char*)&info, sizeof(info));
+            ofs.close();
+        }
+
+        return Connect(info.host, info.user, info.pass, info.db_name, info.port);
+    }
 
     bool OrionLinkDB::Init()
     {
@@ -281,6 +376,16 @@ namespace ol
         std::cout << ss.str();
     }
 
+    int OrionLinkDB::GetInsertID()
+    {
+        if (!mysql_)
+        {
+            cerr << "GetInsertID failed! mysql is NULL" << endl;
+            return 0;
+        }
+        return mysql_insert_id((MYSQL*)mysql_);
+    }
+
     std::string OrionLinkDB::GetInsertSQL(const KVData& kv, const std::string& table)
     {
         std::string sql = "";
@@ -295,12 +400,24 @@ namespace ol
         for (const auto& iter : kv)
         {
             keys += "`";
-            keys += iter.first;
+            /// 去掉@ 
+            if (iter.first[0] == '@') /// @brief 带@的key代表值为MYSQL函数 
+                keys += iter.first.substr(1, iter.first.size() - 1);
+            else
+                keys += iter.first;
             keys += "`,";
 
-            values += "'";
-            values += iter.second.data;
-            values += "',";
+            if (iter.first[0] == '@')
+            {
+                values += iter.second.data;
+            }
+            else
+            {
+                values += "'";
+                values += iter.second.data;
+                values += "'";
+            }
+            values += ",";
         }
         // 去除多余逗号
         keys[keys.size() - 1] = ' ';

@@ -1,7 +1,6 @@
-﻿#include <iostream>
+#include <iostream>
 
 #include "tools.h"
-#include "config_dao.h"
 #include "msg_comm.pb.h"
 #include "config_server.h"
 
@@ -18,12 +17,6 @@ static void Usage(const char *arg)
 int main(int argc, char *argv[])
 {
 	Usage(argv[0]);
-	if (!ConfigDao::GetInstance()->Init("localhost", "root", "HWK5326282003@mysql", "orion_link", 3306))
-	{
-		return -1;
-	}
-	ConfigDao::GetInstance()->Install();
-	LOGINFO("connect mysql success!");
 	ConfigServer config;
 	config.main(argc, argv);
 	config.Start();

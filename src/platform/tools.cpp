@@ -172,7 +172,7 @@ std::string OLMD5_base64(const unsigned char* d, unsigned long n)
 	char base64[25] = { 0 };
 	OLMD5(d, n, buf);
 	Base64Encode(buf, 16, base64);
-	base64[24] = '\n';
+	base64[24] = '\0';
 	return base64;
 }
 

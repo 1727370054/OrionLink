@@ -80,6 +80,12 @@
     <ClCompile Include="..\platform\msg_type.pb.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="login_gui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\auth_client\auth_client.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core_base\appdata.h">
@@ -118,6 +124,12 @@
     <ClInclude Include="temp\ui\ui_frmmain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="temp\ui\ui_login_gui.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\auth_client\auth_client.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="temp\moc\moc_predefs.h.cbt">
@@ -128,7 +140,7 @@
     <QtUic Include="form\frmmain.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtUic Include="form\login_gui.ui">
+    <QtUic Include="login_gui.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
@@ -262,5 +274,15 @@
     <None Include="core_base\qrc\qm\widgets.qm">
       <Filter>Resource Files</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="login_gui.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="login_gui.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
 </Project>

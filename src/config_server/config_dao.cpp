@@ -1,4 +1,4 @@
-﻿#include "config_dao.h"
+#include "config_dao.h"
 #include "orion_link_db.h"
 #include "tools.h"
 
@@ -14,8 +14,7 @@ using namespace msg;
 
 static mutex oldb_mutex;
 
-bool ConfigDao::Init(const char *host, const char *user, const char *password,
-                     const char *db, unsigned short port)
+bool ConfigDao::Init()
 {
     Mutex lock(&oldb_mutex);
     if (!oldb_)
@@ -31,9 +30,9 @@ bool ConfigDao::Init(const char *host, const char *user, const char *password,
     oldb_->SetReconnect();
     oldb_->SetConnectTimeout(3);
 
-    if (!oldb_->Connect(host, user, password, db, port))
+    if (!oldb_->InputDBConfig())
     {
-        LOGDEBUG("mysql conncet failed!");
+        LOGDEBUG("oldb_->InputDBConfig failed!");
         return false;
     }
 

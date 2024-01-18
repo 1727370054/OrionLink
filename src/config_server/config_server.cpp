@@ -1,6 +1,7 @@
 #include "config_server.h"
 #include "config_handle.h"
 #include "register_client.h"
+#include "config_dao.h"
 #include "tools.h"
 
 #include <string>
@@ -32,6 +33,20 @@ void ConfigServer::main(int argc, char* argv[])
     RegisterClient::GetInstance()->set_server_ip(register_ip.c_str());
     RegisterClient::GetInstance()->set_server_port(register_port);
     RegisterClient::GetInstance()->RegisterService(CONFIG_NAME, NULL, port);
+
+    if (!ConfigDao::GetInstance()->Init())
+    {
+        LOGDEBUG("init SQL failed!");
+        exit(-1);
+    }
+
+    if (!ConfigDao::GetInstance()->Install())
+    {
+        LOGDEBUG("Install SQL table failed!");
+        exit(-2);
+    }
+
+    LOGINFO("init SQL success!");
 }
 
 ServiceHandle* ConfigServer::CreateServiceHandle()

@@ -13,6 +13,9 @@ namespace ol
     class ORIONLINKDB_API OrionLinkDB
     {
     public:
+        ///////////////////////////////////////////////////////////////////////////
+        /// @brief 接收用户输入数据库配置
+        bool InputDBConfig();
 
         ///////////////////////////////////////////////////////////////////////////
         /// @brief 初始化 MySQL API 
@@ -101,6 +104,10 @@ namespace ol
         /// @param limit 显示几行数据
         /// @param offset 从第几行开始 + 1
         void ShowFormatResult(int width = 20, int limit = 0, int offset = 0);
+
+        ///////////////////////////////////////////////////////////////////////////
+        /// @brief 获取上一次的插入的ID号
+        int GetInsertID();
 
         ///////////////////////////////////////////////////////////////////////////
         /// @brief 生成 SQL 语句

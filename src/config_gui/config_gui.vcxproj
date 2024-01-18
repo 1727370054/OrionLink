@@ -134,7 +134,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;form;core_base;temp\moc;temp\ui;..\config_client;..\platform;..\..\include\protobuf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;form;core_base;temp\moc;temp\ui;..\config_client;..\platform;..\..\include\protobuf;..\auth_client;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>temp\obj\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
@@ -160,7 +160,7 @@
       <IgnoreImportLibrary>true</IgnoreImportLibrary>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <RandomizedBaseAddress>true</RandomizedBaseAddress>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Link>
     <Midl>
@@ -173,7 +173,7 @@
     </ResourceCompile>
     <QtMoc>
       <CompilerFlavor>msvc</CompilerFlavor>
-      <Include>./temp/moc/moc_predefs.h</Include>
+      <Include>./temp/moc/moc_predefs.h;./temp/moc_predefs.h</Include>
       <ExecutionDescription>Moc'ing %(Identity)...</ExecutionDescription>
       <DynamicSource>output</DynamicSource>
       <QtMocDir>temp\moc</QtMocDir>
@@ -192,6 +192,7 @@
     </QtRcc>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\auth_client\auth_client.cpp" />
     <ClCompile Include="..\config_client\config_client.cpp" />
     <ClCompile Include="..\platform\msg_comm.pb.cc" />
     <ClCompile Include="..\platform\msg_type.pb.cc" />
@@ -201,15 +202,21 @@
     <ClCompile Include="core_base\customstyle.cpp" />
     <ClCompile Include="form\frmmain.cpp" />
     <ClCompile Include="core_base\iconhelper.cpp" />
+    <ClCompile Include="login_gui.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="core_base\quihelper.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\auth_client\auth_client.h" />
     <ClInclude Include="..\config_client\config_client.h" />
     <ClInclude Include="..\platform\msg_comm.pb.h" />
     <ClInclude Include="..\platform\msg_type.pb.h" />
     <ClInclude Include="core_base\appdata.h" />
+    <QtMoc Include="login_gui.h" />
     <ClInclude Include="temp\ui\ui_frmmain.h" />
+    <ClInclude Include="temp\ui\ui_login_gui.h" />
     <QtMoc Include="core_base\appinit.h" />
     <ClInclude Include="core_base\base64helper.h" />
     <ClInclude Include="core_base\customstyle.h" />
@@ -233,7 +240,7 @@
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="form\frmmain.ui" />
-    <QtUic Include="form\login_gui.ui" />
+    <QtUic Include="login_gui.ui" />
   </ItemGroup>
   <ItemGroup>
     <None Include="core_qss\qss\blacksoft\add_bottom.png" />
@@ -266,6 +273,7 @@
       <InitFuncName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">image</InitFuncName>
       <InitFuncName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">image</InitFuncName>
     </QtRcc>
+    <QtRcc Include="login_gui.qrc" />
     <QtRcc Include="other\main.qrc">
       <InitFuncName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">main</InitFuncName>
       <InitFuncName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">main</InitFuncName>

@@ -13,10 +13,32 @@ message MsgHead
 	int64 router_id = 5;	    /// 路由标识
 }
 
+/// 通用响应 
+message MessageRes
+{
+	enum Return
+	{
+		OK = 0;					/// 成功
+		ERROR = 1;				/// 失败
+	}
+	Return return = 1;
+	bytes desc = 2;				/// 响应描述
+}
+
 /// 心跳
 message MsgHeart
 {
 	int64 count = 1;
+}
+
+/// 用户注册 微服务架构的用户系统，只为了做单点登录，不涉及权限，权限有具体的业务处理
+/// 系统只有一个root用户
+/// MSG_ADD_USER
+message AddUserReq
+{
+	string username = 1;		/// 用户名
+	bytes password = 2;		/// md5后的密码
+	string rolename = 3;		/// 角色名称，为了后期拓展角色权限
 }
 
 /// 用户登陆请求 MSG_LOGIN_REQ
@@ -31,12 +53,19 @@ message LoginRes
 {
 	enum LoginResType
 	{
-		OK = 0;					/// 登陆成功
-		ERROR = 1;				/// 用户名或密码错误
-		NOUSER = 2;				/// 用户不存在
+		NONE = 0;			    /// 未处理
+		OK = 1;					/// 登陆成功
+		LOGGING  = 2;		    /// 登录中
+		ERROR = 3;				/// 用户名或密码错误
+		NOUSER = 4;				/// 用户不存在
+		SERVER_ERROR = 5;		///	服务端连接错误
 	}
 	LoginResType desc = 1;
-	string token = 2;			/// 登陆成功返回令牌，失败为空
+	bytes token = 2;			/// 登陆成功返回令牌，失败为空
+	/// token 超时时间戳
+	int32 expired_time = 3;
+	string rolename = 4;
+	string username = 5;
 }
 
 /// 目录列表请求 MSG_DIR_REQ
@@ -69,18 +98,6 @@ message RegisterReq
 	string name = 1;			/// 微服务名称
 	string ip = 2;				/// 微服务ip
 	int32 port = 3;				/// 微服务端口
-}
-
-/// 通用响应 
-message MessageRes
-{
-	enum Return
-	{
-		OK = 0;					/// 成功
-		ERROR = 1;				/// 失败
-	}
-	Return return = 1;
-	bytes desc = 2;				/// 响应描述
 }
 
 enum ServiceType
