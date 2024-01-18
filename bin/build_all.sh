@@ -19,6 +19,16 @@ make clean
 make -j8
 make install
 
+cd ../log
+make clean
+make -j8
+make install
+
+cd ../auth
+make clean
+make -j8
+make install
+
 cd ../api_gateway
 make clean
 make watch_api_gateway

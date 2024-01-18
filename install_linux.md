@@ -1,4 +1,4 @@
-# Linux 下 XMS 编译安装说明
+# Linux 下 OrionLink 编译安装说明
 
 ## 1 依赖编译安装 (tools 目录下)
 

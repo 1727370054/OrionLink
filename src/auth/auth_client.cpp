@@ -3,6 +3,8 @@
 #include "tools.h"
 #include "msg_comm.pb.h"
 
+#include <thread>
+
 using namespace msg;
 using namespace std;
 
@@ -16,7 +18,7 @@ void AuthClient::LoginReq(std::string username, std::string password)
 {
     msg::LoginReq request;
     request.set_username(username);
-    auto md5_passwd = OLMD5_base64((unsigned char*)password.c_str(), password.size());
+    auto md5_passwd = OLMD5_base64((unsigned char *)password.c_str(), password.size());
     request.set_password(md5_passwd);
     // std::cout << request.DebugString() << std::endl;
     {
@@ -26,7 +28,7 @@ void AuthClient::LoginReq(std::string username, std::string password)
     SendMsg(MSG_LOGIN_REQ, &request);
 }
 
-void AuthClient::LoginRes(msg::MsgHead* head, Msg* msg)
+void AuthClient::LoginRes(msg::MsgHead *head, Msg *msg)
 {
     msg::LoginRes response;
     if (!response.ParseFromArray(msg->data, msg->size))
@@ -37,19 +39,20 @@ void AuthClient::LoginRes(msg::MsgHead* head, Msg* msg)
     /// cout << response.DebugString() << endl;
     {
         Mutex lock(&login_map_mutex_);
-        if (response.username().empty()) return;
+        if (response.username().empty())
+            return;
         login_map_[response.username()] = response;
     }
 }
 
-void AuthClient::AddUserReq(msg::AddUserReq* add_user)
+void AuthClient::AddUserReq(msg::AddUserReq *add_user)
 {
-    auto md5_passwd = OLMD5_base64((unsigned char*)add_user->password().c_str(), add_user->password().size());
+    auto md5_passwd = OLMD5_base64((unsigned char *)add_user->password().c_str(), add_user->password().size());
     add_user->set_password(md5_passwd);
     SendMsg(MSG_ADD_USER_REQ, add_user);
 }
 
-void AuthClient::AddUserRes(msg::MsgHead* head, Msg* msg)
+void AuthClient::AddUserRes(msg::MsgHead *head, Msg *msg)
 {
     msg::MessageRes response;
     if (!response.ParseFromArray(msg->data, msg->size))
@@ -66,11 +69,13 @@ void AuthClient::AddUserRes(msg::MsgHead* head, Msg* msg)
     LOGDEBUG("add user success!");
 }
 
-bool AuthClient::GetLoginInfo(string username, msg::LoginRes* out_info, int timeout_ms)
+bool AuthClient::GetLoginInfo(string username, msg::LoginRes *out_info, int timeout_ms)
 {
-    if (!out_info || username.empty()) return false;
+    if (!out_info || username.empty())
+        return false;
     int count = timeout_ms / 10;
-    if (count <= 0) count = 1;
+    if (count <= 0)
+        count = 1;
     for (int i = 0; i < count; i++)
     {
         login_map_mutex_.lock();
@@ -92,4 +97,3 @@ bool AuthClient::GetLoginInfo(string username, msg::LoginRes* out_info, int time
     }
     return false;
 }
-

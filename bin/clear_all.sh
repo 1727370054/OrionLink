@@ -1,10 +1,19 @@
 #!/bin/bash
 stop_register_server
 stop_config_server
+stop_api_gateway
+stop_auth
+stop_log
 cd ../src/platform
 make uninstall
 
 cd ../orion_link_db
+make uninstall
+
+cd ../log
+make uninstall
+
+cd ../auth
 make uninstall
 
 cd ../api_gateway
