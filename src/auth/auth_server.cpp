@@ -14,7 +14,7 @@ void AuthService::main(int argc, char* argv[])
 	AuthHandle::RegisterMsgCallback();
 
     /// 注册中心的配置
-    string register_ip = "127.0.0.1";
+    string register_ip = GetHostByName(OL_REGISTER_SERVER_NAME);
     if (argc > 1)
         register_ip = argv[1];
 

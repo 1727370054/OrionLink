@@ -12,30 +12,30 @@ public:
     ~SSLCtx();
 
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief ³õÊ¼»¯SSL·şÎñÆ÷
-    /// @param crt_file ·şÎñ¶ËÖ¤ÊéÎÄ¼ş
-    /// @param key_file ·şÎñÆ÷Ë½Ô¿ÎÄ¼ş
-    /// @param ca_file ÑéÖ¤¿Í»§¶ËÖ¤Êé(¿ÉÑ¡)
+    /// @brief åˆå§‹åŒ–SSLæœåŠ¡å™¨
+    /// @param crt_file æœåŠ¡ç«¯è¯ä¹¦æ–‡ä»¶
+    /// @param key_file æœåŠ¡å™¨ç§é’¥æ–‡ä»¶
+    /// @param ca_file éªŒè¯å®¢æˆ·ç«¯è¯ä¹¦(å¯é€‰)
     virtual bool InitServer(const char* crt_file, const char* key_file, const char* ca_file = 0);
 
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief ³õÊ¼»¯SSL¿Í»§¶Ë
-    /// @param ca_file ÑéÖ¤·şÎñ¶ËÖ¤Êé(¿ÉÑ¡)
+    /// @brief åˆå§‹åŒ–SSLå®¢æˆ·ç«¯
+    /// @param ca_file éªŒè¯æœåŠ¡ç«¯è¯ä¹¦(å¯é€‰)
     virtual bool InitClient(const char* ca_file = 0);
 
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief ´´½¨SSLÍ¨Ñ¶¶ÔÏó£¬socketºÍssl_st×ÊÔ´ÓÉµ÷ÓÃÕßÊÍ·Å
-    ///        ´´½¨Ê§°Ü·µ»ØÍ¨¹ıSSL::IsEmpty()ÅĞ¶Ï
-    /// @param crt_file ·şÎñ¶ËÖ¤ÊéÎÄ¼ş
-    /// @param socket socketÃèÊö·û
+    /// @brief åˆ›å»ºSSLé€šè®¯å¯¹è±¡ï¼Œsocketå’Œssl_stèµ„æºç”±è°ƒç”¨è€…é‡Šæ”¾
+    ///        åˆ›å»ºå¤±è´¥è¿”å›é€šè¿‡SSL::IsEmpty()åˆ¤æ–­
+    /// @param crt_file æœåŠ¡ç«¯è¯ä¹¦æ–‡ä»¶
+    /// @param socket socketæè¿°ç¬¦
     OLSSL NewSSL(int socket);
 
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief ÊÍ·ÅsslÉÏÏÂÎÄ×ÊÔ´
+    /// @brief é‡Šæ”¾sslä¸Šä¸‹æ–‡èµ„æº
     void Close();
 private:
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief ÑéÖ¤¶Ô·½Ö¤Êé
+    /// @brief éªŒè¯å¯¹æ–¹è¯ä¹¦
     void SetVerify(const char* ca_crt);
 private:
     struct ssl_ctx_st* ssl_ctx_ = nullptr;

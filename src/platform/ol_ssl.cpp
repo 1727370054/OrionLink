@@ -1,4 +1,4 @@
-﻿#include "log_client.h"
+#include "log_client.h"
 #include "ol_ssl.h"
 #include "tools.h"
 

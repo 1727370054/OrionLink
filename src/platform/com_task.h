@@ -1,4 +1,4 @@
-﻿#ifndef COM_TASH_H
+#ifndef COM_TASH_H
 #define COM_TASH_H
 
 #include "task.h"
@@ -6,6 +6,8 @@
 
 #include <string>
 
+///////////////////////////////////////////////////////////////////////////
+/// @brief 通过端口号获取微服务名称
 XCOM_API const char* GetPortName(unsigned short port);
 
 class SSLCtx;

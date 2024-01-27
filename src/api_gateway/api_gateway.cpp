@@ -28,7 +28,7 @@ int main(int argc, char*argv[])
     ServiceProxy::GetInstance()->Start();
 
     /// 连接配置中心，获取配置(只取第一个配置中心的IP)
-    auto confs = RegisterClient::GetInstance()->GetServices(CONFIG_NAME, 10);
+    auto confs = RegisterClient::GetInstance()->GetServices(CONFIG_NAME, 5);
     LOGDEBUG(confs.DebugString());
     if (confs.service_size() <= 0)
     {

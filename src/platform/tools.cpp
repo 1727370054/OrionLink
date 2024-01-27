@@ -1,4 +1,4 @@
-﻿#include "tools.h"
+#include "tools.h"
 
 #include <cstdio>
 #include <string>
@@ -11,6 +11,7 @@
 
 #ifdef _WIN32
 #include <io.h>
+#include <windows.h>
 #else
 #include <sys/types.h>
 #include <dirent.h>
@@ -25,7 +26,7 @@ std::string GetDirData(std::string path)
 #ifdef _WIN32
     /// file 一个结构体，用于存储找到的每个文件的信息（如名称、大小、属性等）
     _finddata_t file;
-    /// "paath + /*.*"（表示查找所有文件）
+    /// "path + /*.*"（表示查找所有文件）
     std::string dir_path = path + "/*.*";
     /// dir 存储搜索的上下文或句柄
     intptr_t dir = _findfirst(dir_path.c_str(), &file);
@@ -56,7 +57,8 @@ std::string GetDirData(std::string path)
 	}
 
 	char buf[1024] = { 0 };
-	while ((entry = readdir(dp)) != NULL) {
+	while ((entry = readdir(dp)) != NULL) 
+	{
 		std::string fullPath = path + "/" + entry->d_name;
 		if (lstat(fullPath.c_str(), &statbuf) == -1)
 		{
@@ -80,6 +82,185 @@ std::string GetDirData(std::string path)
     }
 
     return data;
+}
+
+XCOM_API std::list<ToolFileInfo> GetDirList(std::string path)
+{
+	std::list<ToolFileInfo> file_list;
+#ifdef _WIN32
+	/// file 一个结构体，用于存储找到的每个文件的信息（如名称、大小、属性等）
+	_finddata_t file;
+	/// "path + /*.*"（表示查找所有文件）
+	std::string dir_path = path + "/*.*";
+	/// dir 存储搜索的上下文或句柄
+	intptr_t dir = _findfirst(dir_path.c_str(), &file);
+	if (dir < 0) return file_list;
+
+	do
+	{
+		ToolFileInfo file_info;
+		if (file.attrib & _A_SUBDIR)
+		{
+			file_info.is_dir = true;
+		}
+		file_info.filename = file.name;
+		file_info.filesize = file.size;
+		file_info.time_write = file.time_write;
+		file_info.time_str = GetCurTime(file.time_write);
+		file_list.push_back(file_info);
+
+	} while (_findnext(dir, &file) == 0);
+#else
+	const char* dir = path.c_str();
+	DIR* dp = NULL;
+	struct dirent* entry = NULL;
+	struct stat statbuf;
+
+	if (dir == NULL)
+		return file_list;
+
+	dp = opendir(dir);
+	if (dp == NULL)
+	{
+		/// 无法打开目录，可能目录不存在或者权限问题
+		return file_list;
+	}
+
+	while ((entry = readdir(dp)) != NULL) 
+	{
+		ToolFileInfo file_info;
+		std::string fullPath = path + "/" + entry->d_name;
+		if (lstat(fullPath.c_str(), &statbuf) == -1)
+		{
+			continue;
+		}
+		if (S_ISDIR(statbuf.st_mode))
+		{
+			file_info.is_dir = true;
+		}
+		file_info.filename = entry->d_name;
+		file_info.filesize = statbuf.st_size;
+		file_info.time_write = statbuf.st_mtime;
+		file_info.time_str = GetCurTime(statbuf.st_mtime);
+		file_list.push_back(file_info);
+	}
+
+	closedir(dp); /// 关闭目录指针
+#endif // _WIN32
+
+	return file_list;
+}
+
+std::string GetIconFilename(std::string filename, bool is_dir)
+{
+	std::string iconpath = "Other";
+	std::string filetype = "";
+	int pos = filename.find_last_of(".");
+	if (pos > 0)
+	{
+		filetype = filename.substr(pos + 1);
+	}
+
+	/// 转换为小写 ，第三个参数是输出
+	transform(filetype.begin(), filetype.end(), filetype.begin(), ::tolower);
+
+	if (is_dir)
+	{
+		iconpath = "Folder";
+	}
+	else if (filetype == "jpg" || filetype == "png" || filetype == "gif")
+	{
+		iconpath = "Img";
+	}
+	else if (filetype == "doc" || filetype == "docx" || filetype == "wps")
+	{
+		iconpath = "Doc";
+	}
+	else if (filetype == "rar" || filetype == "zip" || filetype == "7z" || filetype == "gzip")
+	{
+		iconpath = "Rar";
+	}
+	else if (filetype == "ppt" || filetype == "pptx")
+	{
+		iconpath = "Ppt";
+	}
+	else if (filetype == "xls" || filetype == "xlsx")
+	{
+		iconpath = "Xls";
+	}
+	else if (filetype == "pdf")
+	{
+		iconpath = "Pdf";
+	}
+	else if (filetype == "doc" || filetype == "docx" || filetype == "wps")
+	{
+		iconpath = "Doc";
+	}
+	else if (filetype == "avi" || filetype == "mp4" || filetype == "mov" || filetype == "wmv")
+	{
+		iconpath = "Video";
+	}
+	else if (filetype == "mp3" || filetype == "pcm" || filetype == "wav" || filetype == "wma")
+	{
+		iconpath = "Music";
+	}
+	else
+	{
+		iconpath = "Other";
+	}
+	return iconpath;
+}
+
+XCOM_API std::string GetSizeString(long long size)
+{
+	std::string filesize_str = "";
+	if (size > 1024 * 1024 * 1024) /// GB
+	{
+		double gb_size = (double)size / (double)1024 * 1024 * 1024;
+		long long tmp = gb_size * 100;
+		std::stringstream ss;
+		ss << tmp / 100;
+		if (tmp % 100 > 0)
+		{
+			ss << "." << tmp % 100;
+		}
+		ss << "GB";
+		filesize_str = ss.str();
+	}
+	else if (size > 1024 * 1024) //MB
+	{
+		double ms_size = (double)size / (double)(1024 * 1024);
+		long long tmp = ms_size * 100;
+
+		std::stringstream ss;
+		ss << tmp / 100;
+		if (tmp % 100 > 0)
+			ss << "." << tmp % 100;
+		ss << "MB";
+		filesize_str = ss.str();
+	}
+	else if (size > 1024) //KB
+	{
+		float kb_size = (float)size / (float)(1024);
+		long long tmp = kb_size * 100;
+		std::stringstream ss;
+		ss << tmp / 100;
+		if (tmp % 100 > 0)
+			ss << "." << tmp % 100;
+		ss << "KB";
+		filesize_str = ss.str();
+	}
+	else //B
+	{
+		float b_size = size / (float)(1024);
+		long long tmp = b_size * 100;
+
+		std::stringstream ss;
+		ss << size;
+		ss << "B";
+		filesize_str = ss.str();
+	}
+	return filesize_str;
 }
 
 int Base64Encode(const unsigned char* in, int len, char* out_base64)
@@ -165,7 +346,7 @@ std::string GetCurTime(int timestamp, std::string format)
 	time_t tm = timestamp;
 	if (tm <= 0)
 		tm = time(0);
-	strftime(buf, sizeof(buf), format.c_str(), gmtime(&tm));
+	strftime(buf, sizeof(buf), format.c_str(), localtime(&tm));
 	return buf;
 }
 
@@ -184,5 +365,29 @@ std::string OLMD5_base64(const unsigned char* d, unsigned long n)
 	Base64Encode(buf, 16, base64);
 	base64[24] = '\0';
 	return base64;
+}
+
+std::string GetHostByName(std::string host_name)
+{
+#ifdef _WIN32
+	static bool is_init = false;
+	if (!is_init)
+	{
+		WORD sock_version = MAKEWORD(2, 2);
+		WSADATA wsa;
+		if (WSAStartup(sock_version, &wsa) != 0)
+		{
+			return "";
+		}
+		is_init = true;
+	}
+#endif // _WIN32
+	auto host = gethostbyname(host_name.c_str());
+	if (!host) return "";
+	auto addr = host->h_addr_list;
+	if (!addr) return "";
+
+	/// 只取第一个
+	return inet_ntoa(*(in_addr*)*addr);
 }
 

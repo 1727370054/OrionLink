@@ -1,4 +1,4 @@
-﻿#ifndef LOG_CLIENT_H
+#ifndef LOG_CLIENT_H
 #define LOG_CLIENT_H
 
 #ifdef _WIN32

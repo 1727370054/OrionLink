@@ -1,4 +1,4 @@
-﻿#ifndef TOOLS_H
+#ifndef TOOLS_H
 #define TOOLS_H
 
 #ifdef _WIN32
@@ -13,11 +13,28 @@
 
 #include <string>
 #include <mutex>
+#include <list>
 #include <iostream>
 #include <sstream> 
 #include "log_client.h"
 
 XCOM_API std::string GetDirData(std::string path);
+
+struct ToolFileInfo
+{
+    std::string filename = "";
+    long long filesize = 0;
+    bool is_dir = false;
+    long long time_write = 0;
+    std::string time_str = "";
+};
+
+XCOM_API std::list<ToolFileInfo> GetDirList(std::string path);
+
+XCOM_API std::string GetIconFilename(std::string filename, bool is_dir);
+
+XCOM_API std::string GetSizeString(long long size);
+
 
 ///////////////////////////////////////////////////////////////////////////
 /// @brief 生成md5 128bit(16字节) 
@@ -40,6 +57,14 @@ XCOM_API int Base64Encode(const unsigned char* in, int len, char* out_base64);
 ///////////////////////////////////////////////////////////////////////////
 /// @brief 解码base64 返回解码字节大小
 XCOM_API int Base64Decode(const char* in, int len, unsigned char* out_data);
+
+///////////////////////////////////////////////////////////////////////////
+/// @brief 通过域名获取IP地址(只取第一个)
+/// windows ->> C:\Windows\System32\drivers\etc
+/// Linux   ->> /etc/hosts
+/// 127.0.0.1 ol_gateway_server
+/// 127.0.0.1 ol_register_server
+XCOM_API std::string GetHostByName(std::string host_name);
 
 /*********************************时间格式***********************************
 /*

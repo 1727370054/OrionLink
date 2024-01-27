@@ -3,6 +3,7 @@
 #include "register_client.h"
 #include "config_client.h"
 #include "ssl_ctx.h"
+#include "tools.h"
 
 #include <string>
 
@@ -10,7 +11,7 @@ using namespace std;
 
 void RouterService::main(int argc, char* argv[])
 {
-    string register_ip = "127.0.0.1";
+    string register_ip = GetHostByName(OL_REGISTER_SERVER_NAME);
     if (argc > 1)
     {
         register_ip = argv[1];

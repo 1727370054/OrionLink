@@ -1,0 +1,38 @@
+syntax = "proto3";	// 版本号
+package disk;		// 命名空间
+
+/// 消息列表 任务列表 文件列表
+enum FileMsgType
+{
+	FILE_MSG_NONE = 0;
+	GET_DIR_REQ = 1001;			/// GetDirReq
+	GET_DIR_RES = 1002;			/// FileInfoList 失败走统一的失败通道
+}
+
+message GetDirReq
+{
+	bytes root = 1;				/// 用户根目录
+}
+
+/// 文件信息，新添加的文件在文件列表中暂时不显示
+message FileInfo
+{
+    bytes filename = 1;
+    bytes filedir = 2;				/// 文件路径，不包含文件名
+    int64 filesize = 3;				/// byte 如果是加密文件 这是实际存储大小，源文件大小在ori_size
+    string filetime = 4;			/// 2020-01-20 18:30
+    bool is_dir = 5;				/// 是否目录
+	bytes md5 = 6;					/// 文件校验  
+	bytes local_path = 7;			/// 用于上传任务
+	int64 net_size = 8;				/// 已经接收或者发送的文件大小 字节数
+	bool is_enc = 9;				/// 是否加密 第一版秘钥本地用户输入
+	int64 ori_size = 10;			/// 加密文件的源文件大小
+	bytes password = 11;			/// 用于传递任务，不传递消息
+	
+}
+
+//服务端用 文件列表
+message FileInfoList
+{
+	repeated FileInfo files = 4;
+}

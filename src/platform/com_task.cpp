@@ -1,4 +1,4 @@
-﻿#include "log_client.h"
+#include "log_client.h"
 #include "com_task.h"
 #include "ssl_ctx.h"
 #include "tools.h"

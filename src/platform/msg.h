@@ -1,14 +1,20 @@
-﻿#ifndef MSG_H
+#ifndef MSG_H
 #define MSG_H
 
 #include "msg_type.pb.h"
 
 #define MAX_MSG_SIZE 8192
 
+/// windows ->> C:\Windows\System32\drivers\etc
+/// Linux   ->> /etc/hosts
+/// 127.0.0.1 ol_gateway_server
+/// 127.0.0.1 ol_register_server
+#define OL_GATEWAY_SERVER_NAME "ol_gateway_server"
 #define API_GATEWAY_PORT 20010
 #define API_GATEWAY_SSL_PORT 20011
 #define API_GATEWAY_NAME "gateway"
 
+#define OL_REGISTER_SERVER_NAME "ol_register_server"
 #define REGISTER_NAME "register"
 #define REGISTER_PORT 20018
 
@@ -20,6 +26,9 @@
 
 #define LOG_PORT 20021
 #define LOG_NAME "log"
+
+#define DIR_PORT 20200
+#define DIR_NAME "dir"
 
 class Msg
 {
