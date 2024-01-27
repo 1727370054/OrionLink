@@ -2,6 +2,7 @@
 
 #include <cstdio>
 #include <string>
+#include <cstring>
 #include <algorithm>
 #include <openssl/md5.h>
 #include <openssl/bio.h>

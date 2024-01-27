@@ -30,3 +30,15 @@ make uninstall
 
 cd ../config_client
 make uninstall
+
+cd ../disk_proto
+make uninstall
+
+cd ../dir_service
+make uninstall
+
+cd ../build_conf
+make uninstall
+
+cd ../ol_add_user
+make uninstall

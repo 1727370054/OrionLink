@@ -4,3 +4,4 @@ stop_config_server
 stop_api_gateway
 stop_auth
 stop_log
+stop_dir_service

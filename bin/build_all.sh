@@ -29,6 +29,16 @@ make clean
 make -j8
 make install
 
+cd ../disk_proto
+make clean
+make -j8
+make install
+
+cd ../dir_service
+make clean
+make -j8
+make install
+
 cd ../api_gateway
 make clean
 make watch_api_gateway
@@ -45,6 +55,16 @@ cd ../config_server
 make clean
 make -j8
 make watch_config_server
+make install
+
+cd ../build_conf
+make clean
+make -j8
+make install
+
+cd ../ol_add_user
+make clean
+make -j8
 make install
 
 echo "build all success!"
