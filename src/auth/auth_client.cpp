@@ -3,6 +3,8 @@
 #include "tools.h"
 #include "msg_comm.pb.h"
 
+#include <thread>
+
 using namespace msg;
 using namespace std;
 

@@ -17,6 +17,8 @@
 #include <dirent.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <netdb.h>
+#include <arpa/inet.h>
 #endif // _WIN32
 
 
