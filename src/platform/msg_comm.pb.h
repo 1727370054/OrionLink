@@ -400,6 +400,8 @@ class MsgHead :
   enum : int {
     kTokenFieldNumber = 3,
     kServiceNameFieldNumber = 4,
+    kUsernameFieldNumber = 6,
+    kRolenameFieldNumber = 7,
     kMsgSizeFieldNumber = 1,
     kMsgTypeFieldNumber = 2,
     kRouterIdFieldNumber = 5,
@@ -436,6 +438,38 @@ class MsgHead :
   std::string* _internal_mutable_service_name();
   public:
 
+  // string username = 6;
+  void clear_username();
+  const std::string& username() const;
+  void set_username(const std::string& value);
+  void set_username(std::string&& value);
+  void set_username(const char* value);
+  void set_username(const char* value, size_t size);
+  std::string* mutable_username();
+  std::string* release_username();
+  void set_allocated_username(std::string* username);
+  private:
+  const std::string& _internal_username() const;
+  void _internal_set_username(const std::string& value);
+  std::string* _internal_mutable_username();
+  public:
+
+  // string rolename = 7;
+  void clear_rolename();
+  const std::string& rolename() const;
+  void set_rolename(const std::string& value);
+  void set_rolename(std::string&& value);
+  void set_rolename(const char* value);
+  void set_rolename(const char* value, size_t size);
+  std::string* mutable_rolename();
+  std::string* release_rolename();
+  void set_allocated_rolename(std::string* rolename);
+  private:
+  const std::string& _internal_rolename() const;
+  void _internal_set_rolename(const std::string& value);
+  std::string* _internal_mutable_rolename();
+  public:
+
   // int32 msg_size = 1;
   void clear_msg_size();
   ::PROTOBUF_NAMESPACE_ID::int32 msg_size() const;
@@ -458,6 +492,8 @@ class MsgHead :
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr token_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr service_name_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr username_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr rolename_;
   ::PROTOBUF_NAMESPACE_ID::int32 msg_size_;
   int msg_type_;
   ::PROTOBUF_NAMESPACE_ID::int64 router_id_;
@@ -3941,6 +3977,126 @@ inline void MsgHead::set_router_id(::PROTOBUF_NAMESPACE_ID::int64 value) {
   
   router_id_ = value;
   // @@protoc_insertion_point(field_set:msg.MsgHead.router_id)
+}
+
+// string username = 6;
+inline void MsgHead::clear_username() {
+  username_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& MsgHead::username() const {
+  // @@protoc_insertion_point(field_get:msg.MsgHead.username)
+  return _internal_username();
+}
+inline void MsgHead::set_username(const std::string& value) {
+  _internal_set_username(value);
+  // @@protoc_insertion_point(field_set:msg.MsgHead.username)
+}
+inline std::string* MsgHead::mutable_username() {
+  // @@protoc_insertion_point(field_mutable:msg.MsgHead.username)
+  return _internal_mutable_username();
+}
+inline const std::string& MsgHead::_internal_username() const {
+  return username_.GetNoArena();
+}
+inline void MsgHead::_internal_set_username(const std::string& value) {
+  
+  username_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void MsgHead::set_username(std::string&& value) {
+  
+  username_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:msg.MsgHead.username)
+}
+inline void MsgHead::set_username(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  username_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:msg.MsgHead.username)
+}
+inline void MsgHead::set_username(const char* value, size_t size) {
+  
+  username_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:msg.MsgHead.username)
+}
+inline std::string* MsgHead::_internal_mutable_username() {
+  
+  return username_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* MsgHead::release_username() {
+  // @@protoc_insertion_point(field_release:msg.MsgHead.username)
+  
+  return username_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void MsgHead::set_allocated_username(std::string* username) {
+  if (username != nullptr) {
+    
+  } else {
+    
+  }
+  username_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), username);
+  // @@protoc_insertion_point(field_set_allocated:msg.MsgHead.username)
+}
+
+// string rolename = 7;
+inline void MsgHead::clear_rolename() {
+  rolename_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& MsgHead::rolename() const {
+  // @@protoc_insertion_point(field_get:msg.MsgHead.rolename)
+  return _internal_rolename();
+}
+inline void MsgHead::set_rolename(const std::string& value) {
+  _internal_set_rolename(value);
+  // @@protoc_insertion_point(field_set:msg.MsgHead.rolename)
+}
+inline std::string* MsgHead::mutable_rolename() {
+  // @@protoc_insertion_point(field_mutable:msg.MsgHead.rolename)
+  return _internal_mutable_rolename();
+}
+inline const std::string& MsgHead::_internal_rolename() const {
+  return rolename_.GetNoArena();
+}
+inline void MsgHead::_internal_set_rolename(const std::string& value) {
+  
+  rolename_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void MsgHead::set_rolename(std::string&& value) {
+  
+  rolename_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:msg.MsgHead.rolename)
+}
+inline void MsgHead::set_rolename(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  rolename_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:msg.MsgHead.rolename)
+}
+inline void MsgHead::set_rolename(const char* value, size_t size) {
+  
+  rolename_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:msg.MsgHead.rolename)
+}
+inline std::string* MsgHead::_internal_mutable_rolename() {
+  
+  return rolename_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* MsgHead::release_rolename() {
+  // @@protoc_insertion_point(field_release:msg.MsgHead.rolename)
+  
+  return rolename_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void MsgHead::set_allocated_rolename(std::string* rolename) {
+  if (rolename != nullptr) {
+    
+  } else {
+    
+  }
+  rolename_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), rolename);
+  // @@protoc_insertion_point(field_set_allocated:msg.MsgHead.rolename)
 }
 
 // -------------------------------------------------------------------

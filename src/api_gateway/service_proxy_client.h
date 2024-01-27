@@ -9,11 +9,18 @@
 class ServiceProxyClient : public ServiceClient
 {
 public:
+    ~ServiceProxyClient();
+
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 根据 service_name 区分创建鉴权代理，还是普通代理
+    /// @param service_name 微服务名称
+    static ServiceProxyClient* Create(std::string service_name);
+
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 接收了微服务的反馈，消息转发给对应的 RouterHandle（该函数重写 MsgEvent 的虚函数）
     /// @param head 反序列化后消息头部
     /// @param msg 序列化的消息内容
-    virtual void ReadCallback(msg::MsgHead* head, Msg* msg);
+    virtual void ReadCallback(msg::MsgHead* head, Msg* msg) override;
 
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 该客户端消息先和 RouterHandle 进行关联，再路由转发到微服务集群
@@ -33,6 +40,8 @@ public:
     /// @brief 删除一个事件 (RouterHandle)
     /// @param event 事件对象指针
     void DeleteEvent(MsgEvent* event);
+protected:
+    ServiceProxyClient();
 
 private:
     /// 消息转发的对象，一个 proxy 对应多个 MsgEvent

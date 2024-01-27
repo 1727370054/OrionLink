@@ -11,6 +11,8 @@ message MsgHead
 	bytes token = 3;			/// 令牌(登陆消息则为空)
 	string service_name = 4;	/// 微服务名称(用于路由)
 	int64 router_id = 5;	    /// 路由标识
+	string username =  6;		/// 用户名(用于鉴权)
+	string rolename = 7;		/// 角色名(用于鉴权)
 }
 
 /// 通用响应 

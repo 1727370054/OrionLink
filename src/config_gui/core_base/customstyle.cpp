@@ -9,14 +9,14 @@ void CustomStyle::initStyle(int fontSize, int radioButtonSize, int checkBoxSize,
     }
 
     QStringList list;
-    //å…¨å±€å­—ä½“
+    //È«¾Ö×ÖÌå
     list << QString("*{font-size:%1px;}").arg(fontSize);
-    //å•é€‰æ¡†
+    //µ¥Ñ¡¿ò
     list << QString("QRadioButton::indicator{width:%1px;height:%1px;}").arg(radioButtonSize);
-    //å¤é€‰æ¡†
+    //¸´Ñ¡¿ò
     list << QString("QCheckBox::indicator,QGroupBox::indicator,QTreeWidget::indicator,QListWidget::indicator{width:%1px;height:%1px;}").arg(checkBoxSize);
 
-    //æ»‘å—é¢œè‰²
+    //»¬¿éÑÕÉ«
 #if 0
     QString normalColor = "#e3e3e3";
     QString grooveColor = "#0078d7";
@@ -38,7 +38,7 @@ void CustomStyle::initStyle(int fontSize, int radioButtonSize, int checkBoxSize,
     int handleRadius = handleWidth / 2 + 1;
     int handleOffset = handleRadius / 2;
 
-    //æ¨ªå‘æ»‘å—
+    //ºáÏò»¬¿é
     list << QString("QSlider::horizontal{min-height:%1px;}").arg(sliderHeight * 2);
     list << QString("QSlider::groove:horizontal{background:%1;height:%2px;border-radius:%3px;}")
          .arg(normalColor).arg(sliderHeight).arg(sliderRadius);
@@ -50,7 +50,7 @@ void CustomStyle::initStyle(int fontSize, int radioButtonSize, int checkBoxSize,
                     "background:qradialgradient(spread:pad,cx:0.5,cy:0.5,radius:0.5,fx:0.5,fy:0.5,stop:0.6 #FFFFFF,stop:0.8 %1);}")
          .arg(handleColor).arg(handleWidth).arg(handleOffset).arg(handleRadius).arg(borderColor);
 
-    //åž‚ç›´æ»‘å—
+    //´¹Ö±»¬¿é
     list << QString("QSlider::vertical{min-width:%1px;}").arg(sliderHeight * 2);
     list << QString("QSlider::groove:vertical{background:%1;width:%2px;border-radius:%3px;}")
          .arg(normalColor).arg(sliderHeight).arg(sliderRadius);

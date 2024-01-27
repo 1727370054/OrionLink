@@ -15,11 +15,8 @@ void GetDirClient::RegisterMsgCallback()
 
 void GetDirClient::GetDirReq(disk::GetDirReq req)
 {
-    MsgHead head;
-    head.set_msg_type((MsgType)GET_DIR_REQ);
-    head.set_service_name(DIR_NAME);
     cur_dir_ = req.root();
-    SendMsg(&head, &req);
+    SendMsg((MsgType)GET_DIR_REQ, &req);
 }
 
 void GetDirClient::GetDirRes(msg::MsgHead* head, Msg* msg)
@@ -34,4 +31,13 @@ void GetDirClient::GetDirRes(msg::MsgHead* head, Msg* msg)
     cout << file_list.DebugString() << endl;
 
     iFileManager::GetInstance()->RefreshData(file_list, cur_dir_);
+}
+
+GetDirClient::GetDirClient()
+{
+    set_service_name(DIR_NAME);
+}
+
+GetDirClient::~GetDirClient()
+{
 }

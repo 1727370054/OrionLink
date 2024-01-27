@@ -64,16 +64,14 @@ void LoginGUI::Login()
         ui->err_msg->setText(QString::fromLocal8Bit("用户名或密码不能为空!"));
         return;
     }
-    AuthClient::GetInstance()->LoginReq(username, password);
-    LoginRes res;
-    if (!AuthClient::GetInstance()->GetLoginInfo(username, &res, 2000))
+
+    if (!AuthClient::GetInstance()->Login(username, password))
     {
         ui->err_msg->setText(QString::fromLocal8Bit("用户名或密码错误!"));
         return;
     }
 
     ui->err_msg->setText(QString::fromLocal8Bit("登陆成功!"));
-    GetUsername(username);
     QDialog::accept();
 }
 

@@ -14,8 +14,29 @@ void AuthClient::RegisterMsgCallback()
     RegisterCallback(MSG_LOGIN_RES, (MsgCBFunc)&AuthClient::LoginRes);
 }
 
+bool AuthClient::Login(std::string username, std::string password)
+{
+    LoginReq(username, password);
+    auto res = GetCurLogin();
+    if (res.desc() == LoginRes::ERROR)
+        return false;
+    return true;
+}
+
+msg::LoginRes AuthClient::GetCurLogin()
+{
+    msg::LoginRes res;
+    if (!GetLoginInfo(cur_username_, &res, 3000))
+    {
+        res.set_desc(LoginRes::ERROR);
+        return res;
+    }
+    return res;
+}
+
 void AuthClient::LoginReq(std::string username, std::string password)
 {
+    cur_username_ = username;
     msg::LoginReq request;
     request.set_username(username);
     auto md5_passwd = OLMD5_base64((unsigned char*)password.c_str(), password.size());
@@ -25,10 +46,8 @@ void AuthClient::LoginReq(std::string username, std::string password)
         Mutex lock(&login_map_mutex_);
         login_map_.erase(username);
     }
-    MsgHead head;
-    head.set_service_name(AUTH_NAME);
-    head.set_msg_type(MSG_LOGIN_REQ);
-    SendMsg(&head, &request);
+
+    SendMsg(MSG_LOGIN_REQ, &request);
 }
 
 void AuthClient::LoginRes(msg::MsgHead* head, Msg* msg)
@@ -97,4 +116,16 @@ bool AuthClient::GetLoginInfo(string username, msg::LoginRes* out_info, int time
     }
     return false;
 }
+
+AuthClient::AuthClient()
+{
+    set_service_name(AUTH_NAME);
+    AuthClient::RegisterMsgCallback();
+}
+
+AuthClient::~AuthClient()
+{
+}
+
+
 

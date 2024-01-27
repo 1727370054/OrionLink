@@ -7,6 +7,8 @@
 class GetDirClient : public ServiceClient
 {
 public:
+    ~GetDirClient();
+
     static GetDirClient* GetInstance()
     {
         static GetDirClient get_dir_client;
@@ -19,6 +21,10 @@ public:
     void GetDirReq(disk::GetDirReq req);
 
     void GetDirRes(msg::MsgHead *head, Msg *msg);
+private:
+    GetDirClient();
+    GetDirClient(const GetDirClient&) = delete;
+    GetDirClient& operator=(const GetDirClient&) = delete;
 private:
     std::string cur_dir_ = "";
 };

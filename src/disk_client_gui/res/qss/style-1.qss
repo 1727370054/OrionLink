@@ -1,22 +1,22 @@
 /**
-    è¯¥é¡µé¢ä¸ºç²‰çº¢è‰²çš®è‚¤
+    ¸ÃÒ³ÃæÎª·ÛºìÉ«Æ¤·ô
 */
 
 
-/*èƒŒæ™¯*/
+/*±³¾°*/
 #frame_background{
 border-image:url(:/res/pic/background-1.png);
 }
 
-/*ç™»å½•èƒŒæ™¯*/
+/*µÇÂ¼±³¾°*/
 #frame_login{background-color:#ffffff}
 
-/*å³ä¾§å›¾ç‰‡*/
+/*ÓÒ²àÍ¼Æ¬*/
 #frame_pic{
     background-image:url(:/res/pic/1.png);
 
 }
-/*è´¦æˆ·å’Œå¯†ç æ¡†*/
+/*ÕË»§ºÍÃÜÂë¿ò*/
 #frame_user_name,#frame_pwd{
     border: 1px solid #696969;
     border-radius: 5px;
@@ -27,33 +27,33 @@ QLineEdit{
 }
 
 
-/*æŒ‰é’®-å¿˜è®°å¯†ç */
+/*°´Å¥-Íü¼ÇÃÜÂë*/
 #btn_forget{
     border:none;
     color:#e83737;
 }
 
-/*æŒ‰é’®-å¿˜è®°å¯†ç -é¼ æ ‡æ‚¬åœ*/
+/*°´Å¥-Íü¼ÇÃÜÂë-Êó±êĞüÍ£*/
 #btn_forget:hover{
     border:none;
     color:#e83737;
 }
 
-/*æŒ‰é’®-ç™»å½•*/
+/*°´Å¥-µÇÂ¼*/
 #btn_login{
     color:#ffffff;
     border: none;
     background-color:#fd6c92;
     border-radius: 5px;
 }
-/*æŒ‰é’®-ç™»å½•-é¼ æ ‡æ‚¬åœ*/
+/*°´Å¥-µÇÂ¼-Êó±êĞüÍ£*/
 #btn_login:hover{
     color:#ffffff;
     border: none;
     background-color:#fd4979;
     border-radius: 5px;
 }
-/*æŒ‰é’®-ç™»å½•-é¼ æ ‡æŒ‰ä¸‹*/
+/*°´Å¥-µÇÂ¼-Êó±ê°´ÏÂ*/
 #btn_login:pressed{
     color:#ffffff;
     border: none;
@@ -66,53 +66,53 @@ QLineEdit{
     color:#e83737;
 
 }
-/*å›¾æ ‡-è´¦æˆ·*/
+/*Í¼±ê-ÕË»§*/
 #label_user_name
 {
     border-image:url(:/res/pic/user_name.png);
 }
-/*å›¾æ ‡-å¯†ç */
+/*Í¼±ê-ÃÜÂë*/
 #label_pwd
 {
     border-image:url(:/res/pic/pwd.png);
 
 }
-/*æŒ‰é’®-qq*/
+/*°´Å¥-qq*/
 #btn_qq{
     background-image:url(:/res/pic/qq.png);
     background-position:center;
     background-repeat:no-repeat;
     border:none;
 }
-/*æŒ‰é’®-qq-é¼ æ ‡æ‚¬åœ*/
+/*°´Å¥-qq-Êó±êĞüÍ£*/
 #btn_qq:hover{
     background-image:url(:/res/pic/qq-hover.png);
     background-position:center;
     background-repeat:no-repeat;
     border:none;
 }
-/*æŒ‰é’®-å¾®ä¿¡*/
+/*°´Å¥-Î¢ĞÅ*/
 #btn_wx{
     background-image:url(:/res/pic/wx.png);
     background-position:center;
     background-repeat:no-repeat;
     border:none;
 }
-/*æŒ‰é’®-å¾®ä¿¡-é¼ æ ‡æ‚¬åœ*/
+/*°´Å¥-Î¢ĞÅ-Êó±êĞüÍ£*/
 #btn_wx:hover{
     background-image:url(:/res/pic/wx-hover.png);
     background-position:center;
     background-repeat:no-repeat;
     border:none;
 }
-/*æŒ‰é’®-å¾®åš-*/
+/*°´Å¥-Î¢²©-*/
 #btn_wb{
     background-image:url(:/res/pic/wb.png);
     background-position:center;
     background-repeat:no-repeat;
     border:none;
 }
-/*æŒ‰é’®-å¾®åš-é¼ æ ‡æ‚¬åœ*/
+/*°´Å¥-Î¢²©-Êó±êĞüÍ£*/
 #btn_wb:hover{
     background-image:url(:/res/pic/wb-hover.png);
     background-position:center;
@@ -120,28 +120,28 @@ QLineEdit{
     border:none;
 }
 
-/*æŒ‰é’®-ç²‰çº¢*/
+/*°´Å¥-·Ûºì*/
 #btn_1{
 color:#e83737;
 background-color:#ffffff;
 border:none;
 border-radius: 10px;
 }
-/*æŒ‰é’®-é»„ç»¿*/
+/*°´Å¥-»ÆÂÌ*/
 #btn_2{
 color:#d7b105;
 background-color:#ffffff;
 border:none;
 border-radius: 10px;
 }
-/*æŒ‰é’®-æµ…ç´«*/
+/*°´Å¥-Ç³×Ï*/
 #btn_3{
 color:#7185ff;
 background-color:#ffffff;
 border:none;
 border-radius: 10px;
 }
-/*æŒ‰é’®-é’ç»¿*/
+/*°´Å¥-ÇàÂÌ*/
 #btn_4{
 color:#7bb7a5;
 background-color:#ffffff;

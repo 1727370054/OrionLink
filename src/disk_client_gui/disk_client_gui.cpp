@@ -10,11 +10,12 @@ using namespace std;
 
 #define FILE_ICON_PATH ":/XMSDiskClientGui/Resources/img/FileType/Small/"
 
-DiskClientGUI::DiskClientGUI(iFileManager* f, QWidget *parent)
+DiskClientGUI::DiskClientGUI(LoginGUI* login_gui, iFileManager* f, QWidget *parent)
     : QWidget(parent),
     ui(new Ui::DiskClientGUI),
     login_gui_(new LoginGUI())
 {
+    this->login_gui_ = login_gui;
     set_ifm(f);
     ui->setupUi(this);
     ////去除原窗口边框
@@ -22,7 +23,6 @@ DiskClientGUI::DiskClientGUI(iFileManager* f, QWidget *parent)
     ////隐藏背景，用于圆角
     setAttribute(Qt::WA_TranslucentBackground);
     setMouseTracking(true);
-    connect(login_gui_, SIGNAL(GetUsername(std::string)), this, SLOT(SetUsername(std::string)));
 
     auto tab = ui->filetableWidget;
     tab->setColumnWidth(0, 40);
@@ -33,23 +33,13 @@ DiskClientGUI::DiskClientGUI(iFileManager* f, QWidget *parent)
     qRegisterMetaType<std::string>("std::string");
     qRegisterMetaType<disk::FileInfoList>("disk::FileInfoList");
 
+    ui->username_label->setText(ifm_->login_info().username().c_str());
     connect(ifm_, &iFileManager::RefreshData, this, &DiskClientGUI::RefreshData);
-
-    /*if (login_gui_->exec() == QDialog::Rejected)
-    {
-        return;
-    }*/
-
     Refresh();
 }
 
 DiskClientGUI::~DiskClientGUI()
 {}
-
-void DiskClientGUI::SetUsername(std::string username)
-{
-    ui->username_label->setText(username.c_str());
-}
 
 void DiskClientGUI::Refresh()
 {

@@ -438,6 +438,8 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_msg_5fcomm_2eproto::offsets[] 
   PROTOBUF_FIELD_OFFSET(::msg::MsgHead, token_),
   PROTOBUF_FIELD_OFFSET(::msg::MsgHead, service_name_),
   PROTOBUF_FIELD_OFFSET(::msg::MsgHead, router_id_),
+  PROTOBUF_FIELD_OFFSET(::msg::MsgHead, username_),
+  PROTOBUF_FIELD_OFFSET(::msg::MsgHead, rolename_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::msg::MessageRes, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -604,27 +606,27 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_msg_5fcomm_2eproto::offsets[] 
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::msg::MsgHead)},
-  { 10, -1, sizeof(::msg::MessageRes)},
-  { 17, -1, sizeof(::msg::MsgHeart)},
-  { 23, -1, sizeof(::msg::AddLogReq)},
-  { 36, -1, sizeof(::msg::AddUserReq)},
-  { 44, -1, sizeof(::msg::LoginReq)},
-  { 51, -1, sizeof(::msg::LoginRes)},
-  { 61, -1, sizeof(::msg::DirReq)},
-  { 67, -1, sizeof(::msg::DirRes_Dir)},
-  { 74, -1, sizeof(::msg::DirRes)},
-  { 81, -1, sizeof(::msg::RegisterReq)},
-  { 89, -1, sizeof(::msg::ServiceMap_Service)},
-  { 97, -1, sizeof(::msg::ServiceMap_ServiceList)},
-  { 103, 110, sizeof(::msg::ServiceMap_ServiceMapEntry_DoNotUse)},
-  { 112, -1, sizeof(::msg::ServiceMap)},
-  { 120, -1, sizeof(::msg::GetServiceReq)},
-  { 127, -1, sizeof(::msg::Config)},
-  { 137, -1, sizeof(::msg::LoadConfigReq)},
-  { 144, -1, sizeof(::msg::DirConfig)},
-  { 150, -1, sizeof(::msg::LoadAllConfigReq)},
-  { 157, -1, sizeof(::msg::ConfigList)},
-  { 163, -1, sizeof(::msg::GatewayConfig)},
+  { 12, -1, sizeof(::msg::MessageRes)},
+  { 19, -1, sizeof(::msg::MsgHeart)},
+  { 25, -1, sizeof(::msg::AddLogReq)},
+  { 38, -1, sizeof(::msg::AddUserReq)},
+  { 46, -1, sizeof(::msg::LoginReq)},
+  { 53, -1, sizeof(::msg::LoginRes)},
+  { 63, -1, sizeof(::msg::DirReq)},
+  { 69, -1, sizeof(::msg::DirRes_Dir)},
+  { 76, -1, sizeof(::msg::DirRes)},
+  { 83, -1, sizeof(::msg::RegisterReq)},
+  { 91, -1, sizeof(::msg::ServiceMap_Service)},
+  { 99, -1, sizeof(::msg::ServiceMap_ServiceList)},
+  { 105, 112, sizeof(::msg::ServiceMap_ServiceMapEntry_DoNotUse)},
+  { 114, -1, sizeof(::msg::ServiceMap)},
+  { 122, -1, sizeof(::msg::GetServiceReq)},
+  { 129, -1, sizeof(::msg::Config)},
+  { 139, -1, sizeof(::msg::LoadConfigReq)},
+  { 146, -1, sizeof(::msg::DirConfig)},
+  { 152, -1, sizeof(::msg::LoadAllConfigReq)},
+  { 159, -1, sizeof(::msg::ConfigList)},
+  { 165, -1, sizeof(::msg::GatewayConfig)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -653,55 +655,56 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 };
 
 const char descriptor_table_protodef_msg_5fcomm_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\016msg_comm.proto\022\003msg\032\016msg_type.proto\"s\n"
-  "\007MsgHead\022\020\n\010msg_size\030\001 \001(\005\022\036\n\010msg_type\030\002"
-  " \001(\0162\014.msg.MsgType\022\r\n\005token\030\003 \001(\014\022\024\n\014ser"
-  "vice_name\030\004 \001(\t\022\021\n\trouter_id\030\005 \001(\003\"_\n\nMe"
-  "ssageRes\022&\n\006return\030\001 \001(\0162\026.msg.MessageRe"
-  "s.Return\022\014\n\004desc\030\002 \001(\014\"\033\n\006Return\022\006\n\002OK\020\000"
-  "\022\t\n\005ERROR\020\001\"\031\n\010MsgHeart\022\r\n\005count\030\001 \001(\003\"\260"
-  "\001\n\tAddLogReq\022\024\n\014service_name\030\001 \001(\t\022\022\n\nse"
-  "rvice_ip\030\002 \001(\t\022\024\n\014service_port\030\003 \001(\005\022\017\n\007"
-  "log_txt\030\004 \001(\014\022\020\n\010log_time\030\005 \001(\005\022 \n\tlog_l"
-  "evel\030\006 \001(\0162\r.msg.LogLevel\022\020\n\010filename\030\007 "
-  "\001(\t\022\014\n\004line\030\010 \001(\005\"B\n\nAddUserReq\022\020\n\010usern"
-  "ame\030\001 \001(\t\022\020\n\010password\030\002 \001(\014\022\020\n\010rolename\030"
-  "\003 \001(\t\".\n\010LoginReq\022\020\n\010username\030\001 \001(\t\022\020\n\010p"
-  "assword\030\002 \001(\014\"\325\001\n\010LoginRes\022(\n\004desc\030\001 \001(\016"
-  "2\032.msg.LoginRes.LoginResType\022\r\n\005token\030\002 "
-  "\001(\014\022\024\n\014expired_time\030\003 \001(\005\022\020\n\010rolename\030\004 "
-  "\001(\t\022\020\n\010username\030\005 \001(\t\"V\n\014LoginResType\022\010\n"
-  "\004NONE\020\000\022\006\n\002OK\020\001\022\013\n\007LOGGING\020\002\022\t\n\005ERROR\020\003\022"
-  "\n\n\006NOUSER\020\004\022\020\n\014SERVER_ERROR\020\005\"\026\n\006DirReq\022"
-  "\014\n\004path\030\001 \001(\t\"\244\001\n\006DirRes\022$\n\004desc\030\001 \001(\0162\026"
-  ".msg.DirRes.DirResType\022\035\n\004dirs\030\002 \003(\0132\017.m"
-  "sg.DirRes.Dir\032)\n\003Dir\022\020\n\010filename\030\001 \001(\t\022\020"
-  "\n\010filesize\030\002 \001(\005\"*\n\nDirResType\022\006\n\002OK\020\000\022\t"
-  "\n\005ERROR\020\001\022\t\n\005NODIR\020\002\"5\n\013RegisterReq\022\014\n\004n"
-  "ame\030\001 \001(\t\022\n\n\002ip\030\002 \001(\t\022\014\n\004port\030\003 \001(\005\"\301\002\n\n"
-  "ServiceMap\0224\n\013service_map\030\001 \003(\0132\037.msg.Se"
-  "rviceMap.ServiceMapEntry\022!\n\010response\030\002 \001"
-  "(\0132\017.msg.MessageRes\022\036\n\004type\030\003 \001(\0162\020.msg."
-  "ServiceType\0321\n\007Service\022\014\n\004name\030\001 \001(\t\022\n\n\002"
-  "ip\030\002 \001(\t\022\014\n\004port\030\003 \001(\005\0327\n\013ServiceList\022(\n"
-  "\007service\030\001 \003(\0132\027.msg.ServiceMap.Service\032"
-  "N\n\017ServiceMapEntry\022\013\n\003key\030\001 \001(\t\022*\n\005value"
-  "\030\002 \001(\0132\033.msg.ServiceMap.ServiceList:\0028\001\""
-  "=\n\rGetServiceReq\022\014\n\004name\030\001 \001(\t\022\036\n\004type\030\002"
-  " \001(\0162\020.msg.ServiceType\"n\n\006Config\022\024\n\014serv"
-  "ice_name\030\001 \001(\t\022\024\n\014service_port\030\002 \001(\005\022\022\n\n"
-  "service_ip\030\003 \001(\t\022\022\n\nprivate_pb\030\004 \001(\014\022\020\n\010"
-  "protocol\030\005 \001(\014\"9\n\rLoadConfigReq\022\022\n\nservi"
-  "ce_ip\030\001 \001(\t\022\024\n\014service_port\030\002 \001(\005\"\031\n\tDir"
-  "Config\022\014\n\004root\030\001 \001(\t\"4\n\020LoadAllConfigReq"
-  "\022\014\n\004page\030\001 \001(\005\022\022\n\npage_count\030\002 \001(\005\"*\n\nCo"
-  "nfigList\022\034\n\007configs\030\001 \003(\0132\013.msg.Config\"i"
-  "\n\rGatewayConfig\022\016\n\006is_ssl\030\001 \001(\010\022\020\n\010crt_p"
-  "ath\030\002 \001(\t\022\020\n\010key_path\030\003 \001(\t\022\017\n\007ca_path\030\004"
-  " \001(\t\022\023\n\013server_port\030\005 \001(\005*E\n\010LogLevel\022\r\n"
-  "\tLOG_DEBUG\020\000\022\014\n\010LOG_INFO\020\001\022\r\n\tLOG_ERROR\020"
-  "\002\022\r\n\tLOG_FATAL\020\003*\037\n\013ServiceType\022\007\n\003ONE\020\000"
-  "\022\007\n\003ALL\020\001b\006proto3"
+  "\n\016msg_comm.proto\022\003msg\032\016msg_type.proto\"\227\001"
+  "\n\007MsgHead\022\020\n\010msg_size\030\001 \001(\005\022\036\n\010msg_type\030"
+  "\002 \001(\0162\014.msg.MsgType\022\r\n\005token\030\003 \001(\014\022\024\n\014se"
+  "rvice_name\030\004 \001(\t\022\021\n\trouter_id\030\005 \001(\003\022\020\n\010u"
+  "sername\030\006 \001(\t\022\020\n\010rolename\030\007 \001(\t\"_\n\nMessa"
+  "geRes\022&\n\006return\030\001 \001(\0162\026.msg.MessageRes.R"
+  "eturn\022\014\n\004desc\030\002 \001(\014\"\033\n\006Return\022\006\n\002OK\020\000\022\t\n"
+  "\005ERROR\020\001\"\031\n\010MsgHeart\022\r\n\005count\030\001 \001(\003\"\260\001\n\t"
+  "AddLogReq\022\024\n\014service_name\030\001 \001(\t\022\022\n\nservi"
+  "ce_ip\030\002 \001(\t\022\024\n\014service_port\030\003 \001(\005\022\017\n\007log"
+  "_txt\030\004 \001(\014\022\020\n\010log_time\030\005 \001(\005\022 \n\tlog_leve"
+  "l\030\006 \001(\0162\r.msg.LogLevel\022\020\n\010filename\030\007 \001(\t"
+  "\022\014\n\004line\030\010 \001(\005\"B\n\nAddUserReq\022\020\n\010username"
+  "\030\001 \001(\t\022\020\n\010password\030\002 \001(\014\022\020\n\010rolename\030\003 \001"
+  "(\t\".\n\010LoginReq\022\020\n\010username\030\001 \001(\t\022\020\n\010pass"
+  "word\030\002 \001(\014\"\325\001\n\010LoginRes\022(\n\004desc\030\001 \001(\0162\032."
+  "msg.LoginRes.LoginResType\022\r\n\005token\030\002 \001(\014"
+  "\022\024\n\014expired_time\030\003 \001(\005\022\020\n\010rolename\030\004 \001(\t"
+  "\022\020\n\010username\030\005 \001(\t\"V\n\014LoginResType\022\010\n\004NO"
+  "NE\020\000\022\006\n\002OK\020\001\022\013\n\007LOGGING\020\002\022\t\n\005ERROR\020\003\022\n\n\006"
+  "NOUSER\020\004\022\020\n\014SERVER_ERROR\020\005\"\026\n\006DirReq\022\014\n\004"
+  "path\030\001 \001(\t\"\244\001\n\006DirRes\022$\n\004desc\030\001 \001(\0162\026.ms"
+  "g.DirRes.DirResType\022\035\n\004dirs\030\002 \003(\0132\017.msg."
+  "DirRes.Dir\032)\n\003Dir\022\020\n\010filename\030\001 \001(\t\022\020\n\010f"
+  "ilesize\030\002 \001(\005\"*\n\nDirResType\022\006\n\002OK\020\000\022\t\n\005E"
+  "RROR\020\001\022\t\n\005NODIR\020\002\"5\n\013RegisterReq\022\014\n\004name"
+  "\030\001 \001(\t\022\n\n\002ip\030\002 \001(\t\022\014\n\004port\030\003 \001(\005\"\301\002\n\nSer"
+  "viceMap\0224\n\013service_map\030\001 \003(\0132\037.msg.Servi"
+  "ceMap.ServiceMapEntry\022!\n\010response\030\002 \001(\0132"
+  "\017.msg.MessageRes\022\036\n\004type\030\003 \001(\0162\020.msg.Ser"
+  "viceType\0321\n\007Service\022\014\n\004name\030\001 \001(\t\022\n\n\002ip\030"
+  "\002 \001(\t\022\014\n\004port\030\003 \001(\005\0327\n\013ServiceList\022(\n\007se"
+  "rvice\030\001 \003(\0132\027.msg.ServiceMap.Service\032N\n\017"
+  "ServiceMapEntry\022\013\n\003key\030\001 \001(\t\022*\n\005value\030\002 "
+  "\001(\0132\033.msg.ServiceMap.ServiceList:\0028\001\"=\n\r"
+  "GetServiceReq\022\014\n\004name\030\001 \001(\t\022\036\n\004type\030\002 \001("
+  "\0162\020.msg.ServiceType\"n\n\006Config\022\024\n\014service"
+  "_name\030\001 \001(\t\022\024\n\014service_port\030\002 \001(\005\022\022\n\nser"
+  "vice_ip\030\003 \001(\t\022\022\n\nprivate_pb\030\004 \001(\014\022\020\n\010pro"
+  "tocol\030\005 \001(\014\"9\n\rLoadConfigReq\022\022\n\nservice_"
+  "ip\030\001 \001(\t\022\024\n\014service_port\030\002 \001(\005\"\031\n\tDirCon"
+  "fig\022\014\n\004root\030\001 \001(\t\"4\n\020LoadAllConfigReq\022\014\n"
+  "\004page\030\001 \001(\005\022\022\n\npage_count\030\002 \001(\005\"*\n\nConfi"
+  "gList\022\034\n\007configs\030\001 \003(\0132\013.msg.Config\"i\n\rG"
+  "atewayConfig\022\016\n\006is_ssl\030\001 \001(\010\022\020\n\010crt_path"
+  "\030\002 \001(\t\022\020\n\010key_path\030\003 \001(\t\022\017\n\007ca_path\030\004 \001("
+  "\t\022\023\n\013server_port\030\005 \001(\005*E\n\010LogLevel\022\r\n\tLO"
+  "G_DEBUG\020\000\022\014\n\010LOG_INFO\020\001\022\r\n\tLOG_ERROR\020\002\022\r"
+  "\n\tLOG_FATAL\020\003*\037\n\013ServiceType\022\007\n\003ONE\020\000\022\007\n"
+  "\003ALL\020\001b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_msg_5fcomm_2eproto_deps[1] = {
   &::descriptor_table_msg_5ftype_2eproto,
@@ -733,7 +736,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_msg
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_msg_5fcomm_2eproto_once;
 static bool descriptor_table_msg_5fcomm_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_msg_5fcomm_2eproto = {
-  &descriptor_table_msg_5fcomm_2eproto_initialized, descriptor_table_protodef_msg_5fcomm_2eproto, "msg_comm.proto", 1937,
+  &descriptor_table_msg_5fcomm_2eproto_initialized, descriptor_table_protodef_msg_5fcomm_2eproto, "msg_comm.proto", 1974,
   &descriptor_table_msg_5fcomm_2eproto_once, descriptor_table_msg_5fcomm_2eproto_sccs, descriptor_table_msg_5fcomm_2eproto_deps, 22, 1,
   schemas, file_default_instances, TableStruct_msg_5fcomm_2eproto::offsets,
   file_level_metadata_msg_5fcomm_2eproto, 22, file_level_enum_descriptors_msg_5fcomm_2eproto, file_level_service_descriptors_msg_5fcomm_2eproto,
@@ -871,6 +874,14 @@ MsgHead::MsgHead(const MsgHead& from)
   if (!from._internal_service_name().empty()) {
     service_name_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.service_name_);
   }
+  username_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_username().empty()) {
+    username_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.username_);
+  }
+  rolename_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_rolename().empty()) {
+    rolename_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.rolename_);
+  }
   ::memcpy(&msg_size_, &from.msg_size_,
     static_cast<size_t>(reinterpret_cast<char*>(&router_id_) -
     reinterpret_cast<char*>(&msg_size_)) + sizeof(router_id_));
@@ -881,6 +892,8 @@ void MsgHead::SharedCtor() {
   ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_MsgHead_msg_5fcomm_2eproto.base);
   token_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   service_name_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  username_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  rolename_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   ::memset(&msg_size_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&router_id_) -
       reinterpret_cast<char*>(&msg_size_)) + sizeof(router_id_));
@@ -894,6 +907,8 @@ MsgHead::~MsgHead() {
 void MsgHead::SharedDtor() {
   token_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   service_name_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  username_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  rolename_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 void MsgHead::SetCachedSize(int size) const {
@@ -913,6 +928,8 @@ void MsgHead::Clear() {
 
   token_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   service_name_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  username_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  rolename_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   ::memset(&msg_size_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&router_id_) -
       reinterpret_cast<char*>(&msg_size_)) + sizeof(router_id_));
@@ -960,6 +977,20 @@ const char* MsgHead::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::in
       case 5:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 40)) {
           router_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string username = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 50)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(_internal_mutable_username(), ptr, ctx, "msg.MsgHead.username");
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string rolename = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 58)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(_internal_mutable_rolename(), ptr, ctx, "msg.MsgHead.rolename");
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -1059,6 +1090,36 @@ bool MsgHead::MergePartialFromCodedStream(
         break;
       }
 
+      // string username = 6;
+      case 6: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (50 & 0xFF)) {
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadString(
+                input, this->_internal_mutable_username()));
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+            this->_internal_username().data(), static_cast<int>(this->_internal_username().length()),
+            ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE,
+            "msg.MsgHead.username"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // string rolename = 7;
+      case 7: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (58 & 0xFF)) {
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadString(
+                input, this->_internal_mutable_rolename()));
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+            this->_internal_rolename().data(), static_cast<int>(this->_internal_rolename().length()),
+            ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE,
+            "msg.MsgHead.rolename"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
       default: {
       handle_unusual:
         if (tag == 0) {
@@ -1121,6 +1182,26 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt64ToArray(5, this->router_id(), target);
   }
 
+  // string username = 6;
+  if (this->username().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_username().data(), static_cast<int>(this->_internal_username().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "msg.MsgHead.username");
+    target = stream->WriteStringMaybeAliased(
+        6, this->_internal_username(), target);
+  }
+
+  // string rolename = 7;
+  if (this->rolename().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_rolename().data(), static_cast<int>(this->_internal_rolename().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "msg.MsgHead.rolename");
+    target = stream->WriteStringMaybeAliased(
+        7, this->_internal_rolename(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target, stream);
@@ -1149,6 +1230,20 @@ size_t MsgHead::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_service_name());
+  }
+
+  // string username = 6;
+  if (this->username().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_username());
+  }
+
+  // string rolename = 7;
+  if (this->rolename().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_rolename());
   }
 
   // int32 msg_size = 1;
@@ -1210,6 +1305,14 @@ void MsgHead::MergeFrom(const MsgHead& from) {
 
     service_name_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.service_name_);
   }
+  if (from.username().size() > 0) {
+
+    username_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.username_);
+  }
+  if (from.rolename().size() > 0) {
+
+    rolename_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.rolename_);
+  }
   if (from.msg_size() != 0) {
     set_msg_size(from.msg_size());
   }
@@ -1245,6 +1348,10 @@ void MsgHead::InternalSwap(MsgHead* other) {
   token_.Swap(&other->token_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
   service_name_.Swap(&other->service_name_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  username_.Swap(&other->username_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  rolename_.Swap(&other->rolename_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
   swap(msg_size_, other->msg_size_);
   swap(msg_type_, other->msg_type_);

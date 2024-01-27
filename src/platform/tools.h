@@ -16,7 +16,6 @@
 #include <list>
 #include <iostream>
 #include <sstream> 
-#include "log_client.h"
 
 XCOM_API std::string GetDirData(std::string path);
 

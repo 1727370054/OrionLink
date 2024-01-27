@@ -138,7 +138,7 @@ void ServiceProxy::Main()
                 if (isfind)
                     continue;
 
-                auto proxy = new ServiceProxyClient();
+                auto proxy = ServiceProxyClient::Create(service_name);
                 proxy->set_server_ip(s.ip().c_str());
                 proxy->set_server_port(s.port());
                 proxy->set_auto_delete(false); /// 设置关闭后对象自动清理

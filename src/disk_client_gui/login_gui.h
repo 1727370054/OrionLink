@@ -23,9 +23,7 @@ public slots:
     void set_style();
 
     void Login();
-signals:
-    /// @brief 向主界面传递用户名
-    void GetUsername(std::string username);
+
 private:
     Ui::LoginGUI*ui;
 };

@@ -754,7 +754,10 @@ public:
         err_logo->setText(QString());
         err_msg->setText(QApplication::translate("LoginGUI", "\347\231\273\351\231\206\345\244\261\350\264\245!", nullptr));
         label_user_name->setText(QString());
+        lineE_user_name->setText(QApplication::translate("LoginGUI", "hwk", nullptr));
+        lineE_user_name->setPlaceholderText(QString());
         label_pwd->setText(QString());
+        lineE_pwd->setText(QApplication::translate("LoginGUI", "123456", nullptr));
         btn_register->setText(QApplication::translate("LoginGUI", "\346\263\250\345\206\214", nullptr));
         btn_forget->setText(QApplication::translate("LoginGUI", "\345\277\230\350\256\260\345\257\206\347\240\201?", nullptr));
         btn_login->setText(QApplication::translate("LoginGUI", "\347\231\273\351\231\206", nullptr));

@@ -13,14 +13,23 @@ void FileManager::GetDir(std::string root)
     GetDirClient::GetInstance()->GetDirReq(req);
 }
 
+void FileManager::InitFileManager(std::string server_ip, int server_port)
+{
+    GetDirClient::RegisterMsgCallback();
+    GetDirClient::GetInstance()->set_server_ip(server_ip.c_str());
+    GetDirClient::GetInstance()->set_server_port(server_port);
+    GetDirClient::GetInstance()->StartConnect();
+}
+
+void FileManager::set_login_info(msg::LoginRes login)
+{
+    GetDirClient::GetInstance()->set_login_info(&login);
+    iFileManager::set_login_info(login);
+}
+
 FileManager::FileManager()
 {
     instance_ = this;
-    GetDirClient::RegisterMsgCallback();
-    GetDirClient::GetInstance()->set_server_ip("127.0.0.1");
-    GetDirClient::GetInstance()->set_server_port(DIR_PORT);
-    this_thread::sleep_for(3000ms);
-    GetDirClient::GetInstance()->StartConnect();
 }
 
 FileManager::~FileManager()

@@ -24,7 +24,7 @@ public:
     /// @param message 结构化的消息内容
     /// @return 发送成功返回true，否则相反 (bev可能未设置)
     ///////////////////////////////////////////////////////////////////////////
-    bool SendMsg(msg::MsgType type, const google::protobuf::Message *message);
+    virtual bool SendMsg(msg::MsgType type, const google::protobuf::Message *message);
 
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 发送消息，包含消息头部(外部创建)，只序列化消息内容，再向下传递
@@ -32,7 +32,7 @@ public:
     /// @param message 结构化的消息内容
     /// @return 发送成功返回true，否则相反 (bev可能未设置)
     ///////////////////////////////////////////////////////////////////////////
-    bool SendMsg(msg::MsgHead *head, const google::protobuf::Message* message);
+    virtual bool SendMsg(msg::MsgHead *head, const google::protobuf::Message* message);
 
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 发送消息，包含消息头部(外部传递)，只序列化消息头部，接收调用者的序列化消息内容
@@ -40,7 +40,7 @@ public:
     /// @param msg 序列化的消息内容
     /// @return 发送成功返回true，否则相反
     ///////////////////////////////////////////////////////////////////////////
-    bool SendMsg(msg::MsgHead* head, Msg* msg);
+    virtual bool SendMsg(msg::MsgHead* head, Msg* msg);
 
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 接收数据包 （只反序列化头部，消息内容还是序列化数据，由业务层反序列化）

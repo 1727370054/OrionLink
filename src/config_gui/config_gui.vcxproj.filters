@@ -83,7 +83,7 @@
     <ClCompile Include="login_gui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\auth_client\auth_client.cpp">
+    <ClCompile Include="..\auth\auth_client.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -127,7 +127,7 @@
     <ClInclude Include="temp\ui\ui_login_gui.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\auth_client\auth_client.h">
+    <ClInclude Include="..\auth\auth_client.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

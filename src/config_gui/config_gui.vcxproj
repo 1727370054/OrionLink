@@ -134,7 +134,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;form;core_base;temp\moc;temp\ui;..\config_client;..\platform;..\..\include\protobuf;..\auth_client;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;form;core_base;temp\moc;temp\ui;..\config_client;..\platform;..\..\include\protobuf;..\auth;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>temp\obj\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
@@ -192,7 +192,7 @@
     </QtRcc>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\auth_client\auth_client.cpp" />
+    <ClCompile Include="..\auth\auth_client.cpp" />
     <ClCompile Include="..\config_client\config_client.cpp" />
     <ClCompile Include="..\platform\msg_comm.pb.cc" />
     <ClCompile Include="..\platform\msg_type.pb.cc" />
@@ -209,7 +209,7 @@
     <ClCompile Include="core_base\quihelper.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\auth_client\auth_client.h" />
+    <ClInclude Include="..\auth\auth_client.h" />
     <ClInclude Include="..\config_client\config_client.h" />
     <ClInclude Include="..\platform\msg_comm.pb.h" />
     <ClInclude Include="..\platform\msg_type.pb.h" />

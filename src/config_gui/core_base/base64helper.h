@@ -2,13 +2,13 @@
 #define BASE64HELPER_H
 
 /**
- * base64ç¼–ç è½¬æ¢ç±» ä½œè€…:feiyangqingyun(QQ:517216493) 2016-12-16
- * 1. å›¾ç‰‡è½¬base64å­—ç¬¦ä¸²ã€‚
- * 2. base64å­—ç¬¦ä¸²è½¬å›¾ç‰‡ã€‚
- * 3. å­—ç¬¦è½¬base64å­—ç¬¦ä¸²ã€‚
- * 4. base64å­—ç¬¦ä¸²è½¬å­—ç¬¦ã€‚
- * 5. åæœŸå¢åŠ æ•°æ®å‹ç¼©ã€‚
- * 6. Qt6å¯¹base64ç¼–ç è½¬æ¢è¿›è¡Œäº†é‡å†™æ•ˆç‡æå‡è‡³å°‘200%ã€‚
+ * base64±àÂë×ª»»Àà ×÷Õß:feiyangqingyun(QQ:517216493) 2016-12-16
+ * 1. Í¼Æ¬×ªbase64×Ö·û´®¡£
+ * 2. base64×Ö·û´®×ªÍ¼Æ¬¡£
+ * 3. ×Ö·û×ªbase64×Ö·û´®¡£
+ * 4. base64×Ö·û´®×ª×Ö·û¡£
+ * 5. ºóÆÚÔö¼ÓÊı¾İÑ¹Ëõ¡£
+ * 6. Qt6¶Ôbase64±àÂë×ª»»½øĞĞÁËÖØĞ´Ğ§ÂÊÌáÉıÖÁÉÙ200%¡£
  */
 
 #include <QImage>
@@ -21,15 +21,15 @@ class Base64Helper
 
 {
 public:
-    //å›¾ç‰‡è½¬base64å­—ç¬¦ä¸²
+    //Í¼Æ¬×ªbase64×Ö·û´®
     static QString imageToBase64(const QImage &image);
     static QByteArray imageToBase64x(const QImage &image);
 
-    //base64å­—ç¬¦ä¸²è½¬å›¾ç‰‡
+    //base64×Ö·û´®×ªÍ¼Æ¬
     static QImage base64ToImage(const QString &data);
     static QImage base64ToImagex(const QByteArray &data);
 
-    //å­—ç¬¦ä¸²ä¸base64äº’è½¬
+    //×Ö·û´®Óëbase64»¥×ª
     static QString textToBase64(const QString &text);
     static QString base64ToText(const QString &text);
 };

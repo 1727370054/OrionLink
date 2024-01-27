@@ -16,7 +16,7 @@ class DiskClientGUI  : public QWidget
     Q_OBJECT
 
 public:
-    explicit DiskClientGUI(iFileManager* f, QWidget *parent = 0);
+    explicit DiskClientGUI(LoginGUI * login_gui,iFileManager* f, QWidget *parent = 0);
     ~DiskClientGUI();
 
     void DiskClientGUI::mouseMoveEvent(QMouseEvent* ev);
@@ -25,9 +25,6 @@ public:
 
     void set_ifm(iFileManager* f) { this->ifm_ = f; }
 public slots:
-    /// @brief 接收登陆界面传递的用户名
-    void SetUsername(std::string username);
-
     void Refresh();
     void RefreshData(disk::FileInfoList file_list, std::string cur_dir);
 

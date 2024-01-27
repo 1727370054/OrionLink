@@ -1,4 +1,5 @@
 #include "log_client.h"
+#include "auth_proxy.h"
 #include "service_proxy_client.h"
 #include "tools.h"
 
@@ -41,4 +42,21 @@ void ServiceProxyClient::DeleteEvent(MsgEvent* event)
 {
     Mutex lock(&callback_task_mutex_);
     callback_task_.erase((long long)event);
+}
+
+ServiceProxyClient* ServiceProxyClient::Create(std::string service_name)
+{
+    if (service_name == AUTH_NAME)
+    {
+        return new AuthProxy();
+    }
+    return new ServiceProxyClient();
+}
+
+ServiceProxyClient::ServiceProxyClient()
+{
+}
+
+ServiceProxyClient::~ServiceProxyClient()
+{
 }

@@ -8,7 +8,12 @@ class FileManager : public iFileManager
 public:
     FileManager();
     ~FileManager();
+
     virtual void GetDir(std::string root) override;
+
+    virtual void InitFileManager(std::string server_ip, int server_port) override;
+
+    virtual void set_login_info(msg::LoginRes login) override;
 };
 
 #endif // FILE_MANAGER_H

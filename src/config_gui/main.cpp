@@ -8,7 +8,6 @@
 
 int main(int argc, char *argv[])
 {
-    AuthClient::GetInstance()->RegisterMsgCallback();
     std::string gateway_ip = GetHostByName(OL_GATEWAY_SERVER_NAME);
     AuthClient::GetInstance()->set_server_ip(gateway_ip.c_str());
     AuthClient::GetInstance()->set_server_port(API_GATEWAY_PORT);

@@ -1,5 +1,5 @@
 /**
-    è¯¥é¡µé¢ä¸ºæµ…ç´«è‰²çš®è‚¤
+    ¸ÃÒ³ÃæÎªÇ³×ÏÉ«Æ¤·ô
 */
 
 #frame_background{
@@ -114,28 +114,28 @@ QLineEdit{
     border:none;
 }
 
-/*æŒ‰é’®-ç²‰çº¢*/
+/*°´Å¥-·Ûºì*/
 #btn_1{
 color:#e83737;
 background-color:#ffffff;
 border:none;
 border-radius: 10px;
 }
-/*æŒ‰é’®-é»„ç»¿*/
+/*°´Å¥-»ÆÂÌ*/
 #btn_2{
 color:#d7b105;
 background-color:#ffffff;
 border:none;
 border-radius: 10px;
 }
-/*æŒ‰é’®-æµ…ç´«*/
+/*°´Å¥-Ç³×Ï*/
 #btn_3{
 color:#7185ff;
 background-color:#ffffff;
 border:none;
 border-radius: 10px;
 }
-/*æŒ‰é’®-é’ç»¿*/
+/*°´Å¥-ÇàÂÌ*/
 #btn_4{
 color:#7bb7a5;
 background-color:#ffffff;

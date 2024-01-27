@@ -503,6 +503,7 @@ protobuf::Message *ConfigClient::LoadProto(const string &filename,
 
 ConfigClient::ConfigClient()
 {
+    set_service_name(CONFIG_NAME);
     source_tree_ = new protobuf::compiler::DiskSourceTree();
     source_tree_->MapPath("", "");
     /// 使用绝对路径不加root会失败
