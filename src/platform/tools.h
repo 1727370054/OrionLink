@@ -14,6 +14,7 @@
 #include <string>
 #include <mutex>
 #include <list>
+#include <vector>
 #include <iostream>
 #include <sstream> 
 
@@ -34,6 +35,11 @@ XCOM_API std::string GetIconFilename(std::string filename, bool is_dir);
 
 XCOM_API std::string GetSizeString(long long size);
 
+XCOM_API std::string FormatDir(const std::string& dir);
+
+XCOM_API void StringSplit(std::vector<std::string>& vec, std::string str, std::string find);
+
+XCOM_API void NewDir(std::string path);
 
 ///////////////////////////////////////////////////////////////////////////
 /// @brief 生成md5 128bit(16字节) 

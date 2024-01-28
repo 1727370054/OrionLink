@@ -6,7 +6,7 @@
 
 int QUIHelper::getScreenIndex()
 {
-    //éœ€è¦å¯¹å¤šä¸ªå±å¹•è¿›è¡Œå¤„ç†
+    //ĞèÒª¶Ô¶à¸öÆÁÄ»½øĞĞ´¦Àí
     int screenIndex = 0;
 #if (QT_VERSION >= QT_VERSION_CHECK(5,0,0))
     int screenCount = qApp->screens().size();
@@ -15,7 +15,7 @@ int QUIHelper::getScreenIndex()
 #endif
 
     if (screenCount > 1) {
-        //æ‰¾åˆ°å½“å‰é¼ æ ‡æ‰€åœ¨å±å¹•
+        //ÕÒµ½µ±Ç°Êó±êËùÔÚÆÁÄ»
         QPoint pos = QCursor::pos();
         for (int i = 0; i < screenCount; ++i) {
 #if (QT_VERSION >= QT_VERSION_CHECK(5,0,0))
@@ -58,13 +58,13 @@ qreal QUIHelper::getScreenRatio(bool devicePixel)
 #if (QT_VERSION >= QT_VERSION_CHECK(5,0,0))
     QScreen *screen = qApp->screens().at(screenIndex);
     if (devicePixel) {
-        //éœ€è¦å¼€å¯ AA_EnableHighDpiScaling å±æ€§æ‰èƒ½æ­£å¸¸è·å–
+        //ĞèÒª¿ªÆô AA_EnableHighDpiScaling ÊôĞÔ²ÅÄÜÕı³£»ñÈ¡
         ratio = screen->devicePixelRatio() * 100;
     } else {
         ratio = screen->logicalDotsPerInch();
     }
 #else
-    //Qt4ä¸èƒ½åŠ¨æ€è¯†åˆ«ç¼©æ”¾æ›´æ”¹åçš„å€¼
+    //Qt4²»ÄÜ¶¯Ì¬Ê¶±ğËõ·Å¸ü¸ÄºóµÄÖµ
     ratio = qApp->desktop()->screen(screenIndex)->logicalDpiX();
 #endif
     return ratio / 96;
@@ -104,7 +104,7 @@ void QUIHelper::setFormInCenter(QWidget *form)
     int formWidth = form->width();
     int formHeight = form->height();
 
-    //å¦‚æœ=0è¡¨ç¤ºé‡‡ç”¨ç³»ç»Ÿæ¡Œé¢å±å¹•ä¸ºå‚ç…§
+    //Èç¹û=0±íÊ¾²ÉÓÃÏµÍ³×ÀÃæÆÁÄ»Îª²ÎÕÕ
     QRect rect;
     if (centerBaseForm == 0) {
         rect = getScreenRect();
@@ -123,7 +123,7 @@ void QUIHelper::showForm(QWidget *form)
     setFormInCenter(form);
     form->show();
 
-    //åˆ¤æ–­å®½é«˜æ˜¯å¦è¶…è¿‡äº†å±å¹•åˆ†è¾¨ç‡,è¶…è¿‡äº†åˆ™æœ€å¤§åŒ–æ˜¾ç¤º
+    //ÅĞ¶Ï¿í¸ßÊÇ·ñ³¬¹ıÁËÆÁÄ»·Ö±æÂÊ,³¬¹ıÁËÔò×î´ó»¯ÏÔÊ¾
     //qDebug() << TIMEMS << form->size() << deskSize();
     if (form->width() + 20 > deskWidth() || form->height() + 50 > deskHeight()) {
         QMetaObject::invokeMethod(form, "showMaximized", Qt::QueuedConnection);
@@ -132,11 +132,11 @@ void QUIHelper::showForm(QWidget *form)
 
 QString QUIHelper::appName()
 {
-    //æ²¡æœ‰å¿…è¦æ¯æ¬¡éƒ½è·å–,åªæœ‰å½“å˜é‡ä¸ºç©ºæ—¶æ‰å»è·å–ä¸€æ¬¡
+    //Ã»ÓĞ±ØÒªÃ¿´Î¶¼»ñÈ¡,Ö»ÓĞµ±±äÁ¿Îª¿ÕÊ±²ÅÈ¥»ñÈ¡Ò»´Î
     static QString name;
     if (name.isEmpty()) {
         name = qApp->applicationFilePath();
-        //ä¸‹é¢çš„æ–¹æ³•ä¸»è¦ä¸ºäº†è¿‡æ»¤å®‰å“çš„è·¯å¾„ libç¨‹åºå_armeabi-v7a/libç¨‹åºå_arm64-v8a
+        //ÏÂÃæµÄ·½·¨Ö÷ÒªÎªÁË¹ıÂË°²×¿µÄÂ·¾¶ lib³ÌĞòÃû_armeabi-v7a/lib³ÌĞòÃû_arm64-v8a
         QStringList list = name.split("/");
         name = list.at(list.size() - 1).split(".").at(0);
         name.replace("_armeabi-v7a", "");
@@ -151,9 +151,9 @@ QString QUIHelper::appPath()
     static QString path;
     if (path.isEmpty()) {
 #ifdef Q_OS_ANDROID
-        //é»˜è®¤å®‰å“æ ¹ç›®å½•
+        //Ä¬ÈÏ°²×¿¸ùÄ¿Â¼
         path = "/storage/emulated/0";
-        //å¸¦ä¸Šç¨‹åºåç§°ä½œä¸ºç›®å½• å‰é¢åŠ ä¸ª0æ–¹ä¾¿æ’åº
+        //´øÉÏ³ÌĞòÃû³Æ×÷ÎªÄ¿Â¼ Ç°Ãæ¼Ó¸ö0·½±ãÅÅĞò
         path = path + "/0" + appName();
 #else
         path = qApp->applicationDirPath();
@@ -172,13 +172,13 @@ QStringList QUIHelper::getLocalIPs()
 #else
         QList<QNetworkInterface> netInterfaces = QNetworkInterface::allInterfaces();
         foreach (QNetworkInterface netInterface, netInterfaces) {
-            //ç§»é™¤è™šæ‹Ÿæœºå’ŒæŠ“åŒ…å·¥å…·çš„è™šæ‹Ÿç½‘å¡
+            //ÒÆ³ıĞéÄâ»úºÍ×¥°ü¹¤¾ßµÄĞéÄâÍø¿¨
             QString humanReadableName = netInterface.humanReadableName().toLower();
             if (humanReadableName.startsWith("vmware network adapter") || humanReadableName.startsWith("npcap loopback adapter")) {
                 continue;
             }
 
-            //è¿‡æ»¤å½“å‰ç½‘ç»œæ¥å£
+            //¹ıÂËµ±Ç°ÍøÂç½Ó¿Ú
             bool flag = (netInterface.flags() == (QNetworkInterface::IsUp | QNetworkInterface::IsRunning | QNetworkInterface::CanBroadcast | QNetworkInterface::CanMulticast));
             if (!flag) {
                 continue;
@@ -186,7 +186,7 @@ QStringList QUIHelper::getLocalIPs()
 
             QList<QNetworkAddressEntry> addrs = netInterface.addressEntries();
             foreach (QNetworkAddressEntry addr, addrs) {
-                //åªå–å‡ºIPV4çš„åœ°å€
+                //Ö»È¡³öIPV4µÄµØÖ·
                 if (addr.ip().protocol() != QAbstractSocket::IPv4Protocol) {
                     continue;
                 }
@@ -206,7 +206,7 @@ QStringList QUIHelper::getLocalIPs()
 QList<QColor> QUIHelper::colors = QList<QColor>();
 QList<QColor> QUIHelper::getColorList()
 {
-    //å¤‡ç”¨é¢œè‰²é›†åˆ å¯ä»¥è‡ªè¡Œæ·»åŠ 
+    //±¸ÓÃÑÕÉ«¼¯ºÏ ¿ÉÒÔ×ÔĞĞÌí¼Ó
     if (colors.size() == 0) {
         colors << QColor(0, 176, 180) << QColor(0, 113, 193) << QColor(255, 192, 0);
         colors << QColor(72, 103, 149) << QColor(185, 87, 86) << QColor(0, 177, 125);
@@ -237,7 +237,7 @@ QColor QUIHelper::getRandColor()
 
 void QUIHelper::initRand()
 {
-    //åˆå§‹åŒ–éšæœºæ•°ç§å­
+    //³õÊ¼»¯Ëæ»úÊıÖÖ×Ó
     QTime t = QTime::currentTime();
     srand(t.msec() + t.second() * 1000);
 }
@@ -254,7 +254,7 @@ double QUIHelper::getRandValue(int min, int max, bool contansMin, bool contansMa
 {
     int value;
 #if (QT_VERSION <= QT_VERSION_CHECK(5,10,0))
-    //é€šç”¨å…¬å¼ aæ˜¯èµ·å§‹å€¼,næ˜¯æ•´æ•°çš„èŒƒå›´
+    //Í¨ÓÃ¹«Ê½ aÊÇÆğÊ¼Öµ,nÊÇÕûÊıµÄ·¶Î§
     //int value = a + rand() % n;
     if (contansMin) {
         if (contansMax) {
@@ -289,7 +289,7 @@ double QUIHelper::getRandValue(int min, int max, bool contansMin, bool contansMa
 
 QStringList QUIHelper::getRandPoint(int count, float mainLng, float mainLat, float dotLng, float dotLat)
 {
-    //éšæœºç”Ÿæˆç‚¹åæ ‡
+    //Ëæ»úÉú³Éµã×ø±ê
     QStringList points;
     for (int i = 0; i < count; ++i) {
         //0.00881415 0.000442928
@@ -300,7 +300,7 @@ QStringList QUIHelper::getRandPoint(int count, float mainLng, float mainLat, flo
         float lngx = getRandFloat(dotLng / 10, dotLng);
         float latx = getRandFloat(dotLat / 10, dotLat);
 #endif
-        //éœ€è¦å…ˆç”¨ç²¾åº¦è½¬æ¢æˆå­—ç¬¦ä¸²
+        //ĞèÒªÏÈÓÃ¾«¶È×ª»»³É×Ö·û´®
         QString lng2 = QString::number(mainLng + lngx, 'f', 8);
         QString lat2 = QString::number(mainLat + latx, 'f', 8);
         QString point = QString("%1,%2").arg(lng2).arg(lat2);
@@ -325,7 +325,7 @@ QString QUIHelper::getUuid()
 
 void QUIHelper::checkPath(const QString &dirName)
 {
-    //ç›¸å¯¹è·¯å¾„éœ€è¦è¡¥å…¨å®Œæ•´è·¯å¾„
+    //Ïà¶ÔÂ·¾¶ĞèÒª²¹È«ÍêÕûÂ·¾¶
     QString path = dirName;
     if (path.startsWith("./")) {
         path.replace(".", "");
@@ -334,7 +334,7 @@ void QUIHelper::checkPath(const QString &dirName)
         path = QUIHelper::appPath() + "/" + path;
     }
 
-    //ç›®å½•ä¸å­˜åœ¨åˆ™æ–°å»º
+    //Ä¿Â¼²»´æÔÚÔòĞÂ½¨
     QDir dir(path);
     if (!dir.exists()) {
         dir.mkpath(path);
@@ -359,16 +359,16 @@ void QUIHelper::sleep(int msec)
 
 void QUIHelper::setStyle()
 {
-    //æ‰“å°ä¸‹æ‰€æœ‰å†…ç½®é£æ ¼çš„åå­—
+    //´òÓ¡ÏÂËùÓĞÄÚÖÃ·ç¸ñµÄÃû×Ö
     qDebug() << TIMEMS << "QStyleFactory::keys" << QStyleFactory::keys();
-    //è®¾ç½®å†…ç½®é£æ ¼
+    //ÉèÖÃÄÚÖÃ·ç¸ñ
 #if (QT_VERSION >= QT_VERSION_CHECK(5,0,0))
     qApp->setStyle(QStyleFactory::create("Fusion"));
 #else
     qApp->setStyle(QStyleFactory::create("Cleanlooks"));
 #endif
 
-    //è®¾ç½®æŒ‡å®šé¢œè‰²
+    //ÉèÖÃÖ¸¶¨ÑÕÉ«
     QPalette palette;
     palette.setBrush(QPalette::Window, QColor("#F0F0F0"));
     qApp->setPalette(palette);
@@ -376,7 +376,7 @@ void QUIHelper::setStyle()
 
 QFont QUIHelper::addFont(const QString &fontFile, const QString &fontName)
 {
-    //åˆ¤æ–­å›¾å½¢å­—ä½“æ˜¯å¦å­˜åœ¨,ä¸å­˜åœ¨åˆ™åŠ å…¥
+    //ÅĞ¶ÏÍ¼ĞÎ×ÖÌåÊÇ·ñ´æÔÚ,²»´æÔÚÔò¼ÓÈë
     QFontDatabase fontDb;
     if (!fontDb.families().contains(fontName)) {
         int fontId = fontDb.addApplicationFont(fontFile);
@@ -386,7 +386,7 @@ QFont QUIHelper::addFont(const QString &fontFile, const QString &fontName)
         }
     }
 
-    //å†æ¬¡åˆ¤æ–­æ˜¯å¦åŒ…å«å­—ä½“åç§°é˜²æ­¢åŠ è½½å¤±è´¥
+    //ÔÙ´ÎÅĞ¶ÏÊÇ·ñ°üº¬×ÖÌåÃû³Æ·ÀÖ¹¼ÓÔØÊ§°Ü
     QFont font;
     if (fontDb.families().contains(fontName)) {
         font = QFont(fontName);
@@ -403,8 +403,8 @@ void QUIHelper::setFont(int fontSize)
 #ifdef rk3399
     return;
 #endif
-    //å®‰å“å¥—ä»¶åœ¨æœ‰äº›æ‰‹æœºä¸Šé»˜è®¤å­—ä½“ä¸å¥½çœ‹éœ€è¦ä¸»åŠ¨è®¾ç½®å­—ä½“
-    //ç½‘é¡µå¥—ä»¶éœ€è¦ä¸»åŠ¨åŠ è½½ä¸­æ–‡å­—ä½“æ‰èƒ½æ­£å¸¸æ˜¾ç¤ºä¸­æ–‡
+    //°²×¿Ì×¼şÔÚÓĞĞ©ÊÖ»úÉÏÄ¬ÈÏ×ÖÌå²»ºÃ¿´ĞèÒªÖ÷¶¯ÉèÖÃ×ÖÌå
+    //ÍøÒ³Ì×¼şĞèÒªÖ÷¶¯¼ÓÔØÖĞÎÄ×ÖÌå²ÅÄÜÕı³£ÏÔÊ¾ÖĞÎÄ
 #if (defined Q_OS_ANDROID) || (defined Q_OS_WASM)
     QString fontFile = ":/font/DroidSansFallback.ttf";
     QString fontName = "Droid Sans Fallback";
@@ -428,7 +428,7 @@ void QUIHelper::setFont(int fontSize)
 void QUIHelper::setCode(bool utf8)
 {
 #if (QT_VERSION >= QT_VERSION_CHECK(5,0,0))
-    //å¦‚æœæƒ³è¦æ§åˆ¶å°æ‰“å°ä¿¡æ¯ä¸­æ–‡æ­£å¸¸å°±æ³¨é‡Šæ‰è¿™ä¸ªè®¾ç½®
+    //Èç¹ûÏëÒª¿ØÖÆÌ¨´òÓ¡ĞÅÏ¢ÖĞÎÄÕı³£¾Í×¢ÊÍµôÕâ¸öÉèÖÃ
     if (utf8) {
         QTextCodec *codec = QTextCodec::codecForName("utf-8");
         QTextCodec::setCodecForLocale(codec);
@@ -447,7 +447,7 @@ void QUIHelper::setCode(bool utf8)
 
 void QUIHelper::setTranslator(const QString &qmFile)
 {
-    //è¿‡æ»¤ä¸‹ä¸å­˜åœ¨çš„å°±ä¸ç”¨è®¾ç½®äº†
+    //¹ıÂËÏÂ²»´æÔÚµÄ¾Í²»ÓÃÉèÖÃÁË
     if (!QFile(qmFile).exists()) {
         return;
     }
@@ -462,7 +462,7 @@ void QUIHelper::setTranslator(const QString &qmFile)
 #if (QT_VERSION < QT_VERSION_CHECK(6,0,0))
 #include <QtAndroidExtras>
 #else
-//Qt6ä¸­å°†ç›¸å…³ç±»ç§»åˆ°äº†coreæ¨¡å—è€Œä¸”åå­—å˜äº†
+//Qt6ÖĞ½«Ïà¹ØÀàÒÆµ½ÁËcoreÄ£¿é¶øÇÒÃû×Ö±äÁË
 #include <QtCore/private/qandroidextras_p.h>
 #endif
 #endif
@@ -491,7 +491,7 @@ bool QUIHelper::checkPermission(const QString &permission)
 
 void QUIHelper::initAndroidPermission()
 {
-    //å¯ä»¥æŠŠæ‰€æœ‰è¦åŠ¨æ€ç”³è¯·çš„æƒé™éƒ½å†™åœ¨è¿™é‡Œ
+    //¿ÉÒÔ°ÑËùÓĞÒª¶¯Ì¬ÉêÇëµÄÈ¨ÏŞ¶¼Ğ´ÔÚÕâÀï
     checkPermission("android.permission.CALL_PHONE");
     checkPermission("android.permission.SEND_SMS");
     checkPermission("android.permission.CAMERA");
@@ -507,52 +507,52 @@ void QUIHelper::initAndroidPermission()
 
 void QUIHelper::initAll(bool utf8, bool style, int fontSize)
 {
-    //åˆå§‹åŒ–å®‰å“æƒé™
+    //³õÊ¼»¯°²×¿È¨ÏŞ
     QUIHelper::initAndroidPermission();
-    //åˆå§‹åŒ–éšæœºæ•°ç§å­
+    //³õÊ¼»¯Ëæ»úÊıÖÖ×Ó
     QUIHelper::initRand();
-    //è®¾ç½®ç¼–ç 
+    //ÉèÖÃ±àÂë
     QUIHelper::setCode(utf8);
-    //è®¾ç½®å­—ä½“
+    //ÉèÖÃ×ÖÌå
     QUIHelper::setFont(fontSize);
-    //è®¾ç½®æ ·å¼é£æ ¼
+    //ÉèÖÃÑùÊ½·ç¸ñ
     if (style) {
         QUIHelper::setStyle();
     }
 
-    //è®¾ç½®ç¿»è¯‘æ–‡ä»¶æ”¯æŒå¤šä¸ª
+    //ÉèÖÃ·­ÒëÎÄ¼şÖ§³Ö¶à¸ö
     QUIHelper::setTranslator(":/qm/widgets.qm");
     QUIHelper::setTranslator(":/qm/qt_zh_CN.qm");
     QUIHelper::setTranslator(":/qm/designer_zh_CN.qm");
 
-    //è®¾ç½®ä¸ä½¿ç”¨æœ¬åœ°ç³»ç»Ÿç¯å¢ƒä»£ç†é…ç½®
+    //ÉèÖÃ²»Ê¹ÓÃ±¾µØÏµÍ³»·¾³´úÀíÅäÖÃ
     QNetworkProxyFactory::setUseSystemConfiguration(false);
 }
 
 void QUIHelper::initMain(bool desktopSettingsAware, bool useOpenGLES)
 {
-    //è®¾ç½®æ˜¯å¦åº”ç”¨æ“ä½œç³»ç»Ÿè®¾ç½®æ¯”å¦‚å­—ä½“
+    //ÉèÖÃÊÇ·ñÓ¦ÓÃ²Ù×÷ÏµÍ³ÉèÖÃ±ÈÈç×ÖÌå
     QApplication::setDesktopSettingsAware(desktopSettingsAware);
 
 #ifdef Q_OS_ANDROID
 #if (QT_VERSION >= QT_VERSION_CHECK(5,6,0))
-    //å¼€å¯é«˜åˆ†å±ç¼©æ”¾æ”¯æŒ
+    //¿ªÆô¸ß·ÖÆÁËõ·ÅÖ§³Ö
     QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
 #else
 #if (QT_VERSION >= QT_VERSION_CHECK(5,0,0))
-    //ä¸åº”ç”¨ä»»ä½•ç¼©æ”¾
+    //²»Ó¦ÓÃÈÎºÎËõ·Å
     QApplication::setAttribute(Qt::AA_Use96Dpi);
 #endif
 #endif
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5,14,0))
-    //é«˜åˆ†å±ç¼©æ”¾ç­–ç•¥
+    //¸ß·ÖÆÁËõ·Å²ßÂÔ
     QApplication::setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::Floor);
 #endif
 
 #if (QT_VERSION >= QT_VERSION_CHECK(5,4,0))
-    //winä¸Šè·å–æ˜¾å¡æ˜¯å¦è¢«ç¦ç”¨(ç¦ç”¨åˆ™å¿…é¡»å¯ç”¨OpenGLES)
+    //winÉÏ»ñÈ¡ÏÔ¿¨ÊÇ·ñ±»½ûÓÃ(½ûÓÃÔò±ØĞëÆôÓÃOpenGLES)
 #ifdef Q_OS_WIN
     QProcess p;
     QStringList args;
@@ -572,20 +572,20 @@ void QUIHelper::initMain(bool desktopSettingsAware, bool useOpenGLES)
     }
 #endif
 
-    //è®¾ç½®openglæ¨¡å¼ AA_UseDesktopOpenGL(é»˜è®¤) AA_UseOpenGLES AA_UseSoftwareOpenGL
-    //åœ¨ä¸€äº›å¾ˆæ—§çš„è®¾å¤‡ä¸Šæˆ–è€…å¯¹openglæ”¯æŒå¾ˆä½çš„è®¾å¤‡ä¸Šéœ€è¦ä½¿ç”¨AA_UseOpenGLESè¡¨ç¤ºç¦ç”¨ç¡¬ä»¶åŠ é€Ÿ
-    //å¦‚æœå¼€å¯çš„æ˜¯AA_UseOpenGLESåˆ™æ— æ³•ä½¿ç”¨ç¡¬ä»¶åŠ é€Ÿæ¯”å¦‚ffmpegçš„dxva2
+    //ÉèÖÃopenglÄ£Ê½ AA_UseDesktopOpenGL(Ä¬ÈÏ) AA_UseOpenGLES AA_UseSoftwareOpenGL
+    //ÔÚÒ»Ğ©ºÜ¾ÉµÄÉè±¸ÉÏ»òÕß¶ÔopenglÖ§³ÖºÜµÍµÄÉè±¸ÉÏĞèÒªÊ¹ÓÃAA_UseOpenGLES±íÊ¾½ûÓÃÓ²¼ş¼ÓËÙ
+    //Èç¹û¿ªÆôµÄÊÇAA_UseOpenGLESÔòÎŞ·¨Ê¹ÓÃÓ²¼ş¼ÓËÙ±ÈÈçffmpegµÄdxva2
     if (useOpenGLES) {
         QApplication::setAttribute(Qt::AA_UseOpenGLES);
     }
 
-    //è®¾ç½®openglå…±äº«ä¸Šä¸‹æ–‡
+    //ÉèÖÃopengl¹²ÏíÉÏÏÂÎÄ
     QApplication::setAttribute(Qt::AA_ShareOpenGLContexts);
 #endif
 }
 
 QVector<int> QUIHelper::msgTypes = QVector<int>() << 0 << 1 << 2 << 3 << 4;
-QVector<QString> QUIHelper::msgKeys = QVector<QString>() << QString::fromUtf8("å‘é€") << QString::fromUtf8("æ¥æ”¶") << QString::fromUtf8("è§£æ") << QString::fromUtf8("é”™è¯¯") << QString::fromUtf8("æç¤º");
+QVector<QString> QUIHelper::msgKeys = QVector<QString>() << QString::fromUtf8("·¢ËÍ") << QString::fromUtf8("½ÓÊÕ") << QString::fromUtf8("½âÎö") << QString::fromUtf8("´íÎó") << QString::fromUtf8("ÌáÊ¾");
 QVector<QColor> QUIHelper::msgColors = QVector<QColor>() << QColor("#3BA372") << QColor("#EE6668") << QColor("#9861B4") << QColor("#FA8359") << QColor("#22A3A9");
 QString QUIHelper::appendMsg(QTextEdit *textEdit, int type, const QString &data, int maxCount, int &currentCount, bool clear, bool pause)
 {
@@ -604,7 +604,7 @@ QString QUIHelper::appendMsg(QTextEdit *textEdit, int type, const QString &data,
         currentCount = 0;
     }
 
-    //ä¸åŒç±»å‹ä¸åŒé¢œè‰²æ˜¾ç¤º
+    //²»Í¬ÀàĞÍ²»Í¬ÑÕÉ«ÏÔÊ¾
     QString strType;
     int index = msgTypes.indexOf(type);
     if (index >= 0) {
@@ -612,11 +612,11 @@ QString QUIHelper::appendMsg(QTextEdit *textEdit, int type, const QString &data,
         textEdit->setTextColor(msgColors.at(index));
     }
 
-    //è¿‡æ»¤å›è½¦æ¢è¡Œç¬¦
+    //¹ıÂË»Ø³µ»»ĞĞ·û
     QString strData = data;
     strData.replace("\r", "");
     strData.replace("\n", "");
-    strData = QString("æ—¶é—´[%1] %2: %3").arg(TIMEMS).arg(strType).arg(strData);
+    strData = QString("Ê±¼ä[%1] %2: %3").arg(TIMEMS).arg(strType).arg(strData);
     textEdit->append(strData);
     currentCount++;
     return strData;
@@ -627,7 +627,7 @@ void QUIHelper::setFramelessForm(QWidget *widgetMain, bool tool, bool top, bool 
     widgetMain->setProperty("form", true);
     widgetMain->setProperty("canMove", true);
 
-    //æ ¹æ®è®¾å®šé€ä¸ªè¿½åŠ å±æ€§
+    //¸ù¾İÉè¶¨Öğ¸ö×·¼ÓÊôĞÔ
 #ifdef __arm__
     widgetMain->setWindowFlags(Qt::FramelessWindowHint | Qt::X11BypassWindowManagerHint);
 #else
@@ -640,7 +640,7 @@ void QUIHelper::setFramelessForm(QWidget *widgetMain, bool tool, bool top, bool 
         widgetMain->setWindowFlags(widgetMain->windowFlags() | Qt::WindowStaysOnTopHint);
     }
     if (menu) {
-        //å¦‚æœæ˜¯å…¶ä»–ç³»ç»Ÿæ¯”å¦‚neokylinä¼šäº§ç”Ÿç³»ç»Ÿè¾¹æ¡†
+        //Èç¹ûÊÇÆäËûÏµÍ³±ÈÈçneokylin»á²úÉúÏµÍ³±ß¿ò
 #ifdef Q_OS_WIN
         widgetMain->setWindowFlags(widgetMain->windowFlags() | Qt::WindowSystemMenuHint | Qt::WindowMinMaxButtonsHint);
 #endif
@@ -663,50 +663,50 @@ int QUIHelper::showMessageBox(const QString &text, int type, int closeSec, bool 
 
 void QUIHelper::showMessageBoxInfo(const QString &text, int closeSec, bool exec)
 {
-    QMessageBox box(QMessageBox::Information, "æç¤º", text);
+    QMessageBox box(QMessageBox::Information, "ÌáÊ¾", text);
     box.setStandardButtons(QMessageBox::Yes);
-    box.setButtonText(QMessageBox::Yes, QString("ç¡® å®š"));
+    box.setButtonText(QMessageBox::Yes, QString("È· ¶¨"));
     box.exec();
-    //QMessageBox::information(0, "æç¤º", info, QMessageBox::Yes);
+    //QMessageBox::information(0, "ÌáÊ¾", info, QMessageBox::Yes);
 }
 
 void QUIHelper::showMessageBoxError(const QString &text, int closeSec, bool exec)
 {
-    QMessageBox box(QMessageBox::Critical, "é”™è¯¯", text);
+    QMessageBox box(QMessageBox::Critical, "´íÎó", text);
     box.setStandardButtons(QMessageBox::Yes);
-    box.setButtonText(QMessageBox::Yes, QString("ç¡® å®š"));
+    box.setButtonText(QMessageBox::Yes, QString("È· ¶¨"));
     box.exec();
-    //QMessageBox::critical(0, "é”™è¯¯", info, QMessageBox::Yes);
+    //QMessageBox::critical(0, "´íÎó", info, QMessageBox::Yes);
 }
 
 int QUIHelper::showMessageBoxQuestion(const QString &text)
 {
-    QMessageBox box(QMessageBox::Question, "è¯¢é—®", text);
+    QMessageBox box(QMessageBox::Question, "Ñ¯ÎÊ", text);
     box.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-    box.setButtonText(QMessageBox::Yes, QString("ç¡® å®š"));
-    box.setButtonText(QMessageBox::No, QString("å– æ¶ˆ"));
+    box.setButtonText(QMessageBox::Yes, QString("È· ¶¨"));
+    box.setButtonText(QMessageBox::No, QString("È¡ Ïû"));
     return box.exec();
-    //return QMessageBox::question(0, "è¯¢é—®", info, QMessageBox::Yes | QMessageBox::No);
+    //return QMessageBox::question(0, "Ñ¯ÎÊ", info, QMessageBox::Yes | QMessageBox::No);
 }
 
 void QUIHelper::initDialog(QFileDialog *dialog, const QString &title, const QString &acceptName,
                            const QString &dirName, bool native, int width, int height)
 {
-    //è®¾ç½®æ ‡é¢˜
+    //ÉèÖÃ±êÌâ
     dialog->setWindowTitle(title);
-    //è®¾ç½®æ ‡ç­¾æ–‡æœ¬
+    //ÉèÖÃ±êÇ©ÎÄ±¾
     dialog->setLabelText(QFileDialog::Accept, acceptName);
-    dialog->setLabelText(QFileDialog::Reject, "å–æ¶ˆ(&C)");
-    dialog->setLabelText(QFileDialog::LookIn, "æŸ¥çœ‹");
-    dialog->setLabelText(QFileDialog::FileName, "åç§°");
-    dialog->setLabelText(QFileDialog::FileType, "ç±»å‹");
+    dialog->setLabelText(QFileDialog::Reject, "È¡Ïû(&C)");
+    dialog->setLabelText(QFileDialog::LookIn, "²é¿´");
+    dialog->setLabelText(QFileDialog::FileName, "Ãû³Æ");
+    dialog->setLabelText(QFileDialog::FileType, "ÀàĞÍ");
 
-    //è®¾ç½®é»˜è®¤æ˜¾ç¤ºç›®å½•
+    //ÉèÖÃÄ¬ÈÏÏÔÊ¾Ä¿Â¼
     if (!dirName.isEmpty()) {
         dialog->setDirectory(dirName);
     }
 
-    //è®¾ç½®å¯¹è¯æ¡†å®½é«˜
+    //ÉèÖÃ¶Ô»°¿ò¿í¸ß
     if (width > 0 && height > 0) {
 #ifdef Q_OS_ANDROID
         bool horizontal = (QUIHelper::deskWidth() > QUIHelper::deskHeight());
@@ -721,9 +721,9 @@ void QUIHelper::initDialog(QFileDialog *dialog, const QString &title, const QStr
         dialog->setFixedSize(width, height);
     }
 
-    //è®¾ç½®æ˜¯å¦é‡‡ç”¨æœ¬åœ°å¯¹è¯æ¡†
+    //ÉèÖÃÊÇ·ñ²ÉÓÃ±¾µØ¶Ô»°¿ò
     dialog->setOption(QFileDialog::DontUseNativeDialog, !native);
-    //è®¾ç½®åªè¯»å¯ä»¥å–æ¶ˆå³ä¸Šè§’çš„æ–°å»ºæŒ‰é’®
+    //ÉèÖÃÖ»¶Á¿ÉÒÔÈ¡ÏûÓÒÉÏ½ÇµÄĞÂ½¨°´Å¥
     //dialog->setReadOnly(true);
 }
 
@@ -740,14 +740,14 @@ QString QUIHelper::getOpenFileName(const QString &filter, const QString &dirName
                                    bool native, int width, int height)
 {
     QFileDialog dialog;
-    initDialog(&dialog, "æ‰“å¼€æ–‡ä»¶", "é€‰æ‹©(&S)", dirName, native, width, height);
+    initDialog(&dialog, "´ò¿ªÎÄ¼ş", "Ñ¡Ôñ(&S)", dirName, native, width, height);
 
-    //è®¾ç½®æ–‡ä»¶ç±»å‹
+    //ÉèÖÃÎÄ¼şÀàĞÍ
     if (!filter.isEmpty()) {
         dialog.setNameFilter(filter);
     }
 
-    //è®¾ç½®é»˜è®¤æ–‡ä»¶åç§°
+    //ÉèÖÃÄ¬ÈÏÎÄ¼şÃû³Æ
     dialog.selectFile(fileName);
     return getDialogResult(&dialog);
 }
@@ -756,18 +756,18 @@ QString QUIHelper::getSaveFileName(const QString &filter, const QString &dirName
                                    bool native, int width, int height)
 {
     QFileDialog dialog;
-    initDialog(&dialog, "ä¿å­˜æ–‡ä»¶", "ä¿å­˜(&S)", dirName, native, width, height);
+    initDialog(&dialog, "±£´æÎÄ¼ş", "±£´æ(&S)", dirName, native, width, height);
 
-    //è®¾ç½®æ–‡ä»¶ç±»å‹
+    //ÉèÖÃÎÄ¼şÀàĞÍ
     if (!filter.isEmpty()) {
         dialog.setNameFilter(filter);
     }
 
-    //è®¾ç½®é»˜è®¤æ–‡ä»¶åç§°
+    //ÉèÖÃÄ¬ÈÏÎÄ¼şÃû³Æ
     dialog.selectFile(fileName);
-    //è®¾ç½®æ¨¡æ€ç±»å‹å…è®¸è¾“å…¥
+    //ÉèÖÃÄ£Ì¬ÀàĞÍÔÊĞíÊäÈë
     dialog.setWindowModality(Qt::WindowModal);
-    //è®¾ç½®ç½®é¡¶æ˜¾ç¤º
+    //ÉèÖÃÖÃ¶¥ÏÔÊ¾
     dialog.setWindowFlags(dialog.windowFlags() | Qt::WindowStaysOnTopHint);
     return getDialogResult(&dialog);
 }
@@ -775,9 +775,9 @@ QString QUIHelper::getSaveFileName(const QString &filter, const QString &dirName
 QString QUIHelper::getExistingDirectory(const QString &dirName, bool native, int width, int height)
 {
     QFileDialog dialog;
-    initDialog(&dialog, "é€‰æ‹©ç›®å½•", "é€‰æ‹©(&S)", dirName, native, width, height);
+    initDialog(&dialog, "Ñ¡ÔñÄ¿Â¼", "Ñ¡Ôñ(&S)", dirName, native, width, height);
     dialog.setOption(QFileDialog::ReadOnly);
-    //è®¾ç½®åªæ˜¾ç¤ºç›®å½•
+    //ÉèÖÃÖ»ÏÔÊ¾Ä¿Â¼
 #if (QT_VERSION < QT_VERSION_CHECK(6,0,0))
     dialog.setFileMode(QFileDialog::DirectoryOnly);
 #endif
@@ -787,12 +787,12 @@ QString QUIHelper::getExistingDirectory(const QString &dirName, bool native, int
 
 QString QUIHelper::getXorEncryptDecrypt(const QString &value, char key)
 {
-    //çŸ«æ­£èŒƒå›´å¤–çš„æ•°æ®
+    //½ÃÕı·¶Î§ÍâµÄÊı¾İ
     if (key < 0 || key >= 127) {
         key = 127;
     }
 
-    //å¤§æ¦‚ä»5.9ç‰ˆæœ¬è¾“å‡ºçš„åŠ å¯†å¯†ç å­—ç¬¦ä¸²å‰é¢ä¼šåŠ ä¸Š @String å­—ç¬¦
+    //´ó¸Å´Ó5.9°æ±¾Êä³öµÄ¼ÓÃÜÃÜÂë×Ö·û´®Ç°Ãæ»á¼ÓÉÏ @String ×Ö·û
     QString result = value;
     if (result.startsWith("@String")) {
         result = result.mid(8, result.length() - 9);
@@ -829,39 +829,39 @@ quint8 QUIHelper::getCheckCode(const QByteArray &data)
 
 void QUIHelper::initTableView(QTableView *tableView, int rowHeight, bool headVisible, bool edit, bool stretchLast)
 {
-    //è®¾ç½®å¼±å±æ€§ç”¨äºåº”ç”¨qssç‰¹æ®Šæ ·å¼
+    //ÉèÖÃÈõÊôĞÔÓÃÓÚÓ¦ÓÃqssÌØÊâÑùÊ½
     tableView->setProperty("model", true);
-    //å–æ¶ˆè‡ªåŠ¨æ¢è¡Œ
+    //È¡Ïû×Ô¶¯»»ĞĞ
     tableView->setWordWrap(false);
-    //è¶…å‡ºæ–‡æœ¬ä¸æ˜¾ç¤ºçœç•¥å·
+    //³¬³öÎÄ±¾²»ÏÔÊ¾Ê¡ÂÔºÅ
     tableView->setTextElideMode(Qt::ElideNone);
-    //å¥‡æ•°å¶æ•°è¡Œé¢œè‰²äº¤æ›¿
+    //ÆæÊıÅ¼ÊıĞĞÑÕÉ«½»Ìæ
     tableView->setAlternatingRowColors(false);
-    //å‚ç›´è¡¨å¤´æ˜¯å¦å¯è§
+    //´¹Ö±±íÍ·ÊÇ·ñ¿É¼û
     tableView->verticalHeader()->setVisible(headVisible);
-    //é€‰ä¸­ä¸€è¡Œè¡¨å¤´æ˜¯å¦åŠ ç²—
+    //Ñ¡ÖĞÒ»ĞĞ±íÍ·ÊÇ·ñ¼Ó´Ö
     tableView->horizontalHeader()->setHighlightSections(false);
-    //æœ€åä¸€è¡Œæ‹‰ä¼¸å¡«å……
+    //×îºóÒ»ĞĞÀ­ÉìÌî³ä
     tableView->horizontalHeader()->setStretchLastSection(stretchLast);
-    //è¡Œæ ‡é¢˜æœ€å°å®½åº¦å°ºå¯¸
+    //ĞĞ±êÌâ×îĞ¡¿í¶È³ß´ç
     tableView->horizontalHeader()->setMinimumSectionSize(0);
-    //è¡Œæ ‡é¢˜æœ€å°é«˜åº¦,ç­‰åŒäºå’Œé»˜è®¤è¡Œé«˜ä¸€è‡´
+    //ĞĞ±êÌâ×îĞ¡¸ß¶È,µÈÍ¬ÓÚºÍÄ¬ÈÏĞĞ¸ßÒ»ÖÂ
     tableView->horizontalHeader()->setFixedHeight(rowHeight);
-    //é»˜è®¤è¡Œé«˜
+    //Ä¬ÈÏĞĞ¸ß
     tableView->verticalHeader()->setDefaultSectionSize(rowHeight);
-    //é€‰ä¸­æ—¶ä¸€è¡Œæ•´ä½“é€‰ä¸­
+    //Ñ¡ÖĞÊ±Ò»ĞĞÕûÌåÑ¡ÖĞ
     tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
-    //åªå…è®¸é€‰æ‹©å•ä¸ª
+    //Ö»ÔÊĞíÑ¡Ôñµ¥¸ö
     tableView->setSelectionMode(QAbstractItemView::SingleSelection);
 
-    //è¡¨å¤´ä¸å¯å•å‡»
+    //±íÍ·²»¿Éµ¥»÷
 #if (QT_VERSION >= QT_VERSION_CHECK(5,0,0))
     tableView->horizontalHeader()->setSectionsClickable(false);
 #else
     tableView->horizontalHeader()->setClickable(false);
 #endif
 
-    //é¼ æ ‡æŒ‰ä¸‹å³è¿›å…¥ç¼–è¾‘æ¨¡å¼
+    //Êó±ê°´ÏÂ¼´½øÈë±à¼­Ä£Ê½
     if (edit) {
         tableView->setEditTriggers(QAbstractItemView::CurrentChanged | QAbstractItemView::DoubleClicked);
     } else {
@@ -874,11 +874,11 @@ void QUIHelper::openFile(const QString &fileName, const QString &msg)
 #ifdef __arm__
     return;
 #endif
-    //æ–‡ä»¶ä¸å­˜åœ¨åˆ™ä¸ç”¨å¤„ç†
+    //ÎÄ¼ş²»´æÔÚÔò²»ÓÃ´¦Àí
     if (!QFile(fileName).exists()) {
         return;
     }
-    if (QUIHelper::showMessageBoxQuestion(msg + "æˆåŠŸ, ç¡®å®šç°åœ¨å°±æ‰“å¼€å—?") == QMessageBox::Yes) {
+    if (QUIHelper::showMessageBoxQuestion(msg + "³É¹¦, È·¶¨ÏÖÔÚ¾Í´ò¿ªÂğ?") == QMessageBox::Yes) {
         QString url = QString("file:///%1").arg(fileName);
         QDesktopServices::openUrl(QUrl(url, QUrl::TolerantMode));
     }
@@ -886,13 +886,13 @@ void QUIHelper::openFile(const QString &fileName, const QString &msg)
 
 bool QUIHelper::checkIniFile(const QString &iniFile)
 {
-    //å¦‚æœé…ç½®æ–‡ä»¶å¤§å°ä¸º0,åˆ™ä»¥åˆå§‹å€¼ç»§ç»­è¿è¡Œ,å¹¶ç”Ÿæˆé…ç½®æ–‡ä»¶
+    //Èç¹ûÅäÖÃÎÄ¼ş´óĞ¡Îª0,ÔòÒÔ³õÊ¼Öµ¼ÌĞøÔËĞĞ,²¢Éú³ÉÅäÖÃÎÄ¼ş
     QFile file(iniFile);
     if (file.size() == 0) {
         return false;
     }
 
-    //å¦‚æœé…ç½®æ–‡ä»¶ä¸å®Œæ•´,åˆ™ä»¥åˆå§‹å€¼ç»§ç»­è¿è¡Œ,å¹¶ç”Ÿæˆé…ç½®æ–‡ä»¶
+    //Èç¹ûÅäÖÃÎÄ¼ş²»ÍêÕû,ÔòÒÔ³õÊ¼Öµ¼ÌĞøÔËĞĞ,²¢Éú³ÉÅäÖÃÎÄ¼ş
     if (file.open(QFile::ReadOnly)) {
         bool ok = true;
         while (!file.atEnd()) {
@@ -924,14 +924,14 @@ bool QUIHelper::checkIniFile(const QString &iniFile)
 
 QString QUIHelper::cutString(const QString &text, int len, int left, int right, bool file, const QString &mid)
 {
-    //å¦‚æœæŒ‡å®šäº†å­—ç¬¦ä¸²åˆ†å‰²åˆ™è¡¨ç¤ºæ˜¯æ–‡ä»¶åéœ€è¦å»æ‰æ‹“å±•å
+    //Èç¹ûÖ¸¶¨ÁË×Ö·û´®·Ö¸îÔò±íÊ¾ÊÇÎÄ¼şÃûĞèÒªÈ¥µôÍØÕ¹Ãû
     QString result = text;
     if (file && result.contains(".")) {
         int index = result.lastIndexOf(".");
         result = result.mid(0, index);
     }
 
-    //æœ€ç»ˆå­—ç¬¦ä¸²æ ¼å¼ä¸º å‰ç¼€å­—ç¬¦...åç¼€å­—ç¬¦
+    //×îÖÕ×Ö·û´®¸ñÊ½Îª Ç°×º×Ö·û...ºó×º×Ö·û
     if (result.length() > len) {
         result = QString("%1%2%3").arg(result.left(left)).arg(mid).arg(result.right(right));
     }
@@ -956,7 +956,7 @@ QRect QUIHelper::getCenterRect(const QSize &imageSize, const QRect &widgetRect, 
 
     int x = widgetRect.center().x() - newSize.width() / 2;
     int y = widgetRect.center().y() - newSize.height() / 2;
-    //ä¸æ˜¯2çš„å€æ•°éœ€è¦åç§»1åƒç´ 
+    //²»ÊÇ2µÄ±¶ÊıĞèÒªÆ«ÒÆ1ÏñËØ
     x += (x % 2 == 0 ? 1 : 0);
     y += (y % 2 == 0 ? 1 : 0);
     return QRect(x, y, newSize.width(), newSize.height());

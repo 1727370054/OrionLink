@@ -1,4 +1,4 @@
-#include "log_client.h"
+﻿#include "log_client.h"
 #include "config_client.h"
 #include "frmmain.h"
 #include "ui_frmmain.h"
@@ -25,11 +25,6 @@ frmMain::frmMain(QWidget *parent) : QDialog(parent), ui(new Ui::frmMain)
     ui->setupUi(this);
     cur_frmMain = this;
     this->initForm();
-    LoginUI gui;
-    if (gui.exec() != QDialog::Accepted)
-    {
-        return;
-    }
     Refresh();
     ConfigClient::GetInstance()->set_config_res_cb(SMessgeCB);
     connect(this, &frmMain::SigSaveMessgeCB, this, &frmMain::SaveMessgeCB);

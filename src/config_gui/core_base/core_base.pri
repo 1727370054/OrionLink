@@ -6,30 +6,30 @@ android {QT += androidextras}
 QT += core-private
 }}
 
-#指定编译产生的文件分门别类放到对应目录
+#ָ������������ļ����ű���ŵ���ӦĿ¼
 MOC_DIR     = temp/moc
 RCC_DIR     = temp/rcc
 UI_DIR      = temp/ui
 OBJECTS_DIR = temp/obj
 
-#指定编译生成的可执行文件放到源码上一级目录下的bin目录
+#ָ���������ɵĿ�ִ���ļ��ŵ�Դ����һ��Ŀ¼�µ�binĿ¼
 !android {
 !wasm {
 DESTDIR = $$PWD/../bin
 }}
 
-#把所有警告都关掉眼不见为净
+#�����о��涼�ص��۲���Ϊ��
 CONFIG += warn_off
-#开启大资源支持
+#��������Դ֧��
 CONFIG += resources_big
-#开启后会将打印信息用控制台输出
+#������Ὣ��ӡ��Ϣ�ÿ���̨���
 #CONFIG += console
-#开启后不会生成空的 debug release 目录
+#�����󲻻����ɿյ� debug release Ŀ¼
 #CONFIG -= debug_and_release
 
-#引入全志H3芯片依赖
+#����ȫ־H3оƬ����
 include ($$PWD/h3.pri)
-#将当前目录加入到头文件路径
+#����ǰĿ¼���뵽ͷ�ļ�·��
 INCLUDEPATH += $$PWD
 
 HEADERS += $$PWD/appdata.h
@@ -50,7 +50,7 @@ SOURCES += $$PWD/iconhelper.cpp
 HEADERS += $$PWD/quihelper.h
 SOURCES += $$PWD/quihelper.cpp
 
-#可以指定不加载对应的资源文件
+#����ָ�������ض�Ӧ����Դ�ļ�
 !contains(DEFINES, no_qrc_image) {
 RESOURCES += $$PWD/qrc/image.qrc
 }

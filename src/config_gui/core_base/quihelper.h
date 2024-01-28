@@ -6,77 +6,77 @@
 class QUIHelper
 {
 public:
-    //è·å–å½“å‰é¼ æ ‡æ‰€åœ¨å±å¹•ç´¢å¼•/åŒºåŸŸå°ºå¯¸/ç¼©æ”¾ç³»æ•°
+    //»ñÈ¡µ±Ç°Êó±êËùÔÚÆÁÄ»Ë÷Òı/ÇøÓò³ß´ç/Ëõ·ÅÏµÊı
     static int getScreenIndex();
     static QRect getScreenRect(bool available = true);
     static qreal getScreenRatio(bool devicePixel = false);
-    //çŸ«æ­£å½“å‰é¼ æ ‡æ‰€åœ¨å±å¹•å±…ä¸­å°ºå¯¸
+    //½ÃÕıµ±Ç°Êó±êËùÔÚÆÁÄ»¾ÓÖĞ³ß´ç
     static QRect checkCenterRect(QRect &rect, bool available = true);
 
-    //è·å–æ¡Œé¢å®½åº¦é«˜åº¦+å±…ä¸­æ˜¾ç¤º
+    //»ñÈ¡×ÀÃæ¿í¶È¸ß¶È+¾ÓÖĞÏÔÊ¾
     static int deskWidth();
     static int deskHeight();
     static QSize deskSize();
 
-    //å±…ä¸­æ˜¾ç¤ºçª—ä½“
-    //å®šä¹‰æ ‡å¿—ä½æŒ‡å®šæ˜¯ä»¥æ¡Œé¢ä¸ºå‚ç…§è¿˜æ˜¯ä¸»ç¨‹åºç•Œé¢ä¸ºå‚ç…§
+    //¾ÓÖĞÏÔÊ¾´°Ìå
+    //¶¨Òå±êÖ¾Î»Ö¸¶¨ÊÇÒÔ×ÀÃæÎª²ÎÕÕ»¹ÊÇÖ÷³ÌĞò½çÃæÎª²ÎÕÕ
     static QWidget *centerBaseForm;
     static void setFormInCenter(QWidget *form);
     static void showForm(QWidget *form);
 
-    //ç¨‹åºæ–‡ä»¶åç§°+å½“å‰æ‰€åœ¨è·¯å¾„
+    //³ÌĞòÎÄ¼şÃû³Æ+µ±Ç°ËùÔÚÂ·¾¶
     static QString appName();
     static QString appPath();
 
-    //è·å–æœ¬åœ°ç½‘å¡IPé›†åˆ
+    //»ñÈ¡±¾µØÍø¿¨IP¼¯ºÏ
     static QStringList getLocalIPs();
 
-    //è·å–å†…ç½®é¢œè‰²é›†åˆ
+    //»ñÈ¡ÄÚÖÃÑÕÉ«¼¯ºÏ
     static QList<QColor> colors;
     static QList<QColor> getColorList();
     static QStringList getColorNames();
-    //éšæœºè·å–é¢œè‰²é›†åˆä¸­çš„é¢œè‰²
+    //Ëæ»ú»ñÈ¡ÑÕÉ«¼¯ºÏÖĞµÄÑÕÉ«
     static QColor getRandColor();
 
-    //åˆå§‹åŒ–éšæœºæ•°ç§å­
+    //³õÊ¼»¯Ëæ»úÊıÖÖ×Ó
     static void initRand();
-    //è·å–éšæœºå°æ•°
+    //»ñÈ¡Ëæ»úĞ¡Êı
     static float getRandFloat(float min, float max);
-    //è·å–éšæœºæ•°,æŒ‡å®šæœ€å°å€¼å’Œæœ€å¤§å€¼
+    //»ñÈ¡Ëæ»úÊı,Ö¸¶¨×îĞ¡ÖµºÍ×î´óÖµ
     static double getRandValue(int min, int max, bool contansMin = false, bool contansMax = false);
-    //è·å–èŒƒå›´å€¼éšæœºç»çº¬åº¦é›†åˆ
+    //»ñÈ¡·¶Î§ÖµËæ»ú¾­Î³¶È¼¯ºÏ
     static QStringList getRandPoint(int count, float mainLng, float mainLat, float dotLng, float dotLat);
-    //æ ¹æ®æ—§çš„èŒƒå›´å€¼å’Œå€¼è®¡ç®—æ–°çš„èŒƒå›´å€¼å¯¹åº”çš„å€¼
+    //¸ù¾İ¾ÉµÄ·¶Î§ÖµºÍÖµ¼ÆËãĞÂµÄ·¶Î§Öµ¶ÔÓ¦µÄÖµ
     static int getRangeValue(int oldMin, int oldMax, int oldValue, int newMin, int newMax);
 
-    //è·å–uuid
+    //»ñÈ¡uuid
     static QString getUuid();
-    //æ ¡éªŒç›®å½•
+    //Ğ£ÑéÄ¿Â¼
     static void checkPath(const QString &dirName);
-    //å»¶æ—¶
+    //ÑÓÊ±
     static void sleep(int msec);
 
-    //è®¾ç½®Qtè‡ªå¸¦æ ·å¼
+    //ÉèÖÃQt×Ô´øÑùÊ½
     static void setStyle();
-    //è®¾ç½®å­—ä½“
+    //ÉèÖÃ×ÖÌå
     static QFont addFont(const QString &fontFile, const QString &fontName);
     static void setFont(int fontSize = 12);
-    //è®¾ç½®ç¼–ç 
+    //ÉèÖÃ±àÂë
     static void setCode(bool utf8 = true);
-    //è®¾ç½®ç¿»è¯‘æ–‡ä»¶
+    //ÉèÖÃ·­ÒëÎÄ¼ş
     static void setTranslator(const QString &qmFile);
 
-    //åŠ¨æ€è®¾ç½®æƒé™
+    //¶¯Ì¬ÉèÖÃÈ¨ÏŞ
     static bool checkPermission(const QString &permission);
-    //ç”³è¯·å®‰å“æƒé™
+    //ÉêÇë°²×¿È¨ÏŞ
     static void initAndroidPermission();
 
-    //ä¸€æ¬¡æ€§è®¾ç½®æ‰€æœ‰åŒ…æ‹¬ç¼–ç æ ·å¼å­—ä½“ç­‰
+    //Ò»´ÎĞÔÉèÖÃËùÓĞ°üÀ¨±àÂëÑùÊ½×ÖÌåµÈ
     static void initAll(bool utf8 = true, bool style = true, int fontSize = 13);
-    //åˆå§‹åŒ–mainå‡½æ•°æœ€å‰é¢æ‰§è¡Œçš„ä¸€æ®µä»£ç 
+    //³õÊ¼»¯mainº¯Êı×îÇ°ÃæÖ´ĞĞµÄÒ»¶Î´úÂë
     static void initMain(bool desktopSettingsAware = true, bool useOpenGLES = false);
 
-    //æ’å…¥æ¶ˆæ¯
+    //²åÈëÏûÏ¢
     static QVector<int> msgTypes;
     static QVector<QString> msgKeys;
     static QVector<QColor> msgColors;
@@ -84,68 +84,68 @@ public:
                              int maxCount, int &currentCount,
                              bool clear = false, bool pause = false);
 
-    //è®¾ç½®æ— è¾¹æ¡†
+    //ÉèÖÃÎŞ±ß¿ò
     static void setFramelessForm(QWidget *widgetMain, bool tool = false, bool top = false, bool menu = true);
 
-    //å¼¹å‡ºæ¡†
+    //µ¯³ö¿ò
     static int showMessageBox(const QString &text, int type = 0, int closeSec = 0, bool exec = false);
-    //å¼¹å‡ºæ¶ˆæ¯æ¡†
+    //µ¯³öÏûÏ¢¿ò
     static void showMessageBoxInfo(const QString &text, int closeSec = 0, bool exec = false);
-    //å¼¹å‡ºé”™è¯¯æ¡†
+    //µ¯³ö´íÎó¿ò
     static void showMessageBoxError(const QString &text, int closeSec = 0, bool exec = false);
-    //å¼¹å‡ºè¯¢é—®æ¡†
+    //µ¯³öÑ¯ÎÊ¿ò
     static int showMessageBoxQuestion(const QString &text);
 
-    //ä¸ºä»€ä¹ˆè¿˜è¦è‡ªå®šä¹‰å¯¹è¯æ¡†å› ä¸ºå¯æ§å®½é«˜å’Œæ±‰åŒ–å¯¹åº”æ–‡æœ¬ç­‰
-    //åˆå§‹åŒ–å¯¹è¯æ¡†æ–‡æœ¬
+    //ÎªÊ²Ã´»¹Òª×Ô¶¨Òå¶Ô»°¿òÒòÎª¿É¿Ø¿í¸ßºÍºº»¯¶ÔÓ¦ÎÄ±¾µÈ
+    //³õÊ¼»¯¶Ô»°¿òÎÄ±¾
     static void initDialog(QFileDialog *dialog, const QString &title, const QString &acceptName,
                            const QString &dirName, bool native, int width, int height);
-    //æ‹¿åˆ°å¯¹è¯æ¡†ç»“æœ
+    //ÄÃµ½¶Ô»°¿ò½á¹û
     static QString getDialogResult(QFileDialog *dialog);
-    //é€‰æ‹©æ–‡ä»¶å¯¹è¯æ¡†
+    //Ñ¡ÔñÎÄ¼ş¶Ô»°¿ò
     static QString getOpenFileName(const QString &filter = QString(),
                                    const QString &dirName = QString(),
                                    const QString &fileName = QString(),
                                    bool native = false, int width = 900, int height = 600);
-    //ä¿å­˜æ–‡ä»¶å¯¹è¯æ¡†
+    //±£´æÎÄ¼ş¶Ô»°¿ò
     static QString getSaveFileName(const QString &filter = QString(),
                                    const QString &dirName = QString(),
                                    const QString &fileName = QString(),
                                    bool native = false, int width = 900, int height = 600);
-    //é€‰æ‹©ç›®å½•å¯¹è¯æ¡†
+    //Ñ¡ÔñÄ¿Â¼¶Ô»°¿ò
     static QString getExistingDirectory(const QString &dirName = QString(),
                                         bool native = false, int width = 900, int height = 600);
 
-    //å¼‚æˆ–åŠ å¯†-åªæ”¯æŒå­—ç¬¦,å¦‚æœæ˜¯ä¸­æ–‡éœ€è¦å°†å…¶è½¬æ¢base64ç¼–ç 
+    //Òì»ò¼ÓÃÜ-Ö»Ö§³Ö×Ö·û,Èç¹ûÊÇÖĞÎÄĞèÒª½«Æä×ª»»base64±àÂë
     static QString getXorEncryptDecrypt(const QString &value, char key);
-    //å¼‚æˆ–æ ¡éªŒ
+    //Òì»òĞ£Ñé
     static quint8 getOrCode(const QByteArray &data);
-    //è®¡ç®—æ ¡éªŒç 
+    //¼ÆËãĞ£ÑéÂë
     static quint8 getCheckCode(const QByteArray &data);
 
-    //åˆå§‹åŒ–è¡¨æ ¼
+    //³õÊ¼»¯±í¸ñ
     static void initTableView(QTableView *tableView, int rowHeight = 25,
                               bool headVisible = false, bool edit = false,
                               bool stretchLast = true);
-    //æ‰“å¼€æ–‡ä»¶å¸¦æç¤ºæ¡†
+    //´ò¿ªÎÄ¼ş´øÌáÊ¾¿ò
     static void openFile(const QString &fileName, const QString &msg);
 
-    //æ£€æŸ¥inié…ç½®æ–‡ä»¶
+    //¼ì²éiniÅäÖÃÎÄ¼ş
     static bool checkIniFile(const QString &iniFile);
 
-    //é¦–å°¾æˆªæ–­å­—ç¬¦ä¸²æ˜¾ç¤º
+    //Ê×Î²½Ø¶Ï×Ö·û´®ÏÔÊ¾
     static QString cutString(const QString &text, int len, int left, int right, bool file, const QString &mid = "...");
 
-    //ä¼ å…¥å›¾ç‰‡å°ºå¯¸å’Œçª—ä½“åŒºåŸŸåŠè¾¹æ¡†å¤§å°è¿”å›å±…ä¸­åŒºåŸŸ(scaleMode: 0-è‡ªåŠ¨è°ƒæ•´ 1-ç­‰æ¯”ç¼©æ”¾ 2-æ‹‰ä¼¸å¡«å……)
+    //´«ÈëÍ¼Æ¬³ß´çºÍ´°ÌåÇøÓò¼°±ß¿ò´óĞ¡·µ»Ø¾ÓÖĞÇøÓò(scaleMode: 0-×Ô¶¯µ÷Õû 1-µÈ±ÈËõ·Å 2-À­ÉìÌî³ä)
     static QRect getCenterRect(const QSize &imageSize, const QRect &widgetRect, int borderWidth = 2, int scaleMode = 0);
-    //ä¼ å…¥å›¾ç‰‡å°ºå¯¸å’Œçª—ä½“å°ºå¯¸åŠç¼©æ”¾ç­–ç•¥è¿”å›åˆé€‚å°ºå¯¸(scaleMode: 0-è‡ªåŠ¨è°ƒæ•´ 1-ç­‰æ¯”ç¼©æ”¾ 2-æ‹‰ä¼¸å¡«å……)
+    //´«ÈëÍ¼Æ¬³ß´çºÍ´°Ìå³ß´ç¼°Ëõ·Å²ßÂÔ·µ»ØºÏÊÊ³ß´ç(scaleMode: 0-×Ô¶¯µ÷Õû 1-µÈ±ÈËõ·Å 2-À­ÉìÌî³ä)
     static void getScaledImage(QImage &image, const QSize &widgetSize, int scaleMode = 0, bool fast = true);
 
-    //æ¯«ç§’æ•°è½¬æ—¶é—´ 00:00
+    //ºÁÃëÊı×ªÊ±¼ä 00:00
     static QString getTimeString(qint64 time);
-    //ç”¨æ—¶æ—¶é—´è½¬ç§’æ•°
+    //ÓÃÊ±Ê±¼ä×ªÃëÊı
     static QString getTimeString(QElapsedTimer timer);
-    //æ–‡ä»¶å¤§å°è½¬ KB MB GB TB
+    //ÎÄ¼ş´óĞ¡×ª KB MB GB TB
     static QString getSizeString(quint64 size);
 };
 

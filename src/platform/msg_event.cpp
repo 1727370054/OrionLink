@@ -56,7 +56,7 @@ void MsgEvent::ReadCallback()
             stringstream ss;
             ss << "【RECV】" << server_ip() << ":" << server_port() << "|" << GetPortName(server_port()) << " " << client_ip() << ":" << client_port() << " " << pb_head_->DebugString();
             if (pb_head_->msg_type() != msg::MSG_ADD_LOG_REQ)
-                LOGDEBUG(ss.str().c_str());
+                LOGINFO(ss.str().c_str());
         }
 
         ReadCallback(pb_head_, msg);
@@ -98,6 +98,15 @@ bool MsgEvent::SendMsg(msg::MsgHead* head, Msg* msg)
     head->SerializeToString(&head_str);
     /// 也可以用该接口获取序列化后的数据 head.ByteSizeLong();
     int head_size = head_str.size();
+
+    if (head)
+    {
+        stringstream ss;
+        ss << "【SEND】" << server_ip() << ":" << server_port() << "|" << GetPortName(server_port()) << " " << head->DebugString();
+        // 在记录日志会死循环
+        if (head->msg_type() != msg::MSG_ADD_LOG_REQ)
+            LOGDEBUG(ss.str().c_str());
+    }
 
     /// 1. 发送消息头大小 4字节 (暂时不考虑字节序问题)
     bool ret = Write(&head_size, sizeof(head_size));

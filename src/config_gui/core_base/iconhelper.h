@@ -2,18 +2,18 @@
 #define ICONHELPER_H
 
 /**
- * 1. å¯ä¼ å…¥å¤šç§å›¾å½¢å­—ä½“æ–‡ä»¶ï¼Œä¸€ä¸ªç±»é€šç”¨æ‰€æœ‰å›¾å½¢å­—ä½“ã€‚
- * 2. é»˜è®¤å·²ç»å†…ç½®äº†é˜¿é‡Œå·´å·´å›¾å½¢å­—ä½“FontAliBaBaã€å›½é™…çŸ¥åå›¾å½¢å­—ä½“FontAwesomeã€å¤©æ°”å›¾å½¢å­—ä½“FontWeatherã€‚
- * 3. å¯è®¾ç½® QLabelã€QAbstractButton æ–‡æœ¬ä¸ºå›¾å½¢å­—ä½“ã€‚
- * 4. å¯è®¾ç½®å›¾å½¢å­—ä½“ä½œä¸º QAbstractButton æŒ‰é’®å›¾æ ‡ã€‚
- * 5. å†…ç½®ä¸‡èƒ½çš„æ–¹æ³• getPixmap å°†å›¾å½¢å­—ä½“å€¼è½¬æ¢ä¸ºå›¾ç‰‡ã€‚
- * 6. æ— è®ºæ˜¯è®¾ç½®æ–‡æœ¬ã€å›¾æ ‡ã€å›¾ç‰‡ç­‰éƒ½å¯ä»¥è®¾ç½®å›¾æ ‡çš„å¤§å°ã€å°ºå¯¸ã€é¢œè‰²ç­‰å‚æ•°ã€‚
- * 7. å†…ç½®è¶…çº§å¯¼èˆªæ æ ·å¼è®¾ç½®ï¼Œå°†å›¾å½¢å­—ä½“ä½œä¸ºå›¾æ ‡è®¾ç½®åˆ°æŒ‰é’®ã€‚
- * 8. æ”¯æŒå„ç§é¢œè‰²è®¾ç½®æ¯”å¦‚æ­£å¸¸é¢œè‰²ã€æ‚¬åœé¢œè‰²ã€æŒ‰ä¸‹é¢œè‰²ã€é€‰ä¸­é¢œè‰²ã€‚
- * 9. å¯è®¾ç½®å¯¼èˆªçš„ä½ç½®ä¸º leftã€rightã€topã€bottom å››ç§ã€‚
- * 10. å¯è®¾ç½®å¯¼èˆªåŠ æ·±è¾¹æ¡†é¢œè‰²å’Œç²—ç»†å¤§å°ã€‚
- * 11. å¯¼èˆªé¢æ¿çš„å„ç§åˆ‡æ¢æ•ˆæœæ¯”å¦‚é¼ æ ‡æ‚¬åœã€æŒ‰ä¸‹ã€é€‰ä¸­ç­‰éƒ½è‡ªåŠ¨å¤„ç†æ‰æ ·å¼è®¾ç½®ã€‚
- * 12. å…¨å±€é™æ€æ–¹æ³•ï¼Œæ¥å£ä¸°å¯Œï¼Œä½¿ç”¨æå…¶ç®€å•æ–¹ä¾¿ã€‚
+ * 1. ¿É´«Èë¶àÖÖÍ¼ĞÎ×ÖÌåÎÄ¼ş£¬Ò»¸öÀàÍ¨ÓÃËùÓĞÍ¼ĞÎ×ÖÌå¡£
+ * 2. Ä¬ÈÏÒÑ¾­ÄÚÖÃÁË°¢Àï°Í°ÍÍ¼ĞÎ×ÖÌåFontAliBaBa¡¢¹ú¼ÊÖªÃûÍ¼ĞÎ×ÖÌåFontAwesome¡¢ÌìÆøÍ¼ĞÎ×ÖÌåFontWeather¡£
+ * 3. ¿ÉÉèÖÃ QLabel¡¢QAbstractButton ÎÄ±¾ÎªÍ¼ĞÎ×ÖÌå¡£
+ * 4. ¿ÉÉèÖÃÍ¼ĞÎ×ÖÌå×÷Îª QAbstractButton °´Å¥Í¼±ê¡£
+ * 5. ÄÚÖÃÍòÄÜµÄ·½·¨ getPixmap ½«Í¼ĞÎ×ÖÌåÖµ×ª»»ÎªÍ¼Æ¬¡£
+ * 6. ÎŞÂÛÊÇÉèÖÃÎÄ±¾¡¢Í¼±ê¡¢Í¼Æ¬µÈ¶¼¿ÉÒÔÉèÖÃÍ¼±êµÄ´óĞ¡¡¢³ß´ç¡¢ÑÕÉ«µÈ²ÎÊı¡£
+ * 7. ÄÚÖÃ³¬¼¶µ¼º½À¸ÑùÊ½ÉèÖÃ£¬½«Í¼ĞÎ×ÖÌå×÷ÎªÍ¼±êÉèÖÃµ½°´Å¥¡£
+ * 8. Ö§³Ö¸÷ÖÖÑÕÉ«ÉèÖÃ±ÈÈçÕı³£ÑÕÉ«¡¢ĞüÍ£ÑÕÉ«¡¢°´ÏÂÑÕÉ«¡¢Ñ¡ÖĞÑÕÉ«¡£
+ * 9. ¿ÉÉèÖÃµ¼º½µÄÎ»ÖÃÎª left¡¢right¡¢top¡¢bottom ËÄÖÖ¡£
+ * 10. ¿ÉÉèÖÃµ¼º½¼ÓÉî±ß¿òÑÕÉ«ºÍ´ÖÏ¸´óĞ¡¡£
+ * 11. µ¼º½Ãæ°åµÄ¸÷ÖÖÇĞ»»Ğ§¹û±ÈÈçÊó±êĞüÍ£¡¢°´ÏÂ¡¢Ñ¡ÖĞµÈ¶¼×Ô¶¯´¦ÀíµôÑùÊ½ÉèÖÃ¡£
+ * 12. È«¾Ö¾²Ì¬·½·¨£¬½Ó¿Ú·á¸»£¬Ê¹ÓÃ¼«Æä¼òµ¥·½±ã¡£
  */
 
 #include <QtGui>
@@ -31,41 +31,41 @@ class IconHelper : public QObject
     Q_OBJECT
 
 private:
-    //é˜¿é‡Œå·´å·´å›¾å½¢å­—ä½“ç±»
+    //°¢Àï°Í°ÍÍ¼ĞÎ×ÖÌåÀà
     static IconHelper *iconFontAliBaBa;
-    //FontAwesomeå›¾å½¢å­—ä½“ç±»
+    //FontAwesomeÍ¼ĞÎ×ÖÌåÀà
     static IconHelper *iconFontAwesome;
-    //FontAwesome6å›¾å½¢å­—ä½“ç±»
+    //FontAwesome6Í¼ĞÎ×ÖÌåÀà
     static IconHelper *iconFontAwesome6;
-    //å¤©æ°”å›¾å½¢å­—ä½“ç±»
+    //ÌìÆøÍ¼ĞÎ×ÖÌåÀà
     static IconHelper *iconFontWeather;
-    //å›¾å½¢å­—ä½“ç´¢å¼•
+    //Í¼ĞÎ×ÖÌåË÷Òı
     static int iconFontIndex;
 
 public:
-    //æ ·å¼é¢œè‰²ç»“æ„ä½“
+    //ÑùÊ½ÑÕÉ«½á¹¹Ìå
     struct StyleColor {
-        QString position;           //ä½ç½® left right top bottom
-        bool defaultBorder;         //é»˜è®¤æœ‰è¾¹æ¡†
+        QString position;           //Î»ÖÃ left right top bottom
+        bool defaultBorder;         //Ä¬ÈÏÓĞ±ß¿ò
 
-        quint32 btnWidth;           //æŒ‰é’®å®½åº¦
-        quint32 btnHeight;          //æŒ‰é’®é«˜åº¦
+        quint32 btnWidth;           //°´Å¥¿í¶È
+        quint32 btnHeight;          //°´Å¥¸ß¶È
 
-        quint32 iconSize;           //å›¾æ ‡å­—ä½“å°ºå¯¸
-        quint32 iconWidth;          //å›¾æ ‡å›¾ç‰‡å®½åº¦
-        quint32 iconHeight;         //å›¾æ ‡å›¾ç‰‡é«˜åº¦
+        quint32 iconSize;           //Í¼±ê×ÖÌå³ß´ç
+        quint32 iconWidth;          //Í¼±êÍ¼Æ¬¿í¶È
+        quint32 iconHeight;         //Í¼±êÍ¼Æ¬¸ß¶È
 
-        quint32 borderWidth;        //è¾¹æ¡†å®½åº¦
-        QString borderColor;        //è¾¹æ¡†é¢œè‰²
+        quint32 borderWidth;        //±ß¿ò¿í¶È
+        QString borderColor;        //±ß¿òÑÕÉ«
 
-        QString normalBgColor;      //æ­£å¸¸èƒŒæ™¯é¢œè‰²
-        QString normalTextColor;    //æ­£å¸¸æ–‡å­—é¢œè‰²
-        QString hoverBgColor;       //æ‚¬åœèƒŒæ™¯é¢œè‰²
-        QString hoverTextColor;     //æ‚¬åœæ–‡å­—é¢œè‰²
-        QString pressedBgColor;     //æŒ‰ä¸‹èƒŒæ™¯é¢œè‰²
-        QString pressedTextColor;   //æŒ‰ä¸‹æ–‡å­—é¢œè‰²
-        QString checkedBgColor;     //é€‰ä¸­èƒŒæ™¯é¢œè‰²
-        QString checkedTextColor;   //é€‰ä¸­æ–‡å­—é¢œè‰²
+        QString normalBgColor;      //Õı³£±³¾°ÑÕÉ«
+        QString normalTextColor;    //Õı³£ÎÄ×ÖÑÕÉ«
+        QString hoverBgColor;       //ĞüÍ£±³¾°ÑÕÉ«
+        QString hoverTextColor;     //ĞüÍ£ÎÄ×ÖÑÕÉ«
+        QString pressedBgColor;     //°´ÏÂ±³¾°ÑÕÉ«
+        QString pressedTextColor;   //°´ÏÂÎÄ×ÖÑÕÉ«
+        QString checkedBgColor;     //Ñ¡ÖĞ±³¾°ÑÕÉ«
+        QString checkedTextColor;   //Ñ¡ÖĞÎÄ×ÖÑÕÉ«
 
         StyleColor() {
             position = "left";
@@ -91,7 +91,7 @@ public:
             checkedTextColor = "#FDFDFD";
         }
 
-        //è®¾ç½®å¸¸è§„é¢œè‰² æ™®é€šçŠ¶æ€+åŠ æ·±çŠ¶æ€
+        //ÉèÖÃ³£¹æÑÕÉ« ÆÕÍ¨×´Ì¬+¼ÓÉî×´Ì¬
         void setColor(const QString &normalBgColor,
                       const QString &normalTextColor,
                       const QString &darkBgColor,
@@ -108,78 +108,78 @@ public:
     };
 
 
-    //åˆå§‹åŒ–å›¾å½¢å­—ä½“
+    //³õÊ¼»¯Í¼ĞÎ×ÖÌå
     static void initFont();
-    //è®¾ç½®å¼•ç”¨å›¾å½¢å­—ä½“æ–‡ä»¶ç´¢å¼•
+    //ÉèÖÃÒıÓÃÍ¼ĞÎ×ÖÌåÎÄ¼şË÷Òı
     static void setIconFontIndex(int index);
 
-    //è·å–å›¾å½¢å­—ä½“
+    //»ñÈ¡Í¼ĞÎ×ÖÌå
     static QFont getIconFontAliBaBa();
     static QFont getIconFontAwesome();
     static QFont getIconFontAwesome6();
     static QFont getIconFontWeather();
 
-    //æ ¹æ®å€¼è·å–å›¾å½¢å­—ä½“ç±»
+    //¸ù¾İÖµ»ñÈ¡Í¼ĞÎ×ÖÌåÀà
     static IconHelper *getIconHelper(int icon);
 
-    //è®¾ç½®å›¾å½¢å­—ä½“åˆ°æ ‡ç­¾
+    //ÉèÖÃÍ¼ĞÎ×ÖÌåµ½±êÇ©
     static void setIcon(QLabel *lab, int icon, quint32 size = 12);
-    //è®¾ç½®å›¾å½¢å­—ä½“åˆ°æŒ‰é’®
+    //ÉèÖÃÍ¼ĞÎ×ÖÌåµ½°´Å¥
     static void setIcon(QAbstractButton *btn, int icon, quint32 size = 12);
 
-    //è®¾ç½®å›¾å½¢å­—ä½“åˆ°å›¾æ ‡
+    //ÉèÖÃÍ¼ĞÎ×ÖÌåµ½Í¼±ê
     static void setPixmap(QAbstractButton *btn, const QColor &color,
                           int icon, quint32 size = 12,
                           quint32 width = 15, quint32 height = 15,
                           int flags = Qt::AlignCenter);
-    //è·å–æŒ‡å®šå›¾å½¢å­—ä½“,å¯ä»¥æŒ‡å®šæ–‡å­—å¤§å°,å›¾ç‰‡å®½é«˜,æ–‡å­—å¯¹é½
+    //»ñÈ¡Ö¸¶¨Í¼ĞÎ×ÖÌå,¿ÉÒÔÖ¸¶¨ÎÄ×Ö´óĞ¡,Í¼Æ¬¿í¸ß,ÎÄ×Ö¶ÔÆë
     static QPixmap getPixmap(const QColor &color, int icon, quint32 size = 12,
                              quint32 width = 15, quint32 height = 15,
                              int flags = Qt::AlignCenter);
 
-    //æŒ‡å®šå¯¼èˆªé¢æ¿æ ·å¼,å¸¦å›¾æ ‡å’Œæ•ˆæœåˆ‡æ¢+æ‚¬åœé¢œè‰²+æŒ‰ä¸‹é¢œè‰²+é€‰ä¸­é¢œè‰²
+    //Ö¸¶¨µ¼º½Ãæ°åÑùÊ½,´øÍ¼±êºÍĞ§¹ûÇĞ»»+ĞüÍ£ÑÕÉ«+°´ÏÂÑÕÉ«+Ñ¡ÖĞÑÕÉ«
     static void setStyle(QWidget *widget, QList<QPushButton *> btns, QList<int> icons, const StyleColor &styleColor);
     static void setStyle(QWidget *widget, QList<QToolButton *> btns, QList<int> icons, const StyleColor &styleColor);
     static void setStyle(QWidget *widget, QList<QAbstractButton *> btns, QList<int> icons, const StyleColor &styleColor);
 
-    //é»˜è®¤æ„é€ å‡½æ•°,ä¼ å…¥å­—ä½“æ–‡ä»¶+å­—ä½“åç§°
+    //Ä¬ÈÏ¹¹Ôìº¯Êı,´«Èë×ÖÌåÎÄ¼ş+×ÖÌåÃû³Æ
     explicit IconHelper(const QString &fontFile, const QString &fontName, QObject *parent = 0);
 
 protected:
     bool eventFilter(QObject *watched, QEvent *event);
 
 private:
-    QFont iconFont;                 //å›¾å½¢å­—ä½“
-    QList<QAbstractButton *> btns;  //æŒ‰é’®é˜Ÿåˆ—
-    QList<QPixmap> pixNormal;       //æ­£å¸¸å›¾ç‰‡é˜Ÿåˆ—
-    QList<QPixmap> pixHover;        //æ‚¬åœå›¾ç‰‡é˜Ÿåˆ—
-    QList<QPixmap> pixPressed;      //æŒ‰ä¸‹å›¾ç‰‡é˜Ÿåˆ—
-    QList<QPixmap> pixChecked;      //é€‰ä¸­å›¾ç‰‡é˜Ÿåˆ—
+    QFont iconFont;                 //Í¼ĞÎ×ÖÌå
+    QList<QAbstractButton *> btns;  //°´Å¥¶ÓÁĞ
+    QList<QPixmap> pixNormal;       //Õı³£Í¼Æ¬¶ÓÁĞ
+    QList<QPixmap> pixHover;        //ĞüÍ£Í¼Æ¬¶ÓÁĞ
+    QList<QPixmap> pixPressed;      //°´ÏÂÍ¼Æ¬¶ÓÁĞ
+    QList<QPixmap> pixChecked;      //Ñ¡ÖĞÍ¼Æ¬¶ÓÁĞ
 
 private slots:
-    //æŒ‰é’®é€‰ä¸­çŠ¶æ€åˆ‡æ¢å¤„ç†
+    //°´Å¥Ñ¡ÖĞ×´Ì¬ÇĞ»»´¦Àí
     void toggled(bool checked);
 
 public:
-    //è·å–å›¾å½¢å­—ä½“
+    //»ñÈ¡Í¼ĞÎ×ÖÌå
     QFont getIconFont();
 
-    //è®¾ç½®å›¾å½¢å­—ä½“åˆ°æ ‡ç­¾
+    //ÉèÖÃÍ¼ĞÎ×ÖÌåµ½±êÇ©
     void setIcon1(QLabel *lab, int icon, quint32 size = 12);
-    //è®¾ç½®å›¾å½¢å­—ä½“åˆ°æŒ‰é’®
+    //ÉèÖÃÍ¼ĞÎ×ÖÌåµ½°´Å¥
     void setIcon1(QAbstractButton *btn, int icon, quint32 size = 12);
 
-    //è®¾ç½®å›¾å½¢å­—ä½“åˆ°å›¾æ ‡
+    //ÉèÖÃÍ¼ĞÎ×ÖÌåµ½Í¼±ê
     void setPixmap1(QAbstractButton *btn, const QColor &color,
                     int icon, quint32 size = 12,
                     quint32 width = 15, quint32 height = 15,
                     int flags = Qt::AlignCenter);
-    //è·å–æŒ‡å®šå›¾å½¢å­—ä½“,å¯ä»¥æŒ‡å®šæ–‡å­—å¤§å°,å›¾ç‰‡å®½é«˜,æ–‡å­—å¯¹é½
+    //»ñÈ¡Ö¸¶¨Í¼ĞÎ×ÖÌå,¿ÉÒÔÖ¸¶¨ÎÄ×Ö´óĞ¡,Í¼Æ¬¿í¸ß,ÎÄ×Ö¶ÔÆë
     QPixmap getPixmap1(const QColor &color, int icon, quint32 size = 12,
                        quint32 width = 15, quint32 height = 15,
                        int flags = Qt::AlignCenter);
 
-    //æŒ‡å®šå¯¼èˆªé¢æ¿æ ·å¼,å¸¦å›¾æ ‡å’Œæ•ˆæœåˆ‡æ¢+æ‚¬åœé¢œè‰²+æŒ‰ä¸‹é¢œè‰²+é€‰ä¸­é¢œè‰²
+    //Ö¸¶¨µ¼º½Ãæ°åÑùÊ½,´øÍ¼±êºÍĞ§¹ûÇĞ»»+ĞüÍ£ÑÕÉ«+°´ÏÂÑÕÉ«+Ñ¡ÖĞÑÕÉ«
     void setStyle1(QWidget *widget, QList<QPushButton *> btns, QList<int> icons, const StyleColor &styleColor);
     void setStyle1(QWidget *widget, QList<QToolButton *> btns, QList<int> icons, const StyleColor &styleColor);
     void setStyle1(QWidget *widget, QList<QAbstractButton *> btns, QList<int> icons, const StyleColor &styleColor);

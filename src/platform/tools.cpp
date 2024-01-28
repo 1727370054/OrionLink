@@ -14,6 +14,7 @@
 #ifdef _WIN32
 #include <io.h>
 #include <windows.h>
+#include <direct.h>
 #else
 #include <sys/types.h>
 #include <dirent.h>
@@ -21,6 +22,11 @@
 #include <unistd.h>
 #include <netdb.h>
 #include <arpa/inet.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <sys/vfs.h>
+#define _access access
+#define _mkdir(d) mkdir(d,S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH)
 #endif // _WIN32
 
 
@@ -265,6 +271,62 @@ XCOM_API std::string GetSizeString(long long size)
 		filesize_str = ss.str();
 	}
 	return filesize_str;
+}
+
+std::string FormatDir(const std::string& dir)
+{
+	std::string ret = "";
+	bool is_sep = false; // 是否是/ 或者是 "\"
+	for (int i = 0; i < dir.size(); i++)
+	{
+		if (dir[i] == '/' || dir[i] == '\\')
+		{
+			if (is_sep)
+			{
+				continue;
+			}
+			ret += '/';
+			is_sep = true;
+			continue;
+		}
+		ret += dir[i];
+		is_sep = false;
+	}
+	return ret;
+}
+
+void StringSplit(std::vector<std::string>& vec, std::string str, std::string find)
+{
+	int pos1 = 0;
+	int pos2 = 0;
+	vec.clear();
+	while ((pos2 = str.find(find, pos1)) != std::string::npos)
+	{
+		vec.push_back(str.substr(pos1, pos2 - pos1));
+		pos1 = pos2 + find.size();
+	}
+	std::string tmp = str.substr(pos1);
+	if ((int)tmp.size() > 0)
+	{
+		vec.push_back(tmp);
+	}
+}
+
+void NewDir(std::string path)
+{
+	std::string tmp = FormatDir(path);
+	std::vector<std::string> paths;
+	StringSplit(paths, tmp, "/");
+
+	std::string filename = "";
+	for (const auto& s : paths)
+	{
+		filename += s + '/';
+		if (_access(filename.c_str(), 0) == -1)
+		{
+			_mkdir(filename.c_str());
+		}
+	}
 }
 
 int Base64Encode(const unsigned char* in, int len, char* out_base64)

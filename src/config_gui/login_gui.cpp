@@ -1,4 +1,4 @@
-#include "login_gui.h"
+ï»¿#include "login_gui.h"
 #include "auth_client.h"
 #include "ui_login_gui.h"
 
@@ -36,10 +36,7 @@ void LoginUI::Login()
     string username = ui->lineEdit_name->text().toStdString();
     string password = ui->lineEdit_pwd->text().toStdString();
 
-    AuthClient::GetInstance()->LoginReq(username, password);
-    msg::LoginRes login_info;
-    bool ret = AuthClient::GetInstance()->GetLoginInfo(username, &login_info, 1000);
-    if (!ret)
+    if (!AuthClient::GetInstance()->Login(username, password))
     {
         QMessageBox::information(this,"error","username or password error");
         return;
@@ -57,31 +54,31 @@ void LoginUI::InitGUI()
     lineEdit_name->setFixedSize(500, 50);
     //    lineEdit_name->setMinimumSize(500,50);
     //    lineEdit_name->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
-    lineEdit_name->setPlaceholderText("input username"); //ÉèÖÃÊäÈë¿òÖÐµÄÌáÊ¾ÎÄ×Ö
-    lineEdit_name->setStyleSheet("font: 25 14pt 'Î¢ÈíÑÅºÚ Light';"
+    lineEdit_name->setPlaceholderText("input username"); //è®¾ç½®è¾“å…¥æ¡†ä¸­çš„æç¤ºæ–‡å­—
+    lineEdit_name->setStyleSheet("font: 25 14pt 'å¾®è½¯é›…é»‘ Light';"
         "padding-left:20px;"
         "color: rgb(31,31,31);"
         "background-color: rgb(255, 255, 255);"
         "border:2px solid rgb(20,196,188);border-radius:15px;  ");
 
     lineEdit_pwd->setFixedSize(500, 50);
-    lineEdit_pwd->setEchoMode(QLineEdit::Password);//ÃÜÎÄÊäÈë
+    lineEdit_pwd->setEchoMode(QLineEdit::Password);//å¯†æ–‡è¾“å…¥
     lineEdit_pwd->setPlaceholderText("input password");
-    lineEdit_pwd->setStyleSheet("font: 25 14pt 'Î¢ÈíÑÅºÚ Light';"
+    lineEdit_pwd->setStyleSheet("font: 25 14pt 'å¾®è½¯é›…é»‘ Light';"
         "padding-left:20px;"
         "color: rgb(31,31,31);"
         "background-color: rgb(255, 255, 255);"
         "border:2px solid rgb(20,196,188);border-radius:15px;");//
 
-    //rgb(20,196,188)À¶ÂÌ rgb(22,218,208)Ã÷¶È½Ï¸ßÀ¶ÂÌ rgb(17,171,164)Ã÷¶È½ÏµÍÀ¶ÂÌ
+    //rgb(20,196,188)è“ç»¿ rgb(22,218,208)æ˜Žåº¦è¾ƒé«˜è“ç»¿ rgb(17,171,164)æ˜Žåº¦è¾ƒä½Žè“ç»¿
     login_button->setFixedSize(500, 50);
-    login_button->setStyleSheet("QPushButton{font: 25 14pt 'Î¢ÈíÑÅºÚ Light';color: rgb(255,255,255);background-color: rgb(20,196,188);"
+    login_button->setStyleSheet("QPushButton{font: 25 14pt 'å¾®è½¯é›…é»‘ Light';color: rgb(255,255,255);background-color: rgb(20,196,188);"
         "border: none;border-radius:15px;}"
         "QPushButton:hover{background-color: rgb(22,218,208);}"
         "QPushButton:pressed{background-color: rgb(17,171,164);}");
 
     register_button->setFixedSize(500, 50);
-    register_button->setStyleSheet("QPushButton{font: 25 14pt 'Î¢ÈíÑÅºÚ Light';color: rgb(255,255,255);background-color: rgb(20,196,188);"
+    register_button->setStyleSheet("QPushButton{font: 25 14pt 'å¾®è½¯é›…é»‘ Light';color: rgb(255,255,255);background-color: rgb(20,196,188);"
         "border: none;border-radius:15px;}"
         "QPushButton:hover{background-color: rgb(22,218,208);}"
         "QPushButton:pressed{background-color: rgb(17,171,164);}");

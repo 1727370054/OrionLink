@@ -1,7 +1,8 @@
-#ifndef DISK_CLIENT_GUI_H
+﻿#ifndef DISK_CLIENT_GUI_H
 #define DISK_CLIENT_GUI_H
 
 #include <QWidget>
+#include <QTableWidgetItem>
 
 #include "ifile_manager.h"
 
@@ -23,16 +24,33 @@ public:
     void DiskClientGUI::mousePressEvent(QMouseEvent* ev);
     void DiskClientGUI::mouseReleaseEvent(QMouseEvent* ev);
 
+    void contextMenuEvent(QContextMenuEvent* ev) override;
+
     void set_ifm(iFileManager* f) { this->ifm_ = f; }
+
+    bool eventFilter(QObject* object, QEvent* event) override;
+private:
+    void triggerItemChanged(QString filename);
+
 public slots:
     void Refresh();
     void RefreshData(disk::FileInfoList file_list, std::string cur_dir);
+
+    void NewDir();
+    void DirRename(QTableWidgetItem* item);
+
+    /// 回退目录
+    void Back();
+    void Root();
+    void DoubleClicked(int row, int column);
 
     void Checkall();
 private:
     Ui::DiskClientGUI* ui;
     LoginGUI* login_gui_;
     iFileManager* ifm_ = nullptr;
+    std::string remote_dir_ = "";
+    disk::FileInfoList file_list_;
 };
 
 #endif // DISK_CLIENT_GUI_H

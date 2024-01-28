@@ -701,11 +701,6 @@ background-color:#FFFFFF;
      <attribute name="verticalHeaderStretchLastSection">
       <bool>false</bool>
      </attribute>
-     <row>
-      <property name="text">
-       <string>1</string>
-      </property>
-     </row>
      <column>
       <property name="text">
        <string/>
@@ -734,26 +729,6 @@ background-color:#FFFFFF;
        <string/>
       </property>
      </column>
-     <item row="0" column="0">
-      <property name="text">
-       <string/>
-      </property>
-     </item>
-     <item row="0" column="1">
-      <property name="text">
-       <string>test</string>
-      </property>
-     </item>
-     <item row="0" column="2">
-      <property name="text">
-       <string>1970.1.1 12:00</string>
-      </property>
-     </item>
-     <item row="0" column="3">
-      <property name="text">
-       <string>1024</string>
-      </property>
-     </item>
     </widget>
     <widget class="QWidget" name="pathwidget" native="true">
      <property name="geometry">
@@ -985,7 +960,7 @@ background-repeat: no-repeat;
   <action name="refreshaction">
    <property name="icon">
     <iconset resource="disk_client_gui.qrc">
-     <normaloff>:/XMSDiskClientGui/Resources/img/refresh.png</normaloff>:/XMSDiskClientGui/Resources/img/refresh.png</iconset>
+     <normaloff>:/XMSDiskClientGui/Resources/img/refresh1.png</normaloff>:/XMSDiskClientGui/Resources/img/refresh1.png</iconset>
    </property>
    <property name="text">
     <string>刷新</string>
@@ -1066,6 +1041,102 @@ background-repeat: no-repeat;
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>refreshaction</sender>
+   <signal>triggered()</signal>
+   <receiver>DiskClientGUI</receiver>
+   <slot>Refresh()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>499</x>
+     <y>349</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>action_new_dir</sender>
+   <signal>triggered()</signal>
+   <receiver>DiskClientGUI</receiver>
+   <slot>NewDir()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>499</x>
+     <y>349</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>filetableWidget</sender>
+   <signal>itemChanged(QTableWidgetItem*)</signal>
+   <receiver>DiskClientGUI</receiver>
+   <slot>DirRename(QTableWidgetItem*)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>532</x>
+     <y>428</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>536</x>
+     <y>821</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>backButton</sender>
+   <signal>clicked()</signal>
+   <receiver>DiskClientGUI</receiver>
+   <slot>Back()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>172</x>
+     <y>140</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-171</x>
+     <y>145</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pathpushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>DiskClientGUI</receiver>
+   <slot>Root()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>269</x>
+     <y>143</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>237</x>
+     <y>-157</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>filetableWidget</sender>
+   <signal>cellDoubleClicked(int,int)</signal>
+   <receiver>DiskClientGUI</receiver>
+   <slot>DoubleClicked(int,int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>695</x>
+     <y>407</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>680</x>
+     <y>922</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>Refresh()</slot>
@@ -1081,5 +1152,6 @@ background-repeat: no-repeat;
   <slot>Root()</slot>
   <slot>NewDir()</slot>
   <slot>FileEnc()</slot>
+  <slot>DirRename(QTableWidgetItem*)</slot>
  </slots>
 </ui>

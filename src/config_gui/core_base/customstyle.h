@@ -6,7 +6,7 @@
 class CustomStyle
 {
 public:
-    //å…¨å±€æ ·å¼æ¯”å¦‚æ”¾å¤§é€‰æ‹©å™¨
+    //È«¾ÖÑùÊ½±ÈÈç·Å´óÑ¡ÔñÆ÷
     static void initStyle(int fontSize = 15, int radioButtonSize = 18, int checkBoxSize = 16, int sliderHeight = 13);
 };
 

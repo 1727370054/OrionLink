@@ -13,6 +13,8 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 接收获取目录请求
     void GetDirReq(msg::MsgHead* head, Msg* msg);
+
+    void NewDirReq(msg::MsgHead* head, Msg* msg);
 };
 
 #endif // DIR_HANDLE_H

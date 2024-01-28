@@ -1,4 +1,4 @@
-#include "auth_client.h"
+﻿#include "auth_client.h"
 #include "disk_client_gui.h"
 #include "login_gui.h"
 #include "file_manager.h"
@@ -23,6 +23,7 @@ int main(int argc, char *argv[])
     file.close();
 
     std::string gateway_ip = GetHostByName(OL_GATEWAY_SERVER_NAME);
+    //std::string gateway_ip = "192.168.1.7";
     AuthClient::GetInstance()->set_server_ip(gateway_ip.c_str());
     AuthClient::GetInstance()->set_server_port(API_GATEWAY_PORT);
     AuthClient::GetInstance()->set_auto_connect(true);

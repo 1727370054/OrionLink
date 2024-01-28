@@ -104,6 +104,7 @@ void LogClient::TimerCallback()
 
 LogClient::LogClient()
 {
+    set_service_name(LOG_NAME);
 }
 
 LogClient::~LogClient()

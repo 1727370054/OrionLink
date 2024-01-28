@@ -14,17 +14,18 @@ using namespace std;
 #define DIR_ROOT "/mnt/orion_link"
 #endif // _WIN32
 
+
 void DirHandle::RegisterMsgCallback()
 {
     RegisterCallback((MsgType)GET_DIR_REQ, (MsgCBFunc)&DirHandle::GetDirReq);
+    RegisterCallback((MsgType)NEW_DIR_REQ, (MsgCBFunc)&DirHandle::NewDirReq);
 }
 
-void DirHandle::GetDirReq(msg::MsgHead *head, Msg *msg)
+void DirHandle::GetDirReq(msg::MsgHead* head, Msg* msg)
 {
     /// 根目录 + 用户名 + 相对目录
     string path = DIR_ROOT;
-    // path += head->username();
-    path += "root";
+    path += head->username();
     path += "/";
     disk::GetDirReq req;
     if (!req.ParseFromArray(msg->data, msg->size))
@@ -35,7 +36,7 @@ void DirHandle::GetDirReq(msg::MsgHead *head, Msg *msg)
     path += req.root();
     auto files = GetDirList(path);
     FileInfoList file_list;
-    for (const auto &file : files)
+    for (const auto& file : files)
     {
         if (file.filename == "." || file.filename == "..")
             continue;
@@ -47,4 +48,25 @@ void DirHandle::GetDirReq(msg::MsgHead *head, Msg *msg)
     }
     head->set_msg_type((MsgType)GET_DIR_RES);
     SendMsg(head, &file_list);
+}
+
+void DirHandle::NewDirReq(msg::MsgHead* head, Msg* msg)
+{
+    string path = DIR_ROOT;
+    path += head->username();
+    path += "/";
+    disk::GetDirReq req;
+    if (!req.ParseFromArray(msg->data, msg->size))
+    {
+        LOGDEBUG("DirHandle::GetDirReq failed! ParseFromArray error");
+        return;
+    }
+    path += req.root();
+    NewDir(path);
+
+    MessageRes res;
+    res.set_return_(MessageRes::OK);
+    res.set_desc("OK");
+    head->set_msg_type((MsgType)NEW_DIR_RES);
+    SendMsg(head, &res);
 }

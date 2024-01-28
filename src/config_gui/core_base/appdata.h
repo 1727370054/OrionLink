@@ -6,13 +6,13 @@
 class AppData
 {
 public:
-    static QString TitleFlag;       //æ ‡é¢˜æ ‡è¯†
-    static int RowHeight;           //è¡Œé«˜
-    static int RightWidth;          //å³ä¾§å®½åº¦
-    static int FormWidth;           //çª—ä½“å®½åº¦
-    static int FormHeight;          //çª—ä½“é«˜åº¦
+    static QString TitleFlag;       //±êÌâ±êÊ¶
+    static int RowHeight;           //ĞĞ¸ß
+    static int RightWidth;          //ÓÒ²à¿í¶È
+    static int FormWidth;           //´°Ìå¿í¶È
+    static int FormHeight;          //´°Ìå¸ß¶È
 
-    static void checkRatio();       //æ ¡éªŒåˆ†è¾¨ç‡    
+    static void checkRatio();       //Ğ£Ñé·Ö±æÂÊ    
 };
 
 #endif // APPDATA_H

@@ -1,4 +1,4 @@
-#ifndef IFILE_MANAGER_H
+﻿#ifndef IFILE_MANAGER_H
 #define IFILE_MANAGER_H
 
 #include <QObject>
@@ -20,7 +20,10 @@ public:
     ~iFileManager();
 
     virtual void GetDir(std::string root) = 0;
+
     virtual void InitFileManager(std::string server_ip, int server_port) = 0;
+
+    virtual void NewDir(std::string path) = 0;
 
     virtual void set_login_info(msg::LoginRes login) { login_info_ = login; }
     msg::LoginRes login_info() { return login_info_; }

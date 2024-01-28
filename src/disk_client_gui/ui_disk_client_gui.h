@@ -88,7 +88,7 @@ public:
         refreshaction = new QAction(DiskClientGUI);
         refreshaction->setObjectName(QString::fromUtf8("refreshaction"));
         QIcon icon2;
-        icon2.addFile(QString::fromUtf8(":/XMSDiskClientGui/Resources/img/refresh.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon2.addFile(QString::fromUtf8(":/XMSDiskClientGui/Resources/img/refresh1.png"), QSize(), QIcon::Normal, QIcon::Off);
         refreshaction->setIcon(icon2);
         action_new_dir = new QAction(DiskClientGUI);
         action_new_dir->setObjectName(QString::fromUtf8("action_new_dir"));
@@ -354,18 +354,6 @@ public:
         filetableWidget->setHorizontalHeaderItem(3, __qtablewidgetitem3);
         QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem();
         filetableWidget->setHorizontalHeaderItem(4, __qtablewidgetitem4);
-        if (filetableWidget->rowCount() < 1)
-            filetableWidget->setRowCount(1);
-        QTableWidgetItem *__qtablewidgetitem5 = new QTableWidgetItem();
-        filetableWidget->setVerticalHeaderItem(0, __qtablewidgetitem5);
-        QTableWidgetItem *__qtablewidgetitem6 = new QTableWidgetItem();
-        filetableWidget->setItem(0, 0, __qtablewidgetitem6);
-        QTableWidgetItem *__qtablewidgetitem7 = new QTableWidgetItem();
-        filetableWidget->setItem(0, 1, __qtablewidgetitem7);
-        QTableWidgetItem *__qtablewidgetitem8 = new QTableWidgetItem();
-        filetableWidget->setItem(0, 2, __qtablewidgetitem8);
-        QTableWidgetItem *__qtablewidgetitem9 = new QTableWidgetItem();
-        filetableWidget->setItem(0, 3, __qtablewidgetitem9);
         filetableWidget->setObjectName(QString::fromUtf8("filetableWidget"));
         filetableWidget->setGeometry(QRect(0, 43, 811, 501));
         filetableWidget->setStyleSheet(QString::fromUtf8("QHeaderView::section {\n"
@@ -516,6 +504,12 @@ public:
         QObject::connect(minpushButton, SIGNAL(clicked()), DiskClientGUI, SLOT(showMinimized()));
         QObject::connect(refreshButton, SIGNAL(clicked()), DiskClientGUI, SLOT(Refresh()));
         QObject::connect(checkallBox, SIGNAL(clicked()), DiskClientGUI, SLOT(Checkall()));
+        QObject::connect(refreshaction, SIGNAL(triggered()), DiskClientGUI, SLOT(Refresh()));
+        QObject::connect(action_new_dir, SIGNAL(triggered()), DiskClientGUI, SLOT(NewDir()));
+        QObject::connect(filetableWidget, SIGNAL(itemChanged(QTableWidgetItem*)), DiskClientGUI, SLOT(DirRename(QTableWidgetItem*)));
+        QObject::connect(backButton, SIGNAL(clicked()), DiskClientGUI, SLOT(Back()));
+        QObject::connect(pathpushButton, SIGNAL(clicked()), DiskClientGUI, SLOT(Root()));
+        QObject::connect(filetableWidget, SIGNAL(cellDoubleClicked(int,int)), DiskClientGUI, SLOT(DoubleClicked(int,int)));
 
         downpushButton->setDefault(false);
         upButton->setDefault(false);
@@ -554,19 +548,6 @@ public:
         ___qtablewidgetitem1->setText(QApplication::translate("DiskClientGUI", "\344\277\256\346\224\271\346\227\266\351\227\264", nullptr));
         QTableWidgetItem *___qtablewidgetitem2 = filetableWidget->horizontalHeaderItem(3);
         ___qtablewidgetitem2->setText(QApplication::translate("DiskClientGUI", "\345\244\247\345\260\217", nullptr));
-        QTableWidgetItem *___qtablewidgetitem3 = filetableWidget->verticalHeaderItem(0);
-        ___qtablewidgetitem3->setText(QApplication::translate("DiskClientGUI", "1", nullptr));
-
-        const bool __sortingEnabled = filetableWidget->isSortingEnabled();
-        filetableWidget->setSortingEnabled(false);
-        QTableWidgetItem *___qtablewidgetitem4 = filetableWidget->item(0, 1);
-        ___qtablewidgetitem4->setText(QApplication::translate("DiskClientGUI", "test", nullptr));
-        QTableWidgetItem *___qtablewidgetitem5 = filetableWidget->item(0, 2);
-        ___qtablewidgetitem5->setText(QApplication::translate("DiskClientGUI", "1970.1.1 12:00", nullptr));
-        QTableWidgetItem *___qtablewidgetitem6 = filetableWidget->item(0, 3);
-        ___qtablewidgetitem6->setText(QApplication::translate("DiskClientGUI", "1024", nullptr));
-        filetableWidget->setSortingEnabled(__sortingEnabled);
-
         pathpushButton->setText(QApplication::translate("DiskClientGUI", "\346\210\221\347\232\204\347\275\221\347\233\230  >", nullptr));
         refreshButton->setText(QString());
         backButton->setText(QString());

@@ -28,7 +28,7 @@ public:
     explicit frmMain(QWidget *parent = 0);
     ~frmMain();
 
-    /// æ ¹æ®messageå’Œconfigç”Ÿæˆç•Œé¢
+    /// ¸ù¾İmessageºÍconfigÉú³É½çÃæ
     void InitGUI();
 protected:
     bool eventFilter(QObject *watched, QEvent *event);
@@ -37,23 +37,23 @@ protected:
 private slots:
     void initForm();
     void buttonClick();
-    /// åˆ·æ–°æ˜¾ç¤ºé…ç½®åˆ—è¡¨
+    /// Ë¢ĞÂÏÔÊ¾ÅäÖÃÁĞ±í
     void Refresh();
-    /// æ˜¾ç¤ºæ—¥å¿—åœ¨åˆ—è¡¨ä¸­
+    /// ÏÔÊ¾ÈÕÖ¾ÔÚÁĞ±íÖĞ
     void AddLog(const char* log);
-    /// ä¿å­˜é…ç½®
+    /// ±£´æÅäÖÃ
     void Save();
-    /// åˆ é™¤é€‰æ‹©çš„é…ç½®
+    /// É¾³ıÑ¡ÔñµÄÅäÖÃ
     void DelConfig();
-    /// ç¼–è¾‘é…ç½®
+    /// ±à¼­ÅäÖÃ
     void EditConfig();
-    /// åŠ è½½å¾®æœåŠ¡é…ç½®é¡¹ï¼Œä»é…ç½®ä¸­å¿ƒè·å–ï¼Œå¹¶è§£æç”Ÿæˆç•Œé¢
+    /// ¼ÓÔØÎ¢·şÎñÅäÖÃÏî£¬´ÓÅäÖÃÖĞĞÄ»ñÈ¡£¬²¢½âÎöÉú³É½çÃæ
     bool LoadConfig(const char* service_ip, int service_port);
-    /// é€‰æ‹©protoæ–‡ä»¶ï¼Œå¹¶åŠ è½½ï¼ŒåŠ¨æ€ç¼–è¯‘è§£æ
+    /// Ñ¡ÔñprotoÎÄ¼ş£¬²¢¼ÓÔØ£¬¶¯Ì¬±àÒë½âÎö
     void LoadProto();
-    /// ä¿å­˜é…ç½®ä¿¡æ¯çš„å“åº”
+    /// ±£´æÅäÖÃĞÅÏ¢µÄÏìÓ¦
     void SaveMessgeCB(bool is_ok, const char* desc);
-    /// åˆ é™¤é…ç½®ä¿¡æ¯çš„å“åº”
+    /// É¾³ıÅäÖÃĞÅÏ¢µÄÏìÓ¦
     void DelMessgeCB(bool is_ok, const char* desc);
 private slots:
     void on_btnMenu_Min_clicked();
@@ -65,11 +65,11 @@ signals:
 
 private:
     Ui::frmMain* ui;
-    /// è®°å½•åŸºç¡€é…ç½®ä¿¡æ¯çš„è¡Œæ•°ï¼ŒåŒäºåŒºåˆ†å“ªäº›æ˜¯protoæ–‡ä»¶ç”Ÿæˆçš„
+    /// ¼ÇÂ¼»ù´¡ÅäÖÃĞÅÏ¢µÄĞĞÊı£¬Í¬ÓÚÇø·ÖÄÄĞ©ÊÇprotoÎÄ¼şÉú³ÉµÄ
     int config_row_count_ = 0;
-    /// ç”¨äºå­˜å‚¨åŠ¨æ€è§£æprotoæ–‡ä»¶çš„é…ç½®ä¿¡æ¯
+    /// ÓÃÓÚ´æ´¢¶¯Ì¬½âÎöprotoÎÄ¼şµÄÅäÖÃĞÅÏ¢
     google::protobuf::Message* dynamic_msg_ = nullptr;
-    /// ç”¨äºå­˜å‚¨ä»é…ç½®ä¸­å¿ƒè·å–çš„é…ç½®é¡¹
+    /// ÓÃÓÚ´æ´¢´ÓÅäÖÃÖĞĞÄ»ñÈ¡µÄÅäÖÃÏî
     msg::Config* config_ = nullptr;
 };
 

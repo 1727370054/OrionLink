@@ -9,7 +9,7 @@ int AppData::FormHeight = 750;
 
 void AppData::checkRatio()
 {
-    //æ ¹æ®åˆ†è¾¨çŽ‡è®¾å®šå®½é«˜
+    //¸ù¾Ý·Ö±æÂÊÉè¶¨¿í¸ß
     int width = QUIHelper::deskWidth();
     if (width >= 1440) {
         RowHeight = RowHeight < 25 ? 25 : RowHeight;

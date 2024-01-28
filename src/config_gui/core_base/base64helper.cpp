@@ -9,7 +9,7 @@ QString Base64Helper::imageToBase64(const QImage &image)
 
 QByteArray Base64Helper::imageToBase64x(const QImage &image)
 {
-    //杩欎釜杞崲鍙兘姣旇緝鑰楁椂寤鸿鍦ㄧ嚎绋嬩腑鎵ц
+    //这个转换可能比较耗时建议在线程中执行
     QByteArray data;
     QBuffer buffer(&data);
     image.save(&buffer, "JPG");
@@ -24,7 +24,7 @@ QImage Base64Helper::base64ToImage(const QString &data)
 
 QImage Base64Helper::base64ToImagex(const QByteArray &data)
 {
-    //杩欎釜杞崲鍙兘姣旇緝鑰楁椂寤鸿鍦ㄧ嚎绋嬩腑鎵ц
+    //这个转换可能比较耗时建议在线程中执行
     QImage image;
     image.loadFromData(QByteArray::fromBase64(data));
     return image;

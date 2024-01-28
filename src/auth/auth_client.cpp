@@ -125,6 +125,8 @@ AuthClient::AuthClient()
 
 AuthClient::~AuthClient()
 {
+    delete ssl_ctx_;
+    ssl_ctx_ = nullptr;
 }
 
 

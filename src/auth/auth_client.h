@@ -2,6 +2,7 @@
 #define AUTH_CLIENT_H
 
 #include "service_client.h"
+#include "ssl_ctx.h"
 
 #include <string>
 #include <map>
@@ -21,6 +22,9 @@ public:
     {
         static AuthClient auth_client;
         auth_client.set_auto_delete(false);
+        SSLCtx* ssl_ctx_ = new SSLCtx();
+        ssl_ctx_->InitClient();
+        auth_client.set_ssl_ctx(ssl_ctx_);
         return &auth_client;
     }
 
@@ -81,6 +85,8 @@ private:
 
     std::map<std::string, msg::LoginRes> login_map_;
     std::mutex login_map_mutex_;
+
+    SSLCtx* ssl_ctx_ = nullptr;
 };
 
 #endif // AUTH_CLIENT_H

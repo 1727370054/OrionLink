@@ -59,9 +59,9 @@ IconHelper *IconHelper::getIconHelper(int icon)
 {
     initFont();
 
-    //æŒ‡å®šäº†å­—ä½“ç´¢å¼•åˆ™å–å¯¹åº”ç´¢å¼•çš„å­—ä½“ç±»
-    //æ²¡æŒ‡å®šåˆ™è‡ªåŠ¨æ ¹æ®ä¸åŒçš„å­—ä½“çš„å€¼é€‰æ‹©å¯¹åº”çš„ç±»
-    //ç”±äºéƒ¨åˆ†å€¼èŒƒå›´å†²çªæ‰€ä»¥å¯ä»¥æŒ‡å®šç´¢å¼•æ¥å–
+    //Ö¸¶¨ÁË×ÖÌåË÷ÒıÔòÈ¡¶ÔÓ¦Ë÷ÒıµÄ×ÖÌåÀà
+    //Ã»Ö¸¶¨Ôò×Ô¶¯¸ù¾İ²»Í¬µÄ×ÖÌåµÄÖµÑ¡Ôñ¶ÔÓ¦µÄÀà
+    //ÓÉÓÚ²¿·ÖÖµ·¶Î§³åÍ»ËùÒÔ¿ÉÒÔÖ¸¶¨Ë÷ÒıÀ´È¡
     //fontawesome   0xf000-0xf2e0
     //fontawesome6  0xe000-0xe33d 0xf000-0xf8ff
     //iconfont      0xe501-0xe793 0xe8d5-0xea5d 0xeb00-0xec00
@@ -131,7 +131,7 @@ void IconHelper::setStyle(QWidget *widget, QList<QAbstractButton *> btns,
 
 IconHelper::IconHelper(const QString &fontFile, const QString &fontName, QObject *parent) : QObject(parent)
 {
-    //åˆ¤æ–­å›¾å½¢å­—ä½“æ˜¯å¦å­˜åœ¨,ä¸å­˜åœ¨åˆ™åŠ å…¥
+    //ÅĞ¶ÏÍ¼ĞÎ×ÖÌåÊÇ·ñ´æÔÚ,²»´æÔÚÔò¼ÓÈë
     QFontDatabase fontDb;
     if (!fontDb.families().contains(fontName) && QFile(fontFile).exists()) {
         int fontId = fontDb.addApplicationFont(fontFile);
@@ -141,7 +141,7 @@ IconHelper::IconHelper(const QString &fontFile, const QString &fontName, QObject
         }
     }
 
-    //å†æ¬¡åˆ¤æ–­æ˜¯å¦åŒ…å«å­—ä½“åç§°é˜²æ­¢åŠ è½½å¤±è´¥
+    //ÔÙ´ÎÅĞ¶ÏÊÇ·ñ°üº¬×ÖÌåÃû³Æ·ÀÖ¹¼ÓÔØÊ§°Ü
     if (fontDb.families().contains(fontName)) {
         iconFont = QFont(fontName);
 #if (QT_VERSION >= QT_VERSION_CHECK(4,8,0))
@@ -152,12 +152,12 @@ IconHelper::IconHelper(const QString &fontFile, const QString &fontName, QObject
 
 bool IconHelper::eventFilter(QObject *watched, QEvent *event)
 {
-    //æ ¹æ®ä¸åŒçš„
+    //¸ù¾İ²»Í¬µÄ
     if (watched->inherits("QAbstractButton")) {
         QAbstractButton *btn = (QAbstractButton *)watched;
         int index = btns.indexOf(btn);
         if (index >= 0) {
-            //ä¸åŒçš„äº‹ä»¶è®¾ç½®ä¸åŒçš„å›¾æ ‡,åŒæ—¶åŒºåˆ†é€‰ä¸­çš„å’Œæ²¡æœ‰é€‰ä¸­çš„
+            //²»Í¬µÄÊÂ¼şÉèÖÃ²»Í¬µÄÍ¼±ê,Í¬Ê±Çø·ÖÑ¡ÖĞµÄºÍÃ»ÓĞÑ¡ÖĞµÄ
             int type = event->type();
             if (btn->isChecked()) {
                 if (type == QEvent::MouseButtonPress) {
@@ -190,7 +190,7 @@ bool IconHelper::eventFilter(QObject *watched, QEvent *event)
 
 void IconHelper::toggled(bool checked)
 {
-    //é€‰ä¸­å’Œä¸é€‰ä¸­è®¾ç½®ä¸åŒçš„å›¾æ ‡
+    //Ñ¡ÖĞºÍ²»Ñ¡ÖĞÉèÖÃ²»Í¬µÄÍ¼±ê
     QAbstractButton *btn = (QAbstractButton *)sender();
     int index = btns.indexOf(btn);
     if (checked) {
@@ -228,7 +228,7 @@ void IconHelper::setPixmap1(QAbstractButton *btn, const QColor &color, int icon,
 QPixmap IconHelper::getPixmap1(const QColor &color, int icon, quint32 size,
                                quint32 width, quint32 height, int flags)
 {
-    //ä¸»åŠ¨ç»˜åˆ¶å›¾å½¢å­—ä½“åˆ°å›¾ç‰‡
+    //Ö÷¶¯»æÖÆÍ¼ĞÎ×ÖÌåµ½Í¼Æ¬
     QPixmap pix(width, height);
     pix.fill(Qt::transparent);
 
@@ -280,7 +280,7 @@ void IconHelper::setStyle1(QWidget *widget, QList<QAbstractButton *> btns, QList
     quint32 iconHeight = styleColor.iconHeight;
     quint32 borderWidth = styleColor.borderWidth;
 
-    //æ ¹æ®ä¸åŒçš„ä½ç½®è®¡ç®—è¾¹æ¡†
+    //¸ù¾İ²»Í¬µÄÎ»ÖÃ¼ÆËã±ß¿ò
     QString strBorder;
     if (position == "top") {
         strBorder = QString("border-width:%1px 0px 0px 0px;padding-top:%1px;padding-bottom:%2px;")
@@ -296,8 +296,8 @@ void IconHelper::setStyle1(QWidget *widget, QList<QAbstractButton *> btns, QList
                     .arg(borderWidth).arg(borderWidth * 2);
     }
 
-    //å¦‚æœå›¾æ ‡æ˜¯å·¦ä¾§æ˜¾ç¤ºåˆ™éœ€è¦è®©æ²¡æœ‰é€‰ä¸­çš„æŒ‰é’®å·¦ä¾§ä¹Ÿæœ‰åŠ æ·±çš„è¾¹æ¡†,é¢œè‰²ä¸ºèƒŒæ™¯é¢œè‰²
-    //å¦‚æœå›¾æ ‡åœ¨æ–‡å­—ä¸Šé¢è€Œè®¾ç½®çš„è¾¹æ¡†æ˜¯ top bottom ä¹Ÿéœ€è¦å¯ç”¨åŠ æ·±è¾¹æ¡†
+    //Èç¹ûÍ¼±êÊÇ×ó²àÏÔÊ¾ÔòĞèÒªÈÃÃ»ÓĞÑ¡ÖĞµÄ°´Å¥×ó²àÒ²ÓĞ¼ÓÉîµÄ±ß¿ò,ÑÕÉ«Îª±³¾°ÑÕÉ«
+    //Èç¹ûÍ¼±êÔÚÎÄ×ÖÉÏÃæ¶øÉèÖÃµÄ±ß¿òÊÇ top bottom Ò²ĞèÒªÆôÓÃ¼ÓÉî±ß¿ò
     QStringList qss;
     if (styleColor.defaultBorder) {
         qss << QString("QWidget[flag=\"%1\"] QAbstractButton{border-style:solid;border-radius:0px;%2border-color:%3;color:%4;background:%5;}")
@@ -307,7 +307,7 @@ void IconHelper::setStyle1(QWidget *widget, QList<QAbstractButton *> btns, QList
             .arg(position).arg(styleColor.normalTextColor).arg(styleColor.normalBgColor);
     }
 
-    //æ‚¬åœ+æŒ‰ä¸‹+é€‰ä¸­
+    //ĞüÍ£+°´ÏÂ+Ñ¡ÖĞ
     qss << QString("QWidget[flag=\"%1\"] QAbstractButton:hover{border-style:solid;%2border-color:%3;color:%4;background:%5;}")
         .arg(position).arg(strBorder).arg(styleColor.borderColor).arg(styleColor.hoverTextColor).arg(styleColor.hoverBgColor);
     qss << QString("QWidget[flag=\"%1\"] QAbstractButton:pressed{border-style:solid;%2border-color:%3;color:%4;background:%5;}")
@@ -315,7 +315,7 @@ void IconHelper::setStyle1(QWidget *widget, QList<QAbstractButton *> btns, QList
     qss << QString("QWidget[flag=\"%1\"] QAbstractButton:checked{border-style:solid;%2border-color:%3;color:%4;background:%5;}")
         .arg(position).arg(strBorder).arg(styleColor.borderColor).arg(styleColor.checkedTextColor).arg(styleColor.checkedBgColor);
 
-    //çª—ä½“èƒŒæ™¯é¢œè‰²+æŒ‰é’®èƒŒæ™¯é¢œè‰²
+    //´°Ìå±³¾°ÑÕÉ«+°´Å¥±³¾°ÑÕÉ«
     qss << QString("QWidget#%1{background:%2;}")
         .arg(widget->objectName()).arg(styleColor.normalBgColor);
     qss << QString("QWidget>QAbstractButton{border-width:0px;background-color:%1;color:%2;}")
@@ -327,7 +327,7 @@ void IconHelper::setStyle1(QWidget *widget, QList<QAbstractButton *> btns, QList
     qss << QString("QWidget>QAbstractButton:checked{background-color:%1;color:%2;}")
         .arg(styleColor.checkedBgColor).arg(styleColor.checkedTextColor);
 
-    //æŒ‰é’®å®½åº¦é«˜åº¦
+    //°´Å¥¿í¶È¸ß¶È
     if (btnWidth > 0) {
         qss << QString("QWidget>QAbstractButton{min-width:%1px;}").arg(btnWidth);
     }
@@ -335,10 +335,10 @@ void IconHelper::setStyle1(QWidget *widget, QList<QAbstractButton *> btns, QList
         qss << QString("QWidget>QAbstractButton{min-height:%1px;}").arg(btnHeight);
     }
 
-    //è®¾ç½®æ ·å¼è¡¨
+    //ÉèÖÃÑùÊ½±í
     widget->setStyleSheet(qss.join(""));
 
-    //å¯èƒ½ä¼šé‡å¤è°ƒç”¨è®¾ç½®æ‰€ä»¥å…ˆè¦ç§»é™¤ä¸Šä¸€æ¬¡çš„
+    //¿ÉÄÜ»áÖØ¸´µ÷ÓÃÉèÖÃËùÒÔÏÈÒªÒÆ³ıÉÏÒ»´ÎµÄ
     for (int i = 0; i < btnCount; ++i) {
         for (int j = 0; j < this->btns.count(); j++) {
             if (this->btns.at(j) == btns.at(i)) {
@@ -354,7 +354,7 @@ void IconHelper::setStyle1(QWidget *widget, QList<QAbstractButton *> btns, QList
         }
     }
 
-    //å­˜å‚¨å¯¹åº”æŒ‰é’®å¯¹è±¡,æ–¹ä¾¿é¼ æ ‡ç§»ä¸Šå»çš„æ—¶å€™åˆ‡æ¢å›¾ç‰‡
+    //´æ´¢¶ÔÓ¦°´Å¥¶ÔÏó,·½±ãÊó±êÒÆÉÏÈ¥µÄÊ±ºòÇĞ»»Í¼Æ¬
     int checkedIndex = -1;
     for (int i = 0; i < btnCount; ++i) {
         int icon = icons.at(i);
@@ -363,7 +363,7 @@ void IconHelper::setStyle1(QWidget *widget, QList<QAbstractButton *> btns, QList
         QPixmap pixPressed = getPixmap1(styleColor.pressedTextColor, icon, iconSize, iconWidth, iconHeight);
         QPixmap pixChecked = getPixmap1(styleColor.checkedTextColor, icon, iconSize, iconWidth, iconHeight);
 
-        //è®°ä½æœ€åé€‰ä¸­çš„æŒ‰é’®
+        //¼Ç×¡×îºóÑ¡ÖĞµÄ°´Å¥
         QAbstractButton *btn = btns.at(i);
         if (btn->isChecked()) {
             checkedIndex = i;
@@ -381,7 +381,7 @@ void IconHelper::setStyle1(QWidget *widget, QList<QAbstractButton *> btns, QList
         this->pixChecked << pixChecked;
     }
 
-    //ä¸»åŠ¨è§¦å‘ä¸€ä¸‹é€‰ä¸­çš„æŒ‰é’®
+    //Ö÷¶¯´¥·¢Ò»ÏÂÑ¡ÖĞµÄ°´Å¥
     if (checkedIndex >= 0) {
         QMetaObject::invokeMethod(btns.at(checkedIndex), "toggled", Q_ARG(bool, true));
     }

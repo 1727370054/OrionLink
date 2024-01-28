@@ -1,4 +1,4 @@
-#ifndef LOGIN_GUI_H
+﻿#ifndef LOGIN_GUI_H
 #define LOGIN_GUI_H
 
 #include <QWidget>

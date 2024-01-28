@@ -1,4 +1,4 @@
-#include "login_gui.h"
+﻿#include "login_gui.h"
 #include "ui_login_gui.h"
 #include "auth_client.h"
 #include <QFile>

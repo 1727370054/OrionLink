@@ -1,4 +1,4 @@
-#include "get_dir_client.h"
+﻿#include "get_dir_client.h"
 #include "ifile_manager.h"
 #include "msg_comm.pb.h"
 
@@ -11,6 +11,7 @@ using namespace disk;
 void GetDirClient::RegisterMsgCallback()
 {
     RegisterCallback((MsgType)GET_DIR_RES, (MsgCBFunc)&GetDirClient::GetDirRes);
+    RegisterCallback((MsgType)NEW_DIR_RES, (MsgCBFunc)&GetDirClient::NewDirRes);
 }
 
 void GetDirClient::GetDirReq(disk::GetDirReq req)
@@ -31,6 +32,20 @@ void GetDirClient::GetDirRes(msg::MsgHead* head, Msg* msg)
     cout << file_list.DebugString() << endl;
 
     iFileManager::GetInstance()->RefreshData(file_list, cur_dir_);
+}
+
+void GetDirClient::NewDirReq(std::string path)
+{
+    disk::GetDirReq req;
+    req.set_root(path);
+    SendMsg((MsgType)NEW_DIR_REQ,&req);
+}
+
+void GetDirClient::NewDirRes(msg::MsgHead* head, Msg* msg)
+{
+    //disk::GetDirReq req;
+    //req.set_root(cur_dir_);
+    //SendMsg((MsgType)GET_DIR_REQ, &req);
 }
 
 GetDirClient::GetDirClient()

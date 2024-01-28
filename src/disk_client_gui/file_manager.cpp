@@ -1,4 +1,4 @@
-#include "file_manager.h"
+﻿#include "file_manager.h"
 #include "get_dir_client.h"
 #include "disk_client_gui.pb.h"
 
@@ -25,6 +25,11 @@ void FileManager::set_login_info(msg::LoginRes login)
 {
     GetDirClient::GetInstance()->set_login_info(&login);
     iFileManager::set_login_info(login);
+}
+
+void FileManager::NewDir(std::string path)
+{
+    GetDirClient::GetInstance()->NewDirReq(path);
 }
 
 FileManager::FileManager()

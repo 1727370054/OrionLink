@@ -14,19 +14,14 @@
 #include <google/protobuf/wire_format.h>
 // @@protoc_insertion_point(includes)
 #include <google/protobuf/port_def.inc>
-
-PROTOBUF_PRAGMA_INIT_SEG
-
-namespace _pb = ::PROTOBUF_NAMESPACE_ID;
-namespace _pbi = _pb::internal;
-
 namespace msg {
 }  // namespace msg
-static const ::_pb::EnumDescriptor* file_level_enum_descriptors_msg_5ftype_2eproto[1];
-static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_msg_5ftype_2eproto = nullptr;
-const uint32_t TableStruct_msg_5ftype_2eproto::offsets[1] = {};
-static constexpr ::_pbi::MigrationSchema* schemas = nullptr;
-static constexpr ::_pb::Message* const* file_default_instances = nullptr;
+static constexpr ::PROTOBUF_NAMESPACE_ID::Metadata* file_level_metadata_msg_5ftype_2eproto = nullptr;
+static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_msg_5ftype_2eproto[1];
+static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_msg_5ftype_2eproto = nullptr;
+const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_msg_5ftype_2eproto::offsets[1] = {};
+static constexpr ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema* schemas = nullptr;
+static constexpr ::PROTOBUF_NAMESPACE_ID::Message* const* file_default_instances = nullptr;
 
 const char descriptor_table_protodef_msg_5ftype_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\016msg_type.proto\022\003msg*\375\003\n\007MsgType\022\023\n\017NON"
@@ -44,21 +39,21 @@ const char descriptor_table_protodef_msg_5ftype_2eproto[] PROTOBUF_SECTION_VARIA
   "D_LOG_REQ\020\322\001\022\023\n\rMSG_HEART_REQ\020\376\377\003\022\022\n\014MSG"
   "_MAX_TYPE\020\377\377\003b\006proto3"
   ;
-static ::_pbi::once_flag descriptor_table_msg_5ftype_2eproto_once;
-const ::_pbi::DescriptorTable descriptor_table_msg_5ftype_2eproto = {
-    false, false, 541, descriptor_table_protodef_msg_5ftype_2eproto,
-    "msg_type.proto",
-    &descriptor_table_msg_5ftype_2eproto_once, nullptr, 0, 0,
-    schemas, file_default_instances, TableStruct_msg_5ftype_2eproto::offsets,
-    nullptr, file_level_enum_descriptors_msg_5ftype_2eproto,
-    file_level_service_descriptors_msg_5ftype_2eproto,
+static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_msg_5ftype_2eproto_deps[1] = {
 };
-PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_msg_5ftype_2eproto_getter() {
-  return &descriptor_table_msg_5ftype_2eproto;
-}
+static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_msg_5ftype_2eproto_sccs[1] = {
+};
+static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_msg_5ftype_2eproto_once;
+static bool descriptor_table_msg_5ftype_2eproto_initialized = false;
+const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_msg_5ftype_2eproto = {
+  &descriptor_table_msg_5ftype_2eproto_initialized, descriptor_table_protodef_msg_5ftype_2eproto, "msg_type.proto", 541,
+  &descriptor_table_msg_5ftype_2eproto_once, descriptor_table_msg_5ftype_2eproto_sccs, descriptor_table_msg_5ftype_2eproto_deps, 0, 0,
+  schemas, file_default_instances, TableStruct_msg_5ftype_2eproto::offsets,
+  file_level_metadata_msg_5ftype_2eproto, 0, file_level_enum_descriptors_msg_5ftype_2eproto, file_level_service_descriptors_msg_5ftype_2eproto,
+};
 
 // Force running AddDescriptors() at dynamic initialization time.
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_msg_5ftype_2eproto(&descriptor_table_msg_5ftype_2eproto);
+static bool dynamic_init_dummy_msg_5ftype_2eproto = (  ::PROTOBUF_NAMESPACE_ID::internal::AddDescriptors(&descriptor_table_msg_5ftype_2eproto), true);
 namespace msg {
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* MsgType_descriptor() {
   ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&descriptor_table_msg_5ftype_2eproto);
