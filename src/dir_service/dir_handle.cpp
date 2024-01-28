@@ -14,17 +14,16 @@ using namespace std;
 #define DIR_ROOT "/mnt/orion_link"
 #endif // _WIN32
 
-
 void DirHandle::RegisterMsgCallback()
 {
     RegisterCallback((MsgType)GET_DIR_REQ, (MsgCBFunc)&DirHandle::GetDirReq);
 }
 
-void DirHandle::GetDirReq(msg::MsgHead* head, Msg* msg)
+void DirHandle::GetDirReq(msg::MsgHead *head, Msg *msg)
 {
     /// 根目录 + 用户名 + 相对目录
     string path = DIR_ROOT;
-    //path += head->username();
+    // path += head->username();
     path += "root";
     path += "/";
     disk::GetDirReq req;
@@ -36,7 +35,7 @@ void DirHandle::GetDirReq(msg::MsgHead* head, Msg* msg)
     path += req.root();
     auto files = GetDirList(path);
     FileInfoList file_list;
-    for (const auto& file : files)
+    for (const auto &file : files)
     {
         if (file.filename == "." || file.filename == "..")
             continue;
