@@ -11,7 +11,7 @@ LIBS=-levent -lpthread -lplatform -lprotobuf -lssl -lregister_client
 INSTALL_PATH=/usr/lib/
 
 .PHONY:all exist
-all:$(TARGET) exist  
+all:$(TARGET) exist proto   
 exist:
 	@if [ ! -d $(INCLUDE_PATH) ]; then \
 		mkdir -p $(INCLUDE_PATH); \
@@ -19,6 +19,10 @@ exist:
 
 $(TARGET):$(OBJS)
 	g++ -shared $^ -o $@ $(LIBS)
+proto:
+	@echo "proto begin"
+	protoc -I=./ --cpp_out=./ disk_client_gui.proto
+	@echo "proto end"
 install:
 	cp $(TARGET) $(INSTALL_PATH)
 	cp *.h $(INCLUDE_PATH)
