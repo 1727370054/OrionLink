@@ -1,5 +1,6 @@
 #!/bin/bash
 cd ../src/platform
+./build_msg.bat
 make clean
 make -j8
 make install
@@ -30,6 +31,7 @@ make -j8
 make install
 
 cd ../disk_proto
+./build_msg.bat
 make clean
 make -j8
 make install
