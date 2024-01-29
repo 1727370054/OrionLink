@@ -32,6 +32,11 @@ void FileManager::NewDir(std::string path)
     GetDirClient::GetInstance()->NewDirReq(path);
 }
 
+void FileManager::DeleteFile(disk::FileInfo file_info)
+{
+    GetDirClient::GetInstance()->DeleteFileReq(file_info);
+}
+
 FileManager::FileManager()
 {
     instance_ = this;

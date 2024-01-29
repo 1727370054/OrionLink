@@ -721,6 +721,11 @@ background-color:#FFFFFF;
      </column>
      <column>
       <property name="text">
+       <string>类型</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
        <string>大小</string>
       </property>
      </column>
@@ -1134,6 +1139,22 @@ background-repeat: no-repeat;
     <hint type="destinationlabel">
      <x>680</x>
      <y>922</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>delpushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>DiskClientGUI</receiver>
+   <slot>Delete()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>370</x>
+     <y>101</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>347</x>
+     <y>-157</y>
     </hint>
    </hints>
   </connection>

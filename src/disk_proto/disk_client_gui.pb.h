@@ -77,6 +77,8 @@ enum FileMsgType : int {
   FILE_MSG_NONE = 0,
   GET_DIR_REQ = 1001,
   GET_DIR_RES = 1002,
+  DELETE_FILE_REQ = 1014,
+  DELETE_FILE_RES = 1015,
   NEW_DIR_REQ = 1016,
   NEW_DIR_RES = 1017,
   FileMsgType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),

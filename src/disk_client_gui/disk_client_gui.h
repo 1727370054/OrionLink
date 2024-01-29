@@ -2,6 +2,7 @@
 #define DISK_CLIENT_GUI_H
 
 #include <QWidget>
+#include <QMessageBox>
 #include <QTableWidgetItem>
 
 #include "ifile_manager.h"
@@ -43,6 +44,8 @@ public slots:
     void Back();
     void Root();
     void DoubleClicked(int row, int column);
+
+    void Delete();
 
     void Checkall();
 private:

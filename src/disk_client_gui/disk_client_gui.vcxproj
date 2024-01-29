@@ -135,7 +135,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;debug;\include;..\auth;..\..\include\protobuf;..\platform;..\disk_proto;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;debug;\include;..\auth;..\..\include\protobuf;..\platform;..\disk_proto;.\custom_control;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>debug\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
@@ -197,6 +197,7 @@
     <ClCompile Include="..\disk_proto\disk_client_gui.pb.cc" />
     <ClCompile Include="..\platform\msg_comm.pb.cc" />
     <ClCompile Include="..\platform\msg_type.pb.cc" />
+    <ClCompile Include="custom_control\message_box.cpp" />
     <ClCompile Include="disk_client_gui.cpp" />
     <ClCompile Include="file_manager.cpp" />
     <ClCompile Include="get_dir_client.cpp" />
@@ -270,6 +271,7 @@
     <ClInclude Include="..\platform\msg_comm.pb.h" />
     <ClInclude Include="..\platform\msg_type.pb.h" />
     <QtMoc Include="disk_client_gui.h" />
+    <QtMoc Include="custom_control\message_box.h" />
     <ClInclude Include="file_manager.h" />
     <ClInclude Include="get_dir_client.h" />
     <QtMoc Include="ifile_manager.h" />

@@ -1,6 +1,7 @@
 ﻿#include "disk_client_gui.h"
 #include "login_gui.h"
 #include "ui_disk_client_gui.h"
+#include "message_box.h"
 #include "tools.h"
 
 #include <QMouseEvent>
@@ -28,9 +29,10 @@ DiskClientGUI::DiskClientGUI(LoginGUI* login_gui, iFileManager* f, QWidget *pare
 
     auto tab = ui->filetableWidget;
     tab->setColumnWidth(0, 40);
-    tab->setColumnWidth(1, 500);
+    tab->setColumnWidth(1, 400);
     tab->setColumnWidth(2, 150);
     tab->setColumnWidth(3, 120);
+    tab->setColumnWidth(4, 95);
 
     tab->installEventFilter(this);
 
@@ -89,13 +91,27 @@ void DiskClientGUI::RefreshData(disk::FileInfoList file_list, std::string cur_di
         string iconpath = FILE_ICON_PATH;
         iconpath += GetIconFilename(filename, file.is_dir());
         iconpath += "Type.png";
+
+        string file_type = GetFileSuffix(filename);
+        if (file.is_dir())
+        {
+            file_type = "文件夹";
+        }
+        else
+        {
+            file_type += "文件";
+        }
         
         QString qname = QString::fromLocal8Bit(filename.c_str());
+        QString qfile_type = QString::fromLocal8Bit(file_type.c_str());
         //QString qname = filename.c_str();
         tab->setItem(0, 1, new QTableWidgetItem(QIcon(iconpath.c_str()), qname));
         tab->setItem(0, 2, new QTableWidgetItem(file.filetime().c_str()));
-        if (file.is_dir()) continue;
-        tab->setItem(0, 3, new QTableWidgetItem(GetSizeString(file.filesize()).c_str()));
+        tab->setItem(0, 3, new QTableWidgetItem(qfile_type));
+        if (file.is_dir())
+            tab->setItem(0, 4, new QTableWidgetItem("-"));
+        else
+            tab->setItem(0, 4, new QTableWidgetItem(GetSizeString(file.filesize()).c_str()));
     } 
 }
 
@@ -230,6 +246,68 @@ void DiskClientGUI::DoubleClicked(int row, int column)
     }
     std::string path = remote_dir_ + "/" + filename;
     ifm_->GetDir(path);
+}
+
+void DiskClientGUI::Delete()
+{
+    auto tab = ui->filetableWidget;
+    int row_count = tab->rowCount();
+    std::vector<int> rows;
+    int count = 0;
+    for (int i = 0; i < row_count; i++)
+    {
+        auto w = tab->cellWidget(i, 0);
+        if (!w) continue;
+        auto check = (QCheckBox*)w->layout()->itemAt(0)->widget();
+        if (!check) continue;
+        if (check->isChecked())
+        {
+            rows.push_back(i);
+            count++;
+        }
+    }
+
+    if (count == 0)
+    {
+        MyMessageBox::critical(this, QString::fromLocal8Bit("请选择删除的文件"), 
+            QString::fromLocal8Bit("系统提示"), MyMessageBox::Close);
+        return;
+    }
+
+    std::string tip_text = "确定要删除";
+    string filename = "\"";
+    if (count == 1)
+    {
+        filename += tab->item(rows[0], 1)->text().toLocal8Bit();
+        tip_text += filename;
+        tip_text += "\"";
+    }
+    else
+    {
+        tip_text += "这" + std::to_string(count) + "个";
+    }
+
+    tip_text += "文件吗";
+
+    auto ret = MyMessageBox::information(this, QString::fromLocal8Bit(tip_text.c_str()),
+        QString::fromLocal8Bit("系统提示"), MyMessageBox::Ok | MyMessageBox::Cancel);
+    if (ret == MyMessageBox::Cancel) return;
+
+    for (const auto& row : rows)
+    {
+        filename = tab->item(row, 1)->text().toLocal8Bit();
+        disk::FileInfo file_info;
+        file_info.set_filename(filename);
+        file_info.set_filedir(remote_dir_);
+        for (const auto& file : file_list_.files())
+        {
+            if (filename == file.filename())
+            {
+                file_info.set_is_dir(file.is_dir());
+            }
+        }
+        ifm_->DeleteFile(file_info);
+    }
 }
 
 static bool mouse_press = false;

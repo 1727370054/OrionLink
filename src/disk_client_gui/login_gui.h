@@ -24,8 +24,10 @@ public slots:
 
     void Login();
 
+    void LoginTimeout();
 private:
     Ui::LoginGUI*ui;
+    QTimer* timer_ = nullptr;
 };
 
 #endif // LOGIN_GUI_H

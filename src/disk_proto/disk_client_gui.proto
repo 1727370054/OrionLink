@@ -7,6 +7,8 @@ enum FileMsgType
 	FILE_MSG_NONE = 0;
 	GET_DIR_REQ = 1001;			/// GetDirReq
 	GET_DIR_RES = 1002;			/// FileInfoList 失败走统一的失败通道
+	DELETE_FILE_REQ = 1014;		/// FileSlice 
+	DELETE_FILE_RES = 1015;		/// MessageRes
 	NEW_DIR_REQ = 1016;			/// 创建目录 GetDirReq
 	NEW_DIR_RES = 1017;			/// MessageRes
 }

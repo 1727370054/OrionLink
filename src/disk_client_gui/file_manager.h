@@ -16,6 +16,8 @@ public:
     virtual void set_login_info(msg::LoginRes login) override;
 
     virtual void NewDir(std::string path) override;
+
+    virtual void DeleteFile(disk::FileInfo file_info) override;
 };
 
 #endif // FILE_MANAGER_H

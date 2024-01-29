@@ -12,6 +12,7 @@ void GetDirClient::RegisterMsgCallback()
 {
     RegisterCallback((MsgType)GET_DIR_RES, (MsgCBFunc)&GetDirClient::GetDirRes);
     RegisterCallback((MsgType)NEW_DIR_RES, (MsgCBFunc)&GetDirClient::NewDirRes);
+    RegisterCallback((MsgType)DELETE_FILE_RES, (MsgCBFunc)&GetDirClient::DeleteFileRes);
 }
 
 void GetDirClient::GetDirReq(disk::GetDirReq req)
@@ -46,6 +47,18 @@ void GetDirClient::NewDirRes(msg::MsgHead* head, Msg* msg)
     //disk::GetDirReq req;
     //req.set_root(cur_dir_);
     //SendMsg((MsgType)GET_DIR_REQ, &req);
+}
+
+void GetDirClient::DeleteFileReq(disk::FileInfo file_info)
+{
+    SendMsg((MsgType)DELETE_FILE_REQ, &file_info);
+}
+
+void GetDirClient::DeleteFileRes(msg::MsgHead* head, Msg* msg)
+{
+    disk::GetDirReq req;
+    req.set_root(cur_dir_);
+    SendMsg((MsgType)GET_DIR_REQ, &req);
 }
 
 GetDirClient::GetDirClient()

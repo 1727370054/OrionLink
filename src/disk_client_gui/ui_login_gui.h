@@ -752,7 +752,7 @@ public:
         svip->setText(QString());
         label_login->setText(QApplication::translate("LoginGUI", "LOGIN", nullptr));
         err_logo->setText(QString());
-        err_msg->setText(QApplication::translate("LoginGUI", "\347\231\273\351\231\206\345\244\261\350\264\245!", nullptr));
+        err_msg->setText(QApplication::translate("LoginGUI", "\346\255\243\345\234\250\347\231\273\351\231\206 ...", nullptr));
         label_user_name->setText(QString());
         lineE_user_name->setText(QApplication::translate("LoginGUI", "hwk", nullptr));
         lineE_user_name->setPlaceholderText(QString());

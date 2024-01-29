@@ -29,6 +29,10 @@ public:
     void NewDirReq(std::string path);
 
     void NewDirRes(msg::MsgHead* head, Msg* msg);
+
+    void DeleteFileReq(disk::FileInfo file_info);
+
+    void DeleteFileRes(msg::MsgHead* head, Msg* msg);
 private:
     GetDirClient();
     GetDirClient(const GetDirClient&) = delete;

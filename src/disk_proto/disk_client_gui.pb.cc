@@ -126,10 +126,11 @@ const char descriptor_table_protodef_disk_5fclient_5fgui_2eproto[] PROTOBUF_SECT
   "md5\030\006 \001(\014\022\022\n\nlocal_path\030\007 \001(\014\022\020\n\010net_siz"
   "e\030\010 \001(\003\022\016\n\006is_enc\030\t \001(\010\022\020\n\010ori_size\030\n \001("
   "\003\022\020\n\010password\030\013 \001(\014\"-\n\014FileInfoList\022\035\n\005f"
-  "iles\030\004 \003(\0132\016.disk.FileInfo*h\n\013FileMsgTyp"
-  "e\022\021\n\rFILE_MSG_NONE\020\000\022\020\n\013GET_DIR_REQ\020\351\007\022\020"
-  "\n\013GET_DIR_RES\020\352\007\022\020\n\013NEW_DIR_REQ\020\370\007\022\020\n\013NE"
-  "W_DIR_RES\020\371\007b\006proto3"
+  "iles\030\004 \003(\0132\016.disk.FileInfo*\224\001\n\013FileMsgTy"
+  "pe\022\021\n\rFILE_MSG_NONE\020\000\022\020\n\013GET_DIR_REQ\020\351\007\022"
+  "\020\n\013GET_DIR_RES\020\352\007\022\024\n\017DELETE_FILE_REQ\020\366\007\022"
+  "\024\n\017DELETE_FILE_RES\020\367\007\022\020\n\013NEW_DIR_REQ\020\370\007\022"
+  "\020\n\013NEW_DIR_RES\020\371\007b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_disk_5fclient_5fgui_2eproto_deps[1] = {
 };
@@ -141,7 +142,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_dis
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_disk_5fclient_5fgui_2eproto_once;
 static bool descriptor_table_disk_5fclient_5fgui_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_disk_5fclient_5fgui_2eproto = {
-  &descriptor_table_disk_5fclient_5fgui_2eproto_initialized, descriptor_table_protodef_disk_5fclient_5fgui_2eproto, "disk_client_gui.proto", 420,
+  &descriptor_table_disk_5fclient_5fgui_2eproto_initialized, descriptor_table_protodef_disk_5fclient_5fgui_2eproto, "disk_client_gui.proto", 465,
   &descriptor_table_disk_5fclient_5fgui_2eproto_once, descriptor_table_disk_5fclient_5fgui_2eproto_sccs, descriptor_table_disk_5fclient_5fgui_2eproto_deps, 3, 0,
   schemas, file_default_instances, TableStruct_disk_5fclient_5fgui_2eproto::offsets,
   file_level_metadata_disk_5fclient_5fgui_2eproto, 3, file_level_enum_descriptors_disk_5fclient_5fgui_2eproto, file_level_service_descriptors_disk_5fclient_5fgui_2eproto,
@@ -159,6 +160,8 @@ bool FileMsgType_IsValid(int value) {
     case 0:
     case 1001:
     case 1002:
+    case 1014:
+    case 1015:
     case 1016:
     case 1017:
       return true;

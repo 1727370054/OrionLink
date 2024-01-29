@@ -33,6 +33,8 @@ XCOM_API std::list<ToolFileInfo> GetDirList(std::string path);
 
 XCOM_API std::string GetIconFilename(std::string filename, bool is_dir);
 
+XCOM_API std::string GetFileSuffix(std::string filename);
+
 XCOM_API std::string GetSizeString(long long size);
 
 XCOM_API std::string FormatDir(const std::string& dir);
@@ -40,6 +42,10 @@ XCOM_API std::string FormatDir(const std::string& dir);
 XCOM_API void StringSplit(std::vector<std::string>& vec, std::string str, std::string find);
 
 XCOM_API void NewDir(std::string path);
+
+XCOM_API void DelFile(std::string path, bool is_dir);
+
+XCOM_API void DeleteDirectoryAndFiles(const std::string& path);
 
 ///////////////////////////////////////////////////////////////////////////
 /// @brief 生成md5 128bit(16字节) 

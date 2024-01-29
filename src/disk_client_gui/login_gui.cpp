@@ -1,6 +1,7 @@
 ﻿#include "login_gui.h"
 #include "ui_login_gui.h"
 #include "auth_client.h"
+
 #include <QFile>
 #include <QTextStream>
 #include <QMouseEvent>
@@ -8,6 +9,7 @@
 #include <QPropertyAnimation>
 #include <QGraphicsEffect>
 #include <QMessageBox>
+#include <QTimer>
 
 using namespace std;
 using namespace msg;
@@ -52,6 +54,9 @@ LoginGUI::LoginGUI(QDialog*parent) :
     });
 
     ui->frame_err->hide();
+
+    timer_ = new QTimer();
+    connect(timer_, &QTimer::timeout, this, &LoginGUI::LoginTimeout);
 }
 
 void LoginGUI::Login()
@@ -59,20 +64,44 @@ void LoginGUI::Login()
     ui->frame_err->show();
     string username = ui->lineE_user_name->text().toLocal8Bit();
     string password = ui->lineE_pwd->text().toLocal8Bit();
-    if (username.empty() || password.empty())
+    if (username.empty() || password.empty()) 
     {
         ui->err_msg->setText(QString::fromLocal8Bit("用户名或密码不能为空!"));
         return;
     }
 
-    if (!AuthClient::GetInstance()->Login(username, password))
+    timer_->setSingleShot(true);
+    timer_->start(3000);  // 设置3秒超时
+
+    QCoreApplication::processEvents(); // 允许事件处理，以便定时器能够更新
+
+    bool loginSuccess = AuthClient::GetInstance()->Login(username, password);
+
+    QCoreApplication::processEvents(); // 再次处理事件，以确保超时处理逻辑可以执行
+
+    if (!loginSuccess) 
     {
+        if (!timer_->isActive()) 
+        {
+            return;
+        }
+        timer_->stop();  // 停止计时器，以避免超时
         ui->err_msg->setText(QString::fromLocal8Bit("用户名或密码错误!"));
         return;
     }
 
-    ui->err_msg->setText(QString::fromLocal8Bit("登陆成功!"));
+    ui->err_msg->setText(QString::fromLocal8Bit("登录成功!"));
     QDialog::accept();
+
+    if (timer_->isActive()) 
+    {
+        timer_->stop();  // 停止计时器
+    }
+}
+
+void LoginGUI::LoginTimeout()
+{
+    ui->err_msg->setText(QString::fromLocal8Bit("登录超时!"));
 }
 
 /* 
@@ -111,6 +140,7 @@ void LoginGUI::set_style()
 
 LoginGUI::~LoginGUI()
 {
+    delete timer_;
     delete ui;
 }
 

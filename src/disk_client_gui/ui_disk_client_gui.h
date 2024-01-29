@@ -341,8 +341,8 @@ public:
         fileviewwidget->setContextMenuPolicy(Qt::DefaultContextMenu);
         fileviewwidget->setStyleSheet(QString::fromUtf8("background-color: #F0F0F0"));
         filetableWidget = new QTableWidget(fileviewwidget);
-        if (filetableWidget->columnCount() < 5)
-            filetableWidget->setColumnCount(5);
+        if (filetableWidget->columnCount() < 6)
+            filetableWidget->setColumnCount(6);
         QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
         __qtablewidgetitem->setTextAlignment(Qt::AlignCenter);
         filetableWidget->setHorizontalHeaderItem(0, __qtablewidgetitem);
@@ -354,6 +354,8 @@ public:
         filetableWidget->setHorizontalHeaderItem(3, __qtablewidgetitem3);
         QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem();
         filetableWidget->setHorizontalHeaderItem(4, __qtablewidgetitem4);
+        QTableWidgetItem *__qtablewidgetitem5 = new QTableWidgetItem();
+        filetableWidget->setHorizontalHeaderItem(5, __qtablewidgetitem5);
         filetableWidget->setObjectName(QString::fromUtf8("filetableWidget"));
         filetableWidget->setGeometry(QRect(0, 43, 811, 501));
         filetableWidget->setStyleSheet(QString::fromUtf8("QHeaderView::section {\n"
@@ -510,6 +512,7 @@ public:
         QObject::connect(backButton, SIGNAL(clicked()), DiskClientGUI, SLOT(Back()));
         QObject::connect(pathpushButton, SIGNAL(clicked()), DiskClientGUI, SLOT(Root()));
         QObject::connect(filetableWidget, SIGNAL(cellDoubleClicked(int,int)), DiskClientGUI, SLOT(DoubleClicked(int,int)));
+        QObject::connect(delpushButton, SIGNAL(clicked()), DiskClientGUI, SLOT(Delete()));
 
         downpushButton->setDefault(false);
         upButton->setDefault(false);
@@ -547,7 +550,9 @@ public:
         QTableWidgetItem *___qtablewidgetitem1 = filetableWidget->horizontalHeaderItem(2);
         ___qtablewidgetitem1->setText(QApplication::translate("DiskClientGUI", "\344\277\256\346\224\271\346\227\266\351\227\264", nullptr));
         QTableWidgetItem *___qtablewidgetitem2 = filetableWidget->horizontalHeaderItem(3);
-        ___qtablewidgetitem2->setText(QApplication::translate("DiskClientGUI", "\345\244\247\345\260\217", nullptr));
+        ___qtablewidgetitem2->setText(QApplication::translate("DiskClientGUI", "\347\261\273\345\236\213", nullptr));
+        QTableWidgetItem *___qtablewidgetitem3 = filetableWidget->horizontalHeaderItem(4);
+        ___qtablewidgetitem3->setText(QApplication::translate("DiskClientGUI", "\345\244\247\345\260\217", nullptr));
         pathpushButton->setText(QApplication::translate("DiskClientGUI", "\346\210\221\347\232\204\347\275\221\347\233\230  >", nullptr));
         refreshButton->setText(QString());
         backButton->setText(QString());

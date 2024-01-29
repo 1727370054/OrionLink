@@ -164,15 +164,7 @@ XCOM_API std::list<ToolFileInfo> GetDirList(std::string path)
 std::string GetIconFilename(std::string filename, bool is_dir)
 {
 	std::string iconpath = "Other";
-	std::string filetype = "";
-	int pos = filename.find_last_of(".");
-	if (pos > 0)
-	{
-		filetype = filename.substr(pos + 1);
-	}
-
-	/// 转换为小写 ，第三个参数是输出
-	transform(filetype.begin(), filetype.end(), filetype.begin(), ::tolower);
+	std::string filetype = GetFileSuffix(filename);
 
 	if (is_dir)
 	{
@@ -219,6 +211,21 @@ std::string GetIconFilename(std::string filename, bool is_dir)
 		iconpath = "Other";
 	}
 	return iconpath;
+}
+
+std::string GetFileSuffix(std::string filename)
+{
+	std::string filetype = "";
+	int pos = filename.find_last_of(".");
+	if (pos > 0)
+	{
+		filetype = filename.substr(pos + 1);
+	}
+
+	/// 转换为小写 ，第三个参数是输出
+	transform(filetype.begin(), filetype.end(), filetype.begin(), ::tolower);
+
+	return filetype;
 }
 
 XCOM_API std::string GetSizeString(long long size)
@@ -327,6 +334,79 @@ void NewDir(std::string path)
 			_mkdir(filename.c_str());
 		}
 	}
+}
+
+void DelFile(std::string path, bool is_dir)
+{
+#ifdef _WIN32
+	if (is_dir)
+	{
+		DeleteDirectoryAndFiles(path);
+	}
+	else
+	{
+		DeleteFileA(path.c_str());
+	}
+#else
+	if (is_dir)
+	{
+		DeleteDirectoryAndFiles(path);
+	}
+	else
+	{
+		remove(path.c_str());
+	}
+#endif // _WIN32
+}
+
+void DeleteDirectoryAndFiles(const std::string& path)
+{
+#ifdef _WIN32
+	_finddata_t file;
+	std::string dir_path = path + "/*.*";  // 寻找目录下所有文件
+	intptr_t dir = _findfirst(dir_path.c_str(), &file);
+
+	if (dir < 0) return;  // 如果没有找到文件或目录，返回
+
+	do {
+		if (!(file.attrib & _A_SUBDIR)) 
+		{  // 如果不是子目录
+			std::string filePath = path + "/" + file.name;
+			if (remove(filePath.c_str()) != 0)
+			{  // 尝试删除文件
+				_findclose(dir);
+				return;
+			}
+		}
+	} while (_findnext(dir, &file) == 0);
+
+	_findclose(dir);  // 关闭句柄
+
+	// 删除空目录
+	if (_rmdir(path.c_str()) != 0) return;
+#else
+	DIR* dir = opendir(path.c_str());
+	if (dir == nullptr) return;
+
+	struct dirent* file;
+	while ((file = readdir(dir)) != nullptr)
+	{
+		if (file->d_type != DT_DIR) 
+		{  // 如果不是子目录
+			std::string filePath = path + "/" + file->d_name;
+			if (remove(filePath.c_str()) != 0)
+			{  // 尝试删除文件
+				closedir(dir);
+				return;  // 如果删除失败，关闭目录并返回
+			}
+		}
+	}
+
+	closedir(dir);  // 关闭目录
+
+	// 删除空目录
+	if (rmdir(path.c_str()) != 0) return;
+#endif // _WIN32
 }
 
 int Base64Encode(const unsigned char* in, int len, char* out_base64)

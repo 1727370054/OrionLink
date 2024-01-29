@@ -48,6 +48,9 @@
     <Filter Include="pb">
       <UniqueIdentifier>{1eb101ac-27b1-4f14-ae68-3a269c60512d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="custom_control">
+      <UniqueIdentifier>{5af6a707-c5ae-4547-b362-d76fc972c6a9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -80,6 +83,9 @@
     <ClCompile Include="get_dir_client.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="custom_control\message_box.cpp">
+      <Filter>custom_control</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="login_gui.h">
@@ -90,6 +96,9 @@
     </QtMoc>
     <QtMoc Include="ifile_manager.h">
       <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="custom_control\message_box.h">
+      <Filter>custom_control</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>

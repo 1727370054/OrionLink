@@ -15,6 +15,8 @@ public:
     void GetDirReq(msg::MsgHead* head, Msg* msg);
 
     void NewDirReq(msg::MsgHead* head, Msg* msg);
+
+    void DeleteFileReq(msg::MsgHead* head, Msg* msg);
 };
 
 #endif // DIR_HANDLE_H

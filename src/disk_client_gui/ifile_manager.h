@@ -25,6 +25,8 @@ public:
 
     virtual void NewDir(std::string path) = 0;
 
+    virtual void DeleteFile(disk::FileInfo file_info) = 0;
+
     virtual void set_login_info(msg::LoginRes login) { login_info_ = login; }
     msg::LoginRes login_info() { return login_info_; }
 signals:
