@@ -385,27 +385,27 @@ void DeleteDirectoryAndFiles(const std::string& path)
 	// 删除空目录
 	if (_rmdir(path.c_str()) != 0) return;
 #else
-	DIR* dir = opendir(path.c_str());
-	if (dir == nullptr) return;
+		DIR *dir = opendir(path.c_str());
+	if (dir == nullptr)
+		return;
 
-	struct dirent* file;
+	struct dirent *file;
 	while ((file = readdir(dir)) != nullptr)
 	{
-		if (file->d_type != DT_DIR) 
-		{  // 如果不是子目录
-			std::string filePath = path + "/" + file->d_name;
-			if (remove(filePath.c_str()) != 0)
-			{  // 尝试删除文件
-				closedir(dir);
-				return;  // 如果删除失败，关闭目录并返回
-			}
-		}
+		if (strcmp(file->d_name, ".") == 0 || strcmp(file->d_name, "..") == 0)
+			continue;
+
+		std::string filePath = path + "/" + file->d_name;
+		if (file->d_type == DT_DIR)
+			DeleteDirectoryAndFiles(filePath);
+		else
+			remove(filePath.c_str());
 	}
 
-	closedir(dir);  // 关闭目录
+	closedir(dir);
 
 	// 删除空目录
-	if (rmdir(path.c_str()) != 0) return;
+	rmdir(path.c_str());
 #endif // _WIN32
 }
 
