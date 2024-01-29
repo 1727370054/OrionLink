@@ -44,9 +44,19 @@ void GetDirClient::NewDirReq(std::string path)
 
 void GetDirClient::NewDirRes(msg::MsgHead* head, Msg* msg)
 {
-    //disk::GetDirReq req;
-    //req.set_root(cur_dir_);
-    //SendMsg((MsgType)GET_DIR_REQ, &req);
+    auto now = std::chrono::steady_clock::now();
+    if (std::chrono::duration_cast<std::chrono::seconds>(now - last_exec_time_).count() < 1)
+    {
+        // 如果距离上次执行不足1秒，直接返回
+        return;
+    }
+
+    // 更新执行时间
+    last_exec_time_ = now;
+
+    disk::GetDirReq req;
+    req.set_root(cur_dir_);
+    SendMsg((MsgType)GET_DIR_REQ, &req);
 }
 
 void GetDirClient::DeleteFileReq(disk::FileInfo file_info)

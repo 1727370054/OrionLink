@@ -1,7 +1,7 @@
 ﻿#include "message_box.h"
 
-#define MESSAGEWIDTH 450  //界面的大小
-#define MESSAGEHEIGHT 225
+#define MESSAGEWIDTH 200  //界面的大小
+#define MESSAGEHEIGHT 50
 
 #define TEXTFONTFAMILY "微软雅黑"  //text的字体样式和大小
 #define TEXTFONTSIZE 12

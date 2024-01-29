@@ -5,6 +5,8 @@
 #include "ssl_ctx.h"
 #include "disk_client_gui.pb.h"
 
+#include <chrono>
+
 class GetDirClient : public ServiceClient
 {
 public:
@@ -39,6 +41,7 @@ private:
     GetDirClient& operator=(const GetDirClient&) = delete;
 private:
     std::string cur_dir_ = "";
+    std::chrono::steady_clock::time_point last_exec_time_;
 };
 
 #endif // GET_DIR_CLIENT_H
