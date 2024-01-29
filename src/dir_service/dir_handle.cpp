@@ -11,7 +11,7 @@ using namespace std;
 #ifdef _WIN32
 #define DIR_ROOT "./server_root/"
 #else
-#define DIR_ROOT "/mnt/orion_link"
+#define DIR_ROOT "/mnt/orion_link/"
 #endif // _WIN32
 
 
