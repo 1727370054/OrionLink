@@ -64,6 +64,7 @@ void UploadHandle::SendSliceReq(msg::MsgHead* head, Msg* msg)
 
 void UploadHandle::UploadFileEndReq(msg::MsgHead* head, Msg* msg)
 {
+	ofs_.close();
     head->set_msg_type((MsgType)UPLOAD_FILE_END_RES);
     MessageRes res;
     res.set_return_(MessageRes::OK);

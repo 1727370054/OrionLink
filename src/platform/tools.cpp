@@ -428,7 +428,9 @@ long long GetDirSize(const char* path)
 	{
 		if (strcmp(file->d_name, ".") == 0 || strcmp(file->d_name, "..") == 0)
 			continue;
-		std::string filePath = path + "/" + file->d_name;
+		std::string filePath = path;
+		filePath += "/";
+		filePath += file->d_name;
 		lstat(filePath.c_str(), &statbuf);
 		if (file->d_type == DT_DIR)
 			dir_size += GetDirSize(filePath.c_str());

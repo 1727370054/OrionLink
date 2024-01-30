@@ -77,7 +77,7 @@ void UploadClient::UploadFileEndRes(msg::MsgHead* head, Msg* msg)
     cout << "UploadClient::UploadFileEndRes" << endl;
     iFileManager::GetInstance()->RefreshDir();
     iFileManager::GetInstance()->UploadEnd(task_id);
-
+	ifs_.close();
     //任务完成刷新界面
     ClearTimer();
     Close();
