@@ -59,6 +59,12 @@ make -j8
 make watch_config_server
 make install
 
+cd ../upload_service
+make clean
+make -j8
+make watch_upload_service
+make install
+
 cd ../build_conf
 make clean
 make -j8

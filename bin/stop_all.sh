@@ -5,3 +5,4 @@ stop_log
 stop_auth
 stop_dir_service
 stop_api_gateway
+stop_upload_service

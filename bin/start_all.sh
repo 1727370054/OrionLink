@@ -5,3 +5,4 @@ start_api_gateway
 start_auth
 start_log
 start_dir_service
+start_upload_service

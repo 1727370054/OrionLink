@@ -31,6 +31,9 @@ make uninstall
 cd ../config_client
 make uninstall
 
+cd ../upload_service
+make uninstall
+
 cd ../disk_proto
 make uninstall
 
