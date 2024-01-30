@@ -22,6 +22,8 @@ int main(int argc, char *argv[])
     app.setStyleSheet(stylesheet);
     file.close();
 
+    QApplication::setWindowIcon(QIcon(":/XMSDiskClientGui/disk_logo.ico"));
+
     std::string gateway_ip = GetHostByName(OL_GATEWAY_SERVER_NAME);
     //std::string gateway_ip = "192.168.1.7";
     AuthClient::GetInstance()->set_server_ip(gateway_ip.c_str());

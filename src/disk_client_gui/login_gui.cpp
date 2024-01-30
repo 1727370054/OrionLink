@@ -62,6 +62,7 @@ LoginGUI::LoginGUI(QDialog*parent) :
 void LoginGUI::Login()
 {
     ui->frame_err->show();
+    ui->err_msg->setText(QString::fromLocal8Bit("正在登陆 ..."));
     string username = ui->lineE_user_name->text().toLocal8Bit();
     string password = ui->lineE_pwd->text().toLocal8Bit();
     if (username.empty() || password.empty()) 
@@ -71,7 +72,7 @@ void LoginGUI::Login()
     }
 
     timer_->setSingleShot(true);
-    timer_->start(3000);  // 设置3秒超时
+    timer_->start(3005);  // 设置3秒超时
 
     QCoreApplication::processEvents(); // 允许事件处理，以便定时器能够更新
 

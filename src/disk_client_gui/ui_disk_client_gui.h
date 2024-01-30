@@ -30,6 +30,7 @@ public:
     QAction *downaction;
     QAction *refreshaction;
     QAction *action_new_dir;
+    QAction *deleteaction;
     QWidget *topwidget;
     QLabel *logolabel;
     QPushButton *closepushButton;
@@ -37,6 +38,7 @@ public:
     QPushButton *taskpushButton;
     QPushButton *minpushButton;
     QLabel *label_3;
+    QLabel *label_5;
     QWidget *line1widget;
     QWidget *filelistwidget;
     QWidget *menuwidget;
@@ -92,15 +94,20 @@ public:
         refreshaction->setIcon(icon2);
         action_new_dir = new QAction(DiskClientGUI);
         action_new_dir->setObjectName(QString::fromUtf8("action_new_dir"));
+        deleteaction = new QAction(DiskClientGUI);
+        deleteaction->setObjectName(QString::fromUtf8("deleteaction"));
+        QIcon icon3;
+        icon3.addFile(QString::fromUtf8(":/XMSDiskClientGui/Resources/img/del1.png"), QSize(), QIcon::Normal, QIcon::Off);
+        deleteaction->setIcon(icon3);
         topwidget = new QWidget(DiskClientGUI);
         topwidget->setObjectName(QString::fromUtf8("topwidget"));
         topwidget->setGeometry(QRect(0, 0, 1000, 80));
         topwidget->setStyleSheet(QString::fromUtf8("background-color: rgb(238, 240, 246);"));
         logolabel = new QLabel(topwidget);
         logolabel->setObjectName(QString::fromUtf8("logolabel"));
-        logolabel->setGeometry(QRect(10, 6, 65, 65));
+        logolabel->setGeometry(QRect(10, 7, 65, 65));
         logolabel->setStyleSheet(QString::fromUtf8(""));
-        logolabel->setPixmap(QPixmap(QString::fromUtf8(":/XMSDiskClientGui/Resources/logo.png")));
+        logolabel->setPixmap(QPixmap(QString::fromUtf8(":/XMSDiskClientGui/disk_logo.png")));
         logolabel->setScaledContents(true);
         closepushButton = new QPushButton(topwidget);
         closepushButton->setObjectName(QString::fromUtf8("closepushButton"));
@@ -179,6 +186,11 @@ public:
         label_3->setGeometry(QRect(670, 10, 101, 61));
         label_3->setPixmap(QPixmap(QString::fromUtf8(":/XMSDiskClientGui/res/pic/ToastSVipBg.png")));
         label_3->setScaledContents(true);
+        label_5 = new QLabel(topwidget);
+        label_5->setObjectName(QString::fromUtf8("label_5"));
+        label_5->setGeometry(QRect(90, 29, 101, 31));
+        label_5->setStyleSheet(QString::fromUtf8("font: 15pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
+"color: rgb(235, 106, 5);"));
         line1widget = new QWidget(DiskClientGUI);
         line1widget->setObjectName(QString::fromUtf8("line1widget"));
         line1widget->setEnabled(true);
@@ -307,19 +319,13 @@ public:
         disk_info_bar->setObjectName(QString::fromUtf8("disk_info_bar"));
         disk_info_bar->setGeometry(QRect(20, 500, 121, 31));
         disk_info_bar->setStyleSheet(QString::fromUtf8("QProgressBar {\n"
-"      border: 2px solid grey;\n"
-"      border-radius: 10px;\n"
-"	  \n"
-"	color: rgb(255, 0, 128);\n"
-"	  font: 11pt \"\346\245\267\344\275\223\";\n"
-"  }\n"
-"\n"
-"  QProgressBar::chunk {\n"
-"      background-color: #05B8CC;\n"
-"      width: 20px;\n"
-"	  margin: 0.5px;\n"
-"  }"));
-        disk_info_bar->setValue(24);
+"    border: 2px solid grey;\n"
+"    border-radius: 5px;\n"
+"    color: rgb(255, 0, 128);\n"
+"    font: 11pt \"\346\245\267\344\275\223\";\n"
+"}\n"
+""));
+        disk_info_bar->setValue(0);
         disk_info_bar->setTextVisible(false);
         label = new QLabel(leftwidget);
         label->setObjectName(QString::fromUtf8("label"));
@@ -513,6 +519,11 @@ public:
         QObject::connect(pathpushButton, SIGNAL(clicked()), DiskClientGUI, SLOT(Root()));
         QObject::connect(filetableWidget, SIGNAL(cellDoubleClicked(int,int)), DiskClientGUI, SLOT(DoubleClicked(int,int)));
         QObject::connect(delpushButton, SIGNAL(clicked()), DiskClientGUI, SLOT(Delete()));
+        QObject::connect(upButton, SIGNAL(clicked()), DiskClientGUI, SLOT(Upload()));
+        QObject::connect(my_diskpushButton, SIGNAL(clicked()), DiskClientGUI, SLOT(MyTab()));
+        QObject::connect(taskpushButton, SIGNAL(clicked()), DiskClientGUI, SLOT(TaskTab()));
+        QObject::connect(upaction, SIGNAL(triggered()), DiskClientGUI, SLOT(Upload()));
+        QObject::connect(deleteaction, SIGNAL(triggered()), DiskClientGUI, SLOT(Delete()));
 
         downpushButton->setDefault(false);
         upButton->setDefault(false);
@@ -531,12 +542,14 @@ public:
         downaction->setText(QApplication::translate("DiskClientGUI", "\344\270\213\350\275\275", nullptr));
         refreshaction->setText(QApplication::translate("DiskClientGUI", "\345\210\267\346\226\260", nullptr));
         action_new_dir->setText(QApplication::translate("DiskClientGUI", "\346\226\260\345\273\272\346\226\207\344\273\266\345\244\271", nullptr));
+        deleteaction->setText(QApplication::translate("DiskClientGUI", "\345\210\240\351\231\244", nullptr));
         logolabel->setText(QString());
         closepushButton->setText(QString());
         my_diskpushButton->setText(QString());
         taskpushButton->setText(QString());
         minpushButton->setText(QString());
         label_3->setText(QString());
+        label_5->setText(QApplication::translate("DiskClientGUI", "OL\344\272\221\347\233\230", nullptr));
         downpushButton->setText(QApplication::translate("DiskClientGUI", "  \344\270\213\350\275\275", nullptr));
         upButton->setText(QApplication::translate("DiskClientGUI", "  \344\270\212\344\274\240", nullptr));
         delpushButton->setText(QApplication::translate("DiskClientGUI", "  \345\210\240\351\231\244", nullptr));

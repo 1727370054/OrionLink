@@ -34,7 +34,7 @@ background-color: rgb(46, 91, 255);
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>6</y>
+      <y>7</y>
       <width>65</width>
       <height>65</height>
      </rect>
@@ -46,7 +46,7 @@ background-color: rgb(46, 91, 255);
      <string/>
     </property>
     <property name="pixmap">
-     <pixmap resource="disk_client_gui.qrc">:/XMSDiskClientGui/Resources/logo.png</pixmap>
+     <pixmap resource="disk_client_gui.qrc">:/XMSDiskClientGui/disk_logo.png</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
@@ -211,6 +211,23 @@ border-image: url(:/XMSDiskClientGui/Resources/img/common/system/btn_sys_minimiz
     </property>
     <property name="scaledContents">
      <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>29</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 15pt &quot;微软雅黑&quot;;
+color: rgb(235, 106, 5);</string>
+    </property>
+    <property name="text">
+     <string>OL云盘</string>
     </property>
    </widget>
   </widget>
@@ -488,21 +505,15 @@ font: 12pt &quot;黑体&quot;;</string>
      </property>
      <property name="styleSheet">
       <string notr="true">QProgressBar {
-      border: 2px solid grey;
-      border-radius: 10px;
-	  
-	color: rgb(255, 0, 128);
-	  font: 11pt &quot;楷体&quot;;
-  }
-
-  QProgressBar::chunk {
-      background-color: #05B8CC;
-      width: 20px;
-	  margin: 0.5px;
-  }</string>
+    border: 2px solid grey;
+    border-radius: 5px;
+    color: rgb(255, 0, 128);
+    font: 11pt &quot;楷体&quot;;
+}
+</string>
      </property>
      <property name="value">
-      <number>24</number>
+      <number>0</number>
      </property>
      <property name="textVisible">
       <bool>false</bool>
@@ -976,6 +987,15 @@ background-repeat: no-repeat;
     <string>新建文件夹</string>
    </property>
   </action>
+  <action name="deleteaction">
+   <property name="icon">
+    <iconset resource="disk_client_gui.qrc">
+     <normaloff>:/XMSDiskClientGui/Resources/img/del1.png</normaloff>:/XMSDiskClientGui/Resources/img/del1.png</iconset>
+   </property>
+   <property name="text">
+    <string>删除</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
@@ -1155,6 +1175,86 @@ background-repeat: no-repeat;
     <hint type="destinationlabel">
      <x>347</x>
      <y>-157</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>upButton</sender>
+   <signal>clicked()</signal>
+   <receiver>DiskClientGUI</receiver>
+   <slot>Upload()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>221</x>
+     <y>95</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>214</x>
+     <y>-88</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>my_diskpushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>DiskClientGUI</receiver>
+   <slot>MyTab()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>283</x>
+     <y>30</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>290</x>
+     <y>-157</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>taskpushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>DiskClientGUI</receiver>
+   <slot>TaskTab()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>388</x>
+     <y>29</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>388</x>
+     <y>-84</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>upaction</sender>
+   <signal>triggered()</signal>
+   <receiver>DiskClientGUI</receiver>
+   <slot>Upload()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>499</x>
+     <y>349</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>deleteaction</sender>
+   <signal>triggered()</signal>
+   <receiver>DiskClientGUI</receiver>
+   <slot>Delete()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>499</x>
+     <y>349</y>
     </hint>
    </hints>
   </connection>

@@ -7,7 +7,7 @@
 #define TEXTFONTSIZE 12
 
 #define BUTTONFONTFAMILY "微软雅黑"  //按钮的字体样式和大小
-#define BUTTONFONTSIZE 10
+#define BUTTONFONTSIZE 8
 
 #define BUTTONWIDTH 100  //按钮的大小
 #define BUTTONHEIGHT 30
@@ -80,6 +80,70 @@ void MyMessageBox::setStandardButtons(StandardButtons buttons)
     QDialogButtonBox::StandardButtons standardButtons = QDialogButtonBox::StandardButtons(int(buttons));
     m_pButtonBox->setStandardButtons(standardButtons);
     //    m_pButtonBox->setStandardButtons(QDialogButtonBox::StandardButtons(int(buttons)));  //上面两句归为一句
+    
+    foreach(QAbstractButton * button, m_pButtonBox->buttons())
+    {
+        switch (m_pButtonBox->standardButton(button)) 
+        {
+        case QDialogButtonBox::Ok:
+            button->setText(QString::fromLocal8Bit("确定"));
+            break;
+        case QDialogButtonBox::Save:
+            button->setText(QString::fromLocal8Bit("保存"));
+            break;
+        case QDialogButtonBox::SaveAll:
+            button->setText(QString::fromLocal8Bit("保存所有"));
+            break;
+        case QDialogButtonBox::Open:
+            button->setText(QString::fromLocal8Bit("打开"));
+            break;
+        case QDialogButtonBox::Yes:
+            button->setText(QString::fromLocal8Bit("是"));
+            break;
+        case QDialogButtonBox::YesToAll:
+            button->setText(QString::fromLocal8Bit("全部是"));
+            break;
+        case QDialogButtonBox::No:
+            button->setText(QString::fromLocal8Bit("否"));
+            break;
+        case QDialogButtonBox::NoToAll:
+            button->setText(QString::fromLocal8Bit("全部否"));
+            break;
+        case QDialogButtonBox::Abort:
+            button->setText(QString::fromLocal8Bit("中止"));
+            break;
+        case QDialogButtonBox::Retry:
+            button->setText(QString::fromLocal8Bit("重试"));
+            break;
+        case QDialogButtonBox::Ignore:
+            button->setText(QString::fromLocal8Bit("忽略"));
+            break;
+        case QDialogButtonBox::Close:
+            button->setText(QString::fromLocal8Bit("关闭"));
+            break;
+        case QDialogButtonBox::Cancel:
+            button->setText(QString::fromLocal8Bit("取消"));
+            break;
+        case QDialogButtonBox::Discard:
+            button->setText(QString::fromLocal8Bit("放弃"));
+            break;
+        case QDialogButtonBox::Help:
+            button->setText(QString::fromLocal8Bit("帮助"));
+            break;
+        case QDialogButtonBox::Apply:
+            button->setText(QString::fromLocal8Bit("应用"));
+            break;
+        case QDialogButtonBox::Reset:
+            button->setText(QString::fromLocal8Bit("重置"));
+            break;
+        case QDialogButtonBox::RestoreDefaults:
+            button->setText(QString::fromLocal8Bit("恢复默认"));
+            break;
+        default:
+            break;
+        }
+    }
+
     setPushButtonProperty(m_pButtonBox->buttons());
 }
 

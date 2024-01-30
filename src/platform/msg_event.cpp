@@ -61,6 +61,12 @@ void MsgEvent::ReadCallback()
 
         ReadCallback(pb_head_, msg);
         Clear();
+        if (is_drop_)
+        {
+            set_auto_delete(true);
+            Close();
+            return;
+        }
     }
 }
 

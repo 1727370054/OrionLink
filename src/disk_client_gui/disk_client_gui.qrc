@@ -1,6 +1,7 @@
 <RCC>
   <qresource prefix="XMSDiskClientGui">
     <file>disk_logo.ico</file>
+    <file>disk_logo.png</file>
     <file>Resources/img/common/msgbox/Hand.png</file>
     <file>Resources/img/common/msgbox/Information.png</file>
     <file>Resources/img/common/msgbox/Question.png</file>

@@ -8,6 +8,7 @@
 #include <mutex>
 #include <cstring>
 #include <event2/event.h>
+#include <event2/buffer.h>
 #include <event2/bufferevent.h>
 #include <event2/bufferevent_ssl.h>
 
@@ -264,8 +265,16 @@ bool ComTask::Write(const void *data, int size)
     int ret = bufferevent_write(bev_, data, size);
     if (ret != 0)
         return false;
-
+    send_data_size_ += size;
     return true;
+}
+
+long long ComTask::BufferSize()
+{
+    Mutex lock(mtx_);
+    auto evbuf = bufferevent_get_output(bev_);
+    auto len = evbuffer_get_length(evbuf);
+    return len;
 }
 
 void ComTask::EventCallback(short what)

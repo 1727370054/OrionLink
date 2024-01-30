@@ -183,7 +183,7 @@ color: rgb(255, 255, 255);</string>
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="pic.qrc">:/res/pic/head.png</pixmap>
+       <pixmap>:/res/pic/head.png</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>
@@ -200,42 +200,6 @@ color: rgb(255, 255, 255);</string>
       </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(255, 255, 255);</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="nickname&#10;">
-      <property name="geometry">
-       <rect>
-        <x>910</x>
-        <y>15</y>
-        <width>81</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">font: 10pt &quot;黑体&quot;;
-color: rgb(255, 255, 255);</string>
-      </property>
-      <property name="text">
-       <string>超级用户哟</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="svip">
-      <property name="geometry">
-       <rect>
-        <x>1010</x>
-        <y>0</y>
-        <width>91</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="pixmap">
-       <pixmap resource="pic.qrc">:/res/pic/ToastSVipBg.png</pixmap>
-      </property>
-      <property name="scaledContents">
-       <bool>true</bool>
       </property>
      </widget>
     </widget>
@@ -627,7 +591,7 @@ font: 12pt &quot;黑体&quot;;</string>
                               <string notr="true"/>
                              </property>
                              <property name="text">
-                              <string>hwk</string>
+                              <string>root</string>
                              </property>
                              <property name="placeholderText">
                               <string/>

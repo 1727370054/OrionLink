@@ -7,10 +7,27 @@ enum FileMsgType
 	FILE_MSG_NONE = 0;
 	GET_DIR_REQ = 1001;			/// GetDirReq
 	GET_DIR_RES = 1002;			/// FileInfoList 失败走统一的失败通道
+	UPLOAD_FILE_REQ = 1003;		/// 1 FileInfo 发送上传文件指令 包含全文、断点续传及的md5(考虑秒杀) 每个客户端一次只转递一个文件，多个文件建立不同的连接
+	UPLOAD_FILE_RES = 1004;		/// 2 MessageRes 确认可以接收文件（验证权限和空间大小）
+	SEND_SLICE_REQ = 1005;		/// 3 FileSlice 发送文件片 
+	//SEND_SLICE_DATA = 1006;	///  数据片，消息内容就是具体的文件
+	SEND_SLICE_RES = 1007;		/// 4 FileSlice 包含文件信息 文件片接收成功或者失败（验证接收文件片大小和校验，失败返回原因） 
+	UPLOAD_FILE_END_REQ = 1008;	/// 5 FileInfo
+	UPLOAD_FILE_END_RES = 1009;	/// 6 MessageRes 文件接收成功或者失败（写入缓存中所有内容，验证文件接收总大小和md5，失败返回原因）
 	DELETE_FILE_REQ = 1014;		/// FileSlice 
 	DELETE_FILE_RES = 1015;		/// MessageRes
 	NEW_DIR_REQ = 1016;			/// 创建目录 GetDirReq
 	NEW_DIR_RES = 1017;			/// MessageRes
+	GET_DISK_INFO_REQ = 1018;	/// MessageRes
+	GET_DISK_INFO_RES = 1019;	/// DiskInfo
+}
+
+message DiskInfo
+{
+	int64 avail = 1;			/// 用户可以空间(字节)
+	int64 total = 2;			/// 磁盘空间，普通用户10G
+	int64 free = 3;				/// 磁盘剩余空间，普通用户不设置
+	int64 dir_size = 4;			/// 用户目录占用空间大小
 }
 
 message GetDirReq
@@ -32,11 +49,29 @@ message FileInfo
 	bool is_enc = 9;				/// 是否加密 第一版秘钥本地用户输入
 	int64 ori_size = 10;			/// 加密文件的源文件大小
 	bytes password = 11;			/// 用于传递任务，不传递消息
-	
+}
+
+/// 文件片 按次序写入
+message FileSlice
+{
+	FileInfo file = 1;
+	int64 size = 2;				/// 文件片大小 字节
+	int64 offset = 3;			/// 文件偏移量，从0开始 字节数
+	bytes md5 = 4;				/// 文件片md5
+	bool is_ok = 5;				/// 是否校验成功 是否发送成功
 }
 
 //服务端用 文件列表
 message FileInfoList
 {
 	repeated FileInfo files = 4;
+}
+
+message FileTask
+{
+	int32 index = 1;
+	string tasktime = 6;
+	bool is_complete = 7;	// 任务是否完成
+	bool is_sec = 8;		// 是否秒传
+	FileInfo file = 9;
 }

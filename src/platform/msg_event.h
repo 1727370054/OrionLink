@@ -73,10 +73,12 @@ public:
     /// @param func 回调函数
     static void RegisterCallback(msg::MsgType type, MsgCBFunc func);
 
+    virtual void DropInMsg() { is_drop_ = true; }
 private:
     Msg head_;  /// 消息头部
     Msg msg_;   /// 消息内容
     msg::MsgHead *pb_head_ = nullptr; /// 反序列化后的消息头
+    bool is_drop_ = false;
 };
 
 #endif // MSG_EVENT_H

@@ -18,6 +18,8 @@ public:
     virtual void NewDir(std::string path) override;
 
     virtual void DeleteFile(disk::FileInfo file_info) override;
+
+    virtual void UploadFile(disk::FileInfo file_info) override;
 };
 
 #endif // FILE_MANAGER_H

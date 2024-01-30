@@ -14,12 +14,15 @@ using namespace std;
 #define DIR_ROOT "/mnt/orion_link/"
 #endif // _WIN32
 
+//10G
+#define USER_SPACE 10737418240
 
 void DirHandle::RegisterMsgCallback()
 {
     RegisterCallback((MsgType)GET_DIR_REQ, (MsgCBFunc)&DirHandle::GetDirReq);
     RegisterCallback((MsgType)NEW_DIR_REQ, (MsgCBFunc)&DirHandle::NewDirReq);
     RegisterCallback((MsgType)DELETE_FILE_REQ, (MsgCBFunc)&DirHandle::DeleteFileReq);
+    RegisterCallback((MsgType)GET_DISK_INFO_REQ, (MsgCBFunc)&DirHandle::GetDiskInfoReq);
 }
 
 void DirHandle::GetDirReq(msg::MsgHead* head, Msg* msg)
@@ -92,5 +95,36 @@ void DirHandle::DeleteFileReq(msg::MsgHead* head, Msg* msg)
     res.set_return_(MessageRes::OK);
     res.set_desc("OK");
     head->set_msg_type((MsgType)DELETE_FILE_RES);
+    SendMsg(head, &res);
+}
+
+void DirHandle::GetDiskInfoReq(msg::MsgHead* head, Msg* msg)
+{
+    string path = DIR_ROOT;
+    path += head->username();
+    auto dir_size = GetDirSize(path.c_str());
+
+    DiskInfo res;
+    res.set_dir_size(dir_size);
+
+    unsigned long long avail = 0;
+    unsigned long long total = 0;
+    unsigned long long free = 0;
+
+    if (head->username() == "root")
+    {
+        GetDiskSize(path.c_str(), &avail, &total, &free);
+        res.set_total(total);
+        res.set_avail(avail);
+        res.set_free(free);
+    }
+    else
+    {
+        long long user_size = USER_SPACE;
+        res.set_total(user_size);
+        res.set_avail(user_size - dir_size);
+        res.set_free(user_size - dir_size);
+    }
+    head->set_msg_type((MsgType)GET_DISK_INFO_RES);
     SendMsg(head, &res);
 }

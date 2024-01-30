@@ -136,7 +136,6 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <AdditionalIncludeDirectories>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;debug;\include;..\auth;..\..\include\protobuf;..\platform;..\disk_proto;.\custom_control;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>debug\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
       <DisableSpecificWarnings>4577;4467;4100;%(DisableSpecificWarnings)</DisableSpecificWarnings>
@@ -204,6 +203,9 @@
     <ClCompile Include="ifile_manager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="login_gui.cpp" />
+    <ClCompile Include="task_item_gui.cpp" />
+    <ClCompile Include="task_list_gui.cpp" />
+    <ClCompile Include="upload_client.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="login_gui.h" />
@@ -229,6 +231,8 @@
   <ItemGroup>
     <QtUic Include="disk_client_gui.ui" />
     <QtUic Include="login_gui.ui" />
+    <QtUic Include="task_item_gui.ui" />
+    <QtUic Include="task_list_gui.ui" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\disk_proto\disk_client_gui.proto" />
@@ -270,6 +274,10 @@
     <ClInclude Include="..\disk_proto\disk_client_gui.pb.h" />
     <ClInclude Include="..\platform\msg_comm.pb.h" />
     <ClInclude Include="..\platform\msg_type.pb.h" />
+    <QtMoc Include="task_list_gui.h" />
+    <QtMoc Include="task_item_gui.h" />
+    <ClInclude Include="ui_task_list_gui.h" />
+    <ClInclude Include="upload_client.h" />
     <QtMoc Include="disk_client_gui.h" />
     <QtMoc Include="custom_control\message_box.h" />
     <ClInclude Include="file_manager.h" />

@@ -68,6 +68,10 @@ public:
     virtual bool Write(const void *data, int size);
 
     ///////////////////////////////////////////////////////////////////////////
+    /// @brief 现有缓冲（未发送）的大小
+    virtual long long BufferSize();
+
+    ///////////////////////////////////////////////////////////////////////////
     /// @brief 等待连接成功
     /// @param timeout_sec 最大等待时间
     bool WaitConnected(int timeout_sec);
@@ -113,6 +117,8 @@ public:
     bool is_connecting() { return is_connecting_; }
     bool is_connected() { return is_connected_; }
 
+    long long send_data_size() { return send_data_size_; }
+
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 是否开启自动清理对象(包含清理定时器资源), 会清理定时器资源(默认开启)
     void set_auto_delete(bool is_auto_delete) { auto_delete_ = is_auto_delete; }
@@ -152,6 +158,9 @@ private:
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 初始化 bufferevent
     bool InitBufferevent(int sock);
+
+    /// 已写入缓冲 Msg *msg 的大小
+    long long send_data_size_ = 0;
 
     /// SSL通信的上下文
     SSLCtx *ssl_ctx_ = nullptr;

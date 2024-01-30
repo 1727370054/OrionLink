@@ -4,6 +4,7 @@
 #include <string>
 #include <cstring>
 #include <algorithm>
+#include <iomanip>
 #include <openssl/md5.h>
 #include <openssl/bio.h>
 #include <openssl/buffer.h>
@@ -230,54 +231,26 @@ std::string GetFileSuffix(std::string filename)
 
 XCOM_API std::string GetSizeString(long long size)
 {
-	std::string filesize_str = "";
-	if (size > 1024 * 1024 * 1024) /// GB
-	{
-		double gb_size = (double)size / (double)1024 * 1024 * 1024;
-		long long tmp = gb_size * 100;
-		std::stringstream ss;
-		ss << tmp / 100;
-		if (tmp % 100 > 0)
-		{
-			ss << "." << tmp % 100;
-		}
-		ss << "GB";
-		filesize_str = ss.str();
-	}
-	else if (size > 1024 * 1024) //MB
-	{
-		double ms_size = (double)size / (double)(1024 * 1024);
-		long long tmp = ms_size * 100;
+	std::stringstream ss;
+	ss << std::fixed << std::setprecision(2);
 
-		std::stringstream ss;
-		ss << tmp / 100;
-		if (tmp % 100 > 0)
-			ss << "." << tmp % 100;
-		ss << "MB";
-		filesize_str = ss.str();
+	if (size > 1024LL * 1024LL * 1024LL) // GB
+	{ 
+		ss << static_cast<double>(size) / (1024LL * 1024LL * 1024LL) << "GB";
 	}
-	else if (size > 1024) //KB
-	{
-		float kb_size = (float)size / (float)(1024);
-		long long tmp = kb_size * 100;
-		std::stringstream ss;
-		ss << tmp / 100;
-		if (tmp % 100 > 0)
-			ss << "." << tmp % 100;
-		ss << "KB";
-		filesize_str = ss.str();
+	else if (size > 1024LL * 1024LL) // MB
+	{ 
+		ss << static_cast<double>(size) / (1024LL * 1024LL) << "MB";
 	}
-	else //B
-	{
-		float b_size = size / (float)(1024);
-		long long tmp = b_size * 100;
-
-		std::stringstream ss;
-		ss << size;
-		ss << "B";
-		filesize_str = ss.str();
+	else if (size > 1024LL) // KB
+	{ 
+		ss << static_cast<double>(size) / 1024LL << "KB";
 	}
-	return filesize_str;
+	else // B
+	{ 
+		ss << size << "B";
+	}
+	return ss.str();
 }
 
 std::string FormatDir(const std::string& dir)
@@ -414,6 +387,73 @@ void DeleteDirectoryAndFiles(const std::string& path)
 
 	// 删除空目录
 	rmdir(path.c_str());
+#endif // _WIN32
+}
+
+long long GetDirSize(const char* path)
+{
+	if (!path) return 0;
+	long long dir_size = 0;
+	std::string dir_new = path;
+#ifdef _WIN32
+	_finddata_t file;
+	dir_new += "/*.*";
+	intptr_t dir = _findfirst(dir_new.c_str(), &file);
+	if (dir < 0) return dir_size;
+
+	do {
+		if (strcmp(file.name, ".") == 0 || strcmp(file.name, "..") == 0) continue;
+
+		if (file.attrib & _A_SUBDIR)
+		{
+			dir_new = path;
+			dir_new += "/";
+			dir_new += file.name;
+			dir_size += GetDirSize(dir_new.c_str());
+		}
+		else
+		{
+			dir_size += file.size;
+		}
+	} while (_findnext(dir, &file) == 0);
+	_findclose(dir);  // 关闭句柄
+#else
+	DIR* dir = opendir(dir_new.c_str());
+	if (dir == nullptr) return 0;
+
+	struct dirent* file;
+	struct stat statbuf;
+
+	while ((file = readdir(dir)) != nullptr)
+	{
+		if (strcmp(file->d_name, ".") == 0 || strcmp(file->d_name, "..") == 0)
+			continue;
+		std::string filePath = path + "/" + file->d_name;
+		lstat(filePath.c_str(), &statbuf);
+		if (file->d_type == DT_DIR)
+			dir_size += GetDirSize(filePath.c_str());
+		else
+			dir_size += statbuf.st_size;
+	}
+	closedir(dir);
+#endif // _WIN32
+
+	return dir_size;
+}
+
+bool GetDiskSize(const char* path, unsigned long long* avail, unsigned long long* total, unsigned long long* free)
+{
+#ifdef _WIN32
+	return GetDiskFreeSpaceExA(path, (ULARGE_INTEGER*)avail, (ULARGE_INTEGER*)total, (ULARGE_INTEGER*)free);
+#else
+	struct statfs disk_info;
+	if (statfs(path, &disk_info) == -1) return false;
+
+	*total = disk_info.f_blocks * disk_info.f_bsize;
+	*free = disk_info.f_bfree * disk_info.f_bsize;
+	*avail = disk_info.f_bavail * disk_info.f_bsize;
+	
+	return true;
 #endif // _WIN32
 }
 

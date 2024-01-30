@@ -24,7 +24,7 @@ public:
 
     static void RegisterMsgCallback();
 
-    void GetDirReq(disk::GetDirReq req);
+    void GetDirReq(disk::GetDirReq& req);
 
     void GetDirRes(msg::MsgHead *head, Msg *msg);
 
@@ -35,6 +35,10 @@ public:
     void DeleteFileReq(disk::FileInfo file_info);
 
     void DeleteFileRes(msg::MsgHead* head, Msg* msg);
+
+    void GetDiskInfoReq();
+
+    void GetDiskInfoRes(msg::MsgHead* head, Msg* msg);
 private:
     GetDirClient();
     GetDirClient(const GetDirClient&) = delete;

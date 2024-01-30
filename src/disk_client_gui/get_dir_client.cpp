@@ -13,9 +13,10 @@ void GetDirClient::RegisterMsgCallback()
     RegisterCallback((MsgType)GET_DIR_RES, (MsgCBFunc)&GetDirClient::GetDirRes);
     RegisterCallback((MsgType)NEW_DIR_RES, (MsgCBFunc)&GetDirClient::NewDirRes);
     RegisterCallback((MsgType)DELETE_FILE_RES, (MsgCBFunc)&GetDirClient::DeleteFileRes);
+    RegisterCallback((MsgType)GET_DISK_INFO_RES, (MsgCBFunc)&GetDirClient::GetDiskInfoRes);
 }
 
-void GetDirClient::GetDirReq(disk::GetDirReq req)
+void GetDirClient::GetDirReq(disk::GetDirReq& req)
 {
     cur_dir_ = req.root();
     SendMsg((MsgType)GET_DIR_REQ, &req);
@@ -33,6 +34,8 @@ void GetDirClient::GetDirRes(msg::MsgHead* head, Msg* msg)
     cout << file_list.DebugString() << endl;
 
     iFileManager::GetInstance()->RefreshData(file_list, cur_dir_);
+
+    GetDiskInfoReq();
 }
 
 void GetDirClient::NewDirReq(std::string path)
@@ -69,6 +72,25 @@ void GetDirClient::DeleteFileRes(msg::MsgHead* head, Msg* msg)
     disk::GetDirReq req;
     req.set_root(cur_dir_);
     SendMsg((MsgType)GET_DIR_REQ, &req);
+}
+
+void GetDirClient::GetDiskInfoReq()
+{
+    MessageRes req;
+    req.set_desc("GET");
+    SendMsg((MsgType)GET_DISK_INFO_REQ, &req);
+}
+
+void GetDirClient::GetDiskInfoRes(msg::MsgHead* head, Msg* msg)
+{
+    DiskInfo res;
+    if (!res.ParseFromArray(msg->data, msg->size))
+    {
+        cerr << "GetDirClient::GetDiskInfoRes failed! ParseFromArray error" << endl;
+        return;
+    }
+
+    iFileManager::GetInstance()->RefreshDiskInfo(res);
 }
 
 GetDirClient::GetDirClient()

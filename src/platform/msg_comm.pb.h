@@ -402,9 +402,11 @@ class MsgHead :
     kServiceNameFieldNumber = 4,
     kUsernameFieldNumber = 6,
     kRolenameFieldNumber = 7,
+    kMd5FieldNumber = 8,
     kMsgSizeFieldNumber = 1,
     kMsgTypeFieldNumber = 2,
     kRouterIdFieldNumber = 5,
+    kOffsetFieldNumber = 9,
   };
   // bytes token = 3;
   void clear_token();
@@ -470,6 +472,22 @@ class MsgHead :
   std::string* _internal_mutable_rolename();
   public:
 
+  // bytes md5 = 8;
+  void clear_md5();
+  const std::string& md5() const;
+  void set_md5(const std::string& value);
+  void set_md5(std::string&& value);
+  void set_md5(const char* value);
+  void set_md5(const void* value, size_t size);
+  std::string* mutable_md5();
+  std::string* release_md5();
+  void set_allocated_md5(std::string* md5);
+  private:
+  const std::string& _internal_md5() const;
+  void _internal_set_md5(const std::string& value);
+  std::string* _internal_mutable_md5();
+  public:
+
   // int32 msg_size = 1;
   void clear_msg_size();
   ::PROTOBUF_NAMESPACE_ID::int32 msg_size() const;
@@ -485,6 +503,11 @@ class MsgHead :
   ::PROTOBUF_NAMESPACE_ID::int64 router_id() const;
   void set_router_id(::PROTOBUF_NAMESPACE_ID::int64 value);
 
+  // int64 offset = 9;
+  void clear_offset();
+  ::PROTOBUF_NAMESPACE_ID::int64 offset() const;
+  void set_offset(::PROTOBUF_NAMESPACE_ID::int64 value);
+
   // @@protoc_insertion_point(class_scope:msg.MsgHead)
  private:
   class _Internal;
@@ -494,9 +517,11 @@ class MsgHead :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr service_name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr username_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr rolename_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr md5_;
   ::PROTOBUF_NAMESPACE_ID::int32 msg_size_;
   int msg_type_;
   ::PROTOBUF_NAMESPACE_ID::int64 router_id_;
+  ::PROTOBUF_NAMESPACE_ID::int64 offset_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_msg_5fcomm_2eproto;
 };
@@ -4097,6 +4122,80 @@ inline void MsgHead::set_allocated_rolename(std::string* rolename) {
   }
   rolename_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), rolename);
   // @@protoc_insertion_point(field_set_allocated:msg.MsgHead.rolename)
+}
+
+// bytes md5 = 8;
+inline void MsgHead::clear_md5() {
+  md5_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& MsgHead::md5() const {
+  // @@protoc_insertion_point(field_get:msg.MsgHead.md5)
+  return _internal_md5();
+}
+inline void MsgHead::set_md5(const std::string& value) {
+  _internal_set_md5(value);
+  // @@protoc_insertion_point(field_set:msg.MsgHead.md5)
+}
+inline std::string* MsgHead::mutable_md5() {
+  // @@protoc_insertion_point(field_mutable:msg.MsgHead.md5)
+  return _internal_mutable_md5();
+}
+inline const std::string& MsgHead::_internal_md5() const {
+  return md5_.GetNoArena();
+}
+inline void MsgHead::_internal_set_md5(const std::string& value) {
+  
+  md5_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void MsgHead::set_md5(std::string&& value) {
+  
+  md5_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:msg.MsgHead.md5)
+}
+inline void MsgHead::set_md5(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  md5_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:msg.MsgHead.md5)
+}
+inline void MsgHead::set_md5(const void* value, size_t size) {
+  
+  md5_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:msg.MsgHead.md5)
+}
+inline std::string* MsgHead::_internal_mutable_md5() {
+  
+  return md5_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* MsgHead::release_md5() {
+  // @@protoc_insertion_point(field_release:msg.MsgHead.md5)
+  
+  return md5_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void MsgHead::set_allocated_md5(std::string* md5) {
+  if (md5 != nullptr) {
+    
+  } else {
+    
+  }
+  md5_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), md5);
+  // @@protoc_insertion_point(field_set_allocated:msg.MsgHead.md5)
+}
+
+// int64 offset = 9;
+inline void MsgHead::clear_offset() {
+  offset_ = PROTOBUF_LONGLONG(0);
+}
+inline ::PROTOBUF_NAMESPACE_ID::int64 MsgHead::offset() const {
+  // @@protoc_insertion_point(field_get:msg.MsgHead.offset)
+  return offset_;
+}
+inline void MsgHead::set_offset(::PROTOBUF_NAMESPACE_ID::int64 value) {
+  
+  offset_ = value;
+  // @@protoc_insertion_point(field_set:msg.MsgHead.offset)
 }
 
 // -------------------------------------------------------------------

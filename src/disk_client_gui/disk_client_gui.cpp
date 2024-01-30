@@ -1,5 +1,6 @@
 ﻿#include "disk_client_gui.h"
 #include "login_gui.h"
+#include "task_list_gui.h"
 #include "ui_disk_client_gui.h"
 #include "message_box.h"
 #include "tools.h"
@@ -8,10 +9,13 @@
 #include <QHBoxLayout>
 #include <QMenu>
 #include <QLineEdit>
+#include <QFileDialog>
 
 using namespace std;
 
 #define FILE_ICON_PATH ":/XMSDiskClientGui/Resources/img/FileType/Small/"
+
+static TaskListGUI* task_gui = 0;
 
 DiskClientGUI::DiskClientGUI(LoginGUI* login_gui, iFileManager* f, QWidget *parent)
     : QWidget(parent),
@@ -27,6 +31,9 @@ DiskClientGUI::DiskClientGUI(LoginGUI* login_gui, iFileManager* f, QWidget *pare
     setAttribute(Qt::WA_TranslucentBackground);
     setMouseTracking(true);
 
+    task_gui = new TaskListGUI(this);
+    task_gui->hide();
+
     auto tab = ui->filetableWidget;
     tab->setColumnWidth(0, 40);
     tab->setColumnWidth(1, 400);
@@ -38,9 +45,14 @@ DiskClientGUI::DiskClientGUI(LoginGUI* login_gui, iFileManager* f, QWidget *pare
 
     qRegisterMetaType<std::string>("std::string");
     qRegisterMetaType<disk::FileInfoList>("disk::FileInfoList");
+    qRegisterMetaType<disk::DiskInfo>("disk::DiskInfo");
+    qRegisterMetaType<disk::FileTask>("disk::FileTask");
 
     ui->username_label->setText(ifm_->login_info().username().c_str());
+
+    connect(ifm_, &iFileManager::RefreshUploadTask, task_gui, &TaskListGUI::RefreshUploadTask);
     connect(ifm_, &iFileManager::RefreshData, this, &DiskClientGUI::RefreshData);
+    connect(ifm_, &iFileManager::RefreshDiskInfo, this, &DiskClientGUI::RefreshDiskInfo);
     Refresh();
 }
 
@@ -104,7 +116,7 @@ void DiskClientGUI::RefreshData(disk::FileInfoList file_list, std::string cur_di
         
         QString qname = QString::fromLocal8Bit(filename.c_str());
         QString qfile_type = QString::fromLocal8Bit(file_type.c_str());
-        //QString qname = filename.c_str();
+        //QString qname = filename.c_str(); /// 服务器在linux跑开放
         tab->setItem(0, 1, new QTableWidgetItem(QIcon(iconpath.c_str()), qname));
         tab->setItem(0, 2, new QTableWidgetItem(file.filetime().c_str()));
         tab->setItem(0, 3, new QTableWidgetItem(qfile_type));
@@ -209,6 +221,21 @@ void DiskClientGUI::Checkall()
     }
 }
 
+void DiskClientGUI::MyTab()
+{
+    if (!task_gui) return;
+    ui->filelistwidget->show();
+    task_gui->hide();
+}
+
+void DiskClientGUI::TaskTab()
+{
+    task_gui->move(ui->filelistwidget->pos().x(), ui->filelistwidget->pos().y());
+    task_gui->resize(size());
+    ui->filelistwidget->hide();
+    task_gui->Show();
+}
+
 void DiskClientGUI::Back()
 {
     if (remote_dir_.empty() || remote_dir_ == "/") return;
@@ -233,15 +260,20 @@ void DiskClientGUI::DoubleClicked(int row, int column)
     auto item = ui->filetableWidget->item(row, 1);
     QString dir = item->text();
     std::string filename = dir.toLocal8Bit();
+
     for (const auto& file : file_list_.files())
     {
         if (filename == file.filename())
         {
-            if (!file.is_dir()) return;
-        }
-        else
-        {
-            continue;
+            if (!file.is_dir())
+            {
+                auto w = ui->filetableWidget->cellWidget(row, 0);
+                if (!w) continue;
+                auto check = (QCheckBox*)w->layout()->itemAt(0)->widget();
+                if (!check) continue;
+                check->setChecked(!check->isChecked());
+                return;
+            }
         }
     }
     std::string path = remote_dir_ + "/" + filename;
@@ -251,9 +283,18 @@ void DiskClientGUI::DoubleClicked(int row, int column)
 void DiskClientGUI::Delete()
 {
     auto tab = ui->filetableWidget;
+    QItemSelectionModel* selectionModel = ui->filetableWidget->selectionModel();
+    QModelIndexList selectedIndexes = selectionModel->selectedRows();
     int row_count = tab->rowCount();
-    std::vector<int> rows;
+    std::set<int> rows; // 使用集合来避免重复行
     int count = 0;
+
+    // 首先处理所有选中的行
+    for (const auto& index : selectedIndexes)
+    {
+        rows.insert(index.row());
+    }
+
     for (int i = 0; i < row_count; i++)
     {
         auto w = tab->cellWidget(i, 0);
@@ -262,10 +303,11 @@ void DiskClientGUI::Delete()
         if (!check) continue;
         if (check->isChecked())
         {
-            rows.push_back(i);
-            count++;
+            rows.insert(i);
         }
     }
+
+    count = rows.size();
 
     if (count == 0)
     {
@@ -278,7 +320,8 @@ void DiskClientGUI::Delete()
     string filename = "\"";
     if (count == 1)
     {
-        filename += tab->item(rows[0], 1)->text().toLocal8Bit();
+        int row = *rows.begin();
+        filename += tab->item(row, 1)->text().toLocal8Bit();
         tip_text += filename;
         tip_text += "\"";
     }
@@ -291,7 +334,7 @@ void DiskClientGUI::Delete()
 
     auto ret = MyMessageBox::information(this, QString::fromLocal8Bit(tip_text.c_str()),
         QString::fromLocal8Bit("系统提示"), MyMessageBox::Ok | MyMessageBox::Cancel);
-    if (ret == MyMessageBox::Cancel) return;
+    if (ret != MyMessageBox::Ok) return;
 
     for (const auto& row : rows)
     {
@@ -307,6 +350,36 @@ void DiskClientGUI::Delete()
             }
         }
         ifm_->DeleteFile(file_info);
+    }
+}
+
+void DiskClientGUI::RefreshDiskInfo(disk::DiskInfo info)
+{
+    /// 120MB/10GB
+    string size_str = GetSizeString(info.dir_size());
+    size_str += "/";
+    size_str += GetSizeString(info.total());
+    ui->disk_info_text->setText(size_str.c_str());
+    ui->disk_info_bar->setMaximum(info.total());
+    ui->disk_info_bar->setValue(info.dir_size());
+}
+
+void DiskClientGUI::Upload()
+{
+    QFileDialog dialog(this);
+    dialog.setFileMode(QFileDialog::ExistingFiles);
+    dialog.setWindowTitle(QString::fromLocal8Bit("请选择上传的文件"));
+    if (dialog.exec() != QDialog::Accepted) return;
+    QStringList file_paths = dialog.selectedFiles();
+
+    for (const auto file_path : file_paths)
+    {
+        QFileInfo file_info(file_path);
+        disk::FileInfo task;
+        task.set_filename(file_info.fileName().toLocal8Bit());
+        task.set_filedir(remote_dir_);
+        task.set_local_path(file_path.toLocal8Bit());
+        ifm_->UploadFile(task);
     }
 }
 
@@ -362,6 +435,7 @@ void DiskClientGUI::contextMenuEvent(QContextMenuEvent* ev)
         context.addAction(ui->upaction);
         context.addAction(ui->downaction);
         context.addAction(ui->refreshaction);
+        context.addAction(ui->deleteaction);
         context.exec(eventPosGlobal);
     }
     else

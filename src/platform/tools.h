@@ -47,6 +47,10 @@ XCOM_API void DelFile(std::string path, bool is_dir);
 
 XCOM_API void DeleteDirectoryAndFiles(const std::string& path);
 
+XCOM_API long long GetDirSize(const char* path);
+
+XCOM_API bool GetDiskSize(const char* path, unsigned long long *avail, unsigned long long * total, unsigned long long* free);
+
 ///////////////////////////////////////////////////////////////////////////
 /// @brief 生成md5 128bit(16字节) 
 /// @param in_data 输入数据

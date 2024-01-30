@@ -3,7 +3,7 @@
 
 #include "msg_type.pb.h"
 
-#define MAX_MSG_SIZE 8192
+#define MAX_MSG_SIZE 200000000
 
 /// windows ->> C:\Windows\System32\drivers\etc
 /// Linux   ->> /etc/hosts
@@ -29,6 +29,9 @@
 
 #define DIR_PORT 20200
 #define DIR_NAME "dir"
+
+#define UPLOAD_PORT 20201
+#define UPLOAD_NAME "upload"
 
 class Msg
 {

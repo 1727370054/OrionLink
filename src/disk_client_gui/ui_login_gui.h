@@ -35,8 +35,6 @@ public:
     QLabel *titlelabel;
     QLabel *headlabel;
     QWidget *line;
-    QLabel *nickname_;
-    QLabel *svip;
     QFrame *frame_background;
     QGridLayout *gridLayout_3;
     QVBoxLayout *verticalLayout_2;
@@ -193,16 +191,6 @@ public:
         line->setObjectName(QString::fromUtf8("line"));
         line->setGeometry(QRect(1100, 5, 3, 40));
         line->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);"));
-        nickname_ = new QLabel(frame_title);
-        nickname_->setObjectName(QString::fromUtf8("nickname_"));
-        nickname_->setGeometry(QRect(910, 15, 81, 21));
-        nickname_->setStyleSheet(QString::fromUtf8("font: 10pt \"\351\273\221\344\275\223\";\n"
-"color: rgb(255, 255, 255);"));
-        svip = new QLabel(frame_title);
-        svip->setObjectName(QString::fromUtf8("svip"));
-        svip->setGeometry(QRect(1010, 0, 91, 51));
-        svip->setPixmap(QPixmap(QString::fromUtf8(":/res/pic/ToastSVipBg.png")));
-        svip->setScaledContents(true);
 
         gridLayout_6->addWidget(frame_title, 1, 0, 1, 1);
 
@@ -748,13 +736,11 @@ public:
         logo->setText(QString());
         titlelabel->setText(QApplication::translate("LoginGUI", "OL\344\272\221\347\233\230", nullptr));
         headlabel->setText(QString());
-        nickname_->setText(QApplication::translate("LoginGUI", "\350\266\205\347\272\247\347\224\250\346\210\267\345\223\237", nullptr));
-        svip->setText(QString());
         label_login->setText(QApplication::translate("LoginGUI", "LOGIN", nullptr));
         err_logo->setText(QString());
         err_msg->setText(QApplication::translate("LoginGUI", "\346\255\243\345\234\250\347\231\273\351\231\206 ...", nullptr));
         label_user_name->setText(QString());
-        lineE_user_name->setText(QApplication::translate("LoginGUI", "hwk", nullptr));
+        lineE_user_name->setText(QApplication::translate("LoginGUI", "root", nullptr));
         lineE_user_name->setPlaceholderText(QString());
         label_pwd->setText(QString());
         lineE_pwd->setText(QApplication::translate("LoginGUI", "123456", nullptr));

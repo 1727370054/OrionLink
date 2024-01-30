@@ -13,6 +13,8 @@ message MsgHead
 	int64 router_id = 5;	    /// 路由标识
 	string username =  6;		/// 用户名(用于鉴权)
 	string rolename = 7;		/// 角色名(用于鉴权)
+	bytes md5 = 8;				/// 消息内容md5校验
+	int64 offset = 9;			/// 数据偏移
 }
 
 /// 通用响应 

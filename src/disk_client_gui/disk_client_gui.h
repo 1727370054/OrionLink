@@ -27,9 +27,9 @@ public:
 
     void contextMenuEvent(QContextMenuEvent* ev) override;
 
-    void set_ifm(iFileManager* f) { this->ifm_ = f; }
-
     bool eventFilter(QObject* object, QEvent* event) override;
+
+    void set_ifm(iFileManager* f) { this->ifm_ = f; }
 private:
     void triggerItemChanged(QString filename);
 
@@ -47,7 +47,14 @@ public slots:
 
     void Delete();
 
+    void RefreshDiskInfo(disk::DiskInfo info);
+
+    void Upload();
+
     void Checkall();
+
+    void MyTab();
+    void TaskTab();
 private:
     Ui::DiskClientGUI* ui;
     LoginGUI* login_gui_;

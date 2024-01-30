@@ -86,6 +86,15 @@
     <ClCompile Include="custom_control\message_box.cpp">
       <Filter>custom_control</Filter>
     </ClCompile>
+    <ClCompile Include="upload_client.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="task_list_gui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="task_item_gui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="login_gui.h">
@@ -99,6 +108,12 @@
     </QtMoc>
     <QtMoc Include="custom_control\message_box.h">
       <Filter>custom_control</Filter>
+    </QtMoc>
+    <QtMoc Include="task_list_gui.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="task_item_gui.h">
+      <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
@@ -114,6 +129,12 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="disk_client_gui.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="task_list_gui.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="task_item_gui.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
@@ -220,6 +241,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="get_dir_client.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="upload_client.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ui_task_list_gui.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
