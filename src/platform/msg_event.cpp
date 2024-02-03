@@ -56,7 +56,7 @@ void MsgEvent::ReadCallback()
             stringstream ss;
             ss << "【RECV】" << server_ip() << ":" << server_port() << "|" << GetPortName(server_port()) << " " << client_ip() << ":" << client_port() << " " << pb_head_->DebugString();
             if (pb_head_->msg_type() != msg::MSG_ADD_LOG_REQ)
-                LOGINFO(ss.str().c_str());
+                LOGDEBUG(ss.str().c_str());
         }
 
         ReadCallback(pb_head_, msg);

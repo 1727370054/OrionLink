@@ -224,16 +224,19 @@ const char descriptor_table_protodef_disk_5fclient_5fgui_2eproto[] PROTOBUF_SECT
   "leInfoList\022\035\n\005files\030\004 \003(\0132\016.disk.FileInf"
   "o\"n\n\010FileTask\022\r\n\005index\030\001 \001(\005\022\020\n\010tasktime"
   "\030\006 \001(\t\022\023\n\013is_complete\030\007 \001(\010\022\016\n\006is_sec\030\010 "
-  "\001(\010\022\034\n\004file\030\t \001(\0132\016.disk.FileInfo*\316\002\n\013Fi"
+  "\001(\010\022\034\n\004file\030\t \001(\0132\016.disk.FileInfo*\313\003\n\013Fi"
   "leMsgType\022\021\n\rFILE_MSG_NONE\020\000\022\020\n\013GET_DIR_"
   "REQ\020\351\007\022\020\n\013GET_DIR_RES\020\352\007\022\024\n\017UPLOAD_FILE_"
   "REQ\020\353\007\022\024\n\017UPLOAD_FILE_RES\020\354\007\022\023\n\016SEND_SLI"
   "CE_REQ\020\355\007\022\023\n\016SEND_SLICE_RES\020\357\007\022\030\n\023UPLOAD"
   "_FILE_END_REQ\020\360\007\022\030\n\023UPLOAD_FILE_END_RES\020"
-  "\361\007\022\024\n\017DELETE_FILE_REQ\020\366\007\022\024\n\017DELETE_FILE_"
-  "RES\020\367\007\022\020\n\013NEW_DIR_REQ\020\370\007\022\020\n\013NEW_DIR_RES\020"
-  "\371\007\022\026\n\021GET_DISK_INFO_REQ\020\372\007\022\026\n\021GET_DISK_I"
-  "NFO_RES\020\373\007b\006proto3"
+  "\361\007\022\026\n\021DOWNLOAD_FILE_REQ\020\362\007\022\026\n\021DOWNLOAD_F"
+  "ILE_RES\020\363\007\022\031\n\024DOWNLOAD_FILE_BEGTIN\020\234N\022\027\n"
+  "\022DOWNLOAD_SLICE_REQ\020\364\007\022\027\n\022DOWNLOAD_SLICE"
+  "_RES\020\365\007\022\024\n\017DELETE_FILE_REQ\020\366\007\022\024\n\017DELETE_"
+  "FILE_RES\020\367\007\022\020\n\013NEW_DIR_REQ\020\370\007\022\020\n\013NEW_DIR"
+  "_RES\020\371\007\022\026\n\021GET_DISK_INFO_REQ\020\372\007\022\026\n\021GET_D"
+  "ISK_INFO_RES\020\373\007b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_disk_5fclient_5fgui_2eproto_deps[1] = {
 };
@@ -248,7 +251,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_dis
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_disk_5fclient_5fgui_2eproto_once;
 static bool descriptor_table_disk_5fclient_5fgui_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_disk_5fclient_5fgui_2eproto = {
-  &descriptor_table_disk_5fclient_5fgui_2eproto_initialized, descriptor_table_protodef_disk_5fclient_5fgui_2eproto, "disk_client_gui.proto", 938,
+  &descriptor_table_disk_5fclient_5fgui_2eproto_initialized, descriptor_table_protodef_disk_5fclient_5fgui_2eproto, "disk_client_gui.proto", 1063,
   &descriptor_table_disk_5fclient_5fgui_2eproto_once, descriptor_table_disk_5fclient_5fgui_2eproto_sccs, descriptor_table_disk_5fclient_5fgui_2eproto_deps, 6, 0,
   schemas, file_default_instances, TableStruct_disk_5fclient_5fgui_2eproto::offsets,
   file_level_metadata_disk_5fclient_5fgui_2eproto, 6, file_level_enum_descriptors_disk_5fclient_5fgui_2eproto, file_level_service_descriptors_disk_5fclient_5fgui_2eproto,
@@ -272,12 +275,17 @@ bool FileMsgType_IsValid(int value) {
     case 1007:
     case 1008:
     case 1009:
+    case 1010:
+    case 1011:
+    case 1012:
+    case 1013:
     case 1014:
     case 1015:
     case 1016:
     case 1017:
     case 1018:
     case 1019:
+    case 10012:
       return true;
     default:
       return false;

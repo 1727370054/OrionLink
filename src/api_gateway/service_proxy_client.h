@@ -40,6 +40,9 @@ public:
     /// @brief 删除一个事件 (RouterHandle)
     /// @param event 事件对象指针
     void DeleteEvent(MsgEvent* event);
+
+    bool is_find() { return is_find_; }
+    void set_is_find(bool is) { this->is_find_ = is; }
 protected:
     ServiceProxyClient();
 
@@ -48,6 +51,8 @@ private:
     /// 用指针的置作为索引，要兼容64位
     std::map<long long, MsgEvent*> callback_task_;
     std::mutex callback_task_mutex_;
+    /// 是否可以被外网发现
+    bool is_find_ = false;
 };
 
 #endif // SERVICE_PROXY_CLIENT_H

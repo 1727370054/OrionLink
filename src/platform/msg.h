@@ -33,6 +33,9 @@
 #define UPLOAD_PORT 20201
 #define UPLOAD_NAME "upload"
 
+#define DOWNLOAD_PORT 20202
+#define DOWNLOAD_NAME "download"
+
 class Msg
 {
 public:

@@ -52,7 +52,7 @@ struct TableStruct_msg_5fcomm_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[22]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[21]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -111,18 +111,15 @@ extern MsgHeadDefaultTypeInternal _MsgHead_default_instance_;
 class MsgHeart;
 class MsgHeartDefaultTypeInternal;
 extern MsgHeartDefaultTypeInternal _MsgHeart_default_instance_;
-class RegisterReq;
-class RegisterReqDefaultTypeInternal;
-extern RegisterReqDefaultTypeInternal _RegisterReq_default_instance_;
+class ServiceInfo;
+class ServiceInfoDefaultTypeInternal;
+extern ServiceInfoDefaultTypeInternal _ServiceInfo_default_instance_;
+class ServiceList;
+class ServiceListDefaultTypeInternal;
+extern ServiceListDefaultTypeInternal _ServiceList_default_instance_;
 class ServiceMap;
 class ServiceMapDefaultTypeInternal;
 extern ServiceMapDefaultTypeInternal _ServiceMap_default_instance_;
-class ServiceMap_Service;
-class ServiceMap_ServiceDefaultTypeInternal;
-extern ServiceMap_ServiceDefaultTypeInternal _ServiceMap_Service_default_instance_;
-class ServiceMap_ServiceList;
-class ServiceMap_ServiceListDefaultTypeInternal;
-extern ServiceMap_ServiceListDefaultTypeInternal _ServiceMap_ServiceList_default_instance_;
 class ServiceMap_ServiceMapEntry_DoNotUse;
 class ServiceMap_ServiceMapEntry_DoNotUseDefaultTypeInternal;
 extern ServiceMap_ServiceMapEntry_DoNotUseDefaultTypeInternal _ServiceMap_ServiceMapEntry_DoNotUse_default_instance_;
@@ -145,10 +142,9 @@ template<> ::msg::LoginRes* Arena::CreateMaybeMessage<::msg::LoginRes>(Arena*);
 template<> ::msg::MessageRes* Arena::CreateMaybeMessage<::msg::MessageRes>(Arena*);
 template<> ::msg::MsgHead* Arena::CreateMaybeMessage<::msg::MsgHead>(Arena*);
 template<> ::msg::MsgHeart* Arena::CreateMaybeMessage<::msg::MsgHeart>(Arena*);
-template<> ::msg::RegisterReq* Arena::CreateMaybeMessage<::msg::RegisterReq>(Arena*);
+template<> ::msg::ServiceInfo* Arena::CreateMaybeMessage<::msg::ServiceInfo>(Arena*);
+template<> ::msg::ServiceList* Arena::CreateMaybeMessage<::msg::ServiceList>(Arena*);
 template<> ::msg::ServiceMap* Arena::CreateMaybeMessage<::msg::ServiceMap>(Arena*);
-template<> ::msg::ServiceMap_Service* Arena::CreateMaybeMessage<::msg::ServiceMap_Service>(Arena*);
-template<> ::msg::ServiceMap_ServiceList* Arena::CreateMaybeMessage<::msg::ServiceMap_ServiceList>(Arena*);
 template<> ::msg::ServiceMap_ServiceMapEntry_DoNotUse* Arena::CreateMaybeMessage<::msg::ServiceMap_ServiceMapEntry_DoNotUse>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace msg {
@@ -2080,23 +2076,23 @@ class DirRes :
 };
 // -------------------------------------------------------------------
 
-class RegisterReq :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:msg.RegisterReq) */ {
+class ServiceInfo :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:msg.ServiceInfo) */ {
  public:
-  RegisterReq();
-  virtual ~RegisterReq();
+  ServiceInfo();
+  virtual ~ServiceInfo();
 
-  RegisterReq(const RegisterReq& from);
-  RegisterReq(RegisterReq&& from) noexcept
-    : RegisterReq() {
+  ServiceInfo(const ServiceInfo& from);
+  ServiceInfo(ServiceInfo&& from) noexcept
+    : ServiceInfo() {
     *this = ::std::move(from);
   }
 
-  inline RegisterReq& operator=(const RegisterReq& from) {
+  inline ServiceInfo& operator=(const ServiceInfo& from) {
     CopyFrom(from);
     return *this;
   }
-  inline RegisterReq& operator=(RegisterReq&& from) noexcept {
+  inline ServiceInfo& operator=(ServiceInfo&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -2114,37 +2110,37 @@ class RegisterReq :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return GetMetadataStatic().reflection;
   }
-  static const RegisterReq& default_instance();
+  static const ServiceInfo& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const RegisterReq* internal_default_instance() {
-    return reinterpret_cast<const RegisterReq*>(
-               &_RegisterReq_default_instance_);
+  static inline const ServiceInfo* internal_default_instance() {
+    return reinterpret_cast<const ServiceInfo*>(
+               &_ServiceInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     10;
 
-  friend void swap(RegisterReq& a, RegisterReq& b) {
+  friend void swap(ServiceInfo& a, ServiceInfo& b) {
     a.Swap(&b);
   }
-  inline void Swap(RegisterReq* other) {
+  inline void Swap(ServiceInfo* other) {
     if (other == this) return;
     InternalSwap(other);
   }
 
   // implements Message ----------------------------------------------
 
-  inline RegisterReq* New() const final {
-    return CreateMaybeMessage<RegisterReq>(nullptr);
+  inline ServiceInfo* New() const final {
+    return CreateMaybeMessage<ServiceInfo>(nullptr);
   }
 
-  RegisterReq* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<RegisterReq>(arena);
+  ServiceInfo* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ServiceInfo>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const RegisterReq& from);
-  void MergeFrom(const RegisterReq& from);
+  void CopyFrom(const ServiceInfo& from);
+  void MergeFrom(const ServiceInfo& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -2163,10 +2159,10 @@ class RegisterReq :
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(RegisterReq* other);
+  void InternalSwap(ServiceInfo* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "msg.RegisterReq";
+    return "msg.ServiceInfo";
   }
   private:
   inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
@@ -2194,6 +2190,7 @@ class RegisterReq :
     kNameFieldNumber = 1,
     kIpFieldNumber = 2,
     kPortFieldNumber = 3,
+    kIsFindFieldNumber = 4,
   };
   // string name = 1;
   void clear_name();
@@ -2232,7 +2229,12 @@ class RegisterReq :
   ::PROTOBUF_NAMESPACE_ID::int32 port() const;
   void set_port(::PROTOBUF_NAMESPACE_ID::int32 value);
 
-  // @@protoc_insertion_point(class_scope:msg.RegisterReq)
+  // bool is_find = 4;
+  void clear_is_find();
+  bool is_find() const;
+  void set_is_find(bool value);
+
+  // @@protoc_insertion_point(class_scope:msg.ServiceInfo)
  private:
   class _Internal;
 
@@ -2240,28 +2242,29 @@ class RegisterReq :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr ip_;
   ::PROTOBUF_NAMESPACE_ID::int32 port_;
+  bool is_find_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_msg_5fcomm_2eproto;
 };
 // -------------------------------------------------------------------
 
-class ServiceMap_Service :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:msg.ServiceMap.Service) */ {
+class ServiceList :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:msg.ServiceList) */ {
  public:
-  ServiceMap_Service();
-  virtual ~ServiceMap_Service();
+  ServiceList();
+  virtual ~ServiceList();
 
-  ServiceMap_Service(const ServiceMap_Service& from);
-  ServiceMap_Service(ServiceMap_Service&& from) noexcept
-    : ServiceMap_Service() {
+  ServiceList(const ServiceList& from);
+  ServiceList(ServiceList&& from) noexcept
+    : ServiceList() {
     *this = ::std::move(from);
   }
 
-  inline ServiceMap_Service& operator=(const ServiceMap_Service& from) {
+  inline ServiceList& operator=(const ServiceList& from) {
     CopyFrom(from);
     return *this;
   }
-  inline ServiceMap_Service& operator=(ServiceMap_Service&& from) noexcept {
+  inline ServiceList& operator=(ServiceList&& from) noexcept {
     if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -2279,37 +2282,37 @@ class ServiceMap_Service :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return GetMetadataStatic().reflection;
   }
-  static const ServiceMap_Service& default_instance();
+  static const ServiceList& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const ServiceMap_Service* internal_default_instance() {
-    return reinterpret_cast<const ServiceMap_Service*>(
-               &_ServiceMap_Service_default_instance_);
+  static inline const ServiceList* internal_default_instance() {
+    return reinterpret_cast<const ServiceList*>(
+               &_ServiceList_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     11;
 
-  friend void swap(ServiceMap_Service& a, ServiceMap_Service& b) {
+  friend void swap(ServiceList& a, ServiceList& b) {
     a.Swap(&b);
   }
-  inline void Swap(ServiceMap_Service* other) {
+  inline void Swap(ServiceList* other) {
     if (other == this) return;
     InternalSwap(other);
   }
 
   // implements Message ----------------------------------------------
 
-  inline ServiceMap_Service* New() const final {
-    return CreateMaybeMessage<ServiceMap_Service>(nullptr);
+  inline ServiceList* New() const final {
+    return CreateMaybeMessage<ServiceList>(nullptr);
   }
 
-  ServiceMap_Service* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<ServiceMap_Service>(arena);
+  ServiceList* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<ServiceList>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const ServiceMap_Service& from);
-  void MergeFrom(const ServiceMap_Service& from);
+  void CopyFrom(const ServiceList& from);
+  void MergeFrom(const ServiceList& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -2328,10 +2331,10 @@ class ServiceMap_Service :
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(ServiceMap_Service* other);
+  void InternalSwap(ServiceList* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "msg.ServiceMap.Service";
+    return "msg.ServiceList";
   }
   private:
   inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
@@ -2356,11 +2359,21 @@ class ServiceMap_Service :
   // accessors -------------------------------------------------------
 
   enum : int {
-    kNameFieldNumber = 1,
-    kIpFieldNumber = 2,
-    kPortFieldNumber = 3,
+    kServicesFieldNumber = 1,
+    kNameFieldNumber = 2,
   };
-  // string name = 1;
+  // repeated .msg.ServiceInfo services = 1;
+  int services_size() const;
+  void clear_services();
+  ::msg::ServiceInfo* mutable_services(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::msg::ServiceInfo >*
+      mutable_services();
+  const ::msg::ServiceInfo& services(int index) const;
+  ::msg::ServiceInfo* add_services();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::msg::ServiceInfo >&
+      services() const;
+
+  // string name = 2;
   void clear_name();
   const std::string& name() const;
   void set_name(const std::string& value);
@@ -2376,183 +2389,26 @@ class ServiceMap_Service :
   std::string* _internal_mutable_name();
   public:
 
-  // string ip = 2;
-  void clear_ip();
-  const std::string& ip() const;
-  void set_ip(const std::string& value);
-  void set_ip(std::string&& value);
-  void set_ip(const char* value);
-  void set_ip(const char* value, size_t size);
-  std::string* mutable_ip();
-  std::string* release_ip();
-  void set_allocated_ip(std::string* ip);
-  private:
-  const std::string& _internal_ip() const;
-  void _internal_set_ip(const std::string& value);
-  std::string* _internal_mutable_ip();
-  public:
-
-  // int32 port = 3;
-  void clear_port();
-  ::PROTOBUF_NAMESPACE_ID::int32 port() const;
-  void set_port(::PROTOBUF_NAMESPACE_ID::int32 value);
-
-  // @@protoc_insertion_point(class_scope:msg.ServiceMap.Service)
+  // @@protoc_insertion_point(class_scope:msg.ServiceList)
  private:
   class _Internal;
 
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::msg::ServiceInfo > services_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr name_;
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr ip_;
-  ::PROTOBUF_NAMESPACE_ID::int32 port_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  friend struct ::TableStruct_msg_5fcomm_2eproto;
-};
-// -------------------------------------------------------------------
-
-class ServiceMap_ServiceList :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:msg.ServiceMap.ServiceList) */ {
- public:
-  ServiceMap_ServiceList();
-  virtual ~ServiceMap_ServiceList();
-
-  ServiceMap_ServiceList(const ServiceMap_ServiceList& from);
-  ServiceMap_ServiceList(ServiceMap_ServiceList&& from) noexcept
-    : ServiceMap_ServiceList() {
-    *this = ::std::move(from);
-  }
-
-  inline ServiceMap_ServiceList& operator=(const ServiceMap_ServiceList& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline ServiceMap_ServiceList& operator=(ServiceMap_ServiceList&& from) noexcept {
-    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
-      if (this != &from) InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return GetMetadataStatic().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return GetMetadataStatic().reflection;
-  }
-  static const ServiceMap_ServiceList& default_instance();
-
-  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const ServiceMap_ServiceList* internal_default_instance() {
-    return reinterpret_cast<const ServiceMap_ServiceList*>(
-               &_ServiceMap_ServiceList_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    12;
-
-  friend void swap(ServiceMap_ServiceList& a, ServiceMap_ServiceList& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(ServiceMap_ServiceList* other) {
-    if (other == this) return;
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  inline ServiceMap_ServiceList* New() const final {
-    return CreateMaybeMessage<ServiceMap_ServiceList>(nullptr);
-  }
-
-  ServiceMap_ServiceList* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<ServiceMap_ServiceList>(arena);
-  }
-  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const ServiceMap_ServiceList& from);
-  void MergeFrom(const ServiceMap_ServiceList& from);
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  #else
-  bool MergePartialFromCodedStream(
-      ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) final;
-  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
-  ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(
-      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  inline void SharedCtor();
-  inline void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(ServiceMap_ServiceList* other);
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "msg.ServiceMap.ServiceList";
-  }
-  private:
-  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
-    return nullptr;
-  }
-  inline void* MaybeArenaPtr() const {
-    return nullptr;
-  }
-  public:
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-  private:
-  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
-    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_msg_5fcomm_2eproto);
-    return ::descriptor_table_msg_5fcomm_2eproto.file_level_metadata[kIndexInFileMessages];
-  }
-
-  public:
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kServiceFieldNumber = 1,
-  };
-  // repeated .msg.ServiceMap.Service service = 1;
-  int service_size() const;
-  void clear_service();
-  ::msg::ServiceMap_Service* mutable_service(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::msg::ServiceMap_Service >*
-      mutable_service();
-  const ::msg::ServiceMap_Service& service(int index) const;
-  ::msg::ServiceMap_Service* add_service();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::msg::ServiceMap_Service >&
-      service() const;
-
-  // @@protoc_insertion_point(class_scope:msg.ServiceMap.ServiceList)
- private:
-  class _Internal;
-
-  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::msg::ServiceMap_Service > service_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_msg_5fcomm_2eproto;
 };
 // -------------------------------------------------------------------
 
 class ServiceMap_ServiceMapEntry_DoNotUse : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<ServiceMap_ServiceMapEntry_DoNotUse, 
-    std::string, ::msg::ServiceMap_ServiceList,
+    std::string, ::msg::ServiceList,
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE,
     0 > {
 public:
   typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<ServiceMap_ServiceMapEntry_DoNotUse, 
-    std::string, ::msg::ServiceMap_ServiceList,
+    std::string, ::msg::ServiceList,
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE,
     0 > SuperType;
@@ -2569,7 +2425,7 @@ public:
   private:
   static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
     ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_msg_5fcomm_2eproto);
-    return ::descriptor_table_msg_5fcomm_2eproto.file_level_metadata[13];
+    return ::descriptor_table_msg_5fcomm_2eproto.file_level_metadata[12];
   }
 
   public:
@@ -2619,7 +2475,7 @@ class ServiceMap :
                &_ServiceMap_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    14;
+    13;
 
   friend void swap(ServiceMap& a, ServiceMap& b) {
     a.Swap(&b);
@@ -2685,8 +2541,6 @@ class ServiceMap :
 
   // nested types ----------------------------------------------------
 
-  typedef ServiceMap_Service Service;
-  typedef ServiceMap_ServiceList ServiceList;
 
   // accessors -------------------------------------------------------
 
@@ -2695,12 +2549,12 @@ class ServiceMap :
     kResponseFieldNumber = 2,
     kTypeFieldNumber = 3,
   };
-  // map<string, .msg.ServiceMap.ServiceList> service_map = 1;
+  // map<string, .msg.ServiceList> service_map = 1;
   int service_map_size() const;
   void clear_service_map();
-  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::msg::ServiceMap_ServiceList >&
+  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::msg::ServiceList >&
       service_map() const;
-  ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::msg::ServiceMap_ServiceList >*
+  ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::msg::ServiceList >*
       mutable_service_map();
 
   // .msg.MessageRes response = 2;
@@ -2726,7 +2580,7 @@ class ServiceMap :
   ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
   ::PROTOBUF_NAMESPACE_ID::internal::MapField<
       ServiceMap_ServiceMapEntry_DoNotUse,
-      std::string, ::msg::ServiceMap_ServiceList,
+      std::string, ::msg::ServiceList,
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_MESSAGE,
       0 > service_map_;
@@ -2779,7 +2633,7 @@ class GetServiceReq :
                &_GetServiceReq_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    14;
 
   friend void swap(GetServiceReq& a, GetServiceReq& b) {
     a.Swap(&b);
@@ -2926,7 +2780,7 @@ class Config :
                &_Config_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    15;
 
   friend void swap(Config& a, Config& b) {
     a.Swap(&b);
@@ -3127,7 +2981,7 @@ class LoadConfigReq :
                &_LoadConfigReq_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    17;
+    16;
 
   friend void swap(LoadConfigReq& a, LoadConfigReq& b) {
     a.Swap(&b);
@@ -3274,7 +3128,7 @@ class DirConfig :
                &_DirConfig_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    18;
+    17;
 
   friend void swap(DirConfig& a, DirConfig& b) {
     a.Swap(&b);
@@ -3414,7 +3268,7 @@ class LoadAllConfigReq :
                &_LoadAllConfigReq_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    19;
+    18;
 
   friend void swap(LoadAllConfigReq& a, LoadAllConfigReq& b) {
     a.Swap(&b);
@@ -3550,7 +3404,7 @@ class ConfigList :
                &_ConfigList_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    20;
+    19;
 
   friend void swap(ConfigList& a, ConfigList& b) {
     a.Swap(&b);
@@ -3685,7 +3539,7 @@ class GatewayConfig :
                &_GatewayConfig_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    21;
+    20;
 
   friend void swap(GatewayConfig& a, GatewayConfig& b) {
     a.Swap(&b);
@@ -5306,312 +5160,248 @@ DirRes::dirs() const {
 
 // -------------------------------------------------------------------
 
-// RegisterReq
+// ServiceInfo
 
 // string name = 1;
-inline void RegisterReq::clear_name() {
+inline void ServiceInfo::clear_name() {
   name_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline const std::string& RegisterReq::name() const {
-  // @@protoc_insertion_point(field_get:msg.RegisterReq.name)
+inline const std::string& ServiceInfo::name() const {
+  // @@protoc_insertion_point(field_get:msg.ServiceInfo.name)
   return _internal_name();
 }
-inline void RegisterReq::set_name(const std::string& value) {
+inline void ServiceInfo::set_name(const std::string& value) {
   _internal_set_name(value);
-  // @@protoc_insertion_point(field_set:msg.RegisterReq.name)
+  // @@protoc_insertion_point(field_set:msg.ServiceInfo.name)
 }
-inline std::string* RegisterReq::mutable_name() {
-  // @@protoc_insertion_point(field_mutable:msg.RegisterReq.name)
+inline std::string* ServiceInfo::mutable_name() {
+  // @@protoc_insertion_point(field_mutable:msg.ServiceInfo.name)
   return _internal_mutable_name();
 }
-inline const std::string& RegisterReq::_internal_name() const {
+inline const std::string& ServiceInfo::_internal_name() const {
   return name_.GetNoArena();
 }
-inline void RegisterReq::_internal_set_name(const std::string& value) {
+inline void ServiceInfo::_internal_set_name(const std::string& value) {
   
   name_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
 }
-inline void RegisterReq::set_name(std::string&& value) {
+inline void ServiceInfo::set_name(std::string&& value) {
   
   name_.SetNoArena(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:msg.RegisterReq.name)
+  // @@protoc_insertion_point(field_set_rvalue:msg.ServiceInfo.name)
 }
-inline void RegisterReq::set_name(const char* value) {
+inline void ServiceInfo::set_name(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   name_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:msg.RegisterReq.name)
+  // @@protoc_insertion_point(field_set_char:msg.ServiceInfo.name)
 }
-inline void RegisterReq::set_name(const char* value, size_t size) {
+inline void ServiceInfo::set_name(const char* value, size_t size) {
   
   name_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:msg.RegisterReq.name)
+  // @@protoc_insertion_point(field_set_pointer:msg.ServiceInfo.name)
 }
-inline std::string* RegisterReq::_internal_mutable_name() {
+inline std::string* ServiceInfo::_internal_mutable_name() {
   
   return name_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline std::string* RegisterReq::release_name() {
-  // @@protoc_insertion_point(field_release:msg.RegisterReq.name)
+inline std::string* ServiceInfo::release_name() {
+  // @@protoc_insertion_point(field_release:msg.ServiceInfo.name)
   
   return name_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline void RegisterReq::set_allocated_name(std::string* name) {
+inline void ServiceInfo::set_allocated_name(std::string* name) {
   if (name != nullptr) {
     
   } else {
     
   }
   name_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), name);
-  // @@protoc_insertion_point(field_set_allocated:msg.RegisterReq.name)
+  // @@protoc_insertion_point(field_set_allocated:msg.ServiceInfo.name)
 }
 
 // string ip = 2;
-inline void RegisterReq::clear_ip() {
+inline void ServiceInfo::clear_ip() {
   ip_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline const std::string& RegisterReq::ip() const {
-  // @@protoc_insertion_point(field_get:msg.RegisterReq.ip)
+inline const std::string& ServiceInfo::ip() const {
+  // @@protoc_insertion_point(field_get:msg.ServiceInfo.ip)
   return _internal_ip();
 }
-inline void RegisterReq::set_ip(const std::string& value) {
+inline void ServiceInfo::set_ip(const std::string& value) {
   _internal_set_ip(value);
-  // @@protoc_insertion_point(field_set:msg.RegisterReq.ip)
+  // @@protoc_insertion_point(field_set:msg.ServiceInfo.ip)
 }
-inline std::string* RegisterReq::mutable_ip() {
-  // @@protoc_insertion_point(field_mutable:msg.RegisterReq.ip)
+inline std::string* ServiceInfo::mutable_ip() {
+  // @@protoc_insertion_point(field_mutable:msg.ServiceInfo.ip)
   return _internal_mutable_ip();
 }
-inline const std::string& RegisterReq::_internal_ip() const {
+inline const std::string& ServiceInfo::_internal_ip() const {
   return ip_.GetNoArena();
 }
-inline void RegisterReq::_internal_set_ip(const std::string& value) {
+inline void ServiceInfo::_internal_set_ip(const std::string& value) {
   
   ip_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
 }
-inline void RegisterReq::set_ip(std::string&& value) {
+inline void ServiceInfo::set_ip(std::string&& value) {
   
   ip_.SetNoArena(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:msg.RegisterReq.ip)
+  // @@protoc_insertion_point(field_set_rvalue:msg.ServiceInfo.ip)
 }
-inline void RegisterReq::set_ip(const char* value) {
+inline void ServiceInfo::set_ip(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   ip_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:msg.RegisterReq.ip)
+  // @@protoc_insertion_point(field_set_char:msg.ServiceInfo.ip)
 }
-inline void RegisterReq::set_ip(const char* value, size_t size) {
+inline void ServiceInfo::set_ip(const char* value, size_t size) {
   
   ip_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:msg.RegisterReq.ip)
+  // @@protoc_insertion_point(field_set_pointer:msg.ServiceInfo.ip)
 }
-inline std::string* RegisterReq::_internal_mutable_ip() {
+inline std::string* ServiceInfo::_internal_mutable_ip() {
   
   return ip_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline std::string* RegisterReq::release_ip() {
-  // @@protoc_insertion_point(field_release:msg.RegisterReq.ip)
+inline std::string* ServiceInfo::release_ip() {
+  // @@protoc_insertion_point(field_release:msg.ServiceInfo.ip)
   
   return ip_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline void RegisterReq::set_allocated_ip(std::string* ip) {
+inline void ServiceInfo::set_allocated_ip(std::string* ip) {
   if (ip != nullptr) {
     
   } else {
     
   }
   ip_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ip);
-  // @@protoc_insertion_point(field_set_allocated:msg.RegisterReq.ip)
+  // @@protoc_insertion_point(field_set_allocated:msg.ServiceInfo.ip)
 }
 
 // int32 port = 3;
-inline void RegisterReq::clear_port() {
+inline void ServiceInfo::clear_port() {
   port_ = 0;
 }
-inline ::PROTOBUF_NAMESPACE_ID::int32 RegisterReq::port() const {
-  // @@protoc_insertion_point(field_get:msg.RegisterReq.port)
+inline ::PROTOBUF_NAMESPACE_ID::int32 ServiceInfo::port() const {
+  // @@protoc_insertion_point(field_get:msg.ServiceInfo.port)
   return port_;
 }
-inline void RegisterReq::set_port(::PROTOBUF_NAMESPACE_ID::int32 value) {
+inline void ServiceInfo::set_port(::PROTOBUF_NAMESPACE_ID::int32 value) {
   
   port_ = value;
-  // @@protoc_insertion_point(field_set:msg.RegisterReq.port)
+  // @@protoc_insertion_point(field_set:msg.ServiceInfo.port)
+}
+
+// bool is_find = 4;
+inline void ServiceInfo::clear_is_find() {
+  is_find_ = false;
+}
+inline bool ServiceInfo::is_find() const {
+  // @@protoc_insertion_point(field_get:msg.ServiceInfo.is_find)
+  return is_find_;
+}
+inline void ServiceInfo::set_is_find(bool value) {
+  
+  is_find_ = value;
+  // @@protoc_insertion_point(field_set:msg.ServiceInfo.is_find)
 }
 
 // -------------------------------------------------------------------
 
-// ServiceMap_Service
+// ServiceList
 
-// string name = 1;
-inline void ServiceMap_Service::clear_name() {
+// repeated .msg.ServiceInfo services = 1;
+inline int ServiceList::services_size() const {
+  return services_.size();
+}
+inline void ServiceList::clear_services() {
+  services_.Clear();
+}
+inline ::msg::ServiceInfo* ServiceList::mutable_services(int index) {
+  // @@protoc_insertion_point(field_mutable:msg.ServiceList.services)
+  return services_.Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::msg::ServiceInfo >*
+ServiceList::mutable_services() {
+  // @@protoc_insertion_point(field_mutable_list:msg.ServiceList.services)
+  return &services_;
+}
+inline const ::msg::ServiceInfo& ServiceList::services(int index) const {
+  // @@protoc_insertion_point(field_get:msg.ServiceList.services)
+  return services_.Get(index);
+}
+inline ::msg::ServiceInfo* ServiceList::add_services() {
+  // @@protoc_insertion_point(field_add:msg.ServiceList.services)
+  return services_.Add();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::msg::ServiceInfo >&
+ServiceList::services() const {
+  // @@protoc_insertion_point(field_list:msg.ServiceList.services)
+  return services_;
+}
+
+// string name = 2;
+inline void ServiceList::clear_name() {
   name_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline const std::string& ServiceMap_Service::name() const {
-  // @@protoc_insertion_point(field_get:msg.ServiceMap.Service.name)
+inline const std::string& ServiceList::name() const {
+  // @@protoc_insertion_point(field_get:msg.ServiceList.name)
   return _internal_name();
 }
-inline void ServiceMap_Service::set_name(const std::string& value) {
+inline void ServiceList::set_name(const std::string& value) {
   _internal_set_name(value);
-  // @@protoc_insertion_point(field_set:msg.ServiceMap.Service.name)
+  // @@protoc_insertion_point(field_set:msg.ServiceList.name)
 }
-inline std::string* ServiceMap_Service::mutable_name() {
-  // @@protoc_insertion_point(field_mutable:msg.ServiceMap.Service.name)
+inline std::string* ServiceList::mutable_name() {
+  // @@protoc_insertion_point(field_mutable:msg.ServiceList.name)
   return _internal_mutable_name();
 }
-inline const std::string& ServiceMap_Service::_internal_name() const {
+inline const std::string& ServiceList::_internal_name() const {
   return name_.GetNoArena();
 }
-inline void ServiceMap_Service::_internal_set_name(const std::string& value) {
+inline void ServiceList::_internal_set_name(const std::string& value) {
   
   name_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
 }
-inline void ServiceMap_Service::set_name(std::string&& value) {
+inline void ServiceList::set_name(std::string&& value) {
   
   name_.SetNoArena(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:msg.ServiceMap.Service.name)
+  // @@protoc_insertion_point(field_set_rvalue:msg.ServiceList.name)
 }
-inline void ServiceMap_Service::set_name(const char* value) {
+inline void ServiceList::set_name(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   name_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:msg.ServiceMap.Service.name)
+  // @@protoc_insertion_point(field_set_char:msg.ServiceList.name)
 }
-inline void ServiceMap_Service::set_name(const char* value, size_t size) {
+inline void ServiceList::set_name(const char* value, size_t size) {
   
   name_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:msg.ServiceMap.Service.name)
+  // @@protoc_insertion_point(field_set_pointer:msg.ServiceList.name)
 }
-inline std::string* ServiceMap_Service::_internal_mutable_name() {
+inline std::string* ServiceList::_internal_mutable_name() {
   
   return name_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline std::string* ServiceMap_Service::release_name() {
-  // @@protoc_insertion_point(field_release:msg.ServiceMap.Service.name)
+inline std::string* ServiceList::release_name() {
+  // @@protoc_insertion_point(field_release:msg.ServiceList.name)
   
   return name_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
-inline void ServiceMap_Service::set_allocated_name(std::string* name) {
+inline void ServiceList::set_allocated_name(std::string* name) {
   if (name != nullptr) {
     
   } else {
     
   }
   name_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), name);
-  // @@protoc_insertion_point(field_set_allocated:msg.ServiceMap.Service.name)
-}
-
-// string ip = 2;
-inline void ServiceMap_Service::clear_ip() {
-  ip_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-inline const std::string& ServiceMap_Service::ip() const {
-  // @@protoc_insertion_point(field_get:msg.ServiceMap.Service.ip)
-  return _internal_ip();
-}
-inline void ServiceMap_Service::set_ip(const std::string& value) {
-  _internal_set_ip(value);
-  // @@protoc_insertion_point(field_set:msg.ServiceMap.Service.ip)
-}
-inline std::string* ServiceMap_Service::mutable_ip() {
-  // @@protoc_insertion_point(field_mutable:msg.ServiceMap.Service.ip)
-  return _internal_mutable_ip();
-}
-inline const std::string& ServiceMap_Service::_internal_ip() const {
-  return ip_.GetNoArena();
-}
-inline void ServiceMap_Service::_internal_set_ip(const std::string& value) {
-  
-  ip_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
-}
-inline void ServiceMap_Service::set_ip(std::string&& value) {
-  
-  ip_.SetNoArena(
-    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:msg.ServiceMap.Service.ip)
-}
-inline void ServiceMap_Service::set_ip(const char* value) {
-  GOOGLE_DCHECK(value != nullptr);
-  
-  ip_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:msg.ServiceMap.Service.ip)
-}
-inline void ServiceMap_Service::set_ip(const char* value, size_t size) {
-  
-  ip_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:msg.ServiceMap.Service.ip)
-}
-inline std::string* ServiceMap_Service::_internal_mutable_ip() {
-  
-  return ip_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-inline std::string* ServiceMap_Service::release_ip() {
-  // @@protoc_insertion_point(field_release:msg.ServiceMap.Service.ip)
-  
-  return ip_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-inline void ServiceMap_Service::set_allocated_ip(std::string* ip) {
-  if (ip != nullptr) {
-    
-  } else {
-    
-  }
-  ip_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ip);
-  // @@protoc_insertion_point(field_set_allocated:msg.ServiceMap.Service.ip)
-}
-
-// int32 port = 3;
-inline void ServiceMap_Service::clear_port() {
-  port_ = 0;
-}
-inline ::PROTOBUF_NAMESPACE_ID::int32 ServiceMap_Service::port() const {
-  // @@protoc_insertion_point(field_get:msg.ServiceMap.Service.port)
-  return port_;
-}
-inline void ServiceMap_Service::set_port(::PROTOBUF_NAMESPACE_ID::int32 value) {
-  
-  port_ = value;
-  // @@protoc_insertion_point(field_set:msg.ServiceMap.Service.port)
-}
-
-// -------------------------------------------------------------------
-
-// ServiceMap_ServiceList
-
-// repeated .msg.ServiceMap.Service service = 1;
-inline int ServiceMap_ServiceList::service_size() const {
-  return service_.size();
-}
-inline void ServiceMap_ServiceList::clear_service() {
-  service_.Clear();
-}
-inline ::msg::ServiceMap_Service* ServiceMap_ServiceList::mutable_service(int index) {
-  // @@protoc_insertion_point(field_mutable:msg.ServiceMap.ServiceList.service)
-  return service_.Mutable(index);
-}
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::msg::ServiceMap_Service >*
-ServiceMap_ServiceList::mutable_service() {
-  // @@protoc_insertion_point(field_mutable_list:msg.ServiceMap.ServiceList.service)
-  return &service_;
-}
-inline const ::msg::ServiceMap_Service& ServiceMap_ServiceList::service(int index) const {
-  // @@protoc_insertion_point(field_get:msg.ServiceMap.ServiceList.service)
-  return service_.Get(index);
-}
-inline ::msg::ServiceMap_Service* ServiceMap_ServiceList::add_service() {
-  // @@protoc_insertion_point(field_add:msg.ServiceMap.ServiceList.service)
-  return service_.Add();
-}
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::msg::ServiceMap_Service >&
-ServiceMap_ServiceList::service() const {
-  // @@protoc_insertion_point(field_list:msg.ServiceMap.ServiceList.service)
-  return service_;
+  // @@protoc_insertion_point(field_set_allocated:msg.ServiceList.name)
 }
 
 // -------------------------------------------------------------------
@@ -5620,19 +5410,19 @@ ServiceMap_ServiceList::service() const {
 
 // ServiceMap
 
-// map<string, .msg.ServiceMap.ServiceList> service_map = 1;
+// map<string, .msg.ServiceList> service_map = 1;
 inline int ServiceMap::service_map_size() const {
   return service_map_.size();
 }
 inline void ServiceMap::clear_service_map() {
   service_map_.Clear();
 }
-inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::msg::ServiceMap_ServiceList >&
+inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::msg::ServiceList >&
 ServiceMap::service_map() const {
   // @@protoc_insertion_point(field_map:msg.ServiceMap.service_map)
   return service_map_.GetMap();
 }
-inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::msg::ServiceMap_ServiceList >*
+inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, ::msg::ServiceList >*
 ServiceMap::mutable_service_map() {
   // @@protoc_insertion_point(field_mutable_map:msg.ServiceMap.service_map)
   return service_map_.MutableMap();
@@ -6462,8 +6252,6 @@ inline void GatewayConfig::set_server_port(::PROTOBUF_NAMESPACE_ID::int32 value)
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

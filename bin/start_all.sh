@@ -6,3 +6,4 @@ start_auth
 start_log
 start_dir_service
 start_upload_service
+start_download_service

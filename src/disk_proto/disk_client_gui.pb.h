@@ -95,6 +95,11 @@ enum FileMsgType : int {
   SEND_SLICE_RES = 1007,
   UPLOAD_FILE_END_REQ = 1008,
   UPLOAD_FILE_END_RES = 1009,
+  DOWNLOAD_FILE_REQ = 1010,
+  DOWNLOAD_FILE_RES = 1011,
+  DOWNLOAD_FILE_BEGTIN = 10012,
+  DOWNLOAD_SLICE_REQ = 1012,
+  DOWNLOAD_SLICE_RES = 1013,
   DELETE_FILE_REQ = 1014,
   DELETE_FILE_RES = 1015,
   NEW_DIR_REQ = 1016,
@@ -106,7 +111,7 @@ enum FileMsgType : int {
 };
 bool FileMsgType_IsValid(int value);
 constexpr FileMsgType FileMsgType_MIN = FILE_MSG_NONE;
-constexpr FileMsgType FileMsgType_MAX = GET_DISK_INFO_RES;
+constexpr FileMsgType FileMsgType_MAX = DOWNLOAD_FILE_BEGTIN;
 constexpr int FileMsgType_ARRAYSIZE = FileMsgType_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* FileMsgType_descriptor();

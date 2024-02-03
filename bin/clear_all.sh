@@ -1,9 +1,5 @@
 #!/bin/bash
-stop_register_server
-stop_config_server
-stop_api_gateway
-stop_auth
-stop_log
+./stop_all.sh
 cd ../src/platform
 make uninstall
 
@@ -32,6 +28,9 @@ cd ../config_client
 make uninstall
 
 cd ../upload_service
+make uninstall
+
+cd ../download_service
 make uninstall
 
 cd ../disk_proto

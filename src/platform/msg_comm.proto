@@ -117,35 +117,39 @@ message DirRes
 }
 
 // 服务注册请求 MSG_REGISTER_REQ
-message RegisterReq
+/*message RegisterReq
 {
 	string name = 1;			/// 微服务名称
 	string ip = 2;				/// 微服务ip
 	int32 port = 3;				/// 微服务端口
-}
+}*/
 
 enum ServiceType
 {
-	ONE = 0;				/// 只取一类服务
-	ALL = 1;				/// 获取所有服务
+	ONE = 0;					/// 只取一类服务
+	ALL = 1;					/// 获取所有服务
+}
+
+// 服务注册请求 MSG_REGISTER_REQ
+message ServiceInfo
+{
+	string name = 1;
+	string ip = 2;
+	int32 port = 3;
+	bool is_find = 4;			/// 是否可以被外网发现，默认不可以
+}
+
+message ServiceList
+{
+	repeated ServiceInfo services = 1;
+	string name = 2;
 }
 
 /// 微服务列表
 message ServiceMap
 {
-	message Service
-	{
-		string name = 1;		/// 微服务名称
-		string ip = 2;			/// 微服务ip
-		int32 port = 3;			/// 微服务端口
-	}
-	message ServiceList
-	{
-		repeated Service service = 1;
-	}
 	map<string, ServiceList> service_map = 1;
 	MessageRes response = 2;
-
 	ServiceType type = 3;
 }
 

@@ -24,7 +24,7 @@ void RegisterHandle::RegisterReq(msg::MsgHead* head, Msg* msg)
     /// 回应的消息
     msg::MessageRes response;
 
-    msg::RegisterReq request;
+    msg::ServiceInfo request;
     if (!request.ParseFromArray(msg->data, msg->size))
     {
         string error = "register request parse failed!";
@@ -79,10 +79,10 @@ void RegisterHandle::RegisterReq(msg::MsgHead* head, Msg* msg)
         auto service_list = smap->find(service_name);
         if (service_list == smap->end())
         {
-            (*smap)[service_name] = ServiceMap::ServiceList();
+            (*smap)[service_name] = ServiceList();
             service_list = smap->find(service_name);
         }
-        auto services = service_list->second.mutable_service();
+        auto services = service_list->second.mutable_services();
         /// 查找该请求的微服务信息ip和port是否已经被注册过了
         for (const auto& service : (*services))
         {
@@ -100,10 +100,11 @@ void RegisterHandle::RegisterReq(msg::MsgHead* head, Msg* msg)
         }
 
         /// 添加新的微服务
-        auto service = service_list->second.add_service();
+        auto service = service_list->second.add_services();
         service->set_name(service_name);
         service->set_ip(service_ip);
         service->set_port(service_port);
+        service->set_is_find(request.is_find());
     }
     
     stringstream info;

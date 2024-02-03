@@ -246,6 +246,8 @@ int ComTask::Read(void *data, int size)
         return 0;
     }
     int len = bufferevent_read(bev_, data, size);
+    if (len > 0)
+        recv_data_size_ += len;
     return len;
 }
 

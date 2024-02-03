@@ -23,9 +23,13 @@ enum MsgType
 	MSG_DEL_CONFIG_RES = 16;		/// 删除配置的响应 MessageRes
 	MSG_ADD_USER_REQ  = 17;			/// 添加用户请求 AddUserReq
 	MSG_ADD_USER_RES = 18;			/// 添加用户响应 MessageRes
-
-	MSG_ADD_LOG_REQ = 210;			/// 添加日志 AddLogReq，不做响应
-
+	MSG_CHANGE_PASSWORD_REQ = 19;	/// ChangePasswordReq
+	MSG_CHANGE_PASSWORD_RES = 208;	/// MessageRes
+	MSG_CHECK_TOKEN_REQ = 209;		/// MessageRes
+	MSG_CHECK_TOKEN_RES = 210;		///	MessageRes
+	MSG_ADD_LOG_REQ = 211;			/// 添加日志 AddLogReq，不做响应
+	MSG_GET_OUT_SERVICE_REQ = 65532;/// GetServiceReq 获取外部微服务，只能获取is_find=true的微服务 GetServiceReq
+	MSG_GET_OUT_SERVICE_RES = 65533;/// ServiceList
 	MSG_HEART_REQ = 65534;			//心跳
 	MSG_MAX_TYPE  = 65535;
 }

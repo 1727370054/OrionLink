@@ -5,21 +5,26 @@ package disk;		// 命名空间
 enum FileMsgType
 {
 	FILE_MSG_NONE = 0;
-	GET_DIR_REQ = 1001;			/// GetDirReq
-	GET_DIR_RES = 1002;			/// FileInfoList 失败走统一的失败通道
-	UPLOAD_FILE_REQ = 1003;		/// 1 FileInfo 发送上传文件指令 包含全文、断点续传及的md5(考虑秒杀) 每个客户端一次只转递一个文件，多个文件建立不同的连接
-	UPLOAD_FILE_RES = 1004;		/// 2 MessageRes 确认可以接收文件（验证权限和空间大小）
-	SEND_SLICE_REQ = 1005;		/// 3 FileSlice 发送文件片 
-	//SEND_SLICE_DATA = 1006;	///  数据片，消息内容就是具体的文件
-	SEND_SLICE_RES = 1007;		/// 4 FileSlice 包含文件信息 文件片接收成功或者失败（验证接收文件片大小和校验，失败返回原因） 
-	UPLOAD_FILE_END_REQ = 1008;	/// 5 FileInfo
-	UPLOAD_FILE_END_RES = 1009;	/// 6 MessageRes 文件接收成功或者失败（写入缓存中所有内容，验证文件接收总大小和md5，失败返回原因）
-	DELETE_FILE_REQ = 1014;		/// FileSlice 
-	DELETE_FILE_RES = 1015;		/// MessageRes
-	NEW_DIR_REQ = 1016;			/// 创建目录 GetDirReq
-	NEW_DIR_RES = 1017;			/// MessageRes
-	GET_DISK_INFO_REQ = 1018;	/// MessageRes
-	GET_DISK_INFO_RES = 1019;	/// DiskInfo
+	GET_DIR_REQ = 1001;				/// GetDirReq
+	GET_DIR_RES = 1002;				/// FileInfoList 失败走统一的失败通道
+	UPLOAD_FILE_REQ = 1003;			/// 1 FileInfo 发送上传文件指令 包含全文、断点续传及的md5(考虑秒杀) 每个客户端一次只转递一个文件，多个文件建立不同的连接
+	UPLOAD_FILE_RES = 1004;			/// 2 MessageRes 确认可以接收文件（验证权限和空间大小）
+	SEND_SLICE_REQ = 1005;			/// 3 FileSlice 发送文件片 
+	//SEND_SLICE_DATA = 1006;		///  数据片，消息内容就是具体的文件
+	SEND_SLICE_RES = 1007;			/// 4 FileSlice 包含文件信息 文件片接收成功或者失败（验证接收文件片大小和校验，失败返回原因） 
+	UPLOAD_FILE_END_REQ = 1008;		/// 5 FileInfo
+	UPLOAD_FILE_END_RES = 1009;		/// 6 MessageRes 文件接收成功或者失败（写入缓存中所有内容，验证文件接收总大小和md5，失败返回原因）
+	DOWNLOAD_FILE_REQ = 1010;		/// FileInfo 客户端发起下载请求 包含文件名和远程路径、偏移位置（用于断点续传）
+	DOWNLOAD_FILE_RES = 1011;		/// FileInfo 服务端端回应下载请求 包含文件大小和MD5校验
+	DOWNLOAD_FILE_BEGTIN = 10012;	/// 客户端开始接收文件
+	DOWNLOAD_SLICE_REQ = 1012;		/// 服务端发送文件片
+	DOWNLOAD_SLICE_RES = 1013;		/// 客户单校验文件片成功 
+	DELETE_FILE_REQ = 1014;			/// FileSlice 
+	DELETE_FILE_RES = 1015;			/// MessageRes
+	NEW_DIR_REQ = 1016;				/// 创建目录 GetDirReq
+	NEW_DIR_RES = 1017;				/// MessageRes
+	GET_DISK_INFO_REQ = 1018;		/// MessageRes
+	GET_DISK_INFO_RES = 1019;		/// DiskInfo
 }
 
 message DiskInfo

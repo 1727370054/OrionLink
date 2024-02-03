@@ -26,7 +26,8 @@ public:
     /// @param service_name 微服务名称
     /// @param ip 微服务IP地址，如果传递NULL，则采用客户端连接地址
     /// @param port 微服务端口
-    void RegisterService(const char *service_name, const char *ip, int port);
+    /// @param is_find 是否可以被外网发现
+    void RegisterService(const char *service_name, const char *ip, int port, bool is_find = false);
 
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 处理服务端注册的响应
@@ -59,7 +60,7 @@ public:
     /// @param timeout_sec 超时时间
     /// @return 微服务列表
     ///////////////////////////////////////////////////////////////////////////
-    msg::ServiceMap::ServiceList GetServices(const char *service_name, int timeout_sec);
+    msg::ServiceList GetServices(const char *service_name, int timeout_sec);
 
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 注册消息处理的回调函数
@@ -80,6 +81,9 @@ private:
     char service_name_[32] = {0};
     char service_ip_[16] = {0};
     int service_port_ = 0;
+
+    //是否可以被外网发现
+    bool is_find_ = false;
 };
 
 #endif // REGISTER_CLIENT_H

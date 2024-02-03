@@ -37,6 +37,42 @@ bool ServiceProxy::SendMsg(msg::MsgHead* head, Msg* msg, MsgEvent* event)
 
     if (!head || !msg) return false;
     string service_name = head->service_name();
+
+    /// 获取微服务，只能获取is_find=true的微服务
+    if (head->msg_type() == MSG_GET_OUT_SERVICE_REQ)
+    {
+        ServiceList services;
+        services.set_name("not find");
+
+        GetServiceReq req;
+        if (!req.ParseFromArray(msg->data, msg->size))
+        {
+            LOGERROR("ServiceProxy::SendMsg ParseFromArray error");
+            return event->SendMsg(head, &services);
+        }
+
+        service_name = req.name();
+        services.set_name(service_name);
+
+        auto client_list = client_map_.find(service_name);
+        if (client_list == client_map_.end())
+        {
+            return event->SendMsg(head, &services);
+        }
+        //找到is_find = true的; 和可以连接的
+        for (auto c : client_list->second)
+        {
+            if (!c->is_find() || !c->is_connected())
+                continue;
+            auto ser = services.add_services();
+            ser->set_ip(c->server_ip());
+            ser->set_port(c->server_port());
+        }
+        head->set_msg_type(MSG_GET_OUT_SERVICE_RES);
+        return event->SendMsg(head, &services);
+    }
+
+
     Mutex lock_guard(&client_map_mutex_);
     auto client_list = client_map_.find(service_name);
     if (client_list == client_map_.end())
@@ -110,7 +146,7 @@ void ServiceProxy::Main()
         for (const auto& m : smap)
         {
             /// 遍历单个微服务
-            for (const auto& s : m.second.service())
+            for (const auto& s : m.second.services())
             {
                 /// 此微服务是否已经连接
                 string service_name = s.name();
@@ -139,6 +175,7 @@ void ServiceProxy::Main()
                     continue;
 
                 auto proxy = ServiceProxyClient::Create(service_name);
+                proxy->set_is_find(s.is_find());
                 proxy->set_server_ip(s.ip().c_str());
                 proxy->set_server_port(s.port());
                 proxy->set_auto_delete(false); /// 设置关闭后对象自动清理

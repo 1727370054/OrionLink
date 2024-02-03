@@ -19,6 +19,7 @@ void RouterHandle::ReadCallback(msg::MsgHead* head, Msg* msg)
         return;
     }
 
+    head->set_router_id((long long)this);
     ServiceProxy::GetInstance()->SendMsg(head, msg, this);
 }
 

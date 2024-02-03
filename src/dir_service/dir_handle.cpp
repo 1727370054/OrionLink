@@ -14,8 +14,20 @@ using namespace std;
 #define DIR_ROOT "/mnt/orion_link/"
 #endif // _WIN32
 
+#define FILE_INFO_NAME_PRE ".info_"
+
 //10G
 #define USER_SPACE 10737418240
+
+static string GetUserPath(const msg::MsgHead* head)
+{
+    if (!head)
+        return "";
+    string path = DIR_ROOT;
+    path += head->username();
+    path += "/";
+    return path;
+}
 
 void DirHandle::RegisterMsgCallback()
 {
@@ -28,9 +40,7 @@ void DirHandle::RegisterMsgCallback()
 void DirHandle::GetDirReq(msg::MsgHead* head, Msg* msg)
 {
     /// 根目录 + 用户名 + 相对目录
-    string path = DIR_ROOT;
-    path += head->username();
-    path += "/";
+    string path = GetUserPath(head);
     disk::GetDirReq req;
     if (!req.ParseFromArray(msg->data, msg->size))
     {
@@ -44,6 +54,10 @@ void DirHandle::GetDirReq(msg::MsgHead* head, Msg* msg)
     {
         if (file.filename == "." || file.filename == "..")
             continue;
+        /// 过滤文件信息文件
+        string pre = file.filename.substr(0, strlen(FILE_INFO_NAME_PRE));
+        if (pre == FILE_INFO_NAME_PRE)
+            continue;
         auto info = file_list.add_files();
         info->set_filename(file.filename);
         info->set_filesize(file.filesize);
@@ -56,9 +70,7 @@ void DirHandle::GetDirReq(msg::MsgHead* head, Msg* msg)
 
 void DirHandle::NewDirReq(msg::MsgHead* head, Msg* msg)
 {
-    string path = DIR_ROOT;
-    path += head->username();
-    path += "/";
+    string path = GetUserPath(head);
     disk::GetDirReq req;
     if (!req.ParseFromArray(msg->data, msg->size))
     {
@@ -77,9 +89,7 @@ void DirHandle::NewDirReq(msg::MsgHead* head, Msg* msg)
 
 void DirHandle::DeleteFileReq(msg::MsgHead* head, Msg* msg)
 {
-    string path = DIR_ROOT;
-    path += head->username();
-    path += "/";
+    string path = GetUserPath(head);
     disk::FileInfo req;
     if (!req.ParseFromArray(msg->data, msg->size))
     {
@@ -88,8 +98,13 @@ void DirHandle::DeleteFileReq(msg::MsgHead* head, Msg* msg)
     }
     path += req.filedir();
     path += "/";
+    string info_path = path;
+    info_path += FILE_INFO_NAME_PRE;
+    info_path += req.filename();
     path += req.filename();
     DelFile(path, req.is_dir());
+    /// 删除信息文件
+    DelFile(info_path, false);
 
     MessageRes res;
     res.set_return_(MessageRes::OK);

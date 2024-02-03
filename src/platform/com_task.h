@@ -118,6 +118,7 @@ public:
     bool is_connected() { return is_connected_; }
 
     long long send_data_size() { return send_data_size_; }
+    long long recv_data_size() { return recv_data_size_; }
 
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 是否开启自动清理对象(包含清理定时器资源), 会清理定时器资源(默认开启)
@@ -161,6 +162,7 @@ private:
 
     /// 已写入缓冲 Msg *msg 的大小
     long long send_data_size_ = 0;
+    long long recv_data_size_ = 0;
 
     /// SSL通信的上下文
     SSLCtx *ssl_ctx_ = nullptr;

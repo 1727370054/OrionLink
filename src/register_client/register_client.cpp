@@ -15,6 +15,7 @@ static mutex service_map_mutex;
 
 RegisterClient::RegisterClient()
 {
+    set_service_name(REGISTER_NAME);
 }
 
 RegisterClient::~RegisterClient()
@@ -65,9 +66,9 @@ msg::ServiceMap *RegisterClient::GetAllServiceList()
     return client_map;
 }
 
-msg::ServiceMap::ServiceList RegisterClient::GetServices(const char *service_name, int timeout_sec)
+msg::ServiceList RegisterClient::GetServices(const char *service_name, int timeout_sec)
 {
-    msg::ServiceMap::ServiceList list;
+    msg::ServiceList list;
     /// 10毫秒判断一次
     int total_count = timeout_sec * 100;
     int count = 0;
@@ -234,15 +235,17 @@ void RegisterClient::ConnectCallback()
 {
     /// 发送注册消息
     LOGDEBUG("注册中心客户端连接成功，开始发送注册请求");
-    RegisterReq request;
+    ServiceInfo request;
     request.set_name(service_name_);
     request.set_ip(service_ip_);
     request.set_port(service_port_);
+    request.set_is_find(is_find_);
     SendMsg(MSG_REGISTER_REQ, &request);
 }
 
-void RegisterClient::RegisterService(const char *service_name, const char *ip, int port)
+void RegisterClient::RegisterService(const char *service_name, const char *ip, int port, bool is_find)
 {
+    is_find_ = is_find;
     RegisterClient::RegisterMsgCallback();
     if (service_name)
         strcpy(service_name_, service_name);

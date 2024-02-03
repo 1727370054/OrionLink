@@ -34,13 +34,13 @@ int main(int argc, char*argv[])
     /// 连接配置中心，获取配置(只取第一个配置中心的IP)
     auto confs = RegisterClient::GetInstance()->GetServices(CONFIG_NAME, 5);
     LOGDEBUG(confs.DebugString());
-    if (confs.service_size() <= 0)
+    if (confs.services_size() <= 0)
     {
         LOGERROR("can`t find the config service");
     }
     else
     {
-        auto conf = confs.service()[0];
+        auto conf = confs.services()[0];
         static GatewayConfig config;
         int ret = ConfigClient::GetInstance()->StartGetConf(conf.ip().c_str(), conf.port(), 
             0, service.server_port(), &config);
