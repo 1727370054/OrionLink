@@ -22,9 +22,9 @@ void ConfigTimer()
 		/// 从注册中心获取配置中心的IP的端口
 		auto confs = REG->GetServices(CONFIG_NAME, 2);
 		cout << confs.DebugString() << endl;
-		if (confs.service_size() <= 0)
+		if (confs.services_size() <= 0)
 			return;
-		auto conf = confs.service()[0];
+		auto conf = confs.services()[0];
 		if (conf.ip().empty() || conf.port() <= 0)
 			return;
 
