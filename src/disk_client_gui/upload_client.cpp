@@ -20,9 +20,11 @@ void UploadClient::ConnectCallback()
     cout << "UploadClient::ConnectCallback" << endl;
 }
 
-bool UploadClient::set_file_info(disk::FileInfo file_info)
+bool UploadClient::set_file_info(disk::FileInfo& file_info)
 {
     file_info_ = file_info;
+    if (file_info.filedir() == "")
+        file_info_.set_filedir("");
     ifs_.open(file_info.local_path(), ios::binary);
     if (!ifs_.is_open())
         return false;
@@ -77,7 +79,7 @@ void UploadClient::UploadFileEndRes(msg::MsgHead* head, Msg* msg)
     cout << "UploadClient::UploadFileEndRes" << endl;
     iFileManager::GetInstance()->RefreshDir();
     iFileManager::GetInstance()->UploadEnd(task_id);
-	ifs_.close();
+    ifs_.close();
     //任务完成刷新界面
     ClearTimer();
     Close();

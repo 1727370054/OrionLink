@@ -524,6 +524,8 @@ public:
         QObject::connect(taskpushButton, SIGNAL(clicked()), DiskClientGUI, SLOT(TaskTab()));
         QObject::connect(upaction, SIGNAL(triggered()), DiskClientGUI, SLOT(Upload()));
         QObject::connect(deleteaction, SIGNAL(triggered()), DiskClientGUI, SLOT(Delete()));
+        QObject::connect(downpushButton, SIGNAL(clicked()), DiskClientGUI, SLOT(Download()));
+        QObject::connect(downaction, SIGNAL(triggered()), DiskClientGUI, SLOT(Download()));
 
         downpushButton->setDefault(false);
         upButton->setDefault(false);

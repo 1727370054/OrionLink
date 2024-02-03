@@ -95,17 +95,36 @@ font: 9pt &quot;黑体&quot;;</string>
      <x>530</x>
      <y>21</y>
      <width>261</width>
-     <height>8</height>
+     <height>10</height>
     </rect>
    </property>
    <property name="layoutDirection">
     <enum>Qt::LeftToRight</enum>
    </property>
    <property name="styleSheet">
-    <string notr="true"/>
+    <string notr="true">QProgressBar {
+      border: 2px solid grey;
+      border-radius: 2px;
+	  
+	color: rgb(255, 0, 128);
+	  font: 10pt &quot;楷体&quot;;
+  }
+
+QProgressBar::chunk {
+      background-color: #05B8CC;
+  }</string>
    </property>
    <property name="value">
     <number>24</number>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+   <property name="textDirection">
+    <enum>QProgressBar::TopToBottom</enum>
    </property>
   </widget>
  </widget>

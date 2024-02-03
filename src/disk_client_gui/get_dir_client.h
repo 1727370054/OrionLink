@@ -32,13 +32,21 @@ public:
 
     void NewDirRes(msg::MsgHead* head, Msg* msg);
 
-    void DeleteFileReq(disk::FileInfo file_info);
+    void DeleteFileReq(disk::FileInfo& file_info);
 
     void DeleteFileRes(msg::MsgHead* head, Msg* msg);
 
     void GetDiskInfoReq();
 
     void GetDiskInfoRes(msg::MsgHead* head, Msg* msg);
+
+    //定时器获取上传和下载服务器列表
+    virtual void TimerCallback() override;
+
+    /// @brief 获取上传和下载的服务器列表
+    void GetService();
+
+    void GetServiceRes(msg::MsgHead* head,Msg* msg);
 private:
     GetDirClient();
     GetDirClient(const GetDirClient&) = delete;

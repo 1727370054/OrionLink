@@ -18,7 +18,7 @@ void TaskItemGUI::SetTask(disk::FileTask task)
 {
     auto file = task.file();
 
-    //任务事件
+    //任务时间
     ui->filetime->setText(task.tasktime().c_str());
 
     //文件名

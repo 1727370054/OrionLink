@@ -33,6 +33,7 @@ public:
 private:
     void triggerItemChanged(QString filename);
 
+    std::set<int> GetSelectRow();
 public slots:
     void Refresh();
     void RefreshData(disk::FileInfoList file_list, std::string cur_dir);
@@ -50,6 +51,8 @@ public slots:
     void RefreshDiskInfo(disk::DiskInfo info);
 
     void Upload();
+
+    void Download();
 
     void Checkall();
 

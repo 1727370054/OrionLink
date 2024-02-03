@@ -20,9 +20,9 @@ public:
         upload_client->set_auto_delete(false);
         upload_client->set_auto_connect(false);
         upload_client->set_timer_ms(100);
-       /* SSLCtx* ssl_ctx_ = new SSLCtx();
-        ssl_ctx_->InitClient();
-        upload_client->set_ssl_ctx(ssl_ctx_);*/
+        //SSLCtx* ssl_ctx_ = new SSLCtx();
+        //ssl_ctx_->InitClient();
+        //upload_client->set_ssl_ctx(ssl_ctx_);
         return upload_client;
     }
 
@@ -50,7 +50,7 @@ public:
 
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 
-    bool set_file_info(disk::FileInfo file_info);
+    bool set_file_info(disk::FileInfo& file_info);
 
     int task_id = 0;
 private:

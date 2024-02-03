@@ -47,10 +47,12 @@ DiskClientGUI::DiskClientGUI(LoginGUI* login_gui, iFileManager* f, QWidget *pare
     qRegisterMetaType<disk::FileInfoList>("disk::FileInfoList");
     qRegisterMetaType<disk::DiskInfo>("disk::DiskInfo");
     qRegisterMetaType<disk::FileTask>("disk::FileTask");
-
+    qRegisterMetaType<std::list<disk::FileTask>>("std::list<disk::FileTask>");
+    
     ui->username_label->setText(ifm_->login_info().username().c_str());
 
     connect(ifm_, &iFileManager::RefreshUploadTask, task_gui, &TaskListGUI::RefreshUploadTask);
+    connect(ifm_, &iFileManager::RefreshDownloadTask, task_gui, &TaskListGUI::RefreshDownloadTask);
     connect(ifm_, &iFileManager::RefreshData, this, &DiskClientGUI::RefreshData);
     connect(ifm_, &iFileManager::RefreshDiskInfo, this, &DiskClientGUI::RefreshDiskInfo);
     Refresh();
@@ -208,6 +210,35 @@ void DiskClientGUI::triggerItemChanged(QString filename)
     }
 }
 
+std::set<int> DiskClientGUI::GetSelectRow()
+{
+    auto tab = ui->filetableWidget;
+    QItemSelectionModel* selectionModel = ui->filetableWidget->selectionModel();
+    QModelIndexList selectedIndexes = selectionModel->selectedRows();
+    int row_count = tab->rowCount();
+    std::set<int> rows; // 使用集合来避免重复行
+
+    // 首先处理所有选中的行
+    for (const auto& index : selectedIndexes)
+    {
+        rows.insert(index.row());
+    }
+
+    for (int i = 0; i < row_count; i++)
+    {
+        auto w = tab->cellWidget(i, 0);
+        if (!w) continue;
+        auto check = (QCheckBox*)w->layout()->itemAt(0)->widget();
+        if (!check) continue;
+        if (check->isChecked())
+        {
+            rows.insert(i);
+        }
+    }
+
+    return rows;
+}
+
 void DiskClientGUI::Checkall()
 {
     auto tab = ui->filetableWidget;
@@ -252,7 +283,8 @@ void DiskClientGUI::Back()
 
 void DiskClientGUI::Root()
 {
-    ifm_->GetDir("");
+    string root = "";
+    ifm_->GetDir(root);
 }
 
 void DiskClientGUI::DoubleClicked(int row, int column)
@@ -283,31 +315,8 @@ void DiskClientGUI::DoubleClicked(int row, int column)
 void DiskClientGUI::Delete()
 {
     auto tab = ui->filetableWidget;
-    QItemSelectionModel* selectionModel = ui->filetableWidget->selectionModel();
-    QModelIndexList selectedIndexes = selectionModel->selectedRows();
-    int row_count = tab->rowCount();
-    std::set<int> rows; // 使用集合来避免重复行
-    int count = 0;
-
-    // 首先处理所有选中的行
-    for (const auto& index : selectedIndexes)
-    {
-        rows.insert(index.row());
-    }
-
-    for (int i = 0; i < row_count; i++)
-    {
-        auto w = tab->cellWidget(i, 0);
-        if (!w) continue;
-        auto check = (QCheckBox*)w->layout()->itemAt(0)->widget();
-        if (!check) continue;
-        if (check->isChecked())
-        {
-            rows.insert(i);
-        }
-    }
-
-    count = rows.size();
+    std::set<int> rows = GetSelectRow();
+    int count = rows.size();
 
     if (count == 0)
     {
@@ -372,6 +381,7 @@ void DiskClientGUI::Upload()
     if (dialog.exec() != QDialog::Accepted) return;
     QStringList file_paths = dialog.selectedFiles();
 
+    task_gui->SetUpButtonChecked();
     for (const auto file_path : file_paths)
     {
         QFileInfo file_info(file_path);
@@ -380,6 +390,42 @@ void DiskClientGUI::Upload()
         task.set_filedir(remote_dir_);
         task.set_local_path(file_path.toLocal8Bit());
         ifm_->UploadFile(task);
+    }
+}
+
+void DiskClientGUI::Download()
+{
+    auto tab = ui->filetableWidget;
+    std::set<int> rows = GetSelectRow();
+    int count = rows.size();
+
+    if (count == 0)
+    {
+        MyMessageBox::critical(this, QString::fromLocal8Bit("请选择需要下载的文件"),
+            QString::fromLocal8Bit("系统提示"), MyMessageBox::Close);
+        return;
+    }
+
+    //获取下载路径
+    QString localpath = QFileDialog::getExistingDirectory(this, QString::fromLocal8Bit("请选择下载路径"));
+    if (localpath.isEmpty())
+        return;
+
+    task_gui->SetDownButtonChecked();
+    for (auto row : rows)
+    {
+        this_thread::sleep_for(4ms);
+        disk::FileInfo task;
+        //获取选择的文件名
+        auto item = tab->item(row, 1);
+        string filename = item->text().toLocal8Bit();
+        
+        task.set_filename(filename);
+        task.set_filedir(remote_dir_);
+        if (localpath[localpath.size() - 1] != "/" && localpath[localpath.size() - 1] != "\\")
+            localpath += "/";
+        task.set_local_path(localpath.toStdString() + filename);
+        ifm_->DownloadFile(task);
     }
 }
 

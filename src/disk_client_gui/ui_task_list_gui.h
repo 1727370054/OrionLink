@@ -28,8 +28,8 @@ public:
     QPushButton *upButton;
     QPushButton *okButton;
     QLabel *downlabel;
-    QLabel *uplabel;
     QLabel *oklabel;
+    QLabel *uplabel;
     QTableWidget *tasktableWidget;
 
     void setupUi(QWidget *TaskListGUI)
@@ -44,7 +44,7 @@ public:
         backwidget->setStyleSheet(QString::fromUtf8("background-color: rgb(240, 240, 240);"));
         leftwidget = new QWidget(backwidget);
         leftwidget->setObjectName(QString::fromUtf8("leftwidget"));
-        leftwidget->setGeometry(QRect(0, -10, 160, 621));
+        leftwidget->setGeometry(QRect(0, -10, 171, 621));
         leftwidget->setStyleSheet(QString::fromUtf8("\n"
 "\n"
 "QPushButton:checked {\n"
@@ -64,26 +64,26 @@ public:
         downButton = new QPushButton(leftwidget);
         downButton->setObjectName(QString::fromUtf8("downButton"));
         downButton->setEnabled(true);
-        downButton->setGeometry(QRect(0, 4, 160, 40));
+        downButton->setGeometry(QRect(0, 4, 171, 40));
         downButton->setStyleSheet(QString::fromUtf8("qproperty-icon: url(:/XMSDiskClientGui/Resources/img/down1.png) off, url(:/XMSDiskClientGui/Resources/img/down2.png) on;"));
         downButton->setCheckable(true);
-        downButton->setChecked(false);
+        downButton->setChecked(true);
         downButton->setAutoExclusive(true);
         downButton->setAutoDefault(false);
         downButton->setFlat(true);
         upButton = new QPushButton(leftwidget);
         upButton->setObjectName(QString::fromUtf8("upButton"));
         upButton->setEnabled(true);
-        upButton->setGeometry(QRect(0, 42, 160, 40));
+        upButton->setGeometry(QRect(0, 42, 171, 40));
         upButton->setStyleSheet(QString::fromUtf8("qproperty-icon: url(:/XMSDiskClientGui/Resources/img/upload1.png) off, url(:/XMSDiskClientGui/Resources/img/upload2.png) on;"));
         upButton->setCheckable(true);
-        upButton->setChecked(true);
+        upButton->setChecked(false);
         upButton->setAutoExclusive(true);
         upButton->setFlat(true);
         okButton = new QPushButton(leftwidget);
         okButton->setObjectName(QString::fromUtf8("okButton"));
         okButton->setEnabled(true);
-        okButton->setGeometry(QRect(0, 84, 160, 40));
+        okButton->setGeometry(QRect(0, 84, 171, 40));
         okButton->setStyleSheet(QString::fromUtf8("qproperty-icon: url(:/XMSDiskClientGui/Resources/img/succ1.png) off, url(:/XMSDiskClientGui/Resources/img/succ2.png) on;"));
         okButton->setCheckable(true);
         okButton->setChecked(false);
@@ -91,65 +91,35 @@ public:
         okButton->setFlat(true);
         downlabel = new QLabel(leftwidget);
         downlabel->setObjectName(QString::fromUtf8("downlabel"));
-        downlabel->setGeometry(QRect(130, 10, 21, 21));
+        downlabel->setGeometry(QRect(130, 13, 41, 21));
         downlabel->setStyleSheet(QString::fromUtf8("font: 12pt \"\346\200\235\346\272\220\351\273\221\344\275\223 CN Normal\";\n"
-"color: rgb(255, 0, 4);\n"
-"background-color: rgba(0, 0, 0, 0);"));
-        uplabel = new QLabel(leftwidget);
-        uplabel->setObjectName(QString::fromUtf8("uplabel"));
-        uplabel->setGeometry(QRect(130, 50, 21, 21));
-        uplabel->setStyleSheet(QString::fromUtf8("font: 12pt \"\346\200\235\346\272\220\351\273\221\344\275\223 CN Normal\";\n"
 "color: rgb(255, 0, 4);\n"
 "background-color: rgba(0, 0, 0, 0);"));
         oklabel = new QLabel(leftwidget);
         oklabel->setObjectName(QString::fromUtf8("oklabel"));
-        oklabel->setGeometry(QRect(130, 90, 21, 21));
+        oklabel->setGeometry(QRect(130, 91, 41, 21));
         oklabel->setStyleSheet(QString::fromUtf8("font: 12pt \"\346\200\235\346\272\220\351\273\221\344\275\223 CN Normal\";\n"
 "color: rgb(255, 0, 4);\n"
 "background-color: rgba(0, 0, 0, 0);"));
+        uplabel = new QLabel(leftwidget);
+        uplabel->setObjectName(QString::fromUtf8("uplabel"));
+        uplabel->setGeometry(QRect(130, 51, 41, 21));
+        uplabel->setStyleSheet(QString::fromUtf8("font: 12pt \"\346\200\235\346\272\220\351\273\221\344\275\223 CN Normal\";\n"
+"color: rgb(255, 0, 4);\n"
+"background-color: rgba(0, 0, 0, 0);"));
+        downButton->raise();
+        okButton->raise();
+        downlabel->raise();
+        oklabel->raise();
+        upButton->raise();
+        uplabel->raise();
         tasktableWidget = new QTableWidget(backwidget);
         if (tasktableWidget->columnCount() < 1)
             tasktableWidget->setColumnCount(1);
         QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
         tasktableWidget->setHorizontalHeaderItem(0, __qtablewidgetitem);
-        if (tasktableWidget->rowCount() < 17)
-            tasktableWidget->setRowCount(17);
-        QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
-        tasktableWidget->setVerticalHeaderItem(0, __qtablewidgetitem1);
-        QTableWidgetItem *__qtablewidgetitem2 = new QTableWidgetItem();
-        tasktableWidget->setVerticalHeaderItem(1, __qtablewidgetitem2);
-        QTableWidgetItem *__qtablewidgetitem3 = new QTableWidgetItem();
-        tasktableWidget->setVerticalHeaderItem(2, __qtablewidgetitem3);
-        QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem();
-        tasktableWidget->setVerticalHeaderItem(3, __qtablewidgetitem4);
-        QTableWidgetItem *__qtablewidgetitem5 = new QTableWidgetItem();
-        tasktableWidget->setVerticalHeaderItem(4, __qtablewidgetitem5);
-        QTableWidgetItem *__qtablewidgetitem6 = new QTableWidgetItem();
-        tasktableWidget->setVerticalHeaderItem(5, __qtablewidgetitem6);
-        QTableWidgetItem *__qtablewidgetitem7 = new QTableWidgetItem();
-        tasktableWidget->setVerticalHeaderItem(6, __qtablewidgetitem7);
-        QTableWidgetItem *__qtablewidgetitem8 = new QTableWidgetItem();
-        tasktableWidget->setVerticalHeaderItem(7, __qtablewidgetitem8);
-        QTableWidgetItem *__qtablewidgetitem9 = new QTableWidgetItem();
-        tasktableWidget->setVerticalHeaderItem(8, __qtablewidgetitem9);
-        QTableWidgetItem *__qtablewidgetitem10 = new QTableWidgetItem();
-        tasktableWidget->setVerticalHeaderItem(9, __qtablewidgetitem10);
-        QTableWidgetItem *__qtablewidgetitem11 = new QTableWidgetItem();
-        tasktableWidget->setVerticalHeaderItem(10, __qtablewidgetitem11);
-        QTableWidgetItem *__qtablewidgetitem12 = new QTableWidgetItem();
-        tasktableWidget->setVerticalHeaderItem(11, __qtablewidgetitem12);
-        QTableWidgetItem *__qtablewidgetitem13 = new QTableWidgetItem();
-        tasktableWidget->setVerticalHeaderItem(12, __qtablewidgetitem13);
-        QTableWidgetItem *__qtablewidgetitem14 = new QTableWidgetItem();
-        tasktableWidget->setVerticalHeaderItem(13, __qtablewidgetitem14);
-        QTableWidgetItem *__qtablewidgetitem15 = new QTableWidgetItem();
-        tasktableWidget->setVerticalHeaderItem(14, __qtablewidgetitem15);
-        QTableWidgetItem *__qtablewidgetitem16 = new QTableWidgetItem();
-        tasktableWidget->setVerticalHeaderItem(15, __qtablewidgetitem16);
-        QTableWidgetItem *__qtablewidgetitem17 = new QTableWidgetItem();
-        tasktableWidget->setVerticalHeaderItem(16, __qtablewidgetitem17);
         tasktableWidget->setObjectName(QString::fromUtf8("tasktableWidget"));
-        tasktableWidget->setGeometry(QRect(160, 0, 841, 611));
+        tasktableWidget->setGeometry(QRect(170, 0, 831, 611));
         tasktableWidget->setMouseTracking(true);
         tasktableWidget->setTabletTracking(true);
         tasktableWidget->setFocusPolicy(Qt::NoFocus);
@@ -231,7 +201,7 @@ public:
         tasktableWidget->horizontalHeader()->setStretchLastSection(true);
         tasktableWidget->verticalHeader()->setVisible(false);
         tasktableWidget->verticalHeader()->setCascadingSectionResizes(false);
-        tasktableWidget->verticalHeader()->setDefaultSectionSize(51);
+        tasktableWidget->verticalHeader()->setDefaultSectionSize(55);
         tasktableWidget->verticalHeader()->setHighlightSections(true);
         tasktableWidget->verticalHeader()->setProperty("showSortIndicator", QVariant(false));
         tasktableWidget->verticalHeader()->setStretchLastSection(false);
@@ -241,6 +211,7 @@ public:
         QObject::connect(downButton, SIGNAL(clicked()), TaskListGUI, SLOT(DownTask()));
         QObject::connect(upButton, SIGNAL(clicked()), TaskListGUI, SLOT(UpTask()));
         QObject::connect(okButton, SIGNAL(clicked()), TaskListGUI, SLOT(OkTask()));
+        QObject::connect(downButton, SIGNAL(clicked()), TaskListGUI, SLOT(RefreshUploadTask()));
 
         downButton->setDefault(false);
         upButton->setDefault(false);
@@ -266,44 +237,10 @@ public:
         okButton->setShortcut(QString());
 #endif // QT_NO_SHORTCUT
         downlabel->setText(QApplication::translate("TaskListGUI", "(0)", nullptr));
-        uplabel->setText(QApplication::translate("TaskListGUI", "(0)", nullptr));
         oklabel->setText(QApplication::translate("TaskListGUI", "(0)", nullptr));
+        uplabel->setText(QApplication::translate("TaskListGUI", "(0)", nullptr));
         QTableWidgetItem *___qtablewidgetitem = tasktableWidget->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QApplication::translate("TaskListGUI", "\346\226\207\344\273\266\345\220\215", nullptr));
-        QTableWidgetItem *___qtablewidgetitem1 = tasktableWidget->verticalHeaderItem(0);
-        ___qtablewidgetitem1->setText(QApplication::translate("TaskListGUI", "\346\226\260\345\273\272\350\241\214", nullptr));
-        QTableWidgetItem *___qtablewidgetitem2 = tasktableWidget->verticalHeaderItem(1);
-        ___qtablewidgetitem2->setText(QApplication::translate("TaskListGUI", "\346\226\260\345\273\272\350\241\214", nullptr));
-        QTableWidgetItem *___qtablewidgetitem3 = tasktableWidget->verticalHeaderItem(2);
-        ___qtablewidgetitem3->setText(QApplication::translate("TaskListGUI", "\346\226\260\345\273\272\350\241\214", nullptr));
-        QTableWidgetItem *___qtablewidgetitem4 = tasktableWidget->verticalHeaderItem(3);
-        ___qtablewidgetitem4->setText(QApplication::translate("TaskListGUI", "\346\226\260\345\273\272\350\241\214", nullptr));
-        QTableWidgetItem *___qtablewidgetitem5 = tasktableWidget->verticalHeaderItem(4);
-        ___qtablewidgetitem5->setText(QApplication::translate("TaskListGUI", "\346\226\260\345\273\272\350\241\214", nullptr));
-        QTableWidgetItem *___qtablewidgetitem6 = tasktableWidget->verticalHeaderItem(5);
-        ___qtablewidgetitem6->setText(QApplication::translate("TaskListGUI", "\346\226\260\345\273\272\350\241\214", nullptr));
-        QTableWidgetItem *___qtablewidgetitem7 = tasktableWidget->verticalHeaderItem(6);
-        ___qtablewidgetitem7->setText(QApplication::translate("TaskListGUI", "\346\226\260\345\273\272\350\241\214", nullptr));
-        QTableWidgetItem *___qtablewidgetitem8 = tasktableWidget->verticalHeaderItem(7);
-        ___qtablewidgetitem8->setText(QApplication::translate("TaskListGUI", "\346\226\260\345\273\272\350\241\214", nullptr));
-        QTableWidgetItem *___qtablewidgetitem9 = tasktableWidget->verticalHeaderItem(8);
-        ___qtablewidgetitem9->setText(QApplication::translate("TaskListGUI", "\346\226\260\345\273\272\350\241\214", nullptr));
-        QTableWidgetItem *___qtablewidgetitem10 = tasktableWidget->verticalHeaderItem(9);
-        ___qtablewidgetitem10->setText(QApplication::translate("TaskListGUI", "\346\226\260\345\273\272\350\241\214", nullptr));
-        QTableWidgetItem *___qtablewidgetitem11 = tasktableWidget->verticalHeaderItem(10);
-        ___qtablewidgetitem11->setText(QApplication::translate("TaskListGUI", "\346\226\260\345\273\272\350\241\214", nullptr));
-        QTableWidgetItem *___qtablewidgetitem12 = tasktableWidget->verticalHeaderItem(11);
-        ___qtablewidgetitem12->setText(QApplication::translate("TaskListGUI", "\346\226\260\345\273\272\350\241\214", nullptr));
-        QTableWidgetItem *___qtablewidgetitem13 = tasktableWidget->verticalHeaderItem(12);
-        ___qtablewidgetitem13->setText(QApplication::translate("TaskListGUI", "\346\226\260\345\273\272\350\241\214", nullptr));
-        QTableWidgetItem *___qtablewidgetitem14 = tasktableWidget->verticalHeaderItem(13);
-        ___qtablewidgetitem14->setText(QApplication::translate("TaskListGUI", "\346\226\260\345\273\272\350\241\214", nullptr));
-        QTableWidgetItem *___qtablewidgetitem15 = tasktableWidget->verticalHeaderItem(14);
-        ___qtablewidgetitem15->setText(QApplication::translate("TaskListGUI", "\346\226\260\345\273\272\350\241\214", nullptr));
-        QTableWidgetItem *___qtablewidgetitem16 = tasktableWidget->verticalHeaderItem(15);
-        ___qtablewidgetitem16->setText(QApplication::translate("TaskListGUI", "\346\226\260\345\273\272\350\241\214", nullptr));
-        QTableWidgetItem *___qtablewidgetitem17 = tasktableWidget->verticalHeaderItem(16);
-        ___qtablewidgetitem17->setText(QApplication::translate("TaskListGUI", "\346\226\260\345\273\272\350\241\214", nullptr));
     } // retranslateUi
 
 };

@@ -14,6 +14,7 @@ void GetDirClient::RegisterMsgCallback()
     RegisterCallback((MsgType)NEW_DIR_RES, (MsgCBFunc)&GetDirClient::NewDirRes);
     RegisterCallback((MsgType)DELETE_FILE_RES, (MsgCBFunc)&GetDirClient::DeleteFileRes);
     RegisterCallback((MsgType)GET_DISK_INFO_RES, (MsgCBFunc)&GetDirClient::GetDiskInfoRes);
+    RegisterCallback(MSG_GET_OUT_SERVICE_RES, (MsgCBFunc)&GetDirClient::GetServiceRes);
 }
 
 void GetDirClient::GetDirReq(disk::GetDirReq& req)
@@ -34,7 +35,9 @@ void GetDirClient::GetDirRes(msg::MsgHead* head, Msg* msg)
     cout << file_list.DebugString() << endl;
 
     iFileManager::GetInstance()->RefreshData(file_list, cur_dir_);
-
+    /// 获取上传下载服务器列表
+    GetService();
+    /// 刷新磁盘空间使用情况
     GetDiskInfoReq();
 }
 
@@ -62,7 +65,7 @@ void GetDirClient::NewDirRes(msg::MsgHead* head, Msg* msg)
     SendMsg((MsgType)GET_DIR_REQ, &req);
 }
 
-void GetDirClient::DeleteFileReq(disk::FileInfo file_info)
+void GetDirClient::DeleteFileReq(disk::FileInfo& file_info)
 {
     SendMsg((MsgType)DELETE_FILE_REQ, &file_info);
 }
@@ -91,6 +94,36 @@ void GetDirClient::GetDiskInfoRes(msg::MsgHead* head, Msg* msg)
     }
 
     iFileManager::GetInstance()->RefreshDiskInfo(res);
+}
+
+void GetDirClient::TimerCallback()
+{
+    //GetService();
+}
+
+void GetDirClient::GetService()
+{
+    GetServiceReq req;
+    req.set_name(UPLOAD_NAME);
+    SendMsg(MSG_GET_OUT_SERVICE_REQ, &req);
+
+    req.set_name(DOWNLOAD_NAME);
+    SendMsg(MSG_GET_OUT_SERVICE_REQ, &req);
+}
+
+void GetDirClient::GetServiceRes(msg::MsgHead* head, Msg* msg)
+{
+    ServiceList res;
+    if (!res.ParseFromArray(msg->data, msg->size))
+    {
+        cerr << "XGetDirClient::GetServiceRes failed! ParseFromArray error" << endl;
+        return;
+    }
+
+    if (res.name() == UPLOAD_NAME)
+        iFileManager::GetInstance()->set_upload_servers(res);
+    else if (res.name() == DOWNLOAD_NAME)
+        iFileManager::GetInstance()->set_download_servers(res);
 }
 
 GetDirClient::GetDirClient()

@@ -172,9 +172,9 @@ public:
         minButton->setIconSize(QSize(81, 31));
         logo = new QLabel(frame_title);
         logo->setObjectName(QString::fromUtf8("logo"));
-        logo->setGeometry(QRect(0, -10, 71, 71));
+        logo->setGeometry(QRect(10, 0, 51, 51));
         logo->setStyleSheet(QString::fromUtf8("background-color: transparent;"));
-        logo->setPixmap(QPixmap(QString::fromUtf8(":/res/pic/logo3.png")));
+        logo->setPixmap(QPixmap(QString::fromUtf8(":/res/pic/disk_logo.png")));
         logo->setScaledContents(true);
         titlelabel = new QLabel(frame_title);
         titlelabel->setObjectName(QString::fromUtf8("titlelabel"));

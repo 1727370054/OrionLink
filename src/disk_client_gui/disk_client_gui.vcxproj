@@ -198,6 +198,7 @@
     <ClCompile Include="..\platform\msg_type.pb.cc" />
     <ClCompile Include="custom_control\message_box.cpp" />
     <ClCompile Include="disk_client_gui.cpp" />
+    <ClCompile Include="download_client.cpp" />
     <ClCompile Include="file_manager.cpp" />
     <ClCompile Include="get_dir_client.cpp" />
     <ClCompile Include="ifile_manager.cpp" />
@@ -276,6 +277,7 @@
     <ClInclude Include="..\platform\msg_type.pb.h" />
     <QtMoc Include="task_list_gui.h" />
     <QtMoc Include="task_item_gui.h" />
+    <ClInclude Include="download_client.h" />
     <ClInclude Include="ui_task_list_gui.h" />
     <ClInclude Include="upload_client.h" />
     <QtMoc Include="disk_client_gui.h" />

@@ -1,14 +1,16 @@
 ﻿#include "file_manager.h"
 #include "upload_client.h"
+#include "download_client.h"
 #include "get_dir_client.h"
 #include "disk_client_gui.pb.h"
+#include "log_client.h"
 #include "tools.h"
 
 using namespace std;
 using namespace msg;
 using namespace disk;
 
-void FileManager::GetDir(std::string root)
+void FileManager::GetDir(std::string& root)
 {
     GetDirReq req;
     req.set_root(root);
@@ -20,6 +22,7 @@ void FileManager::InitFileManager(std::string server_ip, int server_port)
 {
     GetDirClient::RegisterMsgCallback();
     UploadClient::RegisterMsgCallback();
+    DownloadClient::RegisterMsgCallback();
 
     GetDirClient::GetInstance()->set_server_ip(server_ip.c_str());
     GetDirClient::GetInstance()->set_server_port(server_port);
@@ -37,15 +40,29 @@ void FileManager::NewDir(std::string path)
     GetDirClient::GetInstance()->NewDirReq(path);
 }
 
-void FileManager::DeleteFile(disk::FileInfo file_info)
+void FileManager::DeleteFile(disk::FileInfo& file_info)
 {
     GetDirClient::GetInstance()->DeleteFileReq(file_info);
 }
 
-void FileManager::UploadFile(disk::FileInfo file_info)
+void FileManager::UploadFile(disk::FileInfo& file_info)
 {
     string ip = "127.0.0.1";
     int port = UPLOAD_PORT;
+
+    auto services = upload_servers();
+    /// 轮询使用服务器
+    if (services.services().size() > 0)
+    {
+        static int index = 0;
+        index = index % services.services().size();
+        ip = services.services().at(index).ip();
+        port = services.services().at(index).port();
+        index++;
+    }
+    stringstream ss;
+    ss << "upload server " << ip << ":" << port;
+    LOGINFO(ss.str().c_str());
 
     ifstream ifs(file_info.local_path(), ios::ate);
     if (!ifs)
@@ -68,6 +85,36 @@ void FileManager::UploadFile(disk::FileInfo file_info)
     upload_client->StartConnect();
     int task_id = AddUploadTask(file_info);
     upload_client->task_id = task_id;
+}
+
+void FileManager::DownloadFile(disk::FileInfo& file_info)
+{
+    string ip = "127.0.0.1";
+    int port = DOWNLOAD_PORT;
+
+    auto services = download_servers();
+    /// 轮询使用服务器
+    if (services.services().size() > 0)
+    {
+        static int index = 0;
+        index = index % services.services().size();
+        ip = services.services().at(index).ip();
+        port = services.services().at(index).port();
+        index++;
+    }
+    stringstream ss;
+    ss << "upload server " << ip << ":" << port;
+    LOGINFO(ss.str().c_str());
+
+    auto client = DownloadClient::Create();
+    if (client == nullptr) return;
+
+    client->set_server_ip(ip.c_str());
+    client->set_server_port(port);
+    client->set_file_info(file_info);
+    auto user = login_info();
+    client->set_login_info(&user);
+    client->StartConnect();
 }
 
 FileManager::FileManager()

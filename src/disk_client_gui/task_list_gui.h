@@ -19,10 +19,16 @@ public:
     ~TaskListGUI();
 
     void Show();
+    void SetDownButtonChecked();
+    void SetUpButtonChecked();
 public slots:
 
     void RefreshUploadTask(std::list<disk::FileTask> file_list);
+    void RefreshDownloadTask(std::list<disk::FileTask> file_list);
     void RefreshTask(std::list<disk::FileTask> file_list);
+    void OkTask();
+    void UpTask();
+    void DownTask();
 private:
     Ui::TaskListGUI* ui;
     std::list<disk::FileTask> upload_list_;

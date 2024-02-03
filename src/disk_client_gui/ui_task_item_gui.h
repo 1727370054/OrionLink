@@ -57,10 +57,23 @@ public:
         filetime->setStyleSheet(QString::fromUtf8("font: 11pt \"\351\273\221\344\275\223\";"));
         progressBar = new QProgressBar(TaskItemGUI);
         progressBar->setObjectName(QString::fromUtf8("progressBar"));
-        progressBar->setGeometry(QRect(530, 21, 261, 8));
+        progressBar->setGeometry(QRect(530, 21, 261, 10));
         progressBar->setLayoutDirection(Qt::LeftToRight);
-        progressBar->setStyleSheet(QString::fromUtf8(""));
+        progressBar->setStyleSheet(QString::fromUtf8("QProgressBar {\n"
+"      border: 2px solid grey;\n"
+"      border-radius: 2px;\n"
+"	  \n"
+"	color: rgb(255, 0, 128);\n"
+"	  font: 10pt \"\346\245\267\344\275\223\";\n"
+"  }\n"
+"\n"
+"QProgressBar::chunk {\n"
+"      background-color: #05B8CC;\n"
+"  }"));
         progressBar->setValue(24);
+        progressBar->setAlignment(Qt::AlignCenter);
+        progressBar->setOrientation(Qt::Horizontal);
+        progressBar->setTextDirection(QProgressBar::TopToBottom);
 
         retranslateUi(TaskItemGUI);
 

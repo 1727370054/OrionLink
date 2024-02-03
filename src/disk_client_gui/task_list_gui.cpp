@@ -5,11 +5,14 @@
 #include <QMouseevent>
 #include <sstream>
 #include <map>
+#include <thread>
 
 using namespace std;
 using namespace disk;
 
 static map<int, TaskItemGUI*> task_items;
+
+static int ok_task_size = 0;
 
 TaskListGUI::TaskListGUI(QWidget*parent)
     : QWidget(parent),
@@ -25,12 +28,27 @@ void TaskListGUI::RefreshUploadTask(std::list<disk::FileTask> file_list)
 {
     if (file_list.empty())
         return;
+    upload_list_ = file_list;
+
     stringstream ss;
     ss << "(" << file_list.size() << ")";
     ui->uplabel->setText(ss.str().c_str());
 
-    upload_list_ = file_list;
     if (!ui->upButton->isChecked())
+        return;
+    RefreshTask(file_list);
+}
+
+void TaskListGUI::RefreshDownloadTask(std::list<disk::FileTask> file_list)
+{
+    if (file_list.empty())return;
+    download_list_ = file_list;
+
+    stringstream ss;
+    ss << "(" << file_list.size() << ")";
+    ui->downlabel->setText(ss.str().c_str());
+
+    if (!ui->downButton->isChecked())
         return;
     RefreshTask(file_list);
 }
@@ -56,7 +74,60 @@ void TaskListGUI::RefreshTask(std::list<disk::FileTask> file_list)
         {
             task_items[task.index()]->SetTask(task);
         }
+
+        if (task.is_complete())
+        {
+            ok_task_size = download_list_.size();
+            ok_task_size += upload_list_.size();
+            stringstream ss;
+            ss << "(" << ok_task_size << ")";
+            ui->oklabel->setText(ss.str().c_str());
+        }
     }
+}
+
+void TaskListGUI::OkTask()
+{
+    ui->oklabel->hide();
+    ui->downlabel->show();
+    ui->uplabel->show();
+    auto tab = ui->tasktableWidget;
+    task_items.clear();
+    while (tab->rowCount() > 0)
+    {
+        tab->removeRow(0);
+    }
+    RefreshTask(download_list_);
+    task_items.clear();
+    RefreshTask(upload_list_);
+}
+
+void TaskListGUI::UpTask()
+{
+    ui->uplabel->hide();
+    ui->downlabel->show();
+    ui->oklabel->show();
+    auto tab = ui->tasktableWidget;
+    task_items.clear();
+    while (tab->rowCount() > 0)
+    {
+        tab->removeRow(0);
+    }
+    RefreshTask(upload_list_);
+}
+
+void TaskListGUI::DownTask()
+{
+    ui->downlabel->hide();
+    ui->uplabel->show();
+    ui->oklabel->show();
+    auto tab = ui->tasktableWidget;
+    task_items.clear();
+    while (tab->rowCount() > 0)
+    {
+        tab->removeRow(0);
+    }
+    RefreshTask(download_list_);
 }
 
 void TaskListGUI::Show()
@@ -70,5 +141,15 @@ void TaskListGUI::Show()
     size.setHeight(p->height() - pos().y());
     size.setWidth(w - tab_pos.x());
     ui->tasktableWidget->resize(size);
+}
+
+void TaskListGUI::SetDownButtonChecked()
+{
+    ui->downButton->setChecked(true);
+}
+
+void TaskListGUI::SetUpButtonChecked()
+{
+    ui->upButton->setChecked(true);
 }
 

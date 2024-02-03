@@ -33,7 +33,7 @@
      <rect>
       <x>0</x>
       <y>-10</y>
-      <width>160</width>
+      <width>171</width>
       <height>621</height>
      </rect>
     </property>
@@ -63,7 +63,7 @@ background-color: rgb(249, 250, 251);
       <rect>
        <x>0</x>
        <y>4</y>
-       <width>160</width>
+       <width>171</width>
        <height>40</height>
       </rect>
      </property>
@@ -80,7 +80,7 @@ background-color: rgb(249, 250, 251);
       <bool>true</bool>
      </property>
      <property name="checked">
-      <bool>false</bool>
+      <bool>true</bool>
      </property>
      <property name="autoExclusive">
       <bool>true</bool>
@@ -103,7 +103,7 @@ background-color: rgb(249, 250, 251);
       <rect>
        <x>0</x>
        <y>42</y>
-       <width>160</width>
+       <width>171</width>
        <height>40</height>
       </rect>
      </property>
@@ -120,7 +120,7 @@ background-color: rgb(249, 250, 251);
       <bool>true</bool>
      </property>
      <property name="checked">
-      <bool>true</bool>
+      <bool>false</bool>
      </property>
      <property name="autoExclusive">
       <bool>true</bool>
@@ -140,7 +140,7 @@ background-color: rgb(249, 250, 251);
       <rect>
        <x>0</x>
        <y>84</y>
-       <width>160</width>
+       <width>171</width>
        <height>40</height>
       </rect>
      </property>
@@ -173,26 +173,8 @@ background-color: rgb(249, 250, 251);
      <property name="geometry">
       <rect>
        <x>130</x>
-       <y>10</y>
-       <width>21</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">font: 12pt &quot;思源黑体 CN Normal&quot;;
-color: rgb(255, 0, 4);
-background-color: rgba(0, 0, 0, 0);</string>
-     </property>
-     <property name="text">
-      <string>(0)</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="uplabel">
-     <property name="geometry">
-      <rect>
-       <x>130</x>
-       <y>50</y>
-       <width>21</width>
+       <y>13</y>
+       <width>41</width>
        <height>21</height>
       </rect>
      </property>
@@ -209,8 +191,8 @@ background-color: rgba(0, 0, 0, 0);</string>
      <property name="geometry">
       <rect>
        <x>130</x>
-       <y>90</y>
-       <width>21</width>
+       <y>91</y>
+       <width>41</width>
        <height>21</height>
       </rect>
      </property>
@@ -223,13 +205,37 @@ background-color: rgba(0, 0, 0, 0);</string>
       <string>(0)</string>
      </property>
     </widget>
+    <widget class="QLabel" name="uplabel">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>51</y>
+       <width>41</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 12pt &quot;思源黑体 CN Normal&quot;;
+color: rgb(255, 0, 4);
+background-color: rgba(0, 0, 0, 0);</string>
+     </property>
+     <property name="text">
+      <string>(0)</string>
+     </property>
+    </widget>
+    <zorder>downButton</zorder>
+    <zorder>okButton</zorder>
+    <zorder>downlabel</zorder>
+    <zorder>oklabel</zorder>
+    <zorder>upButton</zorder>
+    <zorder>uplabel</zorder>
    </widget>
    <widget class="QTableWidget" name="tasktableWidget">
     <property name="geometry">
      <rect>
-      <x>160</x>
+      <x>170</x>
       <y>0</y>
-      <width>841</width>
+      <width>831</width>
       <height>611</height>
      </rect>
     </property>
@@ -382,7 +388,7 @@ border-top: none;
      <bool>false</bool>
     </attribute>
     <attribute name="verticalHeaderDefaultSectionSize">
-     <number>51</number>
+     <number>55</number>
     </attribute>
     <attribute name="verticalHeaderHighlightSections">
      <bool>true</bool>
@@ -393,91 +399,6 @@ border-top: none;
     <attribute name="verticalHeaderStretchLastSection">
      <bool>false</bool>
     </attribute>
-    <row>
-     <property name="text">
-      <string>新建行</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>新建行</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>新建行</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>新建行</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>新建行</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>新建行</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>新建行</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>新建行</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>新建行</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>新建行</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>新建行</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>新建行</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>新建行</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>新建行</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>新建行</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>新建行</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>新建行</string>
-     </property>
-    </row>
     <column>
      <property name="text">
       <string>文件名</string>
@@ -555,11 +476,29 @@ border-top: none;
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>downButton</sender>
+   <signal>clicked()</signal>
+   <receiver>TaskListGUI</receiver>
+   <slot>RefreshUploadTask()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>100</x>
+     <y>16</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>113</x>
+     <y>-26</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>Select(QModelIndex)</slot>
   <slot>DownTask()</slot>
   <slot>UpTask()</slot>
   <slot>OkTask()</slot>
+  <slot>RefreshUploadTask()</slot>
+  <slot>RefreshDownloadTask()</slot>
  </slots>
 </ui>
