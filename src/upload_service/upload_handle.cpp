@@ -13,6 +13,8 @@ using namespace disk;
 #define DIR_ROOT "/mnt/orion_link/"
 #endif // _WIN32
 
+#define FILE_INFO_NAME_PRE ".info_"
+
 void UploadHandle::RegisterMsgCallback()
 {
     RegisterCallback((MsgType)UPLOAD_FILE_REQ, (MsgCBFunc)&UploadHandle::UploadFileReq);
@@ -32,6 +34,7 @@ void UploadHandle::UploadFileReq(msg::MsgHead* head, Msg* msg)
     path += head->username();
     path += "/";
     path += cur_file_info_.filedir();
+    save_dir_ = path;
     NewDir(path);
 
     path += "/";
@@ -64,7 +67,20 @@ void UploadHandle::SendSliceReq(msg::MsgHead* head, Msg* msg)
 
 void UploadHandle::UploadFileEndReq(msg::MsgHead* head, Msg* msg)
 {
-	ofs_.close();
+    /// 缓存文件信息 .filename.info
+    string info_path = save_dir_;
+    info_path += "/";
+    info_path += FILE_INFO_NAME_PRE;
+    info_path += cur_file_info_.filename();
+    ofstream ofs;
+    ofs.open(info_path, ios::binary);
+    if (ofs.is_open())
+    {
+        cur_file_info_.SerializeToOstream(&ofs);
+        ofs.close();
+    }
+
+    ofs_.close();
     head->set_msg_type((MsgType)UPLOAD_FILE_END_RES);
     MessageRes res;
     res.set_return_(MessageRes::OK);

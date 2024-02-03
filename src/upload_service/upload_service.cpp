@@ -29,7 +29,7 @@ void UploadService::main(int argc, char* argv[])
     /// 设置注册中心的IP和端口
     RegisterClient::GetInstance()->set_server_ip(register_ip.c_str());
     RegisterClient::GetInstance()->set_server_port(register_port);
-    RegisterClient::GetInstance()->RegisterService(UPLOAD_NAME, NULL, port);
+    RegisterClient::GetInstance()->RegisterService(UPLOAD_NAME, NULL, port, true);
 }
 
 ServiceHandle* UploadService::CreateServiceHandle()
