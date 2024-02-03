@@ -7,7 +7,7 @@ INCLUDE_PATH=/usr/include/orion_link
 
 TARGET=download_service
 CPPFLAGS= -I$(INCLUDE_PATH)
-LIBS=-levent -lpthread -lplatform -lprotobuf -lssl 
+LIBS=-levent -lpthread -lplatform -lprotobuf -lssl -ldisk_pb
 INSTALL_PATH=/usr/bin/
 
 WATCH=watch_$(TARGET)
