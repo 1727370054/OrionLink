@@ -196,10 +196,12 @@
     <ClCompile Include="..\disk_proto\disk_client_gui.pb.cc" />
     <ClCompile Include="..\platform\msg_comm.pb.cc" />
     <ClCompile Include="..\platform\msg_type.pb.cc" />
+    <ClCompile Include="add_user.cpp" />
     <ClCompile Include="custom_control\message_box.cpp" />
     <ClCompile Include="disk_client_gui.cpp" />
     <ClCompile Include="download_client.cpp" />
     <ClCompile Include="file_manager.cpp" />
+    <ClCompile Include="file_password.cpp" />
     <ClCompile Include="get_dir_client.cpp" />
     <ClCompile Include="ifile_manager.cpp" />
     <ClCompile Include="main.cpp" />
@@ -230,7 +232,9 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <QtUic Include="add_user.ui" />
     <QtUic Include="disk_client_gui.ui" />
+    <QtUic Include="file_password.ui" />
     <QtUic Include="login_gui.ui" />
     <QtUic Include="task_item_gui.ui" />
     <QtUic Include="task_list_gui.ui" />
@@ -277,7 +281,10 @@
     <ClInclude Include="..\platform\msg_type.pb.h" />
     <QtMoc Include="task_list_gui.h" />
     <QtMoc Include="task_item_gui.h" />
+    <QtMoc Include="add_user.h" />
     <ClInclude Include="download_client.h" />
+    <QtMoc Include="file_password.h" />
+    <ClInclude Include="ui_file_password.h" />
     <ClInclude Include="ui_task_list_gui.h" />
     <ClInclude Include="upload_client.h" />
     <QtMoc Include="disk_client_gui.h" />

@@ -49,6 +49,7 @@ public:
     QFrame *line1frame;
     QFrame *line1frame_2;
     QCheckBox *file_enc;
+    QPushButton *adduserButton;
     QWidget *leftwidget;
     QProgressBar *disk_info_bar;
     QLabel *label;
@@ -309,7 +310,35 @@ public:
         line1frame_2->setFrameShadow(QFrame::Raised);
         file_enc = new QCheckBox(menuwidget);
         file_enc->setObjectName(QString::fromUtf8("file_enc"));
-        file_enc->setGeometry(QRect(360, 10, 101, 16));
+        file_enc->setGeometry(QRect(360, 11, 101, 16));
+        adduserButton = new QPushButton(menuwidget);
+        adduserButton->setObjectName(QString::fromUtf8("adduserButton"));
+        adduserButton->setGeometry(QRect(270, 3, 81, 31));
+        adduserButton->setStyleSheet(QString::fromUtf8("\n"
+"QPushButton{\n"
+"\n"
+"}\n"
+"\n"
+"QPushButton::!hover{\n"
+"\n"
+"background-image: url(:/XMSDiskClientGui/Resources/img/add1.png);\n"
+"background-repeat: no-repeat;\n"
+"background-position:left;\n"
+"border:none;\n"
+"\n"
+"}\n"
+"\n"
+"QPushButton::hover{\n"
+"background-image: url(:/XMSDiskClientGui/Resources/img/add2.png);\n"
+"background-repeat: no-repeat;\n"
+"background-position:left;\n"
+"color:rgb(6, 168, 255);\n"
+"\n"
+"border-radius:1px;   \n"
+"border:1px solid rgb(6, 168, 255); \n"
+"}"));
+        adduserButton->setCheckable(false);
+        adduserButton->setFlat(true);
         leftwidget = new QWidget(filelistwidget);
         leftwidget->setObjectName(QString::fromUtf8("leftwidget"));
         leftwidget->setGeometry(QRect(0, 0, 160, 700));
@@ -526,10 +555,13 @@ public:
         QObject::connect(deleteaction, SIGNAL(triggered()), DiskClientGUI, SLOT(Delete()));
         QObject::connect(downpushButton, SIGNAL(clicked()), DiskClientGUI, SLOT(Download()));
         QObject::connect(downaction, SIGNAL(triggered()), DiskClientGUI, SLOT(Download()));
+        QObject::connect(file_enc, SIGNAL(clicked()), DiskClientGUI, SLOT(FileEnc()));
+        QObject::connect(adduserButton, SIGNAL(clicked()), DiskClientGUI, SLOT(AddUser()));
 
         downpushButton->setDefault(false);
         upButton->setDefault(false);
         delpushButton->setDefault(false);
+        adduserButton->setDefault(false);
         refreshButton->setDefault(false);
         backButton->setDefault(false);
 
@@ -556,6 +588,7 @@ public:
         upButton->setText(QApplication::translate("DiskClientGUI", "  \344\270\212\344\274\240", nullptr));
         delpushButton->setText(QApplication::translate("DiskClientGUI", "  \345\210\240\351\231\244", nullptr));
         file_enc->setText(QApplication::translate("DiskClientGUI", "\346\226\207\344\273\266\345\212\240\345\257\206\344\270\212\344\274\240", nullptr));
+        adduserButton->setText(QApplication::translate("DiskClientGUI", "  \346\267\273\345\212\240\347\224\250\346\210\267", nullptr));
         label->setText(QApplication::translate("DiskClientGUI", "\347\224\250\346\210\267\357\274\232", nullptr));
         username_label->setText(QApplication::translate("DiskClientGUI", "root", nullptr));
         disk_info_text->setText(QApplication::translate("DiskClientGUI", "123G/3000G", nullptr));

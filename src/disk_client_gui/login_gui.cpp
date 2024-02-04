@@ -53,10 +53,18 @@ LoginGUI::LoginGUI(QDialog*parent) :
         shadowEffect->setBlurRadius(10);
     });
 
-    ui->frame_err->hide();
+    // 设置为默认按钮，这样按下回车键时，如果当前焦点所在的控件不处理回车事件，则点击此按钮
+    ui->btn_login->setDefault(true);
 
-    timer_ = new QTimer();
-    connect(timer_, &QTimer::timeout, this, &LoginGUI::LoginTimeout);
+    // 设置自动默认，表示按钮能自动接收回车键作为触发
+    ui->btn_login->setAutoDefault(true);
+
+    ui->frame_err->hide();
+    ui->frame_err_2->hide();
+
+    countdown_timer_ = new QTimer(this);
+    connect(countdown_timer_, &QTimer::timeout, this, &LoginGUI::UpdateButton);
+    remaining_time_ = 60; // 假设倒计时时间为60秒
 }
 
 void LoginGUI::Login()
@@ -71,8 +79,11 @@ void LoginGUI::Login()
         return;
     }
 
-    timer_->setSingleShot(true);
-    timer_->start(3005);  // 设置3秒超时
+    ui->frame_err->hide();
+    ui->btn_login->setEnabled(false);
+    ui->btn_login->setText(QString::fromLocal8Bit("登陆中..."));
+
+    auto tt = time(0);
 
     QCoreApplication::processEvents(); // 允许事件处理，以便定时器能够更新
 
@@ -80,29 +91,139 @@ void LoginGUI::Login()
 
     QCoreApplication::processEvents(); // 再次处理事件，以确保超时处理逻辑可以执行
 
-    if (!loginSuccess) 
+    ui->frame_err->show();
+    ui->btn_login->setEnabled(true);
+    ui->btn_login->setText(QString::fromLocal8Bit("登陆"));
+    if (tt + 3 <= time(0))
     {
-        if (!timer_->isActive()) 
-        {
-            return;
-        }
-        timer_->stop();  // 停止计时器，以避免超时
+        ui->err_msg->setText(QString::fromLocal8Bit("登陆超时!"));
+        return;
+    }
+
+    if (!loginSuccess)
+    {
         ui->err_msg->setText(QString::fromLocal8Bit("用户名或密码错误!"));
         return;
     }
 
+    ui->btn_login->setText(QString::fromLocal8Bit("登陆"));
     ui->err_msg->setText(QString::fromLocal8Bit("登录成功!"));
     QDialog::accept();
 
-    if (timer_->isActive()) 
+}
+
+void LoginGUI::Register()
+{
+    ui->frame_err_2->show();
+    if (ui->user_name_edit->text().isEmpty()
+        || ui->pwd_edit->text().isEmpty())
     {
-        timer_->stop();  // 停止计时器
+        ui->err_msg_2->setText(QString::fromLocal8Bit("用户名或密码不能为空!"));
+        return;
+    }
+
+    if (ui->code_edit->text().isEmpty())
+    {
+        ui->err_msg_2->setText(QString::fromLocal8Bit("验证码不能为空!"));
+        return;
+    }
+
+    ui->frame_err_2->hide();
+    ui->btn_register_2->setText(QString::fromLocal8Bit("正在注册..."));
+    ui->btn_register_2->setEnabled(false);
+
+    string username = ui->user_name_edit->text().toLocal8Bit();
+    string password = ui->pwd_edit->text().toLocal8Bit();
+    string email = ui->email_edit->text().toLocal8Bit();
+    string code = ui->code_edit->text().toLocal8Bit();
+
+    msg::RegisterUserReq req;
+    req.set_username(username);
+    req.set_password(password);
+    req.set_email(email);
+    req.set_code(code);
+
+    AuthClient::GetInstance()->RegisterUserReq(req);
+
+    QCoreApplication::processEvents(); // 允许事件处理，以便定时器能够更新
+
+    int ret = AuthClient::GetInstance()->GetRegisterResult(3000);
+
+    QCoreApplication::processEvents(); // 再次处理事件，以确保超时处理逻辑可以执行
+
+    ui->btn_register_2->setText(QString::fromLocal8Bit("注册"));
+    ui->frame_err_2->show();
+    ui->btn_register_2->setEnabled(true);
+    switch (ret)
+    {
+    case 0:
+        ui->err_msg_2->setText(QString::fromLocal8Bit("注册超时!"));
+        break;
+    case 1:
+        ui->err_msg_2->setText(QString::fromLocal8Bit("验证码错误!"));
+        break;
+    case 2:
+        ui->err_msg_2->setText(QString::fromLocal8Bit("用户名已存在!"));
+        break;
+    case 3:
+        ui->err_msg_2->setText(QString::fromLocal8Bit("注册成功请登录"));
+        ui->lineE_user_name->setText(username.c_str());
+        ui->lineE_pwd->setText(password.c_str());
+        break;
+    default:
+        break;
     }
 }
 
-void LoginGUI::LoginTimeout()
+void LoginGUI::GetCode()
 {
-    ui->err_msg->setText(QString::fromLocal8Bit("登录超时!"));
+    ui->frame_err_2->show();
+    if (ui->email_edit->text().isEmpty())
+    {
+        ui->err_msg_2->setText(QString::fromLocal8Bit("邮箱不能为空!"));
+        return;
+    }
+
+    ui->frame_err_2->hide();
+
+    string email = ui->email_edit->text().toStdString();
+
+    AuthClient::GetInstance()->GetAuthCodeReq(email);
+
+    // 开始倒计时
+    ui->getcodeButton->setDisabled(true);
+    countdown_timer_->start(1000); // 每秒更新一次
+    remaining_time_ = 60; // 重置倒计时时间
+    ui->getcodeButton->setText(QString::number(remaining_time_) + QString::fromLocal8Bit(" 秒后重试"));
+}
+
+void LoginGUI::LoginPage()
+{
+    ui->frame_err->hide();
+    ui->frame_err_2->hide();
+    ui->frame_login->setCurrentIndex(0);
+}
+
+void LoginGUI::RegisterPage()
+{
+    ui->frame_err->hide();
+    ui->frame_err_2->hide();
+    ui->frame_login->setCurrentIndex(1);
+}
+
+void LoginGUI::UpdateButton()
+{
+    remaining_time_--;
+    if (remaining_time_ <= 0)
+    {
+        countdown_timer_->stop();
+        ui->getcodeButton->setEnabled(true);
+        ui->getcodeButton->setText(QString::fromLocal8Bit("获取验证码"));
+    }
+    else 
+    {
+        ui->getcodeButton->setText(QString::number(remaining_time_) + QString::fromLocal8Bit(" 秒后重试"));
+    }
 }
 
 /* 
@@ -141,7 +262,6 @@ void LoginGUI::set_style()
 
 LoginGUI::~LoginGUI()
 {
-    delete timer_;
     delete ui;
 }
 

@@ -47,11 +47,16 @@ public:
     /// @brief 验证令牌
     /// @param head 消息头，包含token
     /// @param user_res 返回登陆响应(输出型参数)
-    bool CheckToken(msg::MsgHead *head, msg::LoginRes *user_res);
+    bool CheckToken(msg::MsgHead *head, msg::LoginRes *user_res, int timeout_sec);
+
+    void ClearToken();
 private:
     AuthDAO();
     AuthDAO(const AuthDAO&) = delete;
     AuthDAO& operator=(const AuthDAO&) = delete;
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 生成token，线程不安全，外部加锁
+    bool BuildToken(const std::string& username, const std::string& rolename, msg::LoginRes* user_res, int timeout_sec);
 
 private:
     ol::OrionLinkDB* oldb_ = nullptr;

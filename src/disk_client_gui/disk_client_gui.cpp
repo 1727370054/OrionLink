@@ -1,8 +1,11 @@
 ﻿#include "disk_client_gui.h"
 #include "login_gui.h"
 #include "task_list_gui.h"
+#include "file_password.h"
+#include "add_user.h"
 #include "ui_disk_client_gui.h"
 #include "message_box.h"
+#include "auth_client.h"
 #include "tools.h"
 
 #include <QMouseEvent>
@@ -50,11 +53,15 @@ DiskClientGUI::DiskClientGUI(LoginGUI* login_gui, iFileManager* f, QWidget *pare
     qRegisterMetaType<std::list<disk::FileTask>>("std::list<disk::FileTask>");
     
     ui->username_label->setText(ifm_->login_info().username().c_str());
+    if (ui->username_label->text() != "root")
+        ui->adduserButton->hide();
 
     connect(ifm_, &iFileManager::RefreshUploadTask, task_gui, &TaskListGUI::RefreshUploadTask);
     connect(ifm_, &iFileManager::RefreshDownloadTask, task_gui, &TaskListGUI::RefreshDownloadTask);
     connect(ifm_, &iFileManager::RefreshData, this, &DiskClientGUI::RefreshData);
     connect(ifm_, &iFileManager::RefreshDiskInfo, this, &DiskClientGUI::RefreshDiskInfo);
+    connect(ifm_, &iFileManager::FileCheck, this, &DiskClientGUI::FileCheck);
+    connect(ifm_, &iFileManager::ErrorSig, this, &DiskClientGUI::ErrorSlot);
     Refresh();
 }
 
@@ -249,6 +256,52 @@ void DiskClientGUI::Checkall()
         auto check = (QCheckBox*)w->layout()->itemAt(0)->widget();
         if (!check) continue;
         check->setChecked(ui->checkallBox->isChecked());
+    }
+}
+
+void DiskClientGUI::FileEnc()
+{
+    if (ui->file_enc->isChecked())
+    {
+        FilePassword pass_dialog(this);
+        if (pass_dialog.exec() == QDialog::Accepted)
+        {
+            ifm_->set_password(pass_dialog.password);
+        }
+    }
+    else
+    {
+        ifm_->set_password("");
+    }
+}
+
+void DiskClientGUI::ErrorSlot(std::string err)
+{
+    MyMessageBox::information(this, QString::fromLocal8Bit(err.c_str()), QString::fromLocal8Bit("系统提示"));
+}
+
+void DiskClientGUI::FileCheck(int type, bool is_success)
+{
+    if (!is_success)
+    {
+        if (type == 1)
+            MyMessageBox::warning(this, QString::fromLocal8Bit("文件上传失败, 请重新上传"), QString::fromLocal8Bit("系统提示"));
+        else
+            MyMessageBox::warning(this, QString::fromLocal8Bit("文件下载失败, 请重新下载"), QString::fromLocal8Bit("系统提示"));
+    }
+}
+
+void DiskClientGUI::AddUser()
+{
+    class AddUser add;
+    if (add.exec() == QDialog::Accepted)
+    {
+        msg::AddUserReq req;
+        req.set_username(add.username);
+        req.set_rolename(add.username);
+        req.set_password(add.password);
+        AuthClient::GetInstance()->set_login_info(&ifm_->login_info());
+        AuthClient::GetInstance()->AddUserReq(&req);
     }
 }
 

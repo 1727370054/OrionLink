@@ -13,7 +13,7 @@ void RouterHandle::ReadCallback(msg::MsgHead* head, Msg* msg)
     LOGDEBUG("RouterHandle::ReadCallback");
     string token = head->token();
     string username = head->username();
-    if (head->msg_type() != MSG_LOGIN_REQ && !AuthProxy::CheckToken(head))
+    if (!AuthProxy::CheckToken(head))
     {  
         LOGDEBUG("CheckToken failed!");
         return;

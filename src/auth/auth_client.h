@@ -7,6 +7,7 @@
 #include <string>
 #include <map>
 #include <mutex>
+#include <atomic>
 
 namespace msg
 {
@@ -22,6 +23,7 @@ public:
     {
         static AuthClient auth_client;
         auth_client.set_auto_delete(false);
+        auth_client.set_timer_ms(1000);
         SSLCtx* ssl_ctx_ = new SSLCtx();
         ssl_ctx_->InitClient();
         auth_client.set_ssl_ctx(ssl_ctx_);
@@ -41,7 +43,7 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 获取当前用户登陆信息
     /// @return 返回登陆信息
-    msg::LoginRes GetCurLogin();
+    msg::LoginRes GetCurLogin(int timeout_ms = 3000);
 
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 发送登陆的请求
@@ -55,11 +57,31 @@ public:
     void AddUserReq(msg::AddUserReq* add_user);
 
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief获取登陆响应信息，如果token快要过期，会自动发送更新请求
+    /// @brief 获取登陆响应信息，如果token快要过期，会自动发送更新请求
     /// @param username 用户名
     /// @param out_info 返回的登陆信息
     /// @param timeout_ms 检测的超时时间，但如果连接异常则立刻返回
     bool GetLoginInfo(std::string username, msg::LoginRes* out_info, int timeout_ms);
+
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 检查token 是否有效 更新本地的 login 登录数据
+    void CheckTokenReq();
+
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 发送获取验证码请求
+    void GetAuthCodeReq(const std::string& email);
+
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 发送注册请求
+    void RegisterUserReq(msg::RegisterUserReq& req);
+
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 获取注册结果
+    /// @param timeout_ms 超时时间
+    /// @return 0: 超时返回 1: 验证码错误 2: 用户名已经存在 3: 成功
+    int GetRegisterResult(int timeout_ms);
+
+    virtual void TimerCallback() override;
 
     std::string cur_username() { return cur_username_; }
 private:
@@ -79,6 +101,9 @@ private:
     /// @param msg 序列化的消息内容
     void AddUserRes(msg::MsgHead* head, Msg* msg);
 
+    void CheckTokenRes(msg::MsgHead* head, Msg* msg);
+
+    void RegisterUserRes(msg::MsgHead* head, Msg* msg);
 private:
     /// 当前登陆的用户名
     std::string cur_username_ = "";
@@ -87,6 +112,9 @@ private:
     std::mutex login_map_mutex_;
 
     SSLCtx* ssl_ctx_ = nullptr;
+
+    /// 用于获取注册结果
+    std::atomic<int> result_ = 0;
 };
 
 #endif // AUTH_CLIENT_H

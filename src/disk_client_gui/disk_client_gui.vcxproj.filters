@@ -98,6 +98,12 @@
     <ClCompile Include="download_client.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="file_password.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="add_user.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="login_gui.h">
@@ -116,6 +122,12 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="task_item_gui.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="file_password.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="add_user.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -138,6 +150,12 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="task_item_gui.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="file_password.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="add_user.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
@@ -253,6 +271,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="download_client.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ui_file_password.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

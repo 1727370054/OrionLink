@@ -28,12 +28,41 @@ QLineEdit{
     color:#7bb7a5;
 }
 
-
 #btn_forget:hover{
     border:none;
     color:#7bb7a5;
 }
 
+#btn_forget_2{
+    border:none;
+    color:#7bb7a5;
+}
+
+#btn_forget_2:hover{
+    border:none;
+    color:#7bb7a5;
+}
+
+#btn_register_2{
+    color:#316f67;
+    border: none;
+    background-color:#74fae9;
+    border-radius: 5px;
+}
+
+#btn_register_2:hover{
+    color:#316f67;
+    border: none;
+    background-color:#4af8e2;
+    border-radius: 5px;
+}
+
+#btn_register_2:pressed{
+    color:#316f67;
+    border: none;
+    background-color:#74fae9;
+    border-radius: 5px;
+}
 
 #btn_login{
     color:#316f67;
@@ -54,6 +83,12 @@ QLineEdit{
     border: none;
     background-color:#74fae9;
     border-radius: 5px;
+}
+
+#label_register_2
+{
+    color:#7bb7a5;
+
 }
 
 #label_login
@@ -108,6 +143,66 @@ QLineEdit{
 }
 
 #btn_wb:hover{
+    background-image:url(:/res/pic/wb-hover.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+
+/*’Àªß∫Õ√‹¬ÎøÚ*/
+#frame_user_name_2,#frame_pwd_2{
+    border: 1px solid #696969;
+    border-radius: 5px;
+}
+
+/*Õº±Í-’Àªß*/
+#label_user_name_2
+{
+    border-image:url(:/res/pic/user_name.png);
+}
+/*Õº±Í-√‹¬Î*/
+#label_pwd_2
+{
+    border-image:url(:/res/pic/pwd.png);
+
+}
+/*∞¥≈•-qq*/
+#btn_qq_2{
+    background-image:url(:/res/pic/qq.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+/*∞¥≈•-qq- Û±Í–¸Õ£*/
+#btn_qq_2:hover{
+    background-image:url(:/res/pic/qq-hover.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+/*∞¥≈•-Œ¢–≈*/
+#btn_wx_2{
+    background-image:url(:/res/pic/wx.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+/*∞¥≈•-Œ¢–≈- Û±Í–¸Õ£*/
+#btn_wx_2:hover{
+    background-image:url(:/res/pic/wx-hover.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+/*∞¥≈•-Œ¢≤©-*/
+#btn_wb_2{
+    background-image:url(:/res/pic/wb.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+/*∞¥≈•-Œ¢≤©- Û±Í–¸Õ£*/
+#btn_wb_2:hover{
     background-image:url(:/res/pic/wb-hover.png);
     background-position:center;
     background-repeat:no-repeat;

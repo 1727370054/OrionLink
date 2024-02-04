@@ -15,6 +15,7 @@ static void Usage(const char* arg)
 
 int main(int argc, char *argv[])
 {
+	srand((unsigned)time(NULL)); // 初始化随机数生成器
 	Usage(argv[0]);
 	AuthService service;
 	service.main(argc, argv);

@@ -99,6 +99,52 @@ bool AuthDAO::AddUser(msg::AddUserReq* user)
     return oldb_->Insert(data, AUTH_TABLE);
 }
 
+bool AuthDAO::BuildToken(const std::string& username, const std::string& rolename, msg::LoginRes* user_res, int timeout_sec)
+{
+    stringstream ss;
+    /// 生成token
+    string table = TOKEN_TABLE;
+    string token = "";
+    int now = time(0);
+    int expired_time = now + timeout_sec;
+    KVData data;
+    data["@token"] = "UUID()";
+    data["ol_username"] = username.c_str();
+    data["ol_rolename"] = rolename.c_str();
+    ss.str("");
+    ss << expired_time;
+    string expired = ss.str();
+    data["expired_time"] = expired.c_str();
+
+    if (!oldb_->Insert(data, table))
+    {
+        token = "Insert token failed！";
+        LOGERROR(token);
+        user_res->set_token(token);
+        return false;
+    }
+
+    /// 通过id获取token
+    int id = oldb_->GetInsertID();
+    ss.str("");
+    ss << "select token, expired_time from " << table << " where id=" << id;
+    auto rows = oldb_->GetResult(ss.str().c_str());
+    if (rows.size() <= 0 || rows[0][0].data == NULL || rows[0][0].size <= 0)
+    {
+        token = "Insert token id error！";
+        LOGERROR(token);
+        user_res->set_token(token);
+        return false;
+    }
+
+    token = rows[0][0].data;
+    user_res->set_token(token);
+    user_res->set_expired_time(atoi(rows[0][1].data));
+    user_res->set_desc(LoginRes::OK);
+
+    return true;
+}
+
 bool AuthDAO::Login(const msg::LoginReq* user_req, msg::LoginRes* user_res, int timeout_sec)
 {
     LOGDEBUG("ConfigDao::LoadConfig");
@@ -141,55 +187,11 @@ bool AuthDAO::Login(const msg::LoginReq* user_req, msg::LoginRes* user_res, int 
     string username = rows[0][0].data;
     user_res->set_rolename(rolename);
     user_res->set_username(username);
-    /// 生成token
-    table = TOKEN_TABLE;
-    int now = time(0);
-    int expired_time = now + timeout_sec;
-    KVData data;
-    data["@token"] = "UUID()";
-    data["ol_username"] = username.c_str();
-    data["ol_rolename"] = rolename.c_str();
-    ss.str("");
-    ss << expired_time;
-    string expired = ss.str();
-    data["expired_time"] = expired.c_str();
-    if (!oldb_->Insert(data, table))
-    {
-        token = "Insert token failed！";
-        LOGERROR(token);
-        user_res->set_token(token);
-        return false;
-    }
-
-    /// 通过id获取token
-    int id = oldb_->GetInsertID();
-    ss.str("");
-    ss << "select token, expired_time from " << table << " where id=" << id;
-    rows = oldb_->GetResult(ss.str().c_str());
-    if (rows.size() <= 0 || rows[0][0].data == NULL || rows[0][0].size <= 0)
-    {
-        token = "Insert token id error！";
-        LOGERROR(token);
-        user_res->set_token(token);
-        return false;
-    }
-
-    token = rows[0][0].data;
-    user_res->set_token(token);
-    user_res->set_expired_time(atoi(rows[0][1].data));
-    user_res->set_desc(LoginRes::OK);
-    /// 清理过期登录信息,后面改成用线程定期清理
-    ss.str("");
-    ss << "delete from " << table << " where expired_time<" << now;
-    if (!oldb_->Query(ss.str().c_str()))
-    {
-        LOGDEBUG(ss.str().c_str());
-    }
-
-    return true;
+    
+    return BuildToken(username, rolename, user_res, timeout_sec);
 }
 
-bool AuthDAO::CheckToken(msg::MsgHead* head, msg::LoginRes* user_res)
+bool AuthDAO::CheckToken(msg::MsgHead* head, msg::LoginRes* user_res, int timeout_sec)
 {
     LOGDEBUG("ConfigDao::CheckToken");
     string token = "";
@@ -216,20 +218,36 @@ bool AuthDAO::CheckToken(msg::MsgHead* head, msg::LoginRes* user_res)
     string table = TOKEN_TABLE;
     stringstream ss;
     ss << "select ol_username, ol_rolename, expired_time from " << table
-        << " where token='" << token << "'";
+        << " where ol_username='" << head->username() << "'";
     auto rows = oldb_->GetResult(ss.str().c_str());
-    if (rows.size() == 0)
+    if (rows.size() != 0)
     {
-        token = "token invalid!";
-        LOGERROR(token);
-        user_res->set_token(token);
+        /// token未过期，直接返回错误
+        user_res->set_desc(LoginRes::ERROR);
         return false;
     }
-    user_res->set_desc(LoginRes::OK);
-    user_res->set_username(rows[0][0].data);
-    user_res->set_rolename(rows[0][1].data);
-    user_res->set_expired_time(atoi(rows[0][2].data));
-    return true;
+
+    /// token过期，更新token
+    string rolename = head->rolename();
+    string username = head->username();
+    user_res->set_username(username);
+    user_res->set_rolename(rolename);
+
+    return BuildToken(username, rolename, user_res, timeout_sec);
+}
+
+void AuthDAO::ClearToken()
+{
+    string table = TOKEN_TABLE;
+    int now = time(0);
+    stringstream ss;
+    /// 清理过期登录信息
+    ss << "delete from " << table << " where expired_time<" << now;
+    Mutex lock(&auth_mutex);
+    if (!oldb_->Query(ss.str().c_str()))
+    {
+        LOGDEBUG(ss.str().c_str());
+    }
 }
 
 AuthDAO::AuthDAO()

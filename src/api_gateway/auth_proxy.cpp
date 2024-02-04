@@ -20,32 +20,34 @@ static mutex token_cache_mutex;
 class TokenThread
 {
 public:
-    TokenThread() {}
-    ~TokenThread()
-    {
-        is_exit_ = false;
-        this_thread::sleep_for(20ms);
-    }
-
     void Start()
     {
         thread th(&TokenThread::Main, this);
         th.detach();
     }
-
+    ~TokenThread()
+    {
+        is_exit_ = true;
+        this_thread::sleep_for(10ms);
+    }
 private:
-    atomic<bool> is_exit_ = false;
+    bool is_exit_ = false;
     void Main()
     {
         while (!is_exit_)
         {
             token_cache_mutex.lock();
-            for (const auto & iter : token_cache)
+            //检测过期token 需要优化
+            auto ptr = token_cache.begin();
+            for (; ptr != token_cache.end(); )
             {
+                auto tmp = ptr;
                 auto tt = time(0);
-                if (iter.second.expired_time() < tt)
+                ptr++;
+                if (tmp->second.expired_time() < tt)
                 {
-                    token_cache.erase(iter.first);
+                    cout << "expired_time " << tmp->second.expired_time() << endl;
+                    token_cache.erase(tmp);
                 }
             }
             token_cache_mutex.unlock();
@@ -64,6 +66,9 @@ void AuthProxy::InitAuth()
 bool AuthProxy::CheckToken(const msg::MsgHead* head)
 {
     if (!head) return false;
+    if (head->msg_type() == MSG_LOGIN_REQ || head->msg_type() == MSG_CHECK_TOKEN_REQ 
+        || head->msg_type() == MSG_GET_AUTH_CODE || head->msg_type() == MSG_REGISTER_USER_REQ)
+        return true;
     string token = head->token();
     if (token.empty())
     {
@@ -97,6 +102,15 @@ void AuthProxy::ReadCallback(msg::MsgHead* head, Msg* msg)
         {
             Mutex lock(&token_cache_mutex);
             token_cache[res.token()] = res;
+        }
+    case MSG_CHECK_TOKEN_RES:
+        if (res.ParseFromArray(msg->data, msg->size))
+        {
+            if (res.desc() == LoginRes::OK)
+            {
+                Mutex lock(&token_cache_mutex);
+                token_cache[res.token()] = res;
+            }
         }
     default:
         break;

@@ -24,10 +24,20 @@ public slots:
 
     void Login();
 
-    void LoginTimeout();
+    void LoginPage();
+
+    void RegisterPage();
+
+    void Register();
+
+    void GetCode();
+
+    void UpdateButton(); // 新增的用于更新按钮状态的槽
 private:
     Ui::LoginGUI*ui;
-    QTimer* timer_ = nullptr;
+
+    QTimer* countdown_timer_; // 新增的计时器
+    int remaining_time_;      // 倒计时剩余时间
 };
 
 #endif // LOGIN_GUI_H

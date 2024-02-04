@@ -23,7 +23,8 @@ message MessageRes
 	enum Return
 	{
 		OK = 0;					/// 成功
-		ERROR = 1;				/// 失败
+		ERROR = 1;				/// 失败 注册响应时(验证码错误)
+		USER_EXISTS = 2;		/// 注册响应时(用户已存在)
 	}
 	Return return = 1;
 	bytes desc = 2;				/// 响应描述
@@ -61,7 +62,7 @@ message AddLogReq
 message AddUserReq
 {
 	string username = 1;		/// 用户名
-	bytes password = 2;		/// md5后的密码
+	bytes password = 2;			/// md5后的密码
 	string rolename = 3;		/// 角色名称，为了后期拓展角色权限
 }
 
@@ -90,6 +91,22 @@ message LoginRes
 	int32 expired_time = 3;
 	string rolename = 4;
 	string username = 5;
+}
+
+/// MSG_GET_AUTH_CODE
+message GetAuthCode
+{
+	string email = 1;
+}
+
+/// MSG_REGISTER_USER_REQ
+message RegisterUserReq
+{
+	string username = 1;
+	bytes password = 2;
+	string email = 3;
+	bytes code = 4;
+	int32 expired_time = 5;
 }
 
 /// 目录列表请求 MSG_DIR_REQ

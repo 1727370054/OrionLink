@@ -471,13 +471,60 @@ border:1px solid rgb(6, 168, 255);
      <property name="geometry">
       <rect>
        <x>360</x>
-       <y>10</y>
+       <y>11</y>
        <width>101</width>
        <height>16</height>
       </rect>
      </property>
      <property name="text">
       <string>文件加密上传</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="adduserButton">
+     <property name="geometry">
+      <rect>
+       <x>270</x>
+       <y>3</y>
+       <width>81</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">
+QPushButton{
+
+}
+
+QPushButton::!hover{
+
+background-image: url(:/XMSDiskClientGui/Resources/img/add1.png);
+background-repeat: no-repeat;
+background-position:left;
+border:none;
+
+}
+
+QPushButton::hover{
+background-image: url(:/XMSDiskClientGui/Resources/img/add2.png);
+background-repeat: no-repeat;
+background-position:left;
+color:rgb(6, 168, 255);
+
+border-radius:1px;   
+border:1px solid rgb(6, 168, 255); 
+}</string>
+     </property>
+     <property name="text">
+      <string>  添加用户</string>
+     </property>
+     <property name="checkable">
+      <bool>false</bool>
+     </property>
+     <property name="default">
+      <bool>false</bool>
+     </property>
+     <property name="flat">
+      <bool>true</bool>
      </property>
     </widget>
    </widget>
@@ -1290,6 +1337,38 @@ background-repeat: no-repeat;
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>file_enc</sender>
+   <signal>clicked()</signal>
+   <receiver>DiskClientGUI</receiver>
+   <slot>FileEnc()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>544</x>
+     <y>99</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>554</x>
+     <y>-67</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>adduserButton</sender>
+   <signal>clicked()</signal>
+   <receiver>DiskClientGUI</receiver>
+   <slot>AddUser()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>463</x>
+     <y>98</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>456</x>
+     <y>-33</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>Refresh()</slot>
@@ -1306,5 +1385,6 @@ background-repeat: no-repeat;
   <slot>NewDir()</slot>
   <slot>FileEnc()</slot>
   <slot>DirRename(QTableWidgetItem*)</slot>
+  <slot>AddUser()</slot>
  </slots>
 </ui>

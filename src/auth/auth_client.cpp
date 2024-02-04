@@ -12,6 +12,8 @@ void AuthClient::RegisterMsgCallback()
 {
     RegisterCallback(MSG_ADD_USER_RES, (MsgCBFunc)&AuthClient::AddUserRes);
     RegisterCallback(MSG_LOGIN_RES, (MsgCBFunc)&AuthClient::LoginRes);
+    RegisterCallback(MSG_CHECK_TOKEN_RES, (MsgCBFunc)&AuthClient::CheckTokenRes);
+    RegisterCallback(MSG_REGISTER_USER_RES, (MsgCBFunc)&AuthClient::RegisterUserRes);
 }
 
 bool AuthClient::Login(std::string username, std::string password)
@@ -23,10 +25,10 @@ bool AuthClient::Login(std::string username, std::string password)
     return true;
 }
 
-msg::LoginRes AuthClient::GetCurLogin()
+msg::LoginRes AuthClient::GetCurLogin(int timeout_ms)
 {
     msg::LoginRes res;
-    if (!GetLoginInfo(cur_username_, &res, 3000))
+    if (!GetLoginInfo(cur_username_, &res, timeout_ms))
     {
         res.set_desc(LoginRes::ERROR);
         return res;
@@ -115,6 +117,95 @@ bool AuthClient::GetLoginInfo(string username, msg::LoginRes* out_info, int time
         return false;
     }
     return false;
+}
+
+void AuthClient::CheckTokenReq()
+{
+    msg::LoginRes login;
+    login = GetCurLogin(100);
+    if (login.desc() == msg::LoginRes::ERROR) return;
+
+    set_login_info(&login);
+
+    auto tt = time(0);
+    if (tt < login.expired_time()) 
+        return;
+
+    MessageRes res;
+    res.set_desc("check");
+    SendMsg(MSG_CHECK_TOKEN_REQ, &res);
+}
+
+void AuthClient::GetAuthCodeReq(const std::string& email)
+{
+    GetAuthCode code;
+    code.set_email(email);
+    SendMsg(MSG_GET_AUTH_CODE, &code);
+}
+
+void AuthClient::RegisterUserReq(msg::RegisterUserReq& req)
+{
+    auto md5_passwd = OLMD5_base64((unsigned char*)req.password().c_str(), req.password().size());
+    req.set_password(md5_passwd);
+    SendMsg(MSG_REGISTER_USER_REQ, &req);
+}
+
+void AuthClient::RegisterUserRes(msg::MsgHead* head, Msg* msg)
+{
+    msg::MessageRes res;
+    if (!res.ParseFromArray(msg->data, msg->size))
+    {
+        LOGDEBUG("AuthClient::RegisterUserRes! ParseFromArray error");
+        return;
+    }
+
+    switch (res.return_())
+    {
+    case MessageRes::ERROR:
+        result_ = 1;
+        break;
+    case MessageRes::USER_EXISTS:
+        result_ = 2;
+        break;
+    case MessageRes::OK:
+        result_ = 3;
+        break;
+    default:
+        break;
+    }
+}
+
+int AuthClient::GetRegisterResult(int timeout_ms)
+{
+    int count = timeout_ms / 10;
+    if (count <= 0) count = 1;
+    for (int i = 0; i < count; i++)
+    {
+       this_thread::sleep_for(10ms);
+    }
+    return result_;
+}
+
+void AuthClient::TimerCallback()
+{
+    CheckTokenReq();
+}
+
+void AuthClient::CheckTokenRes(msg::MsgHead* head, Msg* msg)
+{
+    msg::LoginRes res;
+    if (!res.ParseFromArray(msg->data, msg->size))
+    {
+        LOGDEBUG("AuthClient::CheckTokenRes failed! ParseFromArray error");
+        return;
+    }
+
+    if (res.desc() == LoginRes::ERROR)
+        return;
+
+    Mutex lock(&login_map_mutex_);
+    if (res.username().empty()) return;
+    login_map_[res.username()] = res;
 }
 
 AuthClient::AuthClient()

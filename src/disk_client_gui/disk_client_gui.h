@@ -56,6 +56,18 @@ public slots:
 
     void Checkall();
 
+    void FileEnc();
+
+    void ErrorSlot(std::string err);
+
+    /// @brief 文件校验结果通知
+    /// @param type 区分上传还是下载，上传为 1 下载为 2 
+    /// @param is_success 是否校验成功
+    void FileCheck(int type ,bool is_success);
+
+    /// @brief root用户有添加用户权限
+    void AddUser();
+
     void MyTab();
     void TaskTab();
 private:
