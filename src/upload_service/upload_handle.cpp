@@ -56,10 +56,29 @@ void UploadHandle::UploadFileReq(msg::MsgHead* head, Msg* msg)
 
 void UploadHandle::SendSliceReq(msg::MsgHead* head, Msg* msg)
 {
-    ofs_.write(msg->data, msg->size);
-
     head->set_msg_type((MsgType)SEND_SLICE_RES);
     MessageRes res;
+    if (head->md5().empty())
+    {
+        LOGERROR("UploadHandle::SendSliceReq failed! md5 is empty!");
+        //需要校验权限
+        res.set_return_(MessageRes::ERROR);
+        res.set_desc("md5 is empty");
+        SendMsg(head, &res);
+        return;
+    }
+
+    //校验md5
+    string md5 = OLMD5_base64((unsigned char*)msg->data, msg->size);
+    if (md5 != head->md5())
+    {
+        LOGERROR("UploadHandle::SendSliceReq failed! md5 is error!");
+        res.set_return_(MessageRes::ERROR);
+        res.set_desc("md5 is error");
+    }
+
+    ofs_.write(msg->data, msg->size);
+
     res.set_return_(MessageRes::OK);
     res.set_desc("ok");
     SendMsg(head, &res);

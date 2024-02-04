@@ -5,6 +5,7 @@
 #include "disk_client_gui.pb.h"
 
 #include <fstream>
+#include <list>
 
 class UploadHandle : public ServiceHandle
 {

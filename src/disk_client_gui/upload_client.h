@@ -6,6 +6,9 @@
 #include "disk_client_gui.pb.h"
 
 #include <fstream>
+#include <list>
+
+class OLAES;
 
 /// 每个文件创建一个upload对象
 
@@ -20,9 +23,6 @@ public:
         upload_client->set_auto_delete(false);
         upload_client->set_auto_connect(false);
         upload_client->set_timer_ms(100);
-        //SSLCtx* ssl_ctx_ = new SSLCtx();
-        //ssl_ctx_->InitClient();
-        //upload_client->set_ssl_ctx(ssl_ctx_);
         return upload_client;
     }
 
@@ -49,8 +49,10 @@ public:
     virtual void TimerCallback() override;
 
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief 
+    /// @brief 设置文件信息，生成文件的md5
     bool set_file_info(disk::FileInfo& file_info);
+
+    void Drop();
 
     int task_id = 0;
 private:
@@ -67,8 +69,19 @@ private:
     /// 文件片缓存
     char* slice_buf_ = nullptr;
 
+    /// 读取文件片的缓存(加密后)
+    char* slice_buf_enc_ = 0;
+
     /// 开始发送数据时，已经发送的值，要确保缓冲已经都发送成功
     long long begin_send_data_size_ = -1;
+
+    std::list<std::string> md5_base64s_;
+
+    std::string password_;
+    std::mutex  password_mutex_;
+
+    //加密文件用
+    OLAES* aes_ = 0;
 };
 
 #endif // UPLOAD_CLIENT_H

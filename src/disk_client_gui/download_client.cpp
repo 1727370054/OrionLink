@@ -20,7 +20,7 @@ bool DownloadClient::set_file_info(disk::FileInfo& file)
 {
     this->file_ = file;
     if (file.filedir() == "")
-        file_.set_is_dir("");
+        file_.set_filedir("");
     
     ofs_.open(file.local_path(), ios::binary);
     if (!ofs_.is_open())
@@ -51,6 +51,22 @@ void DownloadClient::DownloadFileRes(msg::MsgHead* head, Msg* msg)
         return;
     }
 
+    //文件加密，需要有秘钥
+    if (file_.is_enc())
+    {
+        auto pass = iFileManager::GetInstance()->password();
+        if (pass.empty())
+        {
+            cout << "please set password" << endl;
+            //具体的提示的语言，可以根据字符串替换为不同的语言
+            iFileManager::GetInstance()->ErrorSig("该文件为加密文件，请输入密钥后下载!");
+            Drop();
+            return;
+        }
+        aes_ = OLAES::Create();
+        aes_->SetKey(pass.c_str(), pass.size(), false);
+    }
+
     /// 如果是加密文件需要验证加密
     int task_id = iFileManager::GetInstance()->AddDownloadTask(file_);
     task_id_ = task_id;
@@ -68,7 +84,34 @@ void DownloadClient::DownloadSliceReq(msg::MsgHead* head, Msg* msg)
     const char* data = msg->data;
     int size = msg->size;
 
+    if (file_.is_enc())
+    {
+        char* dec_data = new char[size];
+        size = aes_->Decrypt((unsigned char*)msg->data, msg->size, (unsigned char*)dec_data);
+        if (size <= 0)
+        {
+            cerr << "aes_->Decrypt failed!" << endl;
+            delete dec_data;
+            Drop();
+            return;
+        }
+        /// 还原原始数据大小
+        if (readed > file_.ori_size())
+        {
+            size = size - (readed - file_.ori_size());
+        }
+        data = dec_data;
+    }
+
+
+    string md5_base64 = OLMD5_base64((unsigned char*)data, size);
+    all_md5_base64_ += md5_base64;
+
     ofs_.write(data, size);
+    if (file_.is_enc())
+    {
+        delete data;
+    }
 
     SendMsg((MsgType)DOWNLOAD_SLICE_RES, &file_);
 
@@ -76,12 +119,24 @@ void DownloadClient::DownloadSliceReq(msg::MsgHead* head, Msg* msg)
     if (file_.filesize() == file_.net_size())
     {
         iFileManager::GetInstance()->DownloadEnd(task_id_);
-        //校验整个文件的md5
-        ofs_.close();
 
-        ClearTimer();
-        Close();
+        //校验整个文件的md5
+        string file_md5 = OLMD5_base64((unsigned char*)all_md5_base64_.data(), all_md5_base64_.size());
+        if (file_md5 != file_.md5())
+        {
+            cerr << "file is not complete" << endl;
+            iFileManager::GetInstance()->FileCheck(2, false);
+        }
+
+        Drop();
     }
+}
+
+void DownloadClient::Drop()
+{
+    ofs_.close();
+    ClearTimer();
+    Close();
 }
 
 void DownloadClient::TimerCallback()

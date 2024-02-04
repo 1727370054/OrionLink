@@ -47,6 +47,10 @@ public:
     virtual void set_login_info(msg::LoginRes login) { login_info_ = login; }
     msg::LoginRes login_info() { return login_info_; }
 
+    /// @brief 设置文件加密的秘钥
+    virtual void set_password(std::string pass) { password_ = pass; };
+    virtual std::string  password() { return password_; };
+
     void set_upload_servers(msg::ServiceList servers);
     msg::ServiceList upload_servers();
     void set_download_servers(msg::ServiceList servers);
@@ -58,6 +62,12 @@ signals:
     void RefreshUploadTask(std::list<disk::FileTask> file_list);
     void RefreshDownloadTask(std::list<disk::FileTask> file_list);
 
+    /// @brief 文件校验结果通知
+    /// @param type 区分上传还是下载，上传为 1 下载为 2 
+    /// @param is_success 是否校验成功
+    void FileCheck(int type,bool is_success);
+
+    void ErrorSig(std::string str);
 protected:
     static iFileManager* instance_;
     msg::LoginRes login_info_;
@@ -74,6 +84,8 @@ protected:
 
     /// 下载的服务器列表
     msg::ServiceList download_servers_;
+
+    std::string password_ = "";
 };
 
 #endif // IFILE_MANAGER_H

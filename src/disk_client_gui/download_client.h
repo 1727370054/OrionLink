@@ -6,6 +6,8 @@
 
 #include <fstream>
 
+class OLAES;
+
 class DownloadClient : public ServiceClient
 {
 public:
@@ -17,9 +19,6 @@ public:
         download_client->set_auto_delete(false);
         download_client->set_auto_connect(false);
         download_client->set_timer_ms(100);
-        //SSLCtx* ssl_ctx_ = new SSLCtx();
-        //ssl_ctx_->InitClient();
-        //upload_client->set_ssl_ctx(ssl_ctx_);
         return download_client;
     }
 
@@ -35,6 +34,8 @@ public:
 
     void DownloadSliceReq(msg::MsgHead* head, Msg* msg);
 
+    void Drop();
+
     bool set_file_info(disk::FileInfo& file);
 private:
     DownloadClient();
@@ -48,6 +49,10 @@ private:
 
     /// 开始发送数据时，已经发送的值，要确保缓冲已经都发送成功
     long long begin_recv_data_size_ = -1;
+
+    std::string all_md5_base64_ = "";
+    //加密文件用
+    OLAES* aes_ = 0;
 };
 
 #endif // DOWNLOAD_CLIENT_H

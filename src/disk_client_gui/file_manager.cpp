@@ -47,7 +47,7 @@ void FileManager::DeleteFile(disk::FileInfo& file_info)
 
 void FileManager::UploadFile(disk::FileInfo& file_info)
 {
-    string ip = "127.0.0.1";
+    string ip = GetHostByName(OL_GATEWAY_SERVER_NAME);
     int port = UPLOAD_PORT;
 
     auto services = upload_servers();
@@ -74,6 +74,14 @@ void FileManager::UploadFile(disk::FileInfo& file_info)
     ifs.close();
     file_info.set_filesize(file_size);
 
+    auto pass = password();
+    if (!pass.empty())
+    {
+        file_info.set_is_enc(true);
+        file_info.set_password(pass);
+    }
+    cout << file_info.DebugString() << endl;
+
     auto upload_client = UploadClient::Create();
     if (upload_client == nullptr) return;
     upload_client->set_login_info(&login_info());
@@ -89,7 +97,7 @@ void FileManager::UploadFile(disk::FileInfo& file_info)
 
 void FileManager::DownloadFile(disk::FileInfo& file_info)
 {
-    string ip = "127.0.0.1";
+    string ip = GetHostByName(OL_GATEWAY_SERVER_NAME);
     int port = DOWNLOAD_PORT;
 
     auto services = download_servers();
