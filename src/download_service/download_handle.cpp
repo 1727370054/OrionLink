@@ -105,8 +105,6 @@ void DownloadHandle::SendSlice()
 
     MsgHead head;
     head.set_msg_type((MsgType)DOWNLOAD_SLICE_REQ);
-    //head.set_offset(100);
-    //head.set_md5("test");
     Msg data;
     data.data = slice_buf_;
     data.size = size;

@@ -5,6 +5,7 @@
 #include <cstring>
 #include <algorithm>
 #include <iomanip>
+#include <random>
 #include <openssl/md5.h>
 #include <openssl/bio.h>
 #include <openssl/buffer.h>
@@ -428,9 +429,7 @@ long long GetDirSize(const char* path)
 	{
 		if (strcmp(file->d_name, ".") == 0 || strcmp(file->d_name, "..") == 0)
 			continue;
-		std::string filePath = path;
-		filePath += "/";
-		filePath += file->d_name;
+		std::string filePath = path + "/" + file->d_name;
 		lstat(filePath.c_str(), &statbuf);
 		if (file->d_type == DT_DIR)
 			dir_size += GetDirSize(filePath.c_str());
@@ -587,3 +586,286 @@ std::string GetHostByName(std::string host_name)
 	return inet_ntoa(*(in_addr*)*addr);
 }
 
+bool SendEmail(const std::string& smtpServer, int port, const std::string& from, 
+	const std::string& to, const std::string& subject, const std::string& message, 
+	const std::string& username, const std::string& password)
+{
+#ifdef _WIN32
+	static bool is_init = false;
+	if (!is_init)
+	{
+		WORD sock_version = MAKEWORD(2, 2);
+		WSADATA wsa;
+		if (WSAStartup(sock_version, &wsa) != 0)
+		{
+			return "";
+		}
+		is_init = true;
+	}
+#endif // _WIN32
+
+	int sock = socket(AF_INET, SOCK_STREAM, 0);
+	if (sock < 0) {
+		std::cerr << "Socket creation failed" << std::endl;
+		return false;
+	}
+
+	struct sockaddr_in remote;
+	remote.sin_family = AF_INET;
+	remote.sin_port = htons(port);
+	remote.sin_addr.s_addr = inet_addr(GetHostByName(smtpServer.c_str()).c_str());
+
+	if (connect(sock, (struct sockaddr*)&remote, sizeof(remote)) < 0) {
+		std::cerr << "Connection to SMTP server failed." << std::endl;
+		return false;
+	}
+
+	char buf[1024] = { 0 };
+	recv(sock, buf, sizeof(buf), 0);
+	std::cout << buf << std::endl;
+
+	std::string send_msg = "HELO MSG\r\n";
+	send(sock, send_msg.c_str(), send_msg.size(), 0);
+
+	memset(buf, 0, sizeof(buf));
+	recv(sock, buf, sizeof(buf), 0);
+	std::cout << buf << std::endl;
+
+	send_msg = "AUTH LOGIN\r\n";
+	send(sock, send_msg.c_str(), send_msg.size(), 0);
+
+	memset(buf, 0, sizeof(buf));
+	recv(sock, buf, sizeof(buf), 0);
+	std::cout << buf << std::endl;
+
+	char username_base64[25] = { 0 };
+	Base64Encode((unsigned char*)username.c_str(), username.size(), username_base64);
+	std::string username_str = std::string(username_base64) + "\r\n";
+	send(sock, username_str.c_str(), username_str.size(), 0);
+
+	char password_base64[25] = { 0 };
+	Base64Encode((unsigned char*)password.c_str(), password.size(), password_base64);
+	std::string password_str = std::string(password_base64) + "\r\n";
+	send(sock, password_str.c_str(), password_str.size(), 0);
+
+	memset(buf, 0, sizeof(buf));
+	recv(sock, buf, sizeof(buf), 0);
+	std::cout << buf << std::endl;
+
+	send_msg = "MAIL FROM:<" + from + ">\r\n";
+	send(sock, send_msg.c_str(), send_msg.size(), 0);
+
+	memset(buf, 0, sizeof(buf));
+	recv(sock, buf, sizeof(buf), 0);
+	std::cout << buf << std::endl;
+
+	send_msg = "RCPT TO:<" + to + ">\r\n";
+	send(sock, send_msg.c_str(), send_msg.size(), 0);
+
+	memset(buf, 0, sizeof(buf));
+	recv(sock, buf, sizeof(buf), 0);
+	std::cout << buf << std::endl;
+
+	send_msg = "DATA\r\n";
+	send(sock, send_msg.c_str(), send_msg.size(), 0);
+
+	memset(buf, 0, sizeof(buf));
+	recv(sock, buf, sizeof(buf), 0);
+	std::cout << buf << std::endl;
+
+	send_msg = "Subject: " + subject + "\r\n\r\n" + message + "\r\n.\r\n";
+	send(sock, send_msg.c_str(), send_msg.size(), 0);
+
+	memset(buf, 0, sizeof(buf));
+	recv(sock, buf, sizeof(buf), 0);
+	std::cout << buf << std::endl;
+
+	std::string quitCmd = "QUIT\r\n";
+	send(sock, quitCmd.c_str(), quitCmd.length(), 0);
+	memset(buf, 0, sizeof(buf));
+	recv(sock, buf, sizeof(buf), 0);
+	std::cout << "QUIT response: " << buf << std::endl;
+
+#ifdef _WIN32
+	closesocket(sock);
+#else
+	close(sock);
+#endif // _WIN32
+
+	return true;
+}
+
+std::string GenerateNumericCode(int length)
+{
+	const char digits[] = "0123456789";
+	std::string code;
+	std::random_device rd;  // 用于获得一个随机数种子
+	std::mt19937 gen(rd()); // 标准m​​ersenne_twister_engine seeded with rd()
+	std::uniform_int_distribution<> distrib(0, 9);
+
+	for (int i = 0; i < length; ++i) 
+	{
+		code += digits[distrib(gen)]; // 从digits中随机选取一个字符
+	}
+
+	return code;
+}
+
+class CXAES :public OLAES
+{
+	///////////////////////////////////////////////////////////////////////////
+	/// @brief 秘钥长度 128位（16字节） 192位 （24字节） 256位 (32字节)
+	/// 长度不能超过32字节，返回失败
+	/// 秘钥不足自动补充
+	/// @param key 秘钥
+	/// @param key_size 秘钥长度 字节 <=32 会自动补秘钥
+	/// @param is_enc true 加密 false 解密
+	/// @return 设置成功失败
+	virtual bool SetKey(const char* key, int key_size, bool is_enc) override
+	{
+		if (key_size > 32 || key_size <= 0)
+		{
+			std::cerr << "AES key size error(>32 && <=0 )! key_size= " << key_size << std::endl;
+			return false;
+		}
+		unsigned char aes_key[32] = { 0 };
+		memcpy(aes_key, key, key_size);
+		int bit_size = 0;
+		if (key_size > 24)
+		{
+			bit_size = 32 * 8;
+		}
+		else if (key_size > 16)
+		{
+			bit_size = 24 * 8;
+		}
+		else
+		{
+			bit_size = 16 * 8;
+		}
+
+		/*
+			if (bits != 128 && bits != 192 && bits != 256)
+			 return -2;
+		*/
+		if (is_enc)
+		{
+			is_set_encode_ = true;
+			if (AES_set_encrypt_key(aes_key, bit_size, &aes_) < 0)
+			{
+				return false;
+			}
+			return true;
+		}
+		is_set_decode_ = true;
+		if (AES_set_decrypt_key(aes_key, bit_size, &aes_) < 0)
+		{
+			return false;
+		}
+		return true;
+	}
+
+	virtual void Drop() override
+	{
+		delete this;
+	}
+
+	///////////////////////////////////////////////////////////////////////////
+	/// @brief 加密
+	/// @param in 输入数据
+	/// @param in_size 输入数据大小
+	/// @param out 输出 数据空间要保证16字节的倍数
+	/// @return  输出大小，失败返回<=0
+	virtual long long Encrypt(const unsigned char* in, long long in_size, unsigned char* out) override
+	{
+		if (!in || in_size <= 0 || !out)
+		{
+			std::cerr << "Encrypt input data error" << std::endl;
+			return 0;
+		}
+
+		if (!is_set_encode_)
+		{
+			std::cerr << "Encrypt password not set" << std::endl;
+			return 0;
+		}
+		long long enc_byte = 0;
+		//AES_encrypt 默认 AES_ecb_encrypt 可分块并行加密  cbc加密强度更大，每段时间与上一段相关
+		/*
+		每次加密一个数据块16个字节，不全的需要补充
+			s0 = GETU32(in     ) ^ rk[0];
+			s1 = GETU32(in +  4) ^ rk[1];
+			s2 = GETU32(in +  8) ^ rk[2];
+			s3 = GETU32(in + 12) ^ rk[3];
+		*/
+		unsigned char* p_in = 0;
+		unsigned char* p_out = 0;
+		unsigned char data[16] = { 0 };
+		for (int i = 0; i < in_size; i += 16)
+		{
+			p_in = (unsigned char*)in + i;
+			p_out = out + i;
+			//处理不足16字节的补全
+			if (in_size - i < 16)
+			{
+				memcpy(data, p_in, in_size - i);
+				p_in = data;
+			}
+			enc_byte += 16;
+			AES_encrypt(p_in, p_out, &aes_);
+		}
+		return enc_byte;
+	}
+
+	///////////////////////////////////////////////////////////////////////////
+	/// @brief 解密
+	/// @param in 输入数据
+	/// @param in_size 输入数据大小
+	/// @param out 输出 数据空间要保证16字节的倍数
+	/// @return  输出大小，失败返回<=0
+	virtual long long Decrypt(const unsigned char* in, long long in_size, unsigned char* out) override
+	{
+
+		if (!in || in_size <= 0 || !out || in_size % 16 != 0)
+		{
+			std::cerr << "Decrypt input data error" << std::endl;
+			return 0;
+		}
+
+		if (!is_set_decode_)
+		{
+			std::cerr << "Decrypt password not set" << std::endl;
+			return 0;
+		}
+
+		long long enc_byte = 0;
+		//AES_encrypt 默认 AES_ecb_encrypt 可分块并行加密  cbc加密强度更大，每段时间与上一段相关
+		/*
+		每次加密一个数据块16个字节，不全的需要补充
+			s0 = GETU32(in     ) ^ rk[0];
+			s1 = GETU32(in +  4) ^ rk[1];
+			s2 = GETU32(in +  8) ^ rk[2];
+			s3 = GETU32(in + 12) ^ rk[3];
+		*/
+		unsigned char* p_in = 0;
+		unsigned char* p_out = 0;
+		unsigned char data[16] = { 0 };
+		for (int i = 0; i < in_size; i += 16)
+		{
+			p_in = (unsigned char*)in + i;
+			p_out = out + i;
+			enc_byte += 16;
+			AES_decrypt(p_in, p_out, &aes_);
+		}
+		return enc_byte;
+	}
+private:
+	AES_KEY aes_;
+	bool is_set_decode_ = false;
+	bool is_set_encode_ = false;
+};
+
+OLAES* OLAES::Create()
+{
+	return new CXAES();
+}

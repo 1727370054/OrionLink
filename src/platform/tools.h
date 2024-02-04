@@ -81,6 +81,16 @@ XCOM_API int Base64Decode(const char* in, int len, unsigned char* out_data);
 /// 127.0.0.1 ol_register_server
 XCOM_API std::string GetHostByName(std::string host_name);
 
+///////////////////////////////////////////////////////////////////////////
+/// @brief 同过smtp协议发送发送邮件
+/// @param smtpServer 可以使用域名
+XCOM_API bool SendEmail(const std::string& smtpServer, int port, const std::string& from,
+    const std::string& to, const std::string& subject, const std::string& message, const std::string& username,
+    const std::string& password);
+
+// 生成指定长度的纯数字验证码
+XCOM_API std::string GenerateNumericCode(int length);
+
 /*********************************时间格式***********************************
 /*
 %a 星期几的简写
@@ -139,4 +149,31 @@ private:
 };
 
 #endif
+
+class XCOM_API OLAES
+{
+public:
+    static OLAES* Create();
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 秘钥长度 128位（16字节） 192位 （24字节） 256位 (32字节)
+    /// 长度不能超过32字节，返回失败
+    /// 秘钥不足自动补充
+    /// @param key 秘钥
+    /// @param key_size 秘钥长度 字节 <=32 会自动补秘钥
+    /// @param is_enc true 加密 false 解密
+    /// @return 设置成功失败
+    virtual bool SetKey(const char* key, int key_byte_size, bool is_enc) = 0;
+
+    /// @brief 清理空间，删除对象
+    virtual void Drop() = 0;
+
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 加解密
+    /// @param in 输入数据
+    /// @param in_size 输入数据大小
+    /// @param out 输出 数据空间要保证16字节的倍数
+    /// @return  输出大小，失败返回<=0
+    virtual long long Decrypt(const unsigned char* in, long long in_size, unsigned char* out) = 0;
+    virtual long long Encrypt(const unsigned char* in, long long in_size, unsigned char* out) = 0;
+};
 
