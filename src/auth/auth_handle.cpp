@@ -114,8 +114,8 @@ void AuthHandle::GetAuthCodeReq(msg::MsgHead* head, Msg* msg)
 
     string smtp_server = "smtp.163.com";
     int smtp_port = 25;
-    string username = "orionlink@163.com";
-    string password = "XXEIIAGIKINDLHWN";
+    string username = "你的邮箱地址";
+    string password = "密码";
     string subject = "验证码";
     SendEmail(smtp_server, smtp_port, username, to, subject, text, username, password);
 
