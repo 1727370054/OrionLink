@@ -1,0 +1,386 @@
+/**
+    ∏√“≥√ÊŒ™«≥◊œ…´∆§∑Ù
+*/
+#frame_background{
+border-image:url(:/res/pic/background-3.png);
+}
+
+#frame_login{background-color:#ffffff}
+
+#frame_pic{
+    background-image:url(:/res/pic/3.png);
+
+}
+
+#frame_user_name,#frame_pwd{
+    border: 1px solid #696969;
+    border-radius: 5px;
+}
+
+#frame_user_name_3,#frame_pwd_3{
+    border: 1px solid #696969;
+    border-radius: 5px;
+}
+
+#frame_email_2,#frame_code_2{
+    border: 1px solid #696969;
+    border-radius: 5px;
+}
+
+#frame_email_3,#frame_code_3{
+    border: 1px solid #696969;
+    border-radius: 5px;
+}
+
+QLineEdit{
+    border: none;
+}
+
+#btn_forget_2{
+    border:none;
+    color:#7185ff;
+}
+
+
+#btn_forget_2:hover{
+    border:none;
+    color:#7185ff;
+}
+
+#btn_forget{
+    border:none;
+    color:#7185ff;
+}
+
+
+#btn_forget:hover{
+    border:none;
+    color:#7185ff;
+}
+
+#btn_username{
+    border:none;
+    color:#7185ff;
+}
+
+#btn_username:hover{
+    border:none;
+    color:#7185ff;
+}
+
+#btn_login_page{
+    border:none;
+    color:#7185ff;
+}
+
+#btn_login_page:hover{
+    border:none;
+    color:#7185ff;
+}
+
+/*’Àªß∫Õ√‹¬ÎøÚ*/
+#frame_user_name_2,#frame_pwd_2{
+    border: 1px solid #696969;
+    border-radius: 5px;
+}
+
+/*Õº±Í-’Àªß*/
+#label_user_name_2
+{
+    border-image:url(:/res/pic/user_name.png);
+}
+/*Õº±Í-√‹¬Î*/
+#label_pwd_2
+{
+    border-image:url(:/res/pic/pwd.png);
+
+}
+
+/*Õº±Í-’Àªß*/
+#label_user_name_3
+{
+    border-image:url(:/res/pic/user_name.png);
+}
+/*Õº±Í-√‹¬Î*/
+#label_pwd_3
+{
+    border-image:url(:/res/pic/pwd.png);
+
+}
+
+/*∞¥≈•-qq*/
+#btn_qq_2{
+    background-image:url(:/res/pic/qq.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+/*∞¥≈•-qq- Û±Í–¸Õ£*/
+#btn_qq_2:hover{
+    background-image:url(:/res/pic/qq-hover.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+/*∞¥≈•-Œ¢–≈*/
+#btn_wx_2{
+    background-image:url(:/res/pic/wx.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+/*∞¥≈•-Œ¢–≈- Û±Í–¸Õ£*/
+#btn_wx_2:hover{
+    background-image:url(:/res/pic/wx-hover.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+/*∞¥≈•-Œ¢≤©-*/
+#btn_wb_2{
+    background-image:url(:/res/pic/email.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+/*∞¥≈•-Œ¢≤©- Û±Í–¸Õ£*/
+#btn_wb_2:hover{
+    background-image:url(:/res/pic/email-hover.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+
+/***********************************************************************************
+
+/*∞¥≈•-qq*/
+#btn_qq_3{
+    background-image:url(:/res/pic/qq.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+/*∞¥≈•-qq- Û±Í–¸Õ£*/
+#btn_qq_3:hover{
+    background-image:url(:/res/pic/qq-hover.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+/*∞¥≈•-Œ¢–≈*/
+#btn_wx_3{
+    background-image:url(:/res/pic/wx.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+/*∞¥≈•-Œ¢–≈- Û±Í–¸Õ£*/
+#btn_wx_3:hover{
+    background-image:url(:/res/pic/wx-hover.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+/*∞¥≈•-Œ¢≤©-*/
+#btn_wb_3{
+    background-image:url(:/res/pic/email.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+/*∞¥≈•-Œ¢≤©- Û±Í–¸Õ£*/
+#btn_wb_3:hover{
+    background-image:url(:/res/pic/email-hover.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+
+/**********************************************************************************
+
+/*∞¥≈•-∑€∫Ï*/
+#btn_1{
+color:#e83737;
+background-color:#ffffff;
+border:none;
+border-radius: 10px;
+}
+/*∞¥≈•-ª∆¬Ã*/
+#btn_2{
+color:#d7b105;
+background-color:#ffffff;
+border:none;
+border-radius: 10px;
+}
+/*∞¥≈•-«≥◊œ*/
+#btn_3{
+color:#7185ff;
+background-color:#ffffff;
+border:none;
+border-radius: 10px;
+}
+/*∞¥≈•-«‡¬Ã*/
+#btn_4{
+color:#7bb7a5;
+background-color:#ffffff;
+border:none;
+border-radius: 10px;
+}
+
+#btn_register_2{
+    color:#ffffff;
+    border: none;
+    background-color:#8293fd;
+    border-radius: 5px;
+}
+
+#btn_register_2:hover{
+    color:#ffffff;
+    border: none;
+    background-color:#4861fb;
+    border-radius: 5px;
+}
+
+#btn_register_2:pressed{
+    color:#ffffff;
+    border: none;
+    background-color:#8293fd;
+    border-radius: 5px;
+}
+
+#btn_login{
+    color:#ffffff;
+    border: none;
+    background-color:#8293fd;
+    border-radius: 5px;
+}
+
+#btn_login:hover{
+    color:#ffffff;
+    border: none;
+    background-color:#4861fb;
+    border-radius: 5px;
+}
+
+#btn_login:pressed{
+    color:#ffffff;
+    border: none;
+    background-color:#8293fd;
+    border-radius: 5px;
+}
+
+#btn_email_login{
+    color:#ffffff;
+    border: none;
+    background-color:#8293fd;
+    border-radius: 5px;
+}
+
+#btn_email_login:hover{
+    color:#ffffff;
+    border: none;
+    background-color:#4861fb;
+    border-radius: 5px;
+}
+
+#btn_email_login:pressed{
+    color:#ffffff;
+    border: none;
+    background-color:#8293fd;
+    border-radius: 5px;
+}
+
+
+#btn_submit{
+    color:#ffffff;
+    border: none;
+    background-color:#8293fd;
+    border-radius: 5px;
+}
+
+#btn_submit:hover{
+    color:#ffffff;
+    border: none;
+    background-color:#4861fb;
+    border-radius: 5px;
+}
+
+#btn_submit:pressed{
+    color:#ffffff;
+    border: none;
+    background-color:#8293fd;
+    border-radius: 5px;
+}
+
+#label_register_2
+{
+    color:#7185ff;
+}
+
+#label_login
+{
+    color:#7185ff;
+}
+
+#label_email
+{
+    color:#7185ff;
+}
+
+#label_forget
+{
+    color:#7185ff;
+}
+
+#label_user_name
+{
+    border-image:url(:/res/pic/user_name.png);
+}
+
+#label_pwd
+{
+    border-image:url(:/res/pic/pwd.png);
+
+}
+
+#btn_qq{
+    background-image:url(:/res/pic/qq.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+
+#btn_qq:hover{
+    background-image:url(:/res/pic/qq-hover.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+
+#btn_wx{
+    background-image:url(:/res/pic/wx.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+
+#btn_wx:hover{
+    background-image:url(:/res/pic/wx-hover.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+
+#btn_wb{
+    background-image:url(:/res/pic/wb.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+
+#btn_wb:hover{
+    background-image:url(:/res/pic/wb-hover.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}

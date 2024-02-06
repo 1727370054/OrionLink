@@ -1,0 +1,8 @@
+<RCC>
+  <qresource prefix="/">
+    <file>pic/btn_close_h.png</file>
+    <file>pic/btn_min_h.png</file>
+    <file>pic/云盘.png</file>
+    <file>pic/profile.png</file>
+  </qresource>
+</RCC>

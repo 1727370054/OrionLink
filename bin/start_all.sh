@@ -1,0 +1,9 @@
+#!/bin/bash
+start_register_server
+start_config_server
+start_api_gateway
+start_auth
+start_log
+start_dir_service
+start_upload_service
+start_download_service

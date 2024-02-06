@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="pb">
+      <UniqueIdentifier>{1eb101ac-27b1-4f14-ae68-3a269c60512d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="custom_control">
+      <UniqueIdentifier>{5af6a707-c5ae-4547-b362-d76fc972c6a9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="login_gui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\auth\auth_client.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\platform\msg_comm.pb.cc">
+      <Filter>pb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\platform\msg_type.pb.cc">
+      <Filter>pb</Filter>
+    </ClCompile>
+    <ClCompile Include="disk_client_gui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\disk_proto\disk_client_gui.pb.cc">
+      <Filter>pb</Filter>
+    </ClCompile>
+    <ClCompile Include="ifile_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="file_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="get_dir_client.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="custom_control\message_box.cpp">
+      <Filter>custom_control</Filter>
+    </ClCompile>
+    <ClCompile Include="upload_client.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="task_list_gui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="task_item_gui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="download_client.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="file_password.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="add_user.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="login_gui.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="disk_client_gui.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="ifile_manager.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="custom_control\message_box.h">
+      <Filter>custom_control</Filter>
+    </QtMoc>
+    <QtMoc Include="task_list_gui.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="task_item_gui.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="file_password.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="add_user.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="debug\moc_predefs.h.cbt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="release\moc_predefs.h.cbt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="login_gui.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="disk_client_gui.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="task_list_gui.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="task_item_gui.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="file_password.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="add_user.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\pic\1.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\pic\2.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\pic\3.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\pic\4.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\pic\background-1.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\pic\background-2.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\pic\background-3.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\pic\background-4.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\pic\btn_sys_close.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\pic\btn_sys_minimize.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\pic\btn_sys_restore.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <QtRcc Include="pic.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
+    <None Include="res\pic\pwd.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\pic\qq-hover.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\pic\qq.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <QtRcc Include="qss.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
+    <None Include="res\qss\style-1.qss">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\qss\style-2.qss">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\qss\style-3.qss">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\qss\style-4.qss">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\pic\user_name.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\pic\wb-hover.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\pic\wb.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\pic\wx-hover.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\pic\wx.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\disk_proto\disk_client_gui.proto">
+      <Filter>pb</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ui_login_gui.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\auth\auth_client.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\platform\msg_comm.pb.h">
+      <Filter>pb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\platform\msg_type.pb.h">
+      <Filter>pb</Filter>
+    </ClInclude>
+    <ClInclude Include="ui_disk_client_gui.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\disk_proto\disk_client_gui.pb.h">
+      <Filter>pb</Filter>
+    </ClInclude>
+    <ClInclude Include="file_manager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="get_dir_client.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="upload_client.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ui_task_list_gui.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="download_client.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ui_file_password.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="disk_client_gui.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
+  </ItemGroup>
+</Project>

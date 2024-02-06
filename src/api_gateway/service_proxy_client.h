@@ -1,0 +1,59 @@
+#ifndef SERVICE_PROXY_CLIENT_H
+#define SERVICE_PROXY_CLIENT_H
+
+#include "service_client.h"
+
+#include <map>
+#include <mutex>
+
+class ServiceProxyClient : public ServiceClient
+{
+public:
+    ~ServiceProxyClient();
+
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 根据 service_name 区分创建鉴权代理，还是普通代理
+    /// @param service_name 微服务名称
+    static ServiceProxyClient* Create(std::string service_name);
+
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 接收了微服务的反馈，消息转发给对应的 RouterHandle（该函数重写 MsgEvent 的虚函数）
+    /// @param head 反序列化后消息头部
+    /// @param msg 序列化的消息内容
+    virtual void ReadCallback(msg::MsgHead* head, Msg* msg) override;
+
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 该客户端消息先和 RouterHandle 进行关联，再路由转发到微服务集群
+    /// @param head 消息头部
+    /// @param msg 序列化的消息内容
+    /// @param event RouterHandle 对象
+    /// @return 发送成功返回true，否则相反
+    ///////////////////////////////////////////////////////////////////////////
+    bool SendMsg(msg::MsgHead* head, Msg* msg, MsgEvent* event);
+
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 注册一个事件 (RouterHandle) (每个客户端对应一个 RouterHandle)
+    /// @param event 事件对象指针
+    void RegisterEvent(MsgEvent* event);
+
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 删除一个事件 (RouterHandle)
+    /// @param event 事件对象指针
+    void DeleteEvent(MsgEvent* event);
+
+    bool is_find() { return is_find_; }
+    void set_is_find(bool is) { this->is_find_ = is; }
+protected:
+    ServiceProxyClient();
+
+private:
+    /// 消息转发的对象，一个 proxy 对应多个 MsgEvent
+    /// 用指针的置作为索引，要兼容64位
+    std::map<long long, MsgEvent*> callback_task_;
+    std::mutex callback_task_mutex_;
+    /// 是否可以被外网发现
+    bool is_find_ = false;
+};
+
+#endif // SERVICE_PROXY_CLIENT_H
+

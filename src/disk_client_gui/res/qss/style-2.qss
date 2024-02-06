@@ -1,0 +1,384 @@
+/**
+    ∏√“≥√ÊŒ™ª∆¬Ã…´∆§∑Ù
+*/
+#frame_background{
+border-image:url(:/res/pic/background-2.png);
+}
+
+#frame_login{background-color:#ffffff}
+
+#frame_pic{
+    background-image:url(:/res/pic/2.png);
+
+}
+
+#frame_user_name,#frame_pwd{
+    border: 1px solid #696969;
+    border-radius: 5px;
+}
+
+#frame_user_name_3,#frame_pwd_3{
+    border: 1px solid #696969;
+    border-radius: 5px;
+}
+
+#frame_email_2,#frame_code_2{
+    border: 1px solid #696969;
+    border-radius: 5px;
+}
+
+#frame_email_3,#frame_code_3{
+    border: 1px solid #696969;
+    border-radius: 5px;
+}
+
+QLineEdit{
+    border: none;
+}
+
+#btn_forget_2{
+    border:none;
+    color:#d7b105;
+}
+
+
+#btn_forget_2:hover{
+    border:none;
+    color:#d7b105;
+}
+
+#btn_username{
+    border:none;
+    color:#d7b105;
+}
+
+#btn_username:hover{
+    border:none;
+    color:#d7b105;
+}
+
+#btn_forget{
+    border:none;
+    color:#d7b105;
+}
+
+
+#btn_forget:hover{
+    border:none;
+    color:#d7b105;
+}
+
+#btn_login_page{
+    border:none;
+    color:#d7b105;
+}
+
+#btn_login_page:hover{
+    border:none;
+    color:#d7b105;
+}
+
+#btn_register_2{
+    color:#80712d;
+    border: none;
+    background-color:#ffde49;
+    border-radius: 5px;
+}
+
+#btn_register_2:hover{
+    color:#80712d;
+    border: none;
+    background-color:#fdd72d;
+    border-radius: 5px;
+}
+
+#btn_register_2:pressed{
+    color:#80712d;
+    border: none;
+    background-color:#ffde49;
+    border-radius: 5px;
+}
+
+#btn_login{
+    color:#80712d;
+    border: none;
+    background-color:#ffde49;
+    border-radius: 5px;
+}
+
+#btn_login:hover{
+    color:#80712d;
+    border: none;
+    background-color:#fdd72d;
+    border-radius: 5px;
+}
+
+#btn_login:pressed{
+    color:#80712d;
+    border: none;
+    background-color:#ffde49;
+    border-radius: 5px;
+}
+
+#btn_email_login{
+    color:#80712d;
+    border: none;
+    background-color:#ffde49;
+    border-radius: 5px;
+}
+
+#btn_email_login:hover{
+    color:#80712d;
+    border: none;
+    background-color:#fdd72d;
+    border-radius: 5px;
+}
+
+#btn_email_login:pressed{
+    color:#80712d;
+    border: none;
+    background-color:#ffde49;
+    border-radius: 5px;
+}
+
+#btn_submit{
+    color:#80712d;
+    border: none;
+    background-color:#ffde49;
+    border-radius: 5px;
+}
+
+#btn_submit:hover{
+    color:#80712d;
+    border: none;
+    background-color:#fdd72d;
+    border-radius: 5px;
+}
+
+#btn_submit:pressed{
+    color:#80712d;
+    border: none;
+    background-color:#ffde49;
+    border-radius: 5px;
+}
+
+#label_register_2
+{
+    color:#d7b105;
+
+}
+
+#label_login
+{
+    color:#d7b105;
+}
+
+#label_email
+{
+    color:#d7b105;
+}
+
+#label_forget
+{
+    color:#d7b105;
+}
+
+#label_user_name
+{
+    border-image:url(:/res/pic/user_name.png);
+}
+
+#label_pwd
+{
+    border-image:url(:/res/pic/pwd.png);
+
+}
+
+#label_user_name_3
+{
+    border-image:url(:/res/pic/user_name.png);
+}
+
+#label_pwd_3
+{
+    border-image:url(:/res/pic/pwd.png);
+
+}
+
+#btn_qq{
+    background-image:url(:/res/pic/qq.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+
+#btn_qq:hover{
+    background-image:url(:/res/pic/qq-hover.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+
+#btn_wx{
+    background-image:url(:/res/pic/wx.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+
+#btn_wx:hover{
+    background-image:url(:/res/pic/wx-hover.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+
+#btn_wb{
+    background-image:url(:/res/pic/email.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+
+#btn_wb:hover{
+    background-image:url(:/res/pic/email-hover.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+
+/*’Àªß∫Õ√‹¬ÎøÚ*/
+#frame_user_name_2,#frame_pwd_2{
+    border: 1px solid #696969;
+    border-radius: 5px;
+}
+
+/*Õº±Í-’Àªß*/
+#label_user_name_2
+{
+    border-image:url(:/res/pic/user_name.png);
+}
+/*Õº±Í-√‹¬Î*/
+#label_pwd_2
+{
+    border-image:url(:/res/pic/pwd.png);
+
+}
+/*∞¥≈•-qq*/
+#btn_qq_2{
+    background-image:url(:/res/pic/qq.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+/*∞¥≈•-qq- Û±Í–¸Õ£*/
+#btn_qq_2:hover{
+    background-image:url(:/res/pic/qq-hover.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+/*∞¥≈•-Œ¢–≈*/
+#btn_wx_2{
+    background-image:url(:/res/pic/wx.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+/*∞¥≈•-Œ¢–≈- Û±Í–¸Õ£*/
+#btn_wx_2:hover{
+    background-image:url(:/res/pic/wx-hover.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+/*∞¥≈•-Œ¢≤©-*/
+#btn_wb_2{
+    background-image:url(:/res/pic/email.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+/*∞¥≈•-Œ¢≤©- Û±Í–¸Õ£*/
+#btn_wb_2:hover{
+    background-image:url(:/res/pic/email-hover.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+
+/***********************************************************************************
+
+/*∞¥≈•-qq*/
+#btn_qq_3{
+    background-image:url(:/res/pic/qq.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+/*∞¥≈•-qq- Û±Í–¸Õ£*/
+#btn_qq_3:hover{
+    background-image:url(:/res/pic/qq-hover.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+/*∞¥≈•-Œ¢–≈*/
+#btn_wx_3{
+    background-image:url(:/res/pic/wx.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+/*∞¥≈•-Œ¢–≈- Û±Í–¸Õ£*/
+#btn_wx_3:hover{
+    background-image:url(:/res/pic/wx-hover.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+/*∞¥≈•-Œ¢≤©-*/
+#btn_wb_3{
+    background-image:url(:/res/pic/email.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+/*∞¥≈•-Œ¢≤©- Û±Í–¸Õ£*/
+#btn_wb_3:hover{
+    background-image:url(:/res/pic/email-hover.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+
+/**********************************************************************************
+
+/*∞¥≈•-∑€∫Ï*/
+#btn_1{
+color:#e83737;
+background-color:#ffffff;
+border:none;
+border-radius: 10px;
+}
+/*∞¥≈•-ª∆¬Ã*/
+#btn_2{
+color:#d7b105;
+background-color:#ffffff;
+border:none;
+border-radius: 10px;
+}
+/*∞¥≈•-«≥◊œ*/
+#btn_3{
+color:#7185ff;
+background-color:#ffffff;
+border:none;
+border-radius: 10px;
+}
+/*∞¥≈•-«‡¬Ã*/
+#btn_4{
+color:#7bb7a5;
+background-color:#ffffff;
+border:none;
+border-radius: 10px;
+}
