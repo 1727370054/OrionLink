@@ -49,10 +49,10 @@ install:$(WATCH)
 	cp $(LIB_TARGET) $(INSTALL_LIB_PATH)
 	@echo "install success!"
 uninstall:
-	rm -rf *.o $(TARGET) $(WATCH) $(START_SHELL) $(STOP_SHELL)
+	rm -rf *.o $(TARGET) $(WATCH) $(START_SHELL) $(STOP_SHELL) $(LIB_TARGET)
 	rm -rf $(INSTALL_PATH)$(TARGET)
 	rm -rf $(INSTALL_PATH)$(WATCH)
 	rm -rf $(INSTALL_PATH)$(START_SHELL)
 	rm -rf $(INSTALL_PATH)$(STOP_SHELL)
 clean:
-	rm -rf *.o $(TARGET) $(WATCH) $(START_SHELL) $(STOP_SHELL)
+	rm -rf *.o $(TARGET) $(WATCH) $(START_SHELL) $(STOP_SHELL) $(LIB_TARGET)
