@@ -12,6 +12,7 @@ namespace Ui {
 }
 
 class LoginGUI;
+class TokenThread;
 
 class DiskClientGUI  : public QWidget
 {
@@ -30,6 +31,7 @@ public:
     bool eventFilter(QObject* object, QEvent* event) override;
 
     void set_ifm(iFileManager* f) { this->ifm_ = f; }
+
 private:
     void triggerItemChanged(QString filename);
 
@@ -40,6 +42,9 @@ public slots:
 
     void NewDir();
     void DirRename(QTableWidgetItem* item);
+
+    void Rename();
+    void Rename(QTableWidgetItem* item);
 
     /// 回退目录
     void Back();
@@ -70,12 +75,37 @@ public slots:
 
     void MyTab();
     void TaskTab();
+
+    void Search(const QString& text);
+
+    void QuitLogin();
 private:
     Ui::DiskClientGUI* ui;
     LoginGUI* login_gui_;
+    TokenThread* token_thread_ = nullptr;
     iFileManager* ifm_ = nullptr;
     std::string remote_dir_ = "";
     disk::FileInfoList file_list_;
+};
+
+/*
+* @brief 定期检查更新token
+*/
+class TokenThread
+{
+public:
+    TokenThread();
+    ~TokenThread();
+
+    void Start();
+
+    void Stop();
+private:
+    void Main();
+
+    std::atomic<bool> is_exit_{ false };
+    std::mutex mtx_;
+    std::condition_variable cv_;
 };
 
 #endif // DISK_CLIENT_GUI_H

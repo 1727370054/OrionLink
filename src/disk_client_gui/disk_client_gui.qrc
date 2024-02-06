@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="XMSDiskClientGui">
+    <file>Resources/img/search.png</file>
+    <file>Resources/img/退出.png</file>
     <file>Resources/img/add1.png</file>
     <file>Resources/img/add2.png</file>
     <file>disk_logo.ico</file>

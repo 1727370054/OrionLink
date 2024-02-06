@@ -51,6 +51,8 @@ XCOM_API long long GetDirSize(const char* path);
 
 XCOM_API bool GetDiskSize(const char* path, unsigned long long *avail, unsigned long long * total, unsigned long long* free);
 
+XCOM_API bool Rename(const char* old_filename, const char* new_filename);
+
 ///////////////////////////////////////////////////////////////////////////
 /// @brief 生成md5 128bit(16字节) 
 /// @param in_data 输入数据

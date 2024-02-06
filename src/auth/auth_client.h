@@ -52,6 +52,18 @@ public:
     void LoginReq(std::string username, std::string password);
 
     ///////////////////////////////////////////////////////////////////////////
+    /// @brief 发送登陆的请求
+    /// @param email 邮箱
+    /// @param code 验证码
+    void EmailLoginReq(std::string email, std::string code);
+
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 发送邮箱登陆的结果
+    /// @param timeout_ms 超时时间
+    /// @return 0: 超时 1: 成功 3: 验证码错误 4: 用户不存在
+    int GetEmailLogin(int timeout_ms = 3000);
+
+    ///////////////////////////////////////////////////////////////////////////
     /// @brief 发送添加用户的请求
     /// @param add_user 用户信息
     void AddUserReq(msg::AddUserReq* add_user);
@@ -76,10 +88,19 @@ public:
     void RegisterUserReq(msg::RegisterUserReq& req);
 
     ///////////////////////////////////////////////////////////////////////////
-    /// @brief 获取注册结果
+    /// @brief 获取注册结果和获取忘记密码结果
     /// @param timeout_ms 超时时间
-    /// @return 0: 超时返回 1: 验证码错误 2: 用户名已经存在 3: 成功
-    int GetRegisterResult(int timeout_ms);
+    /// @return 注册结果 0: 超时返回 1: 验证码错误 2: 用户名已经存在 3: 成功
+    /// @return 忘记密码 0: 超时返回 1: 成功 2: 验证码错误 3: 用户不存在 4: 该用户绑定的邮箱不正确
+    int GetResult(int timeout_ms);
+
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 发送忘记密码请求
+    void ForgetPasswordReq(msg::RegisterUserReq& req);
+
+    ///////////////////////////////////////////////////////////////////////////
+    /// @brief 清理上一次登陆用户缓存
+    void ClearLastLogin(std::string username = "");
 
     virtual void TimerCallback() override;
 
@@ -104,12 +125,18 @@ private:
     void CheckTokenRes(msg::MsgHead* head, Msg* msg);
 
     void RegisterUserRes(msg::MsgHead* head, Msg* msg);
+
+    void EmailLoginRes(msg::MsgHead* head, Msg* msg);
+
+    void ForgetPasswordRes(msg::MsgHead* head, Msg* msg);
 private:
     /// 当前登陆的用户名
     std::string cur_username_ = "";
 
     std::map<std::string, msg::LoginRes> login_map_;
     std::mutex login_map_mutex_;
+
+    std::mutex cur_login_mutex_;
 
     SSLCtx* ssl_ctx_ = nullptr;
 

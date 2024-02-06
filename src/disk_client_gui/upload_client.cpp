@@ -108,6 +108,11 @@ void UploadClient::SendSlice()
     head.set_msg_type((MsgType)SEND_SLICE_REQ);
     head.set_offset(offset);
 
+    if (slice_buf_ == nullptr)
+    {
+        Drop();
+        return;
+    }
     ifs_.read(slice_buf_, slice_size);
     slice_size = ifs_.gcount();
 
@@ -126,6 +131,11 @@ void UploadClient::SendSlice()
             return;
         }
         /// AES加密
+        if (slice_buf_enc_ == nullptr)
+        {
+            Drop();
+            return;
+        }
         enc_size = aes_->Encrypt((unsigned char*)slice_buf_, slice_size, (unsigned char*)slice_buf_enc_);
         data.data = slice_buf_enc_;
         data.size = enc_size;
@@ -182,6 +192,7 @@ void UploadClient::SendSliceRes(msg::MsgHead* head, Msg* msg)
 void UploadClient::UploadFileEndRes(msg::MsgHead* head, Msg* msg)
 {
     cout << "UploadClient::UploadFileEndRes" << endl;
+    //任务完成刷新界面
     iFileManager::GetInstance()->RefreshDir();
     iFileManager::GetInstance()->UploadEnd(task_id);
     Drop();
@@ -190,7 +201,6 @@ void UploadClient::UploadFileEndRes(msg::MsgHead* head, Msg* msg)
 void UploadClient::Drop()
 {
     ifs_.close();
-    //任务完成刷新界面
     ClearTimer();
     Close();
     DropInMsg();

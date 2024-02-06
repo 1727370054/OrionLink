@@ -97,7 +97,7 @@ public:
     void retranslateUi(QDialog *FilePassword)
     {
         FilePassword->setWindowTitle(QApplication::translate("FilePassword", "\350\256\276\345\256\232\346\226\207\344\273\266\345\257\206\351\222\245", nullptr));
-        passwordEdit->setText(QApplication::translate("FilePassword", "123456", nullptr));
+        passwordEdit->setText(QString());
         passlog->setText(QString());
         pushButton->setText(QApplication::translate("FilePassword", "\347\241\256\350\256\244", nullptr));
     } // retranslateUi

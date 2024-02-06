@@ -35,6 +35,7 @@ void DirHandle::RegisterMsgCallback()
     RegisterCallback((MsgType)NEW_DIR_REQ, (MsgCBFunc)&DirHandle::NewDirReq);
     RegisterCallback((MsgType)DELETE_FILE_REQ, (MsgCBFunc)&DirHandle::DeleteFileReq);
     RegisterCallback((MsgType)GET_DISK_INFO_REQ, (MsgCBFunc)&DirHandle::GetDiskInfoReq);
+    RegisterCallback((MsgType)RENAME_REQ, (MsgCBFunc)&DirHandle::RenameReq);
 }
 
 void DirHandle::GetDirReq(msg::MsgHead* head, Msg* msg)
@@ -141,5 +142,37 @@ void DirHandle::GetDiskInfoReq(msg::MsgHead* head, Msg* msg)
         res.set_free(user_size - dir_size);
     }
     head->set_msg_type((MsgType)GET_DISK_INFO_RES);
+    SendMsg(head, &res);
+}
+
+void DirHandle::RenameReq(msg::MsgHead* head, Msg* msg)
+{
+    disk::RenameReq req;
+    if (!req.ParseFromArray(msg->data, msg->size))
+    {
+        LOGDEBUG("DirHandle::RenameReq failed! ParseFromArray error");
+        return;
+    }
+
+    MessageRes res;
+    head->set_msg_type((MsgType)RENAME_RES);
+
+    string old_filename = GetUserPath(head);
+    string new_filename = old_filename;
+    old_filename += req.old_filename();
+    new_filename += req.new_filename();
+
+    bool ret = Rename(old_filename.c_str(), new_filename.c_str());
+    if (ret)
+    {
+        res.set_return_(MessageRes::OK);
+        res.set_desc("ok");
+    }
+    else
+    {
+        res.set_return_(MessageRes::ERROR);
+        res.set_desc("rename failed!");
+    }
+
     SendMsg(head, &res);
 }

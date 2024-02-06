@@ -76,11 +76,6 @@ make clean
 make -j8
 make install
 
-cd ../ol_add_user
-make clean
-make -j8
-make install
-
 echo "build all success!"
 
 

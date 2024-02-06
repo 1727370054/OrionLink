@@ -47,6 +47,7 @@ private:
     disk::FileInfo file_;
     std::ofstream ofs_;
 
+    std::string local_path_ = "";
     /// 开始发送数据时，已经发送的值，要确保缓冲已经都发送成功
     long long begin_recv_data_size_ = -1;
 

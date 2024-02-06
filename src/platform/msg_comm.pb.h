@@ -52,7 +52,7 @@ struct TableStruct_msg_5fcomm_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[23]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[24]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -84,6 +84,9 @@ extern DirResDefaultTypeInternal _DirRes_default_instance_;
 class DirRes_Dir;
 class DirRes_DirDefaultTypeInternal;
 extern DirRes_DirDefaultTypeInternal _DirRes_Dir_default_instance_;
+class EmailLoginReq;
+class EmailLoginReqDefaultTypeInternal;
+extern EmailLoginReqDefaultTypeInternal _EmailLoginReq_default_instance_;
 class GatewayConfig;
 class GatewayConfigDefaultTypeInternal;
 extern GatewayConfigDefaultTypeInternal _GatewayConfig_default_instance_;
@@ -139,6 +142,7 @@ template<> ::msg::DirConfig* Arena::CreateMaybeMessage<::msg::DirConfig>(Arena*)
 template<> ::msg::DirReq* Arena::CreateMaybeMessage<::msg::DirReq>(Arena*);
 template<> ::msg::DirRes* Arena::CreateMaybeMessage<::msg::DirRes>(Arena*);
 template<> ::msg::DirRes_Dir* Arena::CreateMaybeMessage<::msg::DirRes_Dir>(Arena*);
+template<> ::msg::EmailLoginReq* Arena::CreateMaybeMessage<::msg::EmailLoginReq>(Arena*);
 template<> ::msg::GatewayConfig* Arena::CreateMaybeMessage<::msg::GatewayConfig>(Arena*);
 template<> ::msg::GetAuthCode* Arena::CreateMaybeMessage<::msg::GetAuthCode>(Arena*);
 template<> ::msg::GetServiceReq* Arena::CreateMaybeMessage<::msg::GetServiceReq>(Arena*);
@@ -161,12 +165,14 @@ enum MessageRes_Return : int {
   MessageRes_Return_OK = 0,
   MessageRes_Return_ERROR = 1,
   MessageRes_Return_USER_EXISTS = 2,
+  MessageRes_Return_USER_NOT_EXISTS = 3,
+  MessageRes_Return_BIND_EMAIL_ERR = 4,
   MessageRes_Return_MessageRes_Return_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   MessageRes_Return_MessageRes_Return_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
 bool MessageRes_Return_IsValid(int value);
 constexpr MessageRes_Return MessageRes_Return_Return_MIN = MessageRes_Return_OK;
-constexpr MessageRes_Return MessageRes_Return_Return_MAX = MessageRes_Return_USER_EXISTS;
+constexpr MessageRes_Return MessageRes_Return_Return_MAX = MessageRes_Return_BIND_EMAIL_ERR;
 constexpr int MessageRes_Return_Return_ARRAYSIZE = MessageRes_Return_Return_MAX + 1;
 
 const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* MessageRes_Return_descriptor();
@@ -647,6 +653,10 @@ class MessageRes :
     MessageRes_Return_ERROR;
   static constexpr Return USER_EXISTS =
     MessageRes_Return_USER_EXISTS;
+  static constexpr Return USER_NOT_EXISTS =
+    MessageRes_Return_USER_NOT_EXISTS;
+  static constexpr Return BIND_EMAIL_ERR =
+    MessageRes_Return_BIND_EMAIL_ERR;
   static inline bool Return_IsValid(int value) {
     return MessageRes_Return_IsValid(value);
   }
@@ -1176,6 +1186,7 @@ class AddUserReq :
     kUsernameFieldNumber = 1,
     kPasswordFieldNumber = 2,
     kRolenameFieldNumber = 3,
+    kEmailFieldNumber = 4,
   };
   // string username = 1;
   void clear_username();
@@ -1225,6 +1236,22 @@ class AddUserReq :
   std::string* _internal_mutable_rolename();
   public:
 
+  // string email = 4;
+  void clear_email();
+  const std::string& email() const;
+  void set_email(const std::string& value);
+  void set_email(std::string&& value);
+  void set_email(const char* value);
+  void set_email(const char* value, size_t size);
+  std::string* mutable_email();
+  std::string* release_email();
+  void set_allocated_email(std::string* email);
+  private:
+  const std::string& _internal_email() const;
+  void _internal_set_email(const std::string& value);
+  std::string* _internal_mutable_email();
+  public:
+
   // @@protoc_insertion_point(class_scope:msg.AddUserReq)
  private:
   class _Internal;
@@ -1233,6 +1260,7 @@ class AddUserReq :
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr username_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr password_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr rolename_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr email_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_msg_5fcomm_2eproto;
 };
@@ -1965,6 +1993,164 @@ class RegisterUserReq :
 };
 // -------------------------------------------------------------------
 
+class EmailLoginReq :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:msg.EmailLoginReq) */ {
+ public:
+  EmailLoginReq();
+  virtual ~EmailLoginReq();
+
+  EmailLoginReq(const EmailLoginReq& from);
+  EmailLoginReq(EmailLoginReq&& from) noexcept
+    : EmailLoginReq() {
+    *this = ::std::move(from);
+  }
+
+  inline EmailLoginReq& operator=(const EmailLoginReq& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline EmailLoginReq& operator=(EmailLoginReq&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const EmailLoginReq& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const EmailLoginReq* internal_default_instance() {
+    return reinterpret_cast<const EmailLoginReq*>(
+               &_EmailLoginReq_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    9;
+
+  friend void swap(EmailLoginReq& a, EmailLoginReq& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(EmailLoginReq* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline EmailLoginReq* New() const final {
+    return CreateMaybeMessage<EmailLoginReq>(nullptr);
+  }
+
+  EmailLoginReq* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<EmailLoginReq>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const EmailLoginReq& from);
+  void MergeFrom(const EmailLoginReq& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  #else
+  bool MergePartialFromCodedStream(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(EmailLoginReq* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "msg.EmailLoginReq";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_msg_5fcomm_2eproto);
+    return ::descriptor_table_msg_5fcomm_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kEmailFieldNumber = 1,
+    kCodeFieldNumber = 2,
+  };
+  // string email = 1;
+  void clear_email();
+  const std::string& email() const;
+  void set_email(const std::string& value);
+  void set_email(std::string&& value);
+  void set_email(const char* value);
+  void set_email(const char* value, size_t size);
+  std::string* mutable_email();
+  std::string* release_email();
+  void set_allocated_email(std::string* email);
+  private:
+  const std::string& _internal_email() const;
+  void _internal_set_email(const std::string& value);
+  std::string* _internal_mutable_email();
+  public:
+
+  // bytes code = 2;
+  void clear_code();
+  const std::string& code() const;
+  void set_code(const std::string& value);
+  void set_code(std::string&& value);
+  void set_code(const char* value);
+  void set_code(const void* value, size_t size);
+  std::string* mutable_code();
+  std::string* release_code();
+  void set_allocated_code(std::string* code);
+  private:
+  const std::string& _internal_code() const;
+  void _internal_set_code(const std::string& value);
+  std::string* _internal_mutable_code();
+  public:
+
+  // @@protoc_insertion_point(class_scope:msg.EmailLoginReq)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr email_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr code_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_msg_5fcomm_2eproto;
+};
+// -------------------------------------------------------------------
+
 class DirReq :
     public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:msg.DirReq) */ {
  public:
@@ -2007,7 +2193,7 @@ class DirReq :
                &_DirReq_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    10;
 
   friend void swap(DirReq& a, DirReq& b) {
     a.Swap(&b);
@@ -2147,7 +2333,7 @@ class DirRes_Dir :
                &_DirRes_Dir_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    11;
 
   friend void swap(DirRes_Dir& a, DirRes_Dir& b) {
     a.Swap(&b);
@@ -2294,7 +2480,7 @@ class DirRes :
                &_DirRes_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    11;
+    12;
 
   friend void swap(DirRes& a, DirRes& b) {
     a.Swap(&b);
@@ -2470,7 +2656,7 @@ class ServiceInfo :
                &_ServiceInfo_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    12;
+    13;
 
   friend void swap(ServiceInfo& a, ServiceInfo& b) {
     a.Swap(&b);
@@ -2642,7 +2828,7 @@ class ServiceList :
                &_ServiceList_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    13;
+    14;
 
   friend void swap(ServiceList& a, ServiceList& b) {
     a.Swap(&b);
@@ -2777,7 +2963,7 @@ public:
   private:
   static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
     ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_msg_5fcomm_2eproto);
-    return ::descriptor_table_msg_5fcomm_2eproto.file_level_metadata[14];
+    return ::descriptor_table_msg_5fcomm_2eproto.file_level_metadata[15];
   }
 
   public:
@@ -2827,7 +3013,7 @@ class ServiceMap :
                &_ServiceMap_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    15;
+    16;
 
   friend void swap(ServiceMap& a, ServiceMap& b) {
     a.Swap(&b);
@@ -2985,7 +3171,7 @@ class GetServiceReq :
                &_GetServiceReq_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    16;
+    17;
 
   friend void swap(GetServiceReq& a, GetServiceReq& b) {
     a.Swap(&b);
@@ -3132,7 +3318,7 @@ class Config :
                &_Config_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    17;
+    18;
 
   friend void swap(Config& a, Config& b) {
     a.Swap(&b);
@@ -3333,7 +3519,7 @@ class LoadConfigReq :
                &_LoadConfigReq_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    18;
+    19;
 
   friend void swap(LoadConfigReq& a, LoadConfigReq& b) {
     a.Swap(&b);
@@ -3480,7 +3666,7 @@ class DirConfig :
                &_DirConfig_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    19;
+    20;
 
   friend void swap(DirConfig& a, DirConfig& b) {
     a.Swap(&b);
@@ -3620,7 +3806,7 @@ class LoadAllConfigReq :
                &_LoadAllConfigReq_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    20;
+    21;
 
   friend void swap(LoadAllConfigReq& a, LoadAllConfigReq& b) {
     a.Swap(&b);
@@ -3756,7 +3942,7 @@ class ConfigList :
                &_ConfigList_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    21;
+    22;
 
   friend void swap(ConfigList& a, ConfigList& b) {
     a.Swap(&b);
@@ -3891,7 +4077,7 @@ class GatewayConfig :
                &_GatewayConfig_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    22;
+    23;
 
   friend void swap(GatewayConfig& a, GatewayConfig& b) {
     a.Swap(&b);
@@ -4984,6 +5170,66 @@ inline void AddUserReq::set_allocated_rolename(std::string* rolename) {
   // @@protoc_insertion_point(field_set_allocated:msg.AddUserReq.rolename)
 }
 
+// string email = 4;
+inline void AddUserReq::clear_email() {
+  email_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& AddUserReq::email() const {
+  // @@protoc_insertion_point(field_get:msg.AddUserReq.email)
+  return _internal_email();
+}
+inline void AddUserReq::set_email(const std::string& value) {
+  _internal_set_email(value);
+  // @@protoc_insertion_point(field_set:msg.AddUserReq.email)
+}
+inline std::string* AddUserReq::mutable_email() {
+  // @@protoc_insertion_point(field_mutable:msg.AddUserReq.email)
+  return _internal_mutable_email();
+}
+inline const std::string& AddUserReq::_internal_email() const {
+  return email_.GetNoArena();
+}
+inline void AddUserReq::_internal_set_email(const std::string& value) {
+  
+  email_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void AddUserReq::set_email(std::string&& value) {
+  
+  email_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:msg.AddUserReq.email)
+}
+inline void AddUserReq::set_email(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  email_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:msg.AddUserReq.email)
+}
+inline void AddUserReq::set_email(const char* value, size_t size) {
+  
+  email_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:msg.AddUserReq.email)
+}
+inline std::string* AddUserReq::_internal_mutable_email() {
+  
+  return email_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* AddUserReq::release_email() {
+  // @@protoc_insertion_point(field_release:msg.AddUserReq.email)
+  
+  return email_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void AddUserReq::set_allocated_email(std::string* email) {
+  if (email != nullptr) {
+    
+  } else {
+    
+  }
+  email_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), email);
+  // @@protoc_insertion_point(field_set_allocated:msg.AddUserReq.email)
+}
+
 // -------------------------------------------------------------------
 
 // LoginReq
@@ -5640,6 +5886,130 @@ inline void RegisterUserReq::set_expired_time(::PROTOBUF_NAMESPACE_ID::int32 val
   
   expired_time_ = value;
   // @@protoc_insertion_point(field_set:msg.RegisterUserReq.expired_time)
+}
+
+// -------------------------------------------------------------------
+
+// EmailLoginReq
+
+// string email = 1;
+inline void EmailLoginReq::clear_email() {
+  email_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& EmailLoginReq::email() const {
+  // @@protoc_insertion_point(field_get:msg.EmailLoginReq.email)
+  return _internal_email();
+}
+inline void EmailLoginReq::set_email(const std::string& value) {
+  _internal_set_email(value);
+  // @@protoc_insertion_point(field_set:msg.EmailLoginReq.email)
+}
+inline std::string* EmailLoginReq::mutable_email() {
+  // @@protoc_insertion_point(field_mutable:msg.EmailLoginReq.email)
+  return _internal_mutable_email();
+}
+inline const std::string& EmailLoginReq::_internal_email() const {
+  return email_.GetNoArena();
+}
+inline void EmailLoginReq::_internal_set_email(const std::string& value) {
+  
+  email_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void EmailLoginReq::set_email(std::string&& value) {
+  
+  email_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:msg.EmailLoginReq.email)
+}
+inline void EmailLoginReq::set_email(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  email_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:msg.EmailLoginReq.email)
+}
+inline void EmailLoginReq::set_email(const char* value, size_t size) {
+  
+  email_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:msg.EmailLoginReq.email)
+}
+inline std::string* EmailLoginReq::_internal_mutable_email() {
+  
+  return email_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* EmailLoginReq::release_email() {
+  // @@protoc_insertion_point(field_release:msg.EmailLoginReq.email)
+  
+  return email_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void EmailLoginReq::set_allocated_email(std::string* email) {
+  if (email != nullptr) {
+    
+  } else {
+    
+  }
+  email_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), email);
+  // @@protoc_insertion_point(field_set_allocated:msg.EmailLoginReq.email)
+}
+
+// bytes code = 2;
+inline void EmailLoginReq::clear_code() {
+  code_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& EmailLoginReq::code() const {
+  // @@protoc_insertion_point(field_get:msg.EmailLoginReq.code)
+  return _internal_code();
+}
+inline void EmailLoginReq::set_code(const std::string& value) {
+  _internal_set_code(value);
+  // @@protoc_insertion_point(field_set:msg.EmailLoginReq.code)
+}
+inline std::string* EmailLoginReq::mutable_code() {
+  // @@protoc_insertion_point(field_mutable:msg.EmailLoginReq.code)
+  return _internal_mutable_code();
+}
+inline const std::string& EmailLoginReq::_internal_code() const {
+  return code_.GetNoArena();
+}
+inline void EmailLoginReq::_internal_set_code(const std::string& value) {
+  
+  code_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void EmailLoginReq::set_code(std::string&& value) {
+  
+  code_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:msg.EmailLoginReq.code)
+}
+inline void EmailLoginReq::set_code(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  code_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:msg.EmailLoginReq.code)
+}
+inline void EmailLoginReq::set_code(const void* value, size_t size) {
+  
+  code_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:msg.EmailLoginReq.code)
+}
+inline std::string* EmailLoginReq::_internal_mutable_code() {
+  
+  return code_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* EmailLoginReq::release_code() {
+  // @@protoc_insertion_point(field_release:msg.EmailLoginReq.code)
+  
+  return code_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void EmailLoginReq::set_allocated_code(std::string* code) {
+  if (code != nullptr) {
+    
+  } else {
+    
+  }
+  code_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), code);
+  // @@protoc_insertion_point(field_set_allocated:msg.EmailLoginReq.code)
 }
 
 // -------------------------------------------------------------------
@@ -6926,6 +7296,8 @@ inline void GatewayConfig::set_server_port(::PROTOBUF_NAMESPACE_ID::int32 value)
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

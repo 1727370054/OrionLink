@@ -13,5 +13,6 @@ void AddUser::accept()
 {
     password = ui.passwordEdit->text().toLocal8Bit();
     username = ui.userEdit->text().toLocal8Bit();
+    email = ui.emailEdit->text().toLocal8Bit();
     QDialog::accept();
 }

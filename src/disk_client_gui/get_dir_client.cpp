@@ -15,6 +15,7 @@ void GetDirClient::RegisterMsgCallback()
     RegisterCallback((MsgType)DELETE_FILE_RES, (MsgCBFunc)&GetDirClient::DeleteFileRes);
     RegisterCallback((MsgType)GET_DISK_INFO_RES, (MsgCBFunc)&GetDirClient::GetDiskInfoRes);
     RegisterCallback(MSG_GET_OUT_SERVICE_RES, (MsgCBFunc)&GetDirClient::GetServiceRes);
+    RegisterCallback((MsgType)RENAME_RES, (MsgCBFunc)&GetDirClient::RenameRes);
 }
 
 void GetDirClient::GetDirReq(disk::GetDirReq& req)
@@ -94,6 +95,34 @@ void GetDirClient::GetDiskInfoRes(msg::MsgHead* head, Msg* msg)
     }
 
     iFileManager::GetInstance()->RefreshDiskInfo(res);
+}
+
+void GetDirClient::RenameReq(std::string& old_filename, std::string& new_filename)
+{
+    disk::RenameReq req;
+    req.set_old_filename(old_filename);
+    req.set_new_filename(new_filename);
+    SendMsg((MsgType)RENAME_REQ, &req);
+}
+
+void GetDirClient::RenameRes(msg::MsgHead* head, Msg* msg)
+{
+    MessageRes res;
+    if (!res.ParseFromArray(msg->data, msg->size))
+    {
+        cerr << "GetDirClient::RenameRes failed! ParseFromArray error" << endl;
+        return;
+    }
+
+    if (res.return_() == MessageRes::OK)
+    {
+        iFileManager::GetInstance()->RefreshDir();
+    }
+    else
+    {
+        iFileManager::GetInstance()->RefreshDir();
+        iFileManager::GetInstance()->ErrorSig("重命名失败! 可能有同名文件");
+    }
 }
 
 void GetDirClient::TimerCallback()

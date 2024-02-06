@@ -40,6 +40,10 @@ public:
 
     void GetDiskInfoRes(msg::MsgHead* head, Msg* msg);
 
+    void RenameReq(std::string& old_filename, std::string& new_filename);
+
+    void RenameRes(msg::MsgHead* head, Msg* msg);
+
     //定时器获取上传和下载服务器列表
     virtual void TimerCallback() override;
 

@@ -11,6 +11,9 @@ using namespace msg;
 
 #define AUTH AuthDAO::GetInstance()
 
+static const int token_timeout_sec = 600;
+static const int code_timeout_sec = 300;
+
 AuthHandle::AuthHandle()
 {
     set_timer_ms(1000);
@@ -21,17 +24,19 @@ AuthHandle::~AuthHandle()
 }
 
 void AuthHandle::RegisterMsgCallback()
-{
+{ 
     RegisterCallback(MSG_LOGIN_REQ, (MsgCBFunc)&AuthHandle::LonginReq);
     RegisterCallback(MSG_ADD_USER_REQ, (MsgCBFunc)&AuthHandle::AddUserReq);
     RegisterCallback(MSG_CHECK_TOKEN_REQ, (MsgCBFunc)&AuthHandle::CheckTokenReq);
     RegisterCallback(MSG_GET_AUTH_CODE, (MsgCBFunc)&AuthHandle::GetAuthCodeReq);
     RegisterCallback(MSG_REGISTER_USER_REQ, (MsgCBFunc)&AuthHandle::RegisterUserReq);
+    RegisterCallback(MSG_EMAIL_LOGIN_REQ, (MsgCBFunc)&AuthHandle::EmailLonginReq);
+    RegisterCallback(MSG_FORGET_PASSWORD_REQ, (MsgCBFunc)&AuthHandle::ForgetPasswordReq);
 }
 
 void AuthHandle::LonginReq(msg::MsgHead* head, Msg* msg)
 {
-    int timeout_sec = 600;
+    int timeout_sec = token_timeout_sec;
     LoginReq request;
     if (!request.ParseFromArray(msg->data, msg->size))
     {
@@ -81,7 +86,7 @@ void AuthHandle::AddUserReq(msg::MsgHead* head, Msg* msg)
 void AuthHandle::CheckTokenReq(msg::MsgHead* head, Msg* msg)
 {
     LoginRes res;
-    int timeout_sec = 600;
+    int timeout_sec = token_timeout_sec;
     AUTH->CheckToken(head, &res, timeout_sec);
 
     head->set_msg_type(MSG_CHECK_TOKEN_RES);
@@ -100,9 +105,9 @@ void AuthHandle::GetAuthCodeReq(msg::MsgHead* head, Msg* msg)
     string to = auth_code.email();
     string code = GenerateNumericCode(6);
 
-    string text = "尊敬的用户: \n感谢您注册[OL云盘]。您的注册验证码是：";
+    string text = "尊敬的用户: \n感谢您使用[OL云盘]。您的验证码是：";
     text += code;
-    text += " 请在注册页面输入此验证码以完成注册流程。\n";
+    text += " 请在该页面输入此验证码以完成登陆或注册流程。\n";
     text += "请注意，验证码有效期为5分钟。如有任何问题，请不要犹豫，直接回复此邮件或联系我们的客户支持。\n";
     text += "祝您使用愉快！\n";
     text += "[OL云盘]团队";
@@ -111,13 +116,13 @@ void AuthHandle::GetAuthCodeReq(msg::MsgHead* head, Msg* msg)
     int smtp_port = 25;
     string username = "orionlink@163.com";
     string password = "XXEIIAGIKINDLHWN";
-    string subject = "注册验证";
+    string subject = "验证码";
     SendEmail(smtp_server, smtp_port, username, to, subject, text, username, password);
 
     msg::RegisterUserReq reg;
     reg.set_email(to);
     auto cur_time = time(0);
-    cur_time += 300;
+    cur_time += code_timeout_sec;
     reg.set_expired_time(cur_time);
     reg.set_code(code);
     Mutex lock(&code_map_mutex_);
@@ -138,6 +143,7 @@ void AuthHandle::RegisterUserReq(msg::MsgHead* head, Msg* msg)
     add_user.set_username(reg.username());
     add_user.set_rolename(reg.username());
     add_user.set_password(reg.password());
+    add_user.set_email(reg.email());
     
     head->set_msg_type(MSG_REGISTER_USER_RES);
     /// 验证验证码的正确性
@@ -147,8 +153,8 @@ void AuthHandle::RegisterUserReq(msg::MsgHead* head, Msg* msg)
     {
         res.set_return_(MessageRes::ERROR);
         res.set_desc("auth code error!");
-        SendMsg(head, &res);
         code_map_mutex_.unlock();
+        SendMsg(head, &res);
         return;
     }
     code_map_mutex_.unlock();
@@ -172,6 +178,94 @@ void AuthHandle::RegisterUserReq(msg::MsgHead* head, Msg* msg)
     }
     res.set_return_(MessageRes::OK);
     res.set_desc("OK");
+    SendMsg(head, &res);
+}
+
+void AuthHandle::EmailLonginReq(msg::MsgHead* head, Msg* msg)
+{
+    msg::EmailLoginReq req;
+    if (!req.ParseFromArray(msg->data, msg->size))
+    {
+        LOGDEBUG("AuthHandle::EmailLonginReq! ParseFromArray error");
+        return;
+    }
+
+    msg::LoginRes res;
+    res.set_username("unknown_user");
+
+    /// 先验证验证码
+    head->set_msg_type(MSG_EMAIL_LOGIN_RES);
+    /// 验证验证码的正确性
+    code_map_mutex_.lock();
+    auto ptr = code_map_.find(req.email());
+    if (ptr == code_map_.end())
+    {
+        res.set_desc(LoginRes::ERROR);
+        code_map_mutex_.unlock();
+        SendMsg(head, &res);
+        return;
+    }
+    code_map_mutex_.unlock();
+
+    if (ptr->second.code() != req.code())
+    {
+        res.set_desc(LoginRes::ERROR);
+        SendMsg(head, &res);
+        return;
+    }
+
+    int timeout_sec = token_timeout_sec;
+    if (!AUTH->EmailLogin(&req, &res, timeout_sec))
+    {
+        res.set_desc(LoginRes::NOUSER);
+        SendMsg(head, &res);
+        return;
+    }
+
+    res.set_desc(LoginRes::OK);
+    SendMsg(head, &res);
+}
+
+void AuthHandle::ForgetPasswordReq(msg::MsgHead* head, Msg* msg)
+{
+    msg::RegisterUserReq req;
+    if (!req.ParseFromArray(msg->data, msg->size))
+    {
+        LOGDEBUG("AuthHandle::ForgetPasswordReq! ParseFromArray error");
+        return;
+    }
+
+    head->set_msg_type(MSG_FORGET_PASSWORD_RES);
+    msg::MessageRes res;
+
+    code_map_mutex_.lock();
+    auto ptr = code_map_.find(req.email());
+    if (ptr == code_map_.end())
+    {
+        res.set_return_(MessageRes::ERROR);
+        res.set_desc("auth code error!");
+        code_map_mutex_.unlock();
+        SendMsg(head, &res);
+        return;
+    }
+    code_map_mutex_.unlock();
+
+    if (ptr->second.code() != req.code())
+    {
+        res.set_return_(MessageRes::ERROR);
+        res.set_desc("auth code error!");
+        SendMsg(head, &res);
+        return;
+    }
+
+    if (!AUTH->ForgetPassword(&req, &res))
+    {
+        SendMsg(head, &res);
+        return;
+    }
+
+    res.set_return_(MessageRes::OK);
+    res.set_desc("ok");
     SendMsg(head, &res);
 }
 

@@ -22,6 +22,8 @@ public:
     virtual void UploadFile(disk::FileInfo& file_info) override;
 
     virtual void DownloadFile(disk::FileInfo& file_info) override;
+
+    virtual void Rename(std::string& old_filename, std::string& new_filename) override;
 };
 
 #endif // FILE_MANAGER_H

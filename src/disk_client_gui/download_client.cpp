@@ -22,6 +22,7 @@ bool DownloadClient::set_file_info(disk::FileInfo& file)
     if (file.filedir() == "")
         file_.set_filedir("");
     
+    local_path_ = file.local_path();
     ofs_.open(file.local_path(), ios::binary);
     if (!ofs_.is_open())
     {
@@ -61,6 +62,7 @@ void DownloadClient::DownloadFileRes(msg::MsgHead* head, Msg* msg)
             //具体的提示的语言，可以根据字符串替换为不同的语言
             iFileManager::GetInstance()->ErrorSig("该文件为加密文件，请输入密钥后下载!");
             Drop();
+            DelFile(local_path_, false);
             return;
         }
         aes_ = OLAES::Create();

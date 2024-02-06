@@ -28,9 +28,17 @@ public slots:
 
     void RegisterPage();
 
+    void EmailPage();
+
+    void ForgetPage();
+
     void Register();
 
     void GetCode();
+
+    void EmailLogin();
+
+    void ForgetPassword();
 
     void UpdateButton(); // 新增的用于更新按钮状态的槽
 private:

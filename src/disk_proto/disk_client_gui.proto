@@ -25,6 +25,8 @@ enum FileMsgType
 	NEW_DIR_RES = 1017;				/// MessageRes
 	GET_DISK_INFO_REQ = 1018;		/// MessageRes
 	GET_DISK_INFO_RES = 1019;		/// DiskInfo
+	RENAME_REQ = 1020;				/// RenameReq
+	RENAME_RES = 1021;				/// MessageRes
 }
 
 message DiskInfo
@@ -79,4 +81,10 @@ message FileTask
 	bool is_complete = 7;	// 任务是否完成
 	bool is_sec = 8;		// 是否秒传
 	FileInfo file = 9;
+}
+
+message RenameReq
+{
+	bytes old_filename = 1;
+	bytes new_filename = 2;
 }

@@ -41,6 +41,3 @@ make uninstall
 
 cd ../build_conf
 make uninstall
-
-cd ../ol_add_user
-make uninstall

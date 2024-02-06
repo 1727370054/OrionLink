@@ -63,6 +63,12 @@ DiskClientGUI::DiskClientGUI(LoginGUI* login_gui, iFileManager* f, QWidget *pare
     connect(ifm_, &iFileManager::FileCheck, this, &DiskClientGUI::FileCheck);
     connect(ifm_, &iFileManager::ErrorSig, this, &DiskClientGUI::ErrorSlot);
     Refresh();
+
+    ui->search_horizontalLayout->setSpacing(0);
+    ui->search_horizontalLayout->setContentsMargins(0, 0, 0, 0);
+
+    TokenThread* token_thread_ = new TokenThread();
+    token_thread_->Start();
 }
 
 DiskClientGUI::~DiskClientGUI()
@@ -180,9 +186,45 @@ void DiskClientGUI::DirRename(QTableWidgetItem* item)
     }
 }
 
+static bool is_rename = false;
+static string old_filename = "";
+
+void DiskClientGUI::Rename()
+{
+    set<int> rows = GetSelectRow();
+    if (rows.size() == 0)
+        return;
+
+    is_rename = true;
+    auto tab = ui->filetableWidget;
+
+    auto first = rows.begin();
+    tab->editItem(tab->item(*first, 1)); 
+    string name = tab->item(*first, 1)->text().toLocal8Bit();
+    old_filename = remote_dir_;
+    old_filename += "/";
+    old_filename += name;
+}
+
+void DiskClientGUI::Rename(QTableWidgetItem* item)
+{
+    if (!is_rename)
+        return;
+    
+    string name = item->text().toLocal8Bit();
+    
+    string new_filename = remote_dir_;
+    new_filename += "/";
+    new_filename += name;
+
+    ifm_->Rename(old_filename, new_filename);
+
+    is_rename = false;
+}
+
 bool DiskClientGUI::eventFilter(QObject* object, QEvent* event)
 {
-    if (!is_new_dir) return QObject::eventFilter(object, event);
+    if (!is_new_dir && !is_rename) return QObject::eventFilter(object, event);
     if (object == ui->filetableWidget)
     {
         if (event->type() == QEvent::KeyPress)
@@ -209,7 +251,7 @@ bool DiskClientGUI::eventFilter(QObject* object, QEvent* event)
 
 void DiskClientGUI::triggerItemChanged(QString filename)
 {
-    if (!is_new_dir) return;
+    if (!is_new_dir && !is_rename) return;
     QTableWidgetItem* item = ui->filetableWidget->item(0, 1);
     if (item)
     {
@@ -268,6 +310,11 @@ void DiskClientGUI::FileEnc()
         {
             ifm_->set_password(pass_dialog.password);
         }
+
+        if (pass_dialog.password.empty())
+        {
+            ui->file_enc->setChecked(false);
+        }
     }
     else
     {
@@ -300,6 +347,7 @@ void DiskClientGUI::AddUser()
         req.set_username(add.username);
         req.set_rolename(add.username);
         req.set_password(add.password);
+        req.set_email(add.email);
         AuthClient::GetInstance()->set_login_info(&ifm_->login_info());
         AuthClient::GetInstance()->AddUserReq(&req);
     }
@@ -308,16 +356,27 @@ void DiskClientGUI::AddUser()
 void DiskClientGUI::MyTab()
 {
     if (!task_gui) return;
+    ui->search_frame->show();
     ui->filelistwidget->show();
     task_gui->hide();
 }
 
 void DiskClientGUI::TaskTab()
 {
+    ui->search_frame->hide();
     task_gui->move(ui->filelistwidget->pos().x(), ui->filelistwidget->pos().y());
     task_gui->resize(size());
     ui->filelistwidget->hide();
     task_gui->Show();
+}
+
+void DiskClientGUI::Search(const QString& text)
+{
+    for (int i = 0; i < ui->filetableWidget->rowCount(); ++i)
+    {
+        bool match = ui->filetableWidget->item(i, 1)->text().contains(text, Qt::CaseInsensitive);
+        ui->filetableWidget->setRowHidden(i, !match);
+    }
 }
 
 void DiskClientGUI::Back()
@@ -437,6 +496,7 @@ void DiskClientGUI::Upload()
     task_gui->SetUpButtonChecked();
     for (const auto file_path : file_paths)
     {
+        this_thread::sleep_for(10ms);
         QFileInfo file_info(file_path);
         disk::FileInfo task;
         task.set_filename(file_info.fileName().toLocal8Bit());
@@ -467,7 +527,7 @@ void DiskClientGUI::Download()
     task_gui->SetDownButtonChecked();
     for (auto row : rows)
     {
-        this_thread::sleep_for(4ms);
+        this_thread::sleep_for(10ms);
         disk::FileInfo task;
         //获取选择的文件名
         auto item = tab->item(row, 1);
@@ -531,14 +591,86 @@ void DiskClientGUI::contextMenuEvent(QContextMenuEvent* ev)
     {
         QMenu context;
         context.addAction(ui->action_new_dir);
+        context.addAction(ui->rename_action);
+        context.addAction(ui->refreshaction);
         context.addAction(ui->upaction);
         context.addAction(ui->downaction);
-        context.addAction(ui->refreshaction);
         context.addAction(ui->deleteaction);
         context.exec(eventPosGlobal);
     }
     else
     {
         // 在filetableWidget之外的其他处理...
+    }
+}
+
+void DiskClientGUI::QuitLogin()
+{
+    this->hide();
+
+    // 显示登录页面
+    if (login_gui_->exec() == QDialog::Accepted)
+    {
+        // 如果用户成功登录，重新显示主控页面
+        auto login = AuthClient::GetInstance()->GetCurLogin();
+
+        ifm_->set_login_info(login);
+        ui->username_label->setText(login.username().c_str());
+        if (ui->username_label->text() != "root")
+            ui->adduserButton->hide();
+        Refresh();
+        this->show();
+    }
+    else
+    {
+        // 如果用户选择退出，可以在这里处理退出逻辑，比如清理资源
+        qApp->quit();
+    }
+}
+
+TokenThread::TokenThread()
+{
+
+}
+TokenThread::~TokenThread()
+{
+    {
+        std::lock_guard<std::mutex> lock(mtx_);
+        is_exit_ = true;
+    }
+    cv_.notify_one();
+}
+
+void TokenThread::Start()
+{
+    std::thread th(&TokenThread::Main, this);
+    th.detach();
+}
+
+void TokenThread::Stop()
+{
+    {
+        std::lock_guard<std::mutex> lock(mtx_);
+        is_exit_ = true;
+    }
+    cv_.notify_one();
+}
+
+void TokenThread::Main()
+{
+    this_thread::sleep_for(1s);
+
+    while (!is_exit_.load()) 
+    { 
+        std::unique_lock<std::mutex> lock(mtx_);
+        if (cv_.wait_for(lock, std::chrono::milliseconds(100), [this] 
+        { 
+            return is_exit_.load(); 
+        })) 
+        {
+            break;
+        }
+        iFileManager::GetInstance()->set_login_info(AuthClient::GetInstance()->GetCurLogin());
+        this_thread::sleep_for(100ms);
     }
 }

@@ -14,7 +14,8 @@ public:
     ~AddUser();
     void AddUser::accept() override;
     std::string password = "";
-    std::string username="";
+    std::string username = "";
+    std::string email ="";
 
 private:
     Ui::AddUser ui;

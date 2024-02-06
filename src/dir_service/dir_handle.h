@@ -19,6 +19,8 @@ public:
     void DeleteFileReq(msg::MsgHead* head, Msg* msg);
 
     void GetDiskInfoReq(msg::MsgHead* head, Msg* msg);
+
+    void RenameReq(msg::MsgHead* head, Msg* msg);
 };
 
 #endif // DIR_HANDLE_H

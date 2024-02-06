@@ -429,7 +429,9 @@ long long GetDirSize(const char* path)
 	{
 		if (strcmp(file->d_name, ".") == 0 || strcmp(file->d_name, "..") == 0)
 			continue;
-		std::string filePath = path + "/" + file->d_name;
+		std::string filePath = path;
+		filePath += "/";
+		filePath += file->d_name;
 		lstat(filePath.c_str(), &statbuf);
 		if (file->d_type == DT_DIR)
 			dir_size += GetDirSize(filePath.c_str());
@@ -455,6 +457,16 @@ bool GetDiskSize(const char* path, unsigned long long* avail, unsigned long long
 	*avail = disk_info.f_bavail * disk_info.f_bsize;
 	
 	return true;
+#endif // _WIN32
+}
+
+bool Rename(const char* old_filename, const char* new_filename)
+{
+#ifdef _WIN32
+	return MoveFileA(old_filename, new_filename) != 0;
+#else
+	int ret = rename(old_filename, new_filename);
+	return ret == 0;
 #endif // _WIN32
 }
 

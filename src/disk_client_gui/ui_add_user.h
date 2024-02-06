@@ -29,14 +29,17 @@ public:
     QFrame *pass_frame;
     QLineEdit *passwordEdit;
     QLabel *passlogo;
+    QFrame *email_frame;
+    QLineEdit *emailEdit;
+    QLabel *passlogo_2;
 
     void setupUi(QDialog *AddUser)
     {
         if (AddUser->objectName().isEmpty())
             AddUser->setObjectName(QString::fromUtf8("AddUser"));
-        AddUser->resize(550, 161);
+        AddUser->resize(550, 200);
         AddUser->setMinimumSize(QSize(550, 160));
-        AddUser->setMaximumSize(QSize(580, 180));
+        AddUser->setMaximumSize(QSize(580, 200));
         user_frame = new QFrame(AddUser);
         user_frame->setObjectName(QString::fromUtf8("user_frame"));
         user_frame->setGeometry(QRect(40, 20, 311, 40));
@@ -69,7 +72,7 @@ public:
         userlogo->setStyleSheet(QString::fromUtf8("background-image: url(:/XMSDiskClientGui/Resources/person.png);"));
         pushButton = new QPushButton(AddUser);
         pushButton->setObjectName(QString::fromUtf8("pushButton"));
-        pushButton->setGeometry(QRect(370, 110, 171, 41));
+        pushButton->setGeometry(QRect(370, 150, 171, 41));
         pushButton->setStyleSheet(QString::fromUtf8("QPushButton\n"
 "{\n"
 "background-repeat: no-repeat;\n"
@@ -115,6 +118,35 @@ public:
         passlogo->setObjectName(QString::fromUtf8("passlogo"));
         passlogo->setGeometry(QRect(10, 12, 18, 18));
         passlogo->setStyleSheet(QString::fromUtf8("background-image: url(:/XMSDiskClientGui/Resources/passwd.png);"));
+        email_frame = new QFrame(AddUser);
+        email_frame->setObjectName(QString::fromUtf8("email_frame"));
+        email_frame->setGeometry(QRect(40, 140, 311, 40));
+        email_frame->setStyleSheet(QString::fromUtf8("#email_frame::!hover{\n"
+"\n"
+"      border: 1px solid #c7c7c7;\n"
+"      border-radius: 2px;\n"
+"	  margin-top: 0ex\n"
+"\n"
+"}\n"
+"#email_frame::hover{\n"
+"      border: 1px solid #58a6ee;\n"
+"      border-radius: 2px;\n"
+"	  margin-top: 0ex\n"
+"}"));
+        email_frame->setFrameShape(QFrame::StyledPanel);
+        email_frame->setFrameShadow(QFrame::Raised);
+        emailEdit = new QLineEdit(email_frame);
+        emailEdit->setObjectName(QString::fromUtf8("emailEdit"));
+        emailEdit->setGeometry(QRect(40, 5, 251, 30));
+        emailEdit->setStyleSheet(QString::fromUtf8("font: 12pt"));
+        emailEdit->setFrame(false);
+        emailEdit->setEchoMode(QLineEdit::Normal);
+        emailEdit->setClearButtonEnabled(false);
+        passlogo_2 = new QLabel(email_frame);
+        passlogo_2->setObjectName(QString::fromUtf8("passlogo_2"));
+        passlogo_2->setGeometry(QRect(10, 10, 31, 18));
+        passlogo_2->setStyleSheet(QString::fromUtf8(""));
+        passlogo_2->setTextFormat(Qt::AutoText);
 
         retranslateUi(AddUser);
         QObject::connect(pushButton, SIGNAL(clicked()), AddUser, SLOT(accept()));
@@ -133,6 +165,8 @@ public:
         pushButton->setText(QApplication::translate("AddUser", "\346\267\273\345\212\240", nullptr));
         passwordEdit->setText(QString());
         passlogo->setText(QString());
+        emailEdit->setText(QString());
+        passlogo_2->setText(QApplication::translate("AddUser", "\351\202\256\347\256\261", nullptr));
     } // retranslateUi
 
 };

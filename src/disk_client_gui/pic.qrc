@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="/">
+    <file>res/pic/email.png</file>
+    <file>res/pic/email-hover.png</file>
     <file>res/pic/disk_logo.png</file>
     <file>res/qss/style-1.qss</file>
     <file>res/qss/style-2.qss</file>

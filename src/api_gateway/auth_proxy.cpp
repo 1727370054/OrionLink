@@ -67,7 +67,8 @@ bool AuthProxy::CheckToken(const msg::MsgHead* head)
 {
     if (!head) return false;
     if (head->msg_type() == MSG_LOGIN_REQ || head->msg_type() == MSG_CHECK_TOKEN_REQ 
-        || head->msg_type() == MSG_GET_AUTH_CODE || head->msg_type() == MSG_REGISTER_USER_REQ)
+        || head->msg_type() == MSG_GET_AUTH_CODE || head->msg_type() == MSG_REGISTER_USER_REQ
+        || head->msg_type() == MSG_EMAIL_LOGIN_REQ || head->msg_type() == MSG_FORGET_PASSWORD_REQ)
         return true;
     string token = head->token();
     if (token.empty())
@@ -104,6 +105,15 @@ void AuthProxy::ReadCallback(msg::MsgHead* head, Msg* msg)
             token_cache[res.token()] = res;
         }
     case MSG_CHECK_TOKEN_RES:
+        if (res.ParseFromArray(msg->data, msg->size))
+        {
+            if (res.desc() == LoginRes::OK)
+            {
+                Mutex lock(&token_cache_mutex);
+                token_cache[res.token()] = res;
+            }
+        }
+    case MSG_EMAIL_LOGIN_RES:
         if (res.ParseFromArray(msg->data, msg->size))
         {
             if (res.desc() == LoginRes::OK)

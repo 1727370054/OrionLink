@@ -14,8 +14,10 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QFrame>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
 #include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QTableWidget>
@@ -31,14 +33,19 @@ public:
     QAction *refreshaction;
     QAction *action_new_dir;
     QAction *deleteaction;
+    QAction *rename_action;
     QWidget *topwidget;
     QLabel *logolabel;
     QPushButton *closepushButton;
     QPushButton *my_diskpushButton;
     QPushButton *taskpushButton;
     QPushButton *minpushButton;
-    QLabel *label_3;
     QLabel *label_5;
+    QFrame *search_frame;
+    QWidget *horizontalLayoutWidget_2;
+    QHBoxLayout *search_horizontalLayout;
+    QLineEdit *searchEdit;
+    QLabel *searchlabel;
     QWidget *line1widget;
     QWidget *filelistwidget;
     QWidget *menuwidget;
@@ -55,7 +62,9 @@ public:
     QLabel *label;
     QLabel *username_label;
     QLabel *disk_info_text;
-    QLabel *label_2;
+    QLabel *head_label;
+    QLabel *label_3;
+    QPushButton *quitButton;
     QWidget *fileviewwidget;
     QTableWidget *filetableWidget;
     QWidget *pathwidget;
@@ -73,7 +82,7 @@ public:
     {
         if (DiskClientGUI->objectName().isEmpty())
             DiskClientGUI->setObjectName(QString::fromUtf8("DiskClientGUI"));
-        DiskClientGUI->resize(999, 700);
+        DiskClientGUI->resize(1003, 726);
         DiskClientGUI->setStyleSheet(QString::fromUtf8("#upButton:hover{\n"
 "background-color: rgb(46, 91, 255);\n"
 "}"));
@@ -100,6 +109,8 @@ public:
         QIcon icon3;
         icon3.addFile(QString::fromUtf8(":/XMSDiskClientGui/Resources/img/del1.png"), QSize(), QIcon::Normal, QIcon::Off);
         deleteaction->setIcon(icon3);
+        rename_action = new QAction(DiskClientGUI);
+        rename_action->setObjectName(QString::fromUtf8("rename_action"));
         topwidget = new QWidget(DiskClientGUI);
         topwidget->setObjectName(QString::fromUtf8("topwidget"));
         topwidget->setGeometry(QRect(0, 0, 1000, 80));
@@ -182,16 +193,61 @@ public:
 "}"));
         minpushButton->setAutoExclusive(false);
         minpushButton->setFlat(true);
-        label_3 = new QLabel(topwidget);
-        label_3->setObjectName(QString::fromUtf8("label_3"));
-        label_3->setGeometry(QRect(670, 10, 101, 61));
-        label_3->setPixmap(QPixmap(QString::fromUtf8(":/XMSDiskClientGui/res/pic/ToastSVipBg.png")));
-        label_3->setScaledContents(true);
         label_5 = new QLabel(topwidget);
         label_5->setObjectName(QString::fromUtf8("label_5"));
         label_5->setGeometry(QRect(90, 29, 101, 31));
         label_5->setStyleSheet(QString::fromUtf8("font: 15pt \"\345\276\256\350\275\257\351\233\205\351\273\221\";\n"
 "color: rgb(235, 106, 5);"));
+        search_frame = new QFrame(topwidget);
+        search_frame->setObjectName(QString::fromUtf8("search_frame"));
+        search_frame->setGeometry(QRect(620, 10, 251, 51));
+        search_frame->setStyleSheet(QString::fromUtf8("#search_frame::!hover{\n"
+"      border: 1px solid #c7c7c7;\n"
+"      border-radius: 20px;\n"
+"	  margin-top: 0ex\n"
+"	  \n"
+"	\n"
+"\n"
+"}\n"
+"#search_frame::hover{\n"
+"      border: 1px solid #58a6ee;\n"
+"      border-radius: 20px;\n"
+"	  margin-top: 0ex\n"
+"}\n"
+""));
+        search_frame->setFrameShape(QFrame::StyledPanel);
+        search_frame->setFrameShadow(QFrame::Raised);
+        horizontalLayoutWidget_2 = new QWidget(search_frame);
+        horizontalLayoutWidget_2->setObjectName(QString::fromUtf8("horizontalLayoutWidget_2"));
+        horizontalLayoutWidget_2->setGeometry(QRect(10, 10, 231, 31));
+        search_horizontalLayout = new QHBoxLayout(horizontalLayoutWidget_2);
+        search_horizontalLayout->setSpacing(6);
+        search_horizontalLayout->setContentsMargins(11, 11, 11, 11);
+        search_horizontalLayout->setObjectName(QString::fromUtf8("search_horizontalLayout"));
+        search_horizontalLayout->setContentsMargins(0, 0, 0, 0);
+        searchEdit = new QLineEdit(horizontalLayoutWidget_2);
+        searchEdit->setObjectName(QString::fromUtf8("searchEdit"));
+        searchEdit->setMaximumSize(QSize(200, 22));
+        searchEdit->setStyleSheet(QString::fromUtf8("QLineEdit {\n"
+" border: none;\n"
+"    margin: 0px; /* \350\256\276\347\275\256\345\244\226\350\276\271\350\267\235\344\270\2720 */\n"
+"    padding: 0px; /* \350\256\276\347\275\256\345\206\205\350\276\271\350\267\235\344\270\2720 */\n"
+"    border: 0px; /* \345\217\257\351\200\211\357\274\232\345\246\202\346\236\234\344\275\240\350\277\230\346\203\263\345\216\273\351\231\244\350\276\271\346\241\206 */\n"
+"    \n"
+"	font: 12pt \"\351\273\221\344\275\223\";\n"
+"}"));
+
+        search_horizontalLayout->addWidget(searchEdit);
+
+        searchlabel = new QLabel(horizontalLayoutWidget_2);
+        searchlabel->setObjectName(QString::fromUtf8("searchlabel"));
+        searchlabel->setMinimumSize(QSize(30, 20));
+        searchlabel->setStyleSheet(QString::fromUtf8(""));
+        searchlabel->setPixmap(QPixmap(QString::fromUtf8(":/XMSDiskClientGui/Resources/img/search.png")));
+        searchlabel->setScaledContents(false);
+
+        search_horizontalLayout->addWidget(searchlabel);
+
         line1widget = new QWidget(DiskClientGUI);
         line1widget->setObjectName(QString::fromUtf8("line1widget"));
         line1widget->setEnabled(true);
@@ -365,11 +421,37 @@ public:
         disk_info_text = new QLabel(leftwidget);
         disk_info_text->setObjectName(QString::fromUtf8("disk_info_text"));
         disk_info_text->setGeometry(QRect(20, 540, 131, 21));
-        label_2 = new QLabel(leftwidget);
-        label_2->setObjectName(QString::fromUtf8("label_2"));
-        label_2->setGeometry(QRect(40, 10, 81, 81));
-        label_2->setPixmap(QPixmap(QString::fromUtf8(":/XMSDiskClientGui/res/pic/head.png")));
-        label_2->setScaledContents(true);
+        head_label = new QLabel(leftwidget);
+        head_label->setObjectName(QString::fromUtf8("head_label"));
+        head_label->setGeometry(QRect(40, 10, 81, 81));
+        head_label->setPixmap(QPixmap(QString::fromUtf8(":/XMSDiskClientGui/res/pic/head.png")));
+        head_label->setScaledContents(true);
+        label_3 = new QLabel(leftwidget);
+        label_3->setObjectName(QString::fromUtf8("label_3"));
+        label_3->setGeometry(QRect(30, 140, 101, 61));
+        label_3->setPixmap(QPixmap(QString::fromUtf8(":/XMSDiskClientGui/res/pic/ToastSVipBg.png")));
+        label_3->setScaledContents(true);
+        quitButton = new QPushButton(leftwidget);
+        quitButton->setObjectName(QString::fromUtf8("quitButton"));
+        quitButton->setGeometry(QRect(20, 590, 131, 41));
+        quitButton->setStyleSheet(QString::fromUtf8("QPushButton::!hover{\n"
+"\n"
+"background-image: url(:/XMSDiskClientGui/Resources/img/\351\200\200\345\207\272.png);\n"
+"background-repeat: no-repeat;\n"
+"background-position:left;\n"
+"border:none;\n"
+"\n"
+"}\n"
+"\n"
+"QPushButton::hover{\n"
+"background-image: url(:/XMSDiskClientGui/Resources/img/\351\200\200\345\207\272.png);\n"
+"background-repeat: no-repeat;\n"
+"background-position:left;\n"
+"color:rgb(6, 168, 255);\n"
+"\n"
+"border-radius:1px;   \n"
+"border:1px solid rgb(6, 168, 255); \n"
+"}"));
         fileviewwidget = new QWidget(filelistwidget);
         fileviewwidget->setObjectName(QString::fromUtf8("fileviewwidget"));
         fileviewwidget->setGeometry(QRect(160, 40, 1000, 700));
@@ -392,7 +474,7 @@ public:
         QTableWidgetItem *__qtablewidgetitem5 = new QTableWidgetItem();
         filetableWidget->setHorizontalHeaderItem(5, __qtablewidgetitem5);
         filetableWidget->setObjectName(QString::fromUtf8("filetableWidget"));
-        filetableWidget->setGeometry(QRect(0, 43, 811, 501));
+        filetableWidget->setGeometry(QRect(0, 43, 841, 501));
         filetableWidget->setStyleSheet(QString::fromUtf8("QHeaderView::section {\n"
 "     padding-left: 0px;\n"
 " }\n"
@@ -525,7 +607,7 @@ public:
         checkallBox->setGeometry(QRect(14, 50, 16, 16));
         pathwidget_2 = new QWidget(fileviewwidget);
         pathwidget_2->setObjectName(QString::fromUtf8("pathwidget_2"));
-        pathwidget_2->setGeometry(QRect(0, 546, 991, 30));
+        pathwidget_2->setGeometry(QRect(0, 546, 991, 61));
         pathwidget_2->setStyleSheet(QString::fromUtf8("background-color: rgb(255, 255, 255);\n"
 ""));
         label_4 = new QLabel(pathwidget_2);
@@ -557,6 +639,10 @@ public:
         QObject::connect(downaction, SIGNAL(triggered()), DiskClientGUI, SLOT(Download()));
         QObject::connect(file_enc, SIGNAL(clicked()), DiskClientGUI, SLOT(FileEnc()));
         QObject::connect(adduserButton, SIGNAL(clicked()), DiskClientGUI, SLOT(AddUser()));
+        QObject::connect(searchEdit, SIGNAL(textChanged(QString)), DiskClientGUI, SLOT(Search(QString)));
+        QObject::connect(filetableWidget, SIGNAL(itemChanged(QTableWidgetItem*)), DiskClientGUI, SLOT(Rename(QTableWidgetItem*)));
+        QObject::connect(rename_action, SIGNAL(triggered()), DiskClientGUI, SLOT(Rename()));
+        QObject::connect(quitButton, SIGNAL(clicked()), DiskClientGUI, SLOT(QuitLogin()));
 
         downpushButton->setDefault(false);
         upButton->setDefault(false);
@@ -577,13 +663,15 @@ public:
         refreshaction->setText(QApplication::translate("DiskClientGUI", "\345\210\267\346\226\260", nullptr));
         action_new_dir->setText(QApplication::translate("DiskClientGUI", "\346\226\260\345\273\272\346\226\207\344\273\266\345\244\271", nullptr));
         deleteaction->setText(QApplication::translate("DiskClientGUI", "\345\210\240\351\231\244", nullptr));
+        rename_action->setText(QApplication::translate("DiskClientGUI", "\351\207\215\345\221\275\345\220\215", nullptr));
         logolabel->setText(QString());
         closepushButton->setText(QString());
         my_diskpushButton->setText(QString());
         taskpushButton->setText(QString());
         minpushButton->setText(QString());
-        label_3->setText(QString());
         label_5->setText(QApplication::translate("DiskClientGUI", "OL\344\272\221\347\233\230", nullptr));
+        searchEdit->setText(QString());
+        searchlabel->setText(QString());
         downpushButton->setText(QApplication::translate("DiskClientGUI", "  \344\270\213\350\275\275", nullptr));
         upButton->setText(QApplication::translate("DiskClientGUI", "  \344\270\212\344\274\240", nullptr));
         delpushButton->setText(QApplication::translate("DiskClientGUI", "  \345\210\240\351\231\244", nullptr));
@@ -592,7 +680,9 @@ public:
         label->setText(QApplication::translate("DiskClientGUI", "\347\224\250\346\210\267\357\274\232", nullptr));
         username_label->setText(QApplication::translate("DiskClientGUI", "root", nullptr));
         disk_info_text->setText(QApplication::translate("DiskClientGUI", "123G/3000G", nullptr));
-        label_2->setText(QString());
+        head_label->setText(QString());
+        label_3->setText(QString());
+        quitButton->setText(QApplication::translate("DiskClientGUI", "\351\200\200\345\207\272\347\231\273\351\231\206", nullptr));
         QTableWidgetItem *___qtablewidgetitem = filetableWidget->horizontalHeaderItem(1);
         ___qtablewidgetitem->setText(QApplication::translate("DiskClientGUI", "\346\226\207\344\273\266\345\220\215", nullptr));
         QTableWidgetItem *___qtablewidgetitem1 = filetableWidget->horizontalHeaderItem(2);

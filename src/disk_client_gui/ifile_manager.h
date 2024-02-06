@@ -30,6 +30,8 @@ public:
 
     virtual void DeleteFile(disk::FileInfo& file_info) = 0;
 
+    virtual void Rename(std::string& old_filename, std::string& new_filename) = 0;
+
     virtual void UploadFile(disk::FileInfo& file_info) = 0;
     /// 进度从0~1000
     /// 更新上传列表进度 线程安全

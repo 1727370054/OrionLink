@@ -11,39 +11,6 @@
 
 using namespace std;
 
-/*
-* @brief 定期检查更新token
-*/
-class TokenThread
-{
-public:
-    TokenThread()
-    {}
-    ~TokenThread()
-    {
-        is_exit_ = false;
-        this_thread::sleep_for(20ms);
-    }
-
-    void Start()
-    {
-        thread th(&TokenThread::Main, this);
-        th.detach();
-    }
-
-private:
-    atomic<bool> is_exit_ = false;
-    FileManager fm_;
-    void Main()
-    {
-        this_thread::sleep_for(1s);
-        while (!is_exit_)
-        {
-            iFileManager::GetInstance()->set_login_info(AuthClient::GetInstance()->GetCurLogin());
-            this_thread::sleep_for(100ms);
-        }
-    }
-};
 
 int main(int argc, char *argv[])
 {
@@ -71,9 +38,6 @@ int main(int argc, char *argv[])
     {
         return -1;
     }
-
-    TokenThread token_thread;
-    token_thread.Start();
 
     FileManager fm;
     fm.InitFileManager(gateway_ip, API_GATEWAY_PORT);

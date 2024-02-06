@@ -125,6 +125,11 @@ void FileManager::DownloadFile(disk::FileInfo& file_info)
     client->StartConnect();
 }
 
+void FileManager::Rename(std::string& old_filename, std::string& new_filename)
+{
+    GetDirClient::GetInstance()->RenameReq(old_filename, new_filename);
+}
+
 FileManager::FileManager()
 {
     instance_ = this;

@@ -14,6 +14,8 @@ void AuthClient::RegisterMsgCallback()
     RegisterCallback(MSG_LOGIN_RES, (MsgCBFunc)&AuthClient::LoginRes);
     RegisterCallback(MSG_CHECK_TOKEN_RES, (MsgCBFunc)&AuthClient::CheckTokenRes);
     RegisterCallback(MSG_REGISTER_USER_RES, (MsgCBFunc)&AuthClient::RegisterUserRes);
+    RegisterCallback(MSG_EMAIL_LOGIN_RES, (MsgCBFunc)&AuthClient::EmailLoginRes);
+    RegisterCallback(MSG_FORGET_PASSWORD_RES, (MsgCBFunc)&AuthClient::ForgetPasswordRes);
 }
 
 bool AuthClient::Login(std::string username, std::string password)
@@ -28,9 +30,12 @@ bool AuthClient::Login(std::string username, std::string password)
 msg::LoginRes AuthClient::GetCurLogin(int timeout_ms)
 {
     msg::LoginRes res;
+
     if (!GetLoginInfo(cur_username_, &res, timeout_ms))
     {
+        cur_login_mutex_.lock();
         res.set_desc(LoginRes::ERROR);
+        cur_login_mutex_.unlock();
         return res;
     }
     return res;
@@ -38,16 +43,16 @@ msg::LoginRes AuthClient::GetCurLogin(int timeout_ms)
 
 void AuthClient::LoginReq(std::string username, std::string password)
 {
+    cur_login_mutex_.lock();
     cur_username_ = username;
+    cur_login_mutex_.unlock();
+
     msg::LoginReq request;
     request.set_username(username);
     auto md5_passwd = OLMD5_base64((unsigned char*)password.c_str(), password.size());
     request.set_password(md5_passwd);
     // std::cout << request.DebugString() << std::endl;
-    {
-        Mutex lock(&login_map_mutex_);
-        login_map_.erase(username);
-    }
+    ClearLastLogin(username);
 
     SendMsg(MSG_LOGIN_REQ, &request);
 }
@@ -65,6 +70,81 @@ void AuthClient::LoginRes(msg::MsgHead* head, Msg* msg)
         Mutex lock(&login_map_mutex_);
         if (response.username().empty()) return;
         login_map_[response.username()] = response;
+    }
+}
+
+void AuthClient::EmailLoginReq(std::string email, std::string code)
+{
+    msg::EmailLoginReq req;
+    req.set_email(email);
+    req.set_code(code);
+    cur_login_mutex_.lock();
+    cur_username_ = "";
+    cur_login_mutex_.unlock();
+    SendMsg(MSG_EMAIL_LOGIN_REQ, &req);
+}
+
+int AuthClient::GetEmailLogin(int timeout_ms)
+{
+    int count = timeout_ms / 10;
+    if (count <= 0)
+        count = 2;
+    for (int i = 0; i < count; i++)
+    {
+        cur_login_mutex_.lock();
+        string tmp = cur_username_;
+        cur_login_mutex_.unlock();
+
+        if (!tmp.empty())
+        {
+            count -= i;
+            break;
+        }
+
+        this_thread::sleep_for(10ms);
+    }
+
+    timeout_ms = timeout_ms - (count * 10);
+    auto login = GetCurLogin(timeout_ms);
+    int ret = 0;
+    switch (login.desc())
+    {
+    case LoginRes::OK:
+        if (login.username() == "unknown_user")
+            ret = LoginRes::NOUSER;
+        else
+            ret = LoginRes::OK;
+        break;
+    case LoginRes::ERROR:
+        ret = LoginRes::ERROR;
+        break;
+    case LoginRes::NOUSER:
+        ret = LoginRes::NOUSER;
+        break;
+    default:
+        break;
+    }
+
+    return ret;
+}
+
+void AuthClient::EmailLoginRes(msg::MsgHead* head, Msg* msg)
+{
+    msg::LoginRes res;
+    if (!res.ParseFromArray(msg->data, msg->size))
+    {
+        LOGDEBUG("AuthClient::EmailLoginRes failed! ParseFromArray error");
+        return;
+    }
+
+    cur_login_mutex_.lock();
+    cur_username_ = res.username();
+    cur_login_mutex_.unlock();
+
+    {
+        Mutex lock(&login_map_mutex_);
+        if (res.username().empty()) return;
+        login_map_[res.username()] = res;
     }
 }
 
@@ -109,7 +189,7 @@ bool AuthClient::GetLoginInfo(string username, msg::LoginRes* out_info, int time
         }
         auto login = iter->second;
         login_map_mutex_.unlock();
-        if (login.desc() == LoginRes::OK)
+        if (login.desc() != LoginRes::NONE)
         {
             out_info->CopyFrom(login);
             return true;
@@ -125,12 +205,11 @@ void AuthClient::CheckTokenReq()
     login = GetCurLogin(100);
     if (login.desc() == msg::LoginRes::ERROR) return;
 
-    set_login_info(&login);
-
     auto tt = time(0);
     if (tt < login.expired_time()) 
         return;
 
+    set_login_info(&login);
     MessageRes res;
     res.set_desc("check");
     SendMsg(MSG_CHECK_TOKEN_REQ, &res);
@@ -148,6 +227,41 @@ void AuthClient::RegisterUserReq(msg::RegisterUserReq& req)
     auto md5_passwd = OLMD5_base64((unsigned char*)req.password().c_str(), req.password().size());
     req.set_password(md5_passwd);
     SendMsg(MSG_REGISTER_USER_REQ, &req);
+}
+
+void AuthClient::ForgetPasswordReq(msg::RegisterUserReq& req)
+{
+    auto md5_passwd = OLMD5_base64((unsigned char*)req.password().c_str(), req.password().size());
+    req.set_password(md5_passwd);
+    SendMsg(MSG_FORGET_PASSWORD_REQ, &req);
+}
+
+void AuthClient::ForgetPasswordRes(msg::MsgHead* head, Msg* msg)
+{
+    msg::MessageRes res;
+    if (!res.ParseFromArray(msg->data, msg->size))
+    {
+        LOGDEBUG("AuthClient::ForgetPasswordRes! ParseFromArray error");
+        return;
+    }
+
+    switch (res.return_())
+    {
+    case MessageRes::OK:
+        result_ = 1;
+        break;
+    case MessageRes::ERROR:
+        result_ = 2;
+        break;
+    case MessageRes::USER_NOT_EXISTS:
+        result_ = 3;
+        break;
+    case MessageRes::BIND_EMAIL_ERR:
+        result_ = 4;
+        break;
+    default:
+        break;
+    }
 }
 
 void AuthClient::RegisterUserRes(msg::MsgHead* head, Msg* msg)
@@ -175,7 +289,7 @@ void AuthClient::RegisterUserRes(msg::MsgHead* head, Msg* msg)
     }
 }
 
-int AuthClient::GetRegisterResult(int timeout_ms)
+int AuthClient::GetResult(int timeout_ms)
 {
     int count = timeout_ms / 10;
     if (count <= 0) count = 1;
@@ -184,6 +298,22 @@ int AuthClient::GetRegisterResult(int timeout_ms)
        this_thread::sleep_for(10ms);
     }
     return result_;
+}
+
+void AuthClient::ClearLastLogin(std::string username)
+{
+    string obj = "";
+    if (!username.empty())
+    {
+        obj = username;
+    }
+    else
+    {
+        Mutex lock(&cur_login_mutex_);
+        obj = cur_username_;
+    }
+    Mutex lock(&login_map_mutex_);
+    login_map_.erase(obj);
 }
 
 void AuthClient::TimerCallback()

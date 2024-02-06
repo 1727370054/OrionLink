@@ -48,7 +48,7 @@ struct TableStruct_disk_5fclient_5fgui_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[6]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[7]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -74,6 +74,9 @@ extern FileTaskDefaultTypeInternal _FileTask_default_instance_;
 class GetDirReq;
 class GetDirReqDefaultTypeInternal;
 extern GetDirReqDefaultTypeInternal _GetDirReq_default_instance_;
+class RenameReq;
+class RenameReqDefaultTypeInternal;
+extern RenameReqDefaultTypeInternal _RenameReq_default_instance_;
 }  // namespace disk
 PROTOBUF_NAMESPACE_OPEN
 template<> ::disk::DiskInfo* Arena::CreateMaybeMessage<::disk::DiskInfo>(Arena*);
@@ -82,6 +85,7 @@ template<> ::disk::FileInfoList* Arena::CreateMaybeMessage<::disk::FileInfoList>
 template<> ::disk::FileSlice* Arena::CreateMaybeMessage<::disk::FileSlice>(Arena*);
 template<> ::disk::FileTask* Arena::CreateMaybeMessage<::disk::FileTask>(Arena*);
 template<> ::disk::GetDirReq* Arena::CreateMaybeMessage<::disk::GetDirReq>(Arena*);
+template<> ::disk::RenameReq* Arena::CreateMaybeMessage<::disk::RenameReq>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 namespace disk {
 
@@ -106,6 +110,8 @@ enum FileMsgType : int {
   NEW_DIR_RES = 1017,
   GET_DISK_INFO_REQ = 1018,
   GET_DISK_INFO_RES = 1019,
+  RENAME_REQ = 1020,
+  RENAME_RES = 1021,
   FileMsgType_INT_MIN_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::min(),
   FileMsgType_INT_MAX_SENTINEL_DO_NOT_USE_ = std::numeric_limits<::PROTOBUF_NAMESPACE_ID::int32>::max()
 };
@@ -1166,6 +1172,164 @@ class FileTask :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_disk_5fclient_5fgui_2eproto;
 };
+// -------------------------------------------------------------------
+
+class RenameReq :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:disk.RenameReq) */ {
+ public:
+  RenameReq();
+  virtual ~RenameReq();
+
+  RenameReq(const RenameReq& from);
+  RenameReq(RenameReq&& from) noexcept
+    : RenameReq() {
+    *this = ::std::move(from);
+  }
+
+  inline RenameReq& operator=(const RenameReq& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline RenameReq& operator=(RenameReq&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const RenameReq& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const RenameReq* internal_default_instance() {
+    return reinterpret_cast<const RenameReq*>(
+               &_RenameReq_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  friend void swap(RenameReq& a, RenameReq& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(RenameReq* other) {
+    if (other == this) return;
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline RenameReq* New() const final {
+    return CreateMaybeMessage<RenameReq>(nullptr);
+  }
+
+  RenameReq* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<RenameReq>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const RenameReq& from);
+  void MergeFrom(const RenameReq& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  #if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  #else
+  bool MergePartialFromCodedStream(
+      ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) final;
+  #endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+  ::PROTOBUF_NAMESPACE_ID::uint8* InternalSerializeWithCachedSizesToArray(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(RenameReq* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "disk.RenameReq";
+  }
+  private:
+  inline ::PROTOBUF_NAMESPACE_ID::Arena* GetArenaNoVirtual() const {
+    return nullptr;
+  }
+  inline void* MaybeArenaPtr() const {
+    return nullptr;
+  }
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_disk_5fclient_5fgui_2eproto);
+    return ::descriptor_table_disk_5fclient_5fgui_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kOldFilenameFieldNumber = 1,
+    kNewFilenameFieldNumber = 2,
+  };
+  // bytes old_filename = 1;
+  void clear_old_filename();
+  const std::string& old_filename() const;
+  void set_old_filename(const std::string& value);
+  void set_old_filename(std::string&& value);
+  void set_old_filename(const char* value);
+  void set_old_filename(const void* value, size_t size);
+  std::string* mutable_old_filename();
+  std::string* release_old_filename();
+  void set_allocated_old_filename(std::string* old_filename);
+  private:
+  const std::string& _internal_old_filename() const;
+  void _internal_set_old_filename(const std::string& value);
+  std::string* _internal_mutable_old_filename();
+  public:
+
+  // bytes new_filename = 2;
+  void clear_new_filename();
+  const std::string& new_filename() const;
+  void set_new_filename(const std::string& value);
+  void set_new_filename(std::string&& value);
+  void set_new_filename(const char* value);
+  void set_new_filename(const void* value, size_t size);
+  std::string* mutable_new_filename();
+  std::string* release_new_filename();
+  void set_allocated_new_filename(std::string* new_filename);
+  private:
+  const std::string& _internal_new_filename() const;
+  void _internal_set_new_filename(const std::string& value);
+  std::string* _internal_mutable_new_filename();
+  public:
+
+  // @@protoc_insertion_point(class_scope:disk.RenameReq)
+ private:
+  class _Internal;
+
+  ::PROTOBUF_NAMESPACE_ID::internal::InternalMetadataWithArena _internal_metadata_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr old_filename_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr new_filename_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_disk_5fclient_5fgui_2eproto;
+};
 // ===================================================================
 
 
@@ -2079,9 +2243,135 @@ inline void FileTask::set_allocated_file(::disk::FileInfo* file) {
   // @@protoc_insertion_point(field_set_allocated:disk.FileTask.file)
 }
 
+// -------------------------------------------------------------------
+
+// RenameReq
+
+// bytes old_filename = 1;
+inline void RenameReq::clear_old_filename() {
+  old_filename_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& RenameReq::old_filename() const {
+  // @@protoc_insertion_point(field_get:disk.RenameReq.old_filename)
+  return _internal_old_filename();
+}
+inline void RenameReq::set_old_filename(const std::string& value) {
+  _internal_set_old_filename(value);
+  // @@protoc_insertion_point(field_set:disk.RenameReq.old_filename)
+}
+inline std::string* RenameReq::mutable_old_filename() {
+  // @@protoc_insertion_point(field_mutable:disk.RenameReq.old_filename)
+  return _internal_mutable_old_filename();
+}
+inline const std::string& RenameReq::_internal_old_filename() const {
+  return old_filename_.GetNoArena();
+}
+inline void RenameReq::_internal_set_old_filename(const std::string& value) {
+  
+  old_filename_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void RenameReq::set_old_filename(std::string&& value) {
+  
+  old_filename_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:disk.RenameReq.old_filename)
+}
+inline void RenameReq::set_old_filename(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  old_filename_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:disk.RenameReq.old_filename)
+}
+inline void RenameReq::set_old_filename(const void* value, size_t size) {
+  
+  old_filename_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:disk.RenameReq.old_filename)
+}
+inline std::string* RenameReq::_internal_mutable_old_filename() {
+  
+  return old_filename_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* RenameReq::release_old_filename() {
+  // @@protoc_insertion_point(field_release:disk.RenameReq.old_filename)
+  
+  return old_filename_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void RenameReq::set_allocated_old_filename(std::string* old_filename) {
+  if (old_filename != nullptr) {
+    
+  } else {
+    
+  }
+  old_filename_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), old_filename);
+  // @@protoc_insertion_point(field_set_allocated:disk.RenameReq.old_filename)
+}
+
+// bytes new_filename = 2;
+inline void RenameReq::clear_new_filename() {
+  new_filename_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline const std::string& RenameReq::new_filename() const {
+  // @@protoc_insertion_point(field_get:disk.RenameReq.new_filename)
+  return _internal_new_filename();
+}
+inline void RenameReq::set_new_filename(const std::string& value) {
+  _internal_set_new_filename(value);
+  // @@protoc_insertion_point(field_set:disk.RenameReq.new_filename)
+}
+inline std::string* RenameReq::mutable_new_filename() {
+  // @@protoc_insertion_point(field_mutable:disk.RenameReq.new_filename)
+  return _internal_mutable_new_filename();
+}
+inline const std::string& RenameReq::_internal_new_filename() const {
+  return new_filename_.GetNoArena();
+}
+inline void RenameReq::_internal_set_new_filename(const std::string& value) {
+  
+  new_filename_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value);
+}
+inline void RenameReq::set_new_filename(std::string&& value) {
+  
+  new_filename_.SetNoArena(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:disk.RenameReq.new_filename)
+}
+inline void RenameReq::set_new_filename(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  new_filename_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:disk.RenameReq.new_filename)
+}
+inline void RenameReq::set_new_filename(const void* value, size_t size) {
+  
+  new_filename_.SetNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:disk.RenameReq.new_filename)
+}
+inline std::string* RenameReq::_internal_mutable_new_filename() {
+  
+  return new_filename_.MutableNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline std::string* RenameReq::release_new_filename() {
+  // @@protoc_insertion_point(field_release:disk.RenameReq.new_filename)
+  
+  return new_filename_.ReleaseNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+inline void RenameReq::set_allocated_new_filename(std::string* new_filename) {
+  if (new_filename != nullptr) {
+    
+  } else {
+    
+  }
+  new_filename_.SetAllocatedNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), new_filename);
+  // @@protoc_insertion_point(field_set_allocated:disk.RenameReq.new_filename)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

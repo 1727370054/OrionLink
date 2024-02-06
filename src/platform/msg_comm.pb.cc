@@ -57,6 +57,10 @@ class RegisterUserReqDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<RegisterUserReq> _instance;
 } _RegisterUserReq_default_instance_;
+class EmailLoginReqDefaultTypeInternal {
+ public:
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<EmailLoginReq> _instance;
+} _EmailLoginReq_default_instance_;
 class DirReqDefaultTypeInternal {
  public:
   ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<DirReq> _instance;
@@ -227,6 +231,20 @@ static void InitDefaultsscc_info_DirRes_Dir_msg_5fcomm_2eproto() {
 
 ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_DirRes_Dir_msg_5fcomm_2eproto =
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_DirRes_Dir_msg_5fcomm_2eproto}, {}};
+
+static void InitDefaultsscc_info_EmailLoginReq_msg_5fcomm_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+  {
+    void* ptr = &::msg::_EmailLoginReq_default_instance_;
+    new (ptr) ::msg::EmailLoginReq();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
+  }
+  ::msg::EmailLoginReq::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_EmailLoginReq_msg_5fcomm_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_EmailLoginReq_msg_5fcomm_2eproto}, {}};
 
 static void InitDefaultsscc_info_GatewayConfig_msg_5fcomm_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -441,7 +459,7 @@ static void InitDefaultsscc_info_ServiceMap_ServiceMapEntry_DoNotUse_msg_5fcomm_
     {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_ServiceMap_ServiceMapEntry_DoNotUse_msg_5fcomm_2eproto}, {
       &scc_info_ServiceList_msg_5fcomm_2eproto.base,}};
 
-static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_msg_5fcomm_2eproto[23];
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_msg_5fcomm_2eproto[24];
 static const ::PROTOBUF_NAMESPACE_ID::EnumDescriptor* file_level_enum_descriptors_msg_5fcomm_2eproto[5];
 static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_msg_5fcomm_2eproto = nullptr;
 
@@ -494,6 +512,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_msg_5fcomm_2eproto::offsets[] 
   PROTOBUF_FIELD_OFFSET(::msg::AddUserReq, username_),
   PROTOBUF_FIELD_OFFSET(::msg::AddUserReq, password_),
   PROTOBUF_FIELD_OFFSET(::msg::AddUserReq, rolename_),
+  PROTOBUF_FIELD_OFFSET(::msg::AddUserReq, email_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::msg::LoginReq, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -527,6 +546,13 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_msg_5fcomm_2eproto::offsets[] 
   PROTOBUF_FIELD_OFFSET(::msg::RegisterUserReq, email_),
   PROTOBUF_FIELD_OFFSET(::msg::RegisterUserReq, code_),
   PROTOBUF_FIELD_OFFSET(::msg::RegisterUserReq, expired_time_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::msg::EmailLoginReq, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::msg::EmailLoginReq, email_),
+  PROTOBUF_FIELD_OFFSET(::msg::EmailLoginReq, code_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::msg::DirReq, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -640,24 +666,25 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 21, -1, sizeof(::msg::MsgHeart)},
   { 27, -1, sizeof(::msg::AddLogReq)},
   { 40, -1, sizeof(::msg::AddUserReq)},
-  { 48, -1, sizeof(::msg::LoginReq)},
-  { 55, -1, sizeof(::msg::LoginRes)},
-  { 65, -1, sizeof(::msg::GetAuthCode)},
-  { 71, -1, sizeof(::msg::RegisterUserReq)},
-  { 81, -1, sizeof(::msg::DirReq)},
-  { 87, -1, sizeof(::msg::DirRes_Dir)},
-  { 94, -1, sizeof(::msg::DirRes)},
-  { 101, -1, sizeof(::msg::ServiceInfo)},
-  { 110, -1, sizeof(::msg::ServiceList)},
-  { 117, 124, sizeof(::msg::ServiceMap_ServiceMapEntry_DoNotUse)},
-  { 126, -1, sizeof(::msg::ServiceMap)},
-  { 134, -1, sizeof(::msg::GetServiceReq)},
-  { 141, -1, sizeof(::msg::Config)},
-  { 151, -1, sizeof(::msg::LoadConfigReq)},
-  { 158, -1, sizeof(::msg::DirConfig)},
-  { 164, -1, sizeof(::msg::LoadAllConfigReq)},
-  { 171, -1, sizeof(::msg::ConfigList)},
-  { 177, -1, sizeof(::msg::GatewayConfig)},
+  { 49, -1, sizeof(::msg::LoginReq)},
+  { 56, -1, sizeof(::msg::LoginRes)},
+  { 66, -1, sizeof(::msg::GetAuthCode)},
+  { 72, -1, sizeof(::msg::RegisterUserReq)},
+  { 82, -1, sizeof(::msg::EmailLoginReq)},
+  { 89, -1, sizeof(::msg::DirReq)},
+  { 95, -1, sizeof(::msg::DirRes_Dir)},
+  { 102, -1, sizeof(::msg::DirRes)},
+  { 109, -1, sizeof(::msg::ServiceInfo)},
+  { 118, -1, sizeof(::msg::ServiceList)},
+  { 125, 132, sizeof(::msg::ServiceMap_ServiceMapEntry_DoNotUse)},
+  { 134, -1, sizeof(::msg::ServiceMap)},
+  { 142, -1, sizeof(::msg::GetServiceReq)},
+  { 149, -1, sizeof(::msg::Config)},
+  { 159, -1, sizeof(::msg::LoadConfigReq)},
+  { 166, -1, sizeof(::msg::DirConfig)},
+  { 172, -1, sizeof(::msg::LoadAllConfigReq)},
+  { 179, -1, sizeof(::msg::ConfigList)},
+  { 185, -1, sizeof(::msg::GatewayConfig)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -670,6 +697,7 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::msg::_LoginRes_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::msg::_GetAuthCode_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::msg::_RegisterUserReq_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::msg::_EmailLoginReq_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::msg::_DirReq_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::msg::_DirRes_Dir_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::msg::_DirRes_default_instance_),
@@ -692,59 +720,62 @@ const char descriptor_table_protodef_msg_5fcomm_2eproto[] PROTOBUF_SECTION_VARIA
   "\002 \001(\0162\014.msg.MsgType\022\r\n\005token\030\003 \001(\014\022\024\n\014se"
   "rvice_name\030\004 \001(\t\022\021\n\trouter_id\030\005 \001(\003\022\020\n\010u"
   "sername\030\006 \001(\t\022\020\n\010rolename\030\007 \001(\t\022\013\n\003md5\030\010"
-  " \001(\014\022\016\n\006offset\030\t \001(\003\"p\n\nMessageRes\022&\n\006re"
-  "turn\030\001 \001(\0162\026.msg.MessageRes.Return\022\014\n\004de"
-  "sc\030\002 \001(\014\",\n\006Return\022\006\n\002OK\020\000\022\t\n\005ERROR\020\001\022\017\n"
-  "\013USER_EXISTS\020\002\"\031\n\010MsgHeart\022\r\n\005count\030\001 \001("
-  "\003\"\260\001\n\tAddLogReq\022\024\n\014service_name\030\001 \001(\t\022\022\n"
-  "\nservice_ip\030\002 \001(\t\022\024\n\014service_port\030\003 \001(\005\022"
-  "\017\n\007log_txt\030\004 \001(\014\022\020\n\010log_time\030\005 \001(\005\022 \n\tlo"
-  "g_level\030\006 \001(\0162\r.msg.LogLevel\022\020\n\010filename"
-  "\030\007 \001(\t\022\014\n\004line\030\010 \001(\005\"B\n\nAddUserReq\022\020\n\010us"
-  "ername\030\001 \001(\t\022\020\n\010password\030\002 \001(\014\022\020\n\010rolena"
-  "me\030\003 \001(\t\".\n\010LoginReq\022\020\n\010username\030\001 \001(\t\022\020"
-  "\n\010password\030\002 \001(\014\"\325\001\n\010LoginRes\022(\n\004desc\030\001 "
-  "\001(\0162\032.msg.LoginRes.LoginResType\022\r\n\005token"
-  "\030\002 \001(\014\022\024\n\014expired_time\030\003 \001(\005\022\020\n\010rolename"
-  "\030\004 \001(\t\022\020\n\010username\030\005 \001(\t\"V\n\014LoginResType"
-  "\022\010\n\004NONE\020\000\022\006\n\002OK\020\001\022\013\n\007LOGGING\020\002\022\t\n\005ERROR"
-  "\020\003\022\n\n\006NOUSER\020\004\022\020\n\014SERVER_ERROR\020\005\"\034\n\013GetA"
-  "uthCode\022\r\n\005email\030\001 \001(\t\"h\n\017RegisterUserRe"
-  "q\022\020\n\010username\030\001 \001(\t\022\020\n\010password\030\002 \001(\014\022\r\n"
-  "\005email\030\003 \001(\t\022\014\n\004code\030\004 \001(\014\022\024\n\014expired_ti"
-  "me\030\005 \001(\005\"\026\n\006DirReq\022\014\n\004path\030\001 \001(\t\"\244\001\n\006Dir"
-  "Res\022$\n\004desc\030\001 \001(\0162\026.msg.DirRes.DirResTyp"
-  "e\022\035\n\004dirs\030\002 \003(\0132\017.msg.DirRes.Dir\032)\n\003Dir\022"
-  "\020\n\010filename\030\001 \001(\t\022\020\n\010filesize\030\002 \001(\005\"*\n\nD"
-  "irResType\022\006\n\002OK\020\000\022\t\n\005ERROR\020\001\022\t\n\005NODIR\020\002\""
-  "F\n\013ServiceInfo\022\014\n\004name\030\001 \001(\t\022\n\n\002ip\030\002 \001(\t"
-  "\022\014\n\004port\030\003 \001(\005\022\017\n\007is_find\030\004 \001(\010\"\?\n\013Servi"
-  "ceList\022\"\n\010services\030\001 \003(\0132\020.msg.ServiceIn"
-  "fo\022\014\n\004name\030\002 \001(\t\"\312\001\n\nServiceMap\0224\n\013servi"
-  "ce_map\030\001 \003(\0132\037.msg.ServiceMap.ServiceMap"
-  "Entry\022!\n\010response\030\002 \001(\0132\017.msg.MessageRes"
-  "\022\036\n\004type\030\003 \001(\0162\020.msg.ServiceType\032C\n\017Serv"
-  "iceMapEntry\022\013\n\003key\030\001 \001(\t\022\037\n\005value\030\002 \001(\0132"
-  "\020.msg.ServiceList:\0028\001\"=\n\rGetServiceReq\022\014"
-  "\n\004name\030\001 \001(\t\022\036\n\004type\030\002 \001(\0162\020.msg.Service"
-  "Type\"n\n\006Config\022\024\n\014service_name\030\001 \001(\t\022\024\n\014"
-  "service_port\030\002 \001(\005\022\022\n\nservice_ip\030\003 \001(\t\022\022"
-  "\n\nprivate_pb\030\004 \001(\014\022\020\n\010protocol\030\005 \001(\014\"9\n\r"
-  "LoadConfigReq\022\022\n\nservice_ip\030\001 \001(\t\022\024\n\014ser"
-  "vice_port\030\002 \001(\005\"\031\n\tDirConfig\022\014\n\004root\030\001 \001"
-  "(\t\"4\n\020LoadAllConfigReq\022\014\n\004page\030\001 \001(\005\022\022\n\n"
-  "page_count\030\002 \001(\005\"*\n\nConfigList\022\034\n\007config"
-  "s\030\001 \003(\0132\013.msg.Config\"i\n\rGatewayConfig\022\016\n"
-  "\006is_ssl\030\001 \001(\010\022\020\n\010crt_path\030\002 \001(\t\022\020\n\010key_p"
-  "ath\030\003 \001(\t\022\017\n\007ca_path\030\004 \001(\t\022\023\n\013server_por"
-  "t\030\005 \001(\005*E\n\010LogLevel\022\r\n\tLOG_DEBUG\020\000\022\014\n\010LO"
-  "G_INFO\020\001\022\r\n\tLOG_ERROR\020\002\022\r\n\tLOG_FATAL\020\003*\037"
-  "\n\013ServiceType\022\007\n\003ONE\020\000\022\007\n\003ALL\020\001b\006proto3"
+  " \001(\014\022\016\n\006offset\030\t \001(\003\"\231\001\n\nMessageRes\022&\n\006r"
+  "eturn\030\001 \001(\0162\026.msg.MessageRes.Return\022\014\n\004d"
+  "esc\030\002 \001(\014\"U\n\006Return\022\006\n\002OK\020\000\022\t\n\005ERROR\020\001\022\017"
+  "\n\013USER_EXISTS\020\002\022\023\n\017USER_NOT_EXISTS\020\003\022\022\n\016"
+  "BIND_EMAIL_ERR\020\004\"\031\n\010MsgHeart\022\r\n\005count\030\001 "
+  "\001(\003\"\260\001\n\tAddLogReq\022\024\n\014service_name\030\001 \001(\t\022"
+  "\022\n\nservice_ip\030\002 \001(\t\022\024\n\014service_port\030\003 \001("
+  "\005\022\017\n\007log_txt\030\004 \001(\014\022\020\n\010log_time\030\005 \001(\005\022 \n\t"
+  "log_level\030\006 \001(\0162\r.msg.LogLevel\022\020\n\010filena"
+  "me\030\007 \001(\t\022\014\n\004line\030\010 \001(\005\"Q\n\nAddUserReq\022\020\n\010"
+  "username\030\001 \001(\t\022\020\n\010password\030\002 \001(\014\022\020\n\010role"
+  "name\030\003 \001(\t\022\r\n\005email\030\004 \001(\t\".\n\010LoginReq\022\020\n"
+  "\010username\030\001 \001(\t\022\020\n\010password\030\002 \001(\014\"\325\001\n\010Lo"
+  "ginRes\022(\n\004desc\030\001 \001(\0162\032.msg.LoginRes.Logi"
+  "nResType\022\r\n\005token\030\002 \001(\014\022\024\n\014expired_time\030"
+  "\003 \001(\005\022\020\n\010rolename\030\004 \001(\t\022\020\n\010username\030\005 \001("
+  "\t\"V\n\014LoginResType\022\010\n\004NONE\020\000\022\006\n\002OK\020\001\022\013\n\007L"
+  "OGGING\020\002\022\t\n\005ERROR\020\003\022\n\n\006NOUSER\020\004\022\020\n\014SERVE"
+  "R_ERROR\020\005\"\034\n\013GetAuthCode\022\r\n\005email\030\001 \001(\t\""
+  "h\n\017RegisterUserReq\022\020\n\010username\030\001 \001(\t\022\020\n\010"
+  "password\030\002 \001(\014\022\r\n\005email\030\003 \001(\t\022\014\n\004code\030\004 "
+  "\001(\014\022\024\n\014expired_time\030\005 \001(\005\",\n\rEmailLoginR"
+  "eq\022\r\n\005email\030\001 \001(\t\022\014\n\004code\030\002 \001(\014\"\026\n\006DirRe"
+  "q\022\014\n\004path\030\001 \001(\t\"\244\001\n\006DirRes\022$\n\004desc\030\001 \001(\016"
+  "2\026.msg.DirRes.DirResType\022\035\n\004dirs\030\002 \003(\0132\017"
+  ".msg.DirRes.Dir\032)\n\003Dir\022\020\n\010filename\030\001 \001(\t"
+  "\022\020\n\010filesize\030\002 \001(\005\"*\n\nDirResType\022\006\n\002OK\020\000"
+  "\022\t\n\005ERROR\020\001\022\t\n\005NODIR\020\002\"F\n\013ServiceInfo\022\014\n"
+  "\004name\030\001 \001(\t\022\n\n\002ip\030\002 \001(\t\022\014\n\004port\030\003 \001(\005\022\017\n"
+  "\007is_find\030\004 \001(\010\"\?\n\013ServiceList\022\"\n\010service"
+  "s\030\001 \003(\0132\020.msg.ServiceInfo\022\014\n\004name\030\002 \001(\t\""
+  "\312\001\n\nServiceMap\0224\n\013service_map\030\001 \003(\0132\037.ms"
+  "g.ServiceMap.ServiceMapEntry\022!\n\010response"
+  "\030\002 \001(\0132\017.msg.MessageRes\022\036\n\004type\030\003 \001(\0162\020."
+  "msg.ServiceType\032C\n\017ServiceMapEntry\022\013\n\003ke"
+  "y\030\001 \001(\t\022\037\n\005value\030\002 \001(\0132\020.msg.ServiceList"
+  ":\0028\001\"=\n\rGetServiceReq\022\014\n\004name\030\001 \001(\t\022\036\n\004t"
+  "ype\030\002 \001(\0162\020.msg.ServiceType\"n\n\006Config\022\024\n"
+  "\014service_name\030\001 \001(\t\022\024\n\014service_port\030\002 \001("
+  "\005\022\022\n\nservice_ip\030\003 \001(\t\022\022\n\nprivate_pb\030\004 \001("
+  "\014\022\020\n\010protocol\030\005 \001(\014\"9\n\rLoadConfigReq\022\022\n\n"
+  "service_ip\030\001 \001(\t\022\024\n\014service_port\030\002 \001(\005\"\031"
+  "\n\tDirConfig\022\014\n\004root\030\001 \001(\t\"4\n\020LoadAllConf"
+  "igReq\022\014\n\004page\030\001 \001(\005\022\022\n\npage_count\030\002 \001(\005\""
+  "*\n\nConfigList\022\034\n\007configs\030\001 \003(\0132\013.msg.Con"
+  "fig\"i\n\rGatewayConfig\022\016\n\006is_ssl\030\001 \001(\010\022\020\n\010"
+  "crt_path\030\002 \001(\t\022\020\n\010key_path\030\003 \001(\t\022\017\n\007ca_p"
+  "ath\030\004 \001(\t\022\023\n\013server_port\030\005 \001(\005*E\n\010LogLev"
+  "el\022\r\n\tLOG_DEBUG\020\000\022\014\n\010LOG_INFO\020\001\022\r\n\tLOG_E"
+  "RROR\020\002\022\r\n\tLOG_FATAL\020\003*\037\n\013ServiceType\022\007\n\003"
+  "ONE\020\000\022\007\n\003ALL\020\001b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_msg_5fcomm_2eproto_deps[1] = {
   &::descriptor_table_msg_5ftype_2eproto,
 };
-static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_msg_5fcomm_2eproto_sccs[23] = {
+static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_msg_5fcomm_2eproto_sccs[24] = {
   &scc_info_AddLogReq_msg_5fcomm_2eproto.base,
   &scc_info_AddUserReq_msg_5fcomm_2eproto.base,
   &scc_info_Config_msg_5fcomm_2eproto.base,
@@ -753,6 +784,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_msg
   &scc_info_DirReq_msg_5fcomm_2eproto.base,
   &scc_info_DirRes_msg_5fcomm_2eproto.base,
   &scc_info_DirRes_Dir_msg_5fcomm_2eproto.base,
+  &scc_info_EmailLoginReq_msg_5fcomm_2eproto.base,
   &scc_info_GatewayConfig_msg_5fcomm_2eproto.base,
   &scc_info_GetAuthCode_msg_5fcomm_2eproto.base,
   &scc_info_GetServiceReq_msg_5fcomm_2eproto.base,
@@ -772,10 +804,10 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_msg
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_msg_5fcomm_2eproto_once;
 static bool descriptor_table_msg_5fcomm_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_msg_5fcomm_2eproto = {
-  &descriptor_table_msg_5fcomm_2eproto_initialized, descriptor_table_protodef_msg_5fcomm_2eproto, "msg_comm.proto", 2119,
-  &descriptor_table_msg_5fcomm_2eproto_once, descriptor_table_msg_5fcomm_2eproto_sccs, descriptor_table_msg_5fcomm_2eproto_deps, 23, 1,
+  &descriptor_table_msg_5fcomm_2eproto_initialized, descriptor_table_protodef_msg_5fcomm_2eproto, "msg_comm.proto", 2222,
+  &descriptor_table_msg_5fcomm_2eproto_once, descriptor_table_msg_5fcomm_2eproto_sccs, descriptor_table_msg_5fcomm_2eproto_deps, 24, 1,
   schemas, file_default_instances, TableStruct_msg_5fcomm_2eproto::offsets,
-  file_level_metadata_msg_5fcomm_2eproto, 23, file_level_enum_descriptors_msg_5fcomm_2eproto, file_level_service_descriptors_msg_5fcomm_2eproto,
+  file_level_metadata_msg_5fcomm_2eproto, 24, file_level_enum_descriptors_msg_5fcomm_2eproto, file_level_service_descriptors_msg_5fcomm_2eproto,
 };
 
 // Force running AddDescriptors() at dynamic initialization time.
@@ -790,6 +822,8 @@ bool MessageRes_Return_IsValid(int value) {
     case 0:
     case 1:
     case 2:
+    case 3:
+    case 4:
       return true;
     default:
       return false;
@@ -800,6 +834,8 @@ bool MessageRes_Return_IsValid(int value) {
 constexpr MessageRes_Return MessageRes::OK;
 constexpr MessageRes_Return MessageRes::ERROR;
 constexpr MessageRes_Return MessageRes::USER_EXISTS;
+constexpr MessageRes_Return MessageRes::USER_NOT_EXISTS;
+constexpr MessageRes_Return MessageRes::BIND_EMAIL_ERR;
 constexpr MessageRes_Return MessageRes::Return_MIN;
 constexpr MessageRes_Return MessageRes::Return_MAX;
 constexpr int MessageRes::Return_ARRAYSIZE;
@@ -2571,6 +2607,10 @@ AddUserReq::AddUserReq(const AddUserReq& from)
   if (!from._internal_rolename().empty()) {
     rolename_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.rolename_);
   }
+  email_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_email().empty()) {
+    email_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.email_);
+  }
   // @@protoc_insertion_point(copy_constructor:msg.AddUserReq)
 }
 
@@ -2579,6 +2619,7 @@ void AddUserReq::SharedCtor() {
   username_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   password_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   rolename_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  email_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 AddUserReq::~AddUserReq() {
@@ -2590,6 +2631,7 @@ void AddUserReq::SharedDtor() {
   username_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   password_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   rolename_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  email_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 void AddUserReq::SetCachedSize(int size) const {
@@ -2610,6 +2652,7 @@ void AddUserReq::Clear() {
   username_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   password_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   rolename_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  email_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   _internal_metadata_.Clear();
 }
 
@@ -2639,6 +2682,13 @@ const char* AddUserReq::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID:
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
           ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(_internal_mutable_rolename(), ptr, ctx, "msg.AddUserReq.rolename");
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string email = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(_internal_mutable_email(), ptr, ctx, "msg.AddUserReq.email");
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -2713,6 +2763,21 @@ bool AddUserReq::MergePartialFromCodedStream(
         break;
       }
 
+      // string email = 4;
+      case 4: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (34 & 0xFF)) {
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadString(
+                input, this->_internal_mutable_email()));
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+            this->_internal_email().data(), static_cast<int>(this->_internal_email().length()),
+            ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE,
+            "msg.AddUserReq.email"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
       default: {
       handle_unusual:
         if (tag == 0) {
@@ -2766,6 +2831,16 @@ failure:
         3, this->_internal_rolename(), target);
   }
 
+  // string email = 4;
+  if (this->email().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_email().data(), static_cast<int>(this->_internal_email().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "msg.AddUserReq.email");
+    target = stream->WriteStringMaybeAliased(
+        4, this->_internal_email(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields(), target, stream);
@@ -2801,6 +2876,13 @@ size_t AddUserReq::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_rolename());
+  }
+
+  // string email = 4;
+  if (this->email().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_email());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -2846,6 +2928,10 @@ void AddUserReq::MergeFrom(const AddUserReq& from) {
 
     rolename_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.rolename_);
   }
+  if (from.email().size() > 0) {
+
+    email_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.email_);
+  }
 }
 
 void AddUserReq::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -2874,6 +2960,8 @@ void AddUserReq::InternalSwap(AddUserReq* other) {
   password_.Swap(&other->password_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
   rolename_.Swap(&other->rolename_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  email_.Swap(&other->email_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
     GetArenaNoVirtual());
 }
 
@@ -4259,6 +4347,294 @@ void RegisterUserReq::InternalSwap(RegisterUserReq* other) {
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata RegisterUserReq::GetMetadata() const {
+  return GetMetadataStatic();
+}
+
+
+// ===================================================================
+
+void EmailLoginReq::InitAsDefaultInstance() {
+}
+class EmailLoginReq::_Internal {
+ public:
+};
+
+EmailLoginReq::EmailLoginReq()
+  : ::PROTOBUF_NAMESPACE_ID::Message(), _internal_metadata_(nullptr) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:msg.EmailLoginReq)
+}
+EmailLoginReq::EmailLoginReq(const EmailLoginReq& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      _internal_metadata_(nullptr) {
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  email_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_email().empty()) {
+    email_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.email_);
+  }
+  code_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_code().empty()) {
+    code_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.code_);
+  }
+  // @@protoc_insertion_point(copy_constructor:msg.EmailLoginReq)
+}
+
+void EmailLoginReq::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_EmailLoginReq_msg_5fcomm_2eproto.base);
+  email_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  code_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+EmailLoginReq::~EmailLoginReq() {
+  // @@protoc_insertion_point(destructor:msg.EmailLoginReq)
+  SharedDtor();
+}
+
+void EmailLoginReq::SharedDtor() {
+  email_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  code_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+}
+
+void EmailLoginReq::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+const EmailLoginReq& EmailLoginReq::default_instance() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_EmailLoginReq_msg_5fcomm_2eproto.base);
+  return *internal_default_instance();
+}
+
+
+void EmailLoginReq::Clear() {
+// @@protoc_insertion_point(message_clear_start:msg.EmailLoginReq)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  email_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  code_.ClearToEmptyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  _internal_metadata_.Clear();
+}
+
+#if GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+const char* EmailLoginReq::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
+      // string email = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParserUTF8(_internal_mutable_email(), ptr, ctx, "msg.EmailLoginReq.email");
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // bytes code = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(_internal_mutable_code(), ptr, ctx);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag, &_internal_metadata_, ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+#else  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+bool EmailLoginReq::MergePartialFromCodedStream(
+    ::PROTOBUF_NAMESPACE_ID::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!PROTOBUF_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+  // @@protoc_insertion_point(parse_start:msg.EmailLoginReq)
+  for (;;) {
+    ::std::pair<::PROTOBUF_NAMESPACE_ID::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // string email = 1;
+      case 1: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (10 & 0xFF)) {
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadString(
+                input, this->_internal_mutable_email()));
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+            this->_internal_email().data(), static_cast<int>(this->_internal_email().length()),
+            ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE,
+            "msg.EmailLoginReq.email"));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // bytes code = 2;
+      case 2: {
+        if (static_cast< ::PROTOBUF_NAMESPACE_ID::uint8>(tag) == (18 & 0xFF)) {
+          DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::ReadBytes(
+                input, this->_internal_mutable_code()));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0) {
+          goto success;
+        }
+        DO_(::PROTOBUF_NAMESPACE_ID::internal::WireFormat::SkipField(
+              input, tag, _internal_metadata_.mutable_unknown_fields()));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:msg.EmailLoginReq)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:msg.EmailLoginReq)
+  return false;
+#undef DO_
+}
+#endif  // GOOGLE_PROTOBUF_ENABLE_EXPERIMENTAL_PARSER
+
+::PROTOBUF_NAMESPACE_ID::uint8* EmailLoginReq::InternalSerializeWithCachedSizesToArray(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:msg.EmailLoginReq)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // string email = 1;
+  if (this->email().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_email().data(), static_cast<int>(this->_internal_email().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "msg.EmailLoginReq.email");
+    target = stream->WriteStringMaybeAliased(
+        1, this->_internal_email(), target);
+  }
+
+  // bytes code = 2;
+  if (this->code().size() > 0) {
+    target = stream->WriteBytesMaybeAliased(
+        2, this->_internal_code(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields(), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:msg.EmailLoginReq)
+  return target;
+}
+
+size_t EmailLoginReq::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:msg.EmailLoginReq)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // string email = 1;
+  if (this->email().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_email());
+  }
+
+  // bytes code = 2;
+  if (this->code().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+        this->_internal_code());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void EmailLoginReq::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_merge_from_start:msg.EmailLoginReq)
+  GOOGLE_DCHECK_NE(&from, this);
+  const EmailLoginReq* source =
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<EmailLoginReq>(
+          &from);
+  if (source == nullptr) {
+  // @@protoc_insertion_point(generalized_merge_from_cast_fail:msg.EmailLoginReq)
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
+  } else {
+  // @@protoc_insertion_point(generalized_merge_from_cast_success:msg.EmailLoginReq)
+    MergeFrom(*source);
+  }
+}
+
+void EmailLoginReq::MergeFrom(const EmailLoginReq& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:msg.EmailLoginReq)
+  GOOGLE_DCHECK_NE(&from, this);
+  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from.email().size() > 0) {
+
+    email_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.email_);
+  }
+  if (from.code().size() > 0) {
+
+    code_.AssignWithDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from.code_);
+  }
+}
+
+void EmailLoginReq::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
+// @@protoc_insertion_point(generalized_copy_from_start:msg.EmailLoginReq)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+void EmailLoginReq::CopyFrom(const EmailLoginReq& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:msg.EmailLoginReq)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool EmailLoginReq::IsInitialized() const {
+  return true;
+}
+
+void EmailLoginReq::InternalSwap(EmailLoginReq* other) {
+  using std::swap;
+  _internal_metadata_.Swap(&other->_internal_metadata_);
+  email_.Swap(&other->email_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+  code_.Swap(&other->code_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+    GetArenaNoVirtual());
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata EmailLoginReq::GetMetadata() const {
   return GetMetadataStatic();
 }
 
@@ -8329,6 +8705,9 @@ template<> PROTOBUF_NOINLINE ::msg::GetAuthCode* Arena::CreateMaybeMessage< ::ms
 }
 template<> PROTOBUF_NOINLINE ::msg::RegisterUserReq* Arena::CreateMaybeMessage< ::msg::RegisterUserReq >(Arena* arena) {
   return Arena::CreateInternal< ::msg::RegisterUserReq >(arena);
+}
+template<> PROTOBUF_NOINLINE ::msg::EmailLoginReq* Arena::CreateMaybeMessage< ::msg::EmailLoginReq >(Arena* arena) {
+  return Arena::CreateInternal< ::msg::EmailLoginReq >(arena);
 }
 template<> PROTOBUF_NOINLINE ::msg::DirReq* Arena::CreateMaybeMessage< ::msg::DirReq >(Arena* arena) {
   return Arena::CreateInternal< ::msg::DirReq >(arena);

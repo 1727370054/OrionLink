@@ -18,6 +18,21 @@ border-image:url(:/res/pic/background-4.png);
     border-radius: 5px;
 }
 
+#frame_user_name_3,#frame_pwd_3{
+    border: 1px solid #696969;
+    border-radius: 5px;
+}
+
+#frame_email_2,#frame_code_2{
+    border: 1px solid #696969;
+    border-radius: 5px;
+}
+
+#frame_email_3,#frame_code_3{
+    border: 1px solid #696969;
+    border-radius: 5px;
+}
+
 QLineEdit{
     border: none;
 }
@@ -39,6 +54,26 @@ QLineEdit{
 }
 
 #btn_forget_2:hover{
+    border:none;
+    color:#7bb7a5;
+}
+
+#btn_username{
+    border:none;
+    color:#7bb7a5;
+}
+
+#btn_username:hover{
+    border:none;
+    color:#7bb7a5;
+}
+
+#btn_login_page{
+    border:none;
+    color:#7bb7a5;
+}
+
+#btn_login_page:hover{
     border:none;
     color:#7bb7a5;
 }
@@ -85,17 +120,68 @@ QLineEdit{
     border-radius: 5px;
 }
 
+#btn_email_login{
+    color:#316f67;
+    border: none;
+    background-color:#74fae9;
+    border-radius: 5px;
+}
+
+#btn_email_login:hover{
+    color:#316f67;
+    border: none;
+    background-color:#4af8e2;
+    border-radius: 5px;
+}
+
+#btn_email_login:pressed{
+    color:#316f67;
+    border: none;
+    background-color:#74fae9;
+    border-radius: 5px;
+}
+
+#btn_submit{
+    color:#316f67;
+    border: none;
+    background-color:#74fae9;
+    border-radius: 5px;
+}
+
+#btn_submit:hover{
+    color:#316f67;
+    border: none;
+    background-color:#4af8e2;
+    border-radius: 5px;
+}
+
+#btn_submit:pressed{
+    color:#316f67;
+    border: none;
+    background-color:#74fae9;
+    border-radius: 5px;
+}
+
 #label_register_2
 {
     color:#7bb7a5;
-
 }
 
 #label_login
 {
     color:#7bb7a5;
-
 }
+
+#label_email
+{
+    color:#7bb7a5;
+}
+
+#label_forget
+{
+    color:#7bb7a5;
+}
+
 #label_user_name
 {
     border-image:url(:/res/pic/user_name.png);
@@ -136,14 +222,14 @@ QLineEdit{
 }
 
 #btn_wb{
-    background-image:url(:/res/pic/wb.png);
+    background-image:url(:/res/pic/email.png);
     background-position:center;
     background-repeat:no-repeat;
     border:none;
 }
 
 #btn_wb:hover{
-    background-image:url(:/res/pic/wb-hover.png);
+    background-image:url(:/res/pic/email-hover.png);
     background-position:center;
     background-repeat:no-repeat;
     border:none;
@@ -166,6 +252,19 @@ QLineEdit{
     border-image:url(:/res/pic/pwd.png);
 
 }
+
+/*Õº±Í-’Àªß*/
+#label_user_name_3
+{
+    border-image:url(:/res/pic/user_name.png);
+}
+/*Õº±Í-√‹¬Î*/
+#label_pwd_3
+{
+    border-image:url(:/res/pic/pwd.png);
+
+}
+
 /*∞¥≈•-qq*/
 #btn_qq_2{
     background-image:url(:/res/pic/qq.png);
@@ -196,18 +295,65 @@ QLineEdit{
 }
 /*∞¥≈•-Œ¢≤©-*/
 #btn_wb_2{
-    background-image:url(:/res/pic/wb.png);
+    background-image:url(:/res/pic/email.png);
     background-position:center;
     background-repeat:no-repeat;
     border:none;
 }
 /*∞¥≈•-Œ¢≤©- Û±Í–¸Õ£*/
 #btn_wb_2:hover{
-    background-image:url(:/res/pic/wb-hover.png);
+    background-image:url(:/res/pic/email-hover.png);
     background-position:center;
     background-repeat:no-repeat;
     border:none;
 }
+
+/***********************************************************************************
+
+/*∞¥≈•-qq*/
+#btn_qq_3{
+    background-image:url(:/res/pic/qq.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+/*∞¥≈•-qq- Û±Í–¸Õ£*/
+#btn_qq_3:hover{
+    background-image:url(:/res/pic/qq-hover.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+/*∞¥≈•-Œ¢–≈*/
+#btn_wx_3{
+    background-image:url(:/res/pic/wx.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+/*∞¥≈•-Œ¢–≈- Û±Í–¸Õ£*/
+#btn_wx_3:hover{
+    background-image:url(:/res/pic/wx-hover.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+/*∞¥≈•-Œ¢≤©-*/
+#btn_wb_3{
+    background-image:url(:/res/pic/email.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+/*∞¥≈•-Œ¢≤©- Û±Í–¸Õ£*/
+#btn_wb_3:hover{
+    background-image:url(:/res/pic/email-hover.png);
+    background-position:center;
+    background-repeat:no-repeat;
+    border:none;
+}
+
+/**********************************************************************************
 
 /*∞¥≈•-∑€∫Ï*/
 #btn_1{

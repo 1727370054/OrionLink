@@ -107,6 +107,54 @@ public:
     QSpacerItem *horizontalSpacer_9;
     QSpacerItem *verticalSpacer_8;
     QSpacerItem *verticalSpacer_4;
+    QWidget *emailPage;
+    QWidget *layoutWidget_2;
+    QVBoxLayout *verticalLayout_4;
+    QSpacerItem *verticalSpacer_19;
+    QHBoxLayout *horizontalLayout_28;
+    QSpacerItem *horizontalSpacer_55;
+    QLabel *label_email;
+    QSpacerItem *horizontalSpacer_56;
+    QSpacerItem *verticalSpacer_20;
+    QHBoxLayout *horizontalLayout_29;
+    QSpacerItem *horizontalSpacer_57;
+    QFrame *frame_err_3;
+    QGridLayout *gridLayout_13;
+    QHBoxLayout *horizontalLayout_30;
+    QSpacerItem *horizontalSpacer_58;
+    QLabel *err_logo_3;
+    QLabel *err_msg_3;
+    QSpacerItem *horizontalSpacer_59;
+    QSpacerItem *verticalSpacer_21;
+    QHBoxLayout *horizontalLayout_35;
+    QSpacerItem *horizontalSpacer_66;
+    QFrame *frame_email_2;
+    QGridLayout *gridLayout_16;
+    QHBoxLayout *horizontalLayout_36;
+    QSpacerItem *horizontalSpacer_67;
+    QLineEdit *email_edit_2;
+    QSpacerItem *horizontalSpacer_68;
+    QHBoxLayout *horizontalLayout_37;
+    QSpacerItem *horizontalSpacer_69;
+    QFrame *frame_code_2;
+    QGridLayout *gridLayout_17;
+    QHBoxLayout *horizontalLayout_38;
+    QSpacerItem *horizontalSpacer_70;
+    QLineEdit *code_edit_2;
+    QPushButton *getcodeButton_2;
+    QSpacerItem *horizontalSpacer_71;
+    QSpacerItem *verticalSpacer_23;
+    QHBoxLayout *horizontalLayout_39;
+    QSpacerItem *horizontalSpacer_72;
+    QSpacerItem *horizontalSpacer_73;
+    QPushButton *btn_username;
+    QSpacerItem *horizontalSpacer_74;
+    QSpacerItem *verticalSpacer_24;
+    QHBoxLayout *horizontalLayout_40;
+    QSpacerItem *horizontalSpacer_75;
+    QPushButton *btn_email_login;
+    QSpacerItem *horizontalSpacer_76;
+    QSpacerItem *verticalSpacer_25;
     QWidget *registerPage;
     QWidget *layoutWidget;
     QVBoxLayout *verticalLayout_3;
@@ -183,6 +231,82 @@ public:
     QPushButton *btn_wb_2;
     QSpacerItem *horizontalSpacer_49;
     QSpacerItem *verticalSpacer_17;
+    QWidget *forgetPage;
+    QWidget *layoutWidget_3;
+    QVBoxLayout *verticalLayout_5;
+    QSpacerItem *verticalSpacer_22;
+    QHBoxLayout *horizontalLayout_31;
+    QSpacerItem *horizontalSpacer_60;
+    QLabel *label_forget;
+    QSpacerItem *horizontalSpacer_61;
+    QSpacerItem *verticalSpacer_26;
+    QHBoxLayout *horizontalLayout_32;
+    QSpacerItem *horizontalSpacer_62;
+    QFrame *frame_err_4;
+    QGridLayout *gridLayout_14;
+    QHBoxLayout *horizontalLayout_33;
+    QSpacerItem *horizontalSpacer_63;
+    QLabel *err_logo_4;
+    QLabel *err_msg_4;
+    QSpacerItem *horizontalSpacer_64;
+    QSpacerItem *verticalSpacer_27;
+    QHBoxLayout *horizontalLayout_34;
+    QSpacerItem *horizontalSpacer_65;
+    QFrame *frame_user_name_3;
+    QGridLayout *gridLayout_15;
+    QHBoxLayout *horizontalLayout_41;
+    QSpacerItem *horizontalSpacer_77;
+    QLabel *label_user_name_3;
+    QLineEdit *user_name_edit_2;
+    QSpacerItem *horizontalSpacer_78;
+    QHBoxLayout *horizontalLayout_42;
+    QSpacerItem *horizontalSpacer_79;
+    QFrame *frame_pwd_3;
+    QGridLayout *gridLayout_18;
+    QHBoxLayout *horizontalLayout_43;
+    QSpacerItem *horizontalSpacer_80;
+    QLabel *label_pwd_3;
+    QLineEdit *pwd_edit_2;
+    QSpacerItem *horizontalSpacer_81;
+    QSpacerItem *verticalSpacer_28;
+    QHBoxLayout *horizontalLayout_44;
+    QSpacerItem *horizontalSpacer_82;
+    QFrame *frame_email_3;
+    QGridLayout *gridLayout_19;
+    QHBoxLayout *horizontalLayout_45;
+    QSpacerItem *horizontalSpacer_83;
+    QLineEdit *email_edit_3;
+    QSpacerItem *horizontalSpacer_84;
+    QHBoxLayout *horizontalLayout_46;
+    QSpacerItem *horizontalSpacer_85;
+    QFrame *frame_code_3;
+    QGridLayout *gridLayout_20;
+    QHBoxLayout *horizontalLayout_47;
+    QSpacerItem *horizontalSpacer_86;
+    QLineEdit *code_edit_3;
+    QPushButton *getcodeButton_3;
+    QSpacerItem *horizontalSpacer_87;
+    QSpacerItem *verticalSpacer_29;
+    QHBoxLayout *horizontalLayout_48;
+    QSpacerItem *horizontalSpacer_88;
+    QSpacerItem *horizontalSpacer_89;
+    QPushButton *btn_login_page;
+    QSpacerItem *horizontalSpacer_90;
+    QSpacerItem *verticalSpacer_30;
+    QHBoxLayout *horizontalLayout_49;
+    QSpacerItem *horizontalSpacer_91;
+    QPushButton *btn_submit;
+    QSpacerItem *horizontalSpacer_92;
+    QSpacerItem *verticalSpacer_31;
+    QHBoxLayout *horizontalLayout_50;
+    QSpacerItem *horizontalSpacer_93;
+    QPushButton *btn_wx_3;
+    QSpacerItem *horizontalSpacer_94;
+    QPushButton *btn_qq_3;
+    QSpacerItem *horizontalSpacer_95;
+    QPushButton *btn_wb_3;
+    QSpacerItem *horizontalSpacer_96;
+    QSpacerItem *verticalSpacer_32;
     QFrame *frame_pic;
     QSpacerItem *horizontalSpacer_18;
     QSpacerItem *verticalSpacer_10;
@@ -473,7 +597,7 @@ public:
 
         lineE_user_name = new QLineEdit(frame_user_name);
         lineE_user_name->setObjectName(QString::fromUtf8("lineE_user_name"));
-        lineE_user_name->setStyleSheet(QString::fromUtf8(""));
+        lineE_user_name->setStyleSheet(QString::fromUtf8("font: 14pt \"\351\273\221\344\275\223\";"));
         lineE_user_name->setClearButtonEnabled(true);
 
         horizontalLayout_11->addWidget(lineE_user_name);
@@ -540,7 +664,7 @@ public:
 
         lineE_pwd = new QLineEdit(frame_pwd);
         lineE_pwd->setObjectName(QString::fromUtf8("lineE_pwd"));
-        lineE_pwd->setStyleSheet(QString::fromUtf8(""));
+        lineE_pwd->setStyleSheet(QString::fromUtf8("font: 14pt \"\351\273\221\344\275\223\";"));
         lineE_pwd->setClearButtonEnabled(true);
 
         horizontalLayout_3->addWidget(lineE_pwd);
@@ -696,6 +820,301 @@ public:
         gridLayout_5->addItem(verticalSpacer_4, 1, 0, 1, 1);
 
         frame_login->addWidget(loginPage);
+        emailPage = new QWidget();
+        emailPage->setObjectName(QString::fromUtf8("emailPage"));
+        layoutWidget_2 = new QWidget(emailPage);
+        layoutWidget_2->setObjectName(QString::fromUtf8("layoutWidget_2"));
+        layoutWidget_2->setGeometry(QRect(10, 10, 481, 581));
+        verticalLayout_4 = new QVBoxLayout(layoutWidget_2);
+        verticalLayout_4->setSpacing(6);
+        verticalLayout_4->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
+        verticalLayout_4->setContentsMargins(0, 0, 0, 0);
+        verticalSpacer_19 = new QSpacerItem(20, 13, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_4->addItem(verticalSpacer_19);
+
+        horizontalLayout_28 = new QHBoxLayout();
+        horizontalLayout_28->setSpacing(6);
+        horizontalLayout_28->setObjectName(QString::fromUtf8("horizontalLayout_28"));
+        horizontalSpacer_55 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_28->addItem(horizontalSpacer_55);
+
+        label_email = new QLabel(layoutWidget_2);
+        label_email->setObjectName(QString::fromUtf8("label_email"));
+        label_email->setFont(font);
+
+        horizontalLayout_28->addWidget(label_email);
+
+        horizontalSpacer_56 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_28->addItem(horizontalSpacer_56);
+
+
+        verticalLayout_4->addLayout(horizontalLayout_28);
+
+        verticalSpacer_20 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_4->addItem(verticalSpacer_20);
+
+        horizontalLayout_29 = new QHBoxLayout();
+        horizontalLayout_29->setSpacing(6);
+        horizontalLayout_29->setObjectName(QString::fromUtf8("horizontalLayout_29"));
+        horizontalSpacer_57 = new QSpacerItem(80, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_29->addItem(horizontalSpacer_57);
+
+        frame_err_3 = new QFrame(layoutWidget_2);
+        frame_err_3->setObjectName(QString::fromUtf8("frame_err_3"));
+        frame_err_3->setStyleSheet(QString::fromUtf8("#frame_user_name::!hover{\n"
+"\n"
+"      border: 1px solid #c7c7c7;\n"
+"      border-radius: 2px;\n"
+"	  margin-top: 0ex\n"
+"\n"
+"}\n"
+"#frame_user_name::hover{\n"
+"      border: 1px solid #58a6ee;\n"
+"      border-radius: 2px;\n"
+"	  margin-top: 0ex\n"
+"}"));
+        frame_err_3->setFrameShape(QFrame::StyledPanel);
+        frame_err_3->setFrameShadow(QFrame::Raised);
+        gridLayout_13 = new QGridLayout(frame_err_3);
+        gridLayout_13->setSpacing(6);
+        gridLayout_13->setContentsMargins(11, 11, 11, 11);
+        gridLayout_13->setObjectName(QString::fromUtf8("gridLayout_13"));
+        horizontalLayout_30 = new QHBoxLayout();
+        horizontalLayout_30->setSpacing(6);
+        horizontalLayout_30->setObjectName(QString::fromUtf8("horizontalLayout_30"));
+        horizontalSpacer_58 = new QSpacerItem(10, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_30->addItem(horizontalSpacer_58);
+
+        err_logo_3 = new QLabel(frame_err_3);
+        err_logo_3->setObjectName(QString::fromUtf8("err_logo_3"));
+        sizePolicy1.setHeightForWidth(err_logo_3->sizePolicy().hasHeightForWidth());
+        err_logo_3->setSizePolicy(sizePolicy1);
+        err_logo_3->setMinimumSize(QSize(30, 30));
+        err_logo_3->setMaximumSize(QSize(30, 30));
+        err_logo_3->setPixmap(QPixmap(QString::fromUtf8(":/res/pic/icon_error_tip.png")));
+        err_logo_3->setScaledContents(true);
+
+        horizontalLayout_30->addWidget(err_logo_3);
+
+        err_msg_3 = new QLabel(frame_err_3);
+        err_msg_3->setObjectName(QString::fromUtf8("err_msg_3"));
+        err_msg_3->setStyleSheet(QString::fromUtf8("color: rgb(255, 0, 0);\n"
+"font: 12pt \"\351\273\221\344\275\223\";"));
+
+        horizontalLayout_30->addWidget(err_msg_3);
+
+
+        gridLayout_13->addLayout(horizontalLayout_30, 1, 0, 1, 1);
+
+
+        horizontalLayout_29->addWidget(frame_err_3);
+
+        horizontalSpacer_59 = new QSpacerItem(80, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_29->addItem(horizontalSpacer_59);
+
+
+        verticalLayout_4->addLayout(horizontalLayout_29);
+
+        verticalSpacer_21 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_4->addItem(verticalSpacer_21);
+
+        horizontalLayout_35 = new QHBoxLayout();
+        horizontalLayout_35->setSpacing(6);
+        horizontalLayout_35->setObjectName(QString::fromUtf8("horizontalLayout_35"));
+        horizontalSpacer_66 = new QSpacerItem(80, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_35->addItem(horizontalSpacer_66);
+
+        frame_email_2 = new QFrame(layoutWidget_2);
+        frame_email_2->setObjectName(QString::fromUtf8("frame_email_2"));
+        frame_email_2->setStyleSheet(QString::fromUtf8("#frame_email::!hover{\n"
+"\n"
+"      border: 1px solid #c7c7c7;\n"
+"      border-radius: 2px;\n"
+"	  margin-top: 0ex\n"
+"\n"
+"}\n"
+"#frame_email::hover{\n"
+"      border: 1px solid #58a6ee;\n"
+"      border-radius: 2px;\n"
+"	  margin-top: 0ex\n"
+"}\n"
+"\n"
+"#frame_email{\n"
+"    border: 1px solid #696969;\n"
+"    border-radius: 5px;\n"
+"}"));
+        frame_email_2->setFrameShape(QFrame::StyledPanel);
+        frame_email_2->setFrameShadow(QFrame::Raised);
+        gridLayout_16 = new QGridLayout(frame_email_2);
+        gridLayout_16->setSpacing(6);
+        gridLayout_16->setContentsMargins(11, 11, 11, 11);
+        gridLayout_16->setObjectName(QString::fromUtf8("gridLayout_16"));
+        horizontalLayout_36 = new QHBoxLayout();
+        horizontalLayout_36->setSpacing(6);
+        horizontalLayout_36->setObjectName(QString::fromUtf8("horizontalLayout_36"));
+        horizontalSpacer_67 = new QSpacerItem(10, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_36->addItem(horizontalSpacer_67);
+
+        email_edit_2 = new QLineEdit(frame_email_2);
+        email_edit_2->setObjectName(QString::fromUtf8("email_edit_2"));
+        email_edit_2->setStyleSheet(QString::fromUtf8("font: 14pt \"\351\273\221\344\275\223\";"));
+        email_edit_2->setClearButtonEnabled(true);
+
+        horizontalLayout_36->addWidget(email_edit_2);
+
+
+        gridLayout_16->addLayout(horizontalLayout_36, 1, 0, 1, 1);
+
+
+        horizontalLayout_35->addWidget(frame_email_2);
+
+        horizontalSpacer_68 = new QSpacerItem(80, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_35->addItem(horizontalSpacer_68);
+
+
+        verticalLayout_4->addLayout(horizontalLayout_35);
+
+        horizontalLayout_37 = new QHBoxLayout();
+        horizontalLayout_37->setSpacing(6);
+        horizontalLayout_37->setObjectName(QString::fromUtf8("horizontalLayout_37"));
+        horizontalSpacer_69 = new QSpacerItem(80, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_37->addItem(horizontalSpacer_69);
+
+        frame_code_2 = new QFrame(layoutWidget_2);
+        frame_code_2->setObjectName(QString::fromUtf8("frame_code_2"));
+        frame_code_2->setStyleSheet(QString::fromUtf8("#frame_code::!hover{\n"
+"\n"
+"      border: 1px solid #c7c7c7;\n"
+"      border-radius: 2px;\n"
+"	  margin-top: 0ex\n"
+"\n"
+"}\n"
+"#frame_code::hover{\n"
+"      border: 1px solid #58a6ee;\n"
+"      border-radius: 2px;\n"
+"	  margin-top: 0ex\n"
+"}\n"
+"\n"
+"#frame_code{\n"
+"    border: 1px solid #696969;\n"
+"    border-radius: 5px;\n"
+"}"));
+        frame_code_2->setFrameShape(QFrame::StyledPanel);
+        frame_code_2->setFrameShadow(QFrame::Raised);
+        gridLayout_17 = new QGridLayout(frame_code_2);
+        gridLayout_17->setSpacing(6);
+        gridLayout_17->setContentsMargins(11, 11, 11, 11);
+        gridLayout_17->setObjectName(QString::fromUtf8("gridLayout_17"));
+        horizontalLayout_38 = new QHBoxLayout();
+        horizontalLayout_38->setSpacing(6);
+        horizontalLayout_38->setObjectName(QString::fromUtf8("horizontalLayout_38"));
+        horizontalSpacer_70 = new QSpacerItem(10, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_38->addItem(horizontalSpacer_70);
+
+        code_edit_2 = new QLineEdit(frame_code_2);
+        code_edit_2->setObjectName(QString::fromUtf8("code_edit_2"));
+        code_edit_2->setStyleSheet(QString::fromUtf8("font: 14pt \"\351\273\221\344\275\223\";"));
+
+        horizontalLayout_38->addWidget(code_edit_2);
+
+        getcodeButton_2 = new QPushButton(frame_code_2);
+        getcodeButton_2->setObjectName(QString::fromUtf8("getcodeButton_2"));
+        getcodeButton_2->setStyleSheet(QString::fromUtf8("QPushButton {\n"
+"     background-color: transparent;\n"
+"     border: none;\n"
+"	 color: rgb(255, 85, 0);\n"
+"}"));
+
+        horizontalLayout_38->addWidget(getcodeButton_2);
+
+
+        gridLayout_17->addLayout(horizontalLayout_38, 1, 0, 1, 1);
+
+
+        horizontalLayout_37->addWidget(frame_code_2);
+
+        horizontalSpacer_71 = new QSpacerItem(80, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_37->addItem(horizontalSpacer_71);
+
+
+        verticalLayout_4->addLayout(horizontalLayout_37);
+
+        verticalSpacer_23 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_4->addItem(verticalSpacer_23);
+
+        horizontalLayout_39 = new QHBoxLayout();
+        horizontalLayout_39->setSpacing(6);
+        horizontalLayout_39->setObjectName(QString::fromUtf8("horizontalLayout_39"));
+        horizontalSpacer_72 = new QSpacerItem(28, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_39->addItem(horizontalSpacer_72);
+
+        horizontalSpacer_73 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_39->addItem(horizontalSpacer_73);
+
+        btn_username = new QPushButton(layoutWidget_2);
+        btn_username->setObjectName(QString::fromUtf8("btn_username"));
+        btn_username->setFont(font1);
+
+        horizontalLayout_39->addWidget(btn_username);
+
+        horizontalSpacer_74 = new QSpacerItem(80, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_39->addItem(horizontalSpacer_74);
+
+
+        verticalLayout_4->addLayout(horizontalLayout_39);
+
+        verticalSpacer_24 = new QSpacerItem(20, 13, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_4->addItem(verticalSpacer_24);
+
+        horizontalLayout_40 = new QHBoxLayout();
+        horizontalLayout_40->setSpacing(6);
+        horizontalLayout_40->setObjectName(QString::fromUtf8("horizontalLayout_40"));
+        horizontalSpacer_75 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_40->addItem(horizontalSpacer_75);
+
+        btn_email_login = new QPushButton(layoutWidget_2);
+        btn_email_login->setObjectName(QString::fromUtf8("btn_email_login"));
+        sizePolicy1.setHeightForWidth(btn_email_login->sizePolicy().hasHeightForWidth());
+        btn_email_login->setSizePolicy(sizePolicy1);
+        btn_email_login->setMinimumSize(QSize(320, 50));
+        btn_email_login->setMaximumSize(QSize(320, 50));
+        btn_email_login->setFont(font2);
+
+        horizontalLayout_40->addWidget(btn_email_login);
+
+        horizontalSpacer_76 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_40->addItem(horizontalSpacer_76);
+
+
+        verticalLayout_4->addLayout(horizontalLayout_40);
+
+        verticalSpacer_25 = new QSpacerItem(20, 13, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_4->addItem(verticalSpacer_25);
+
+        frame_login->addWidget(emailPage);
         registerPage = new QWidget();
         registerPage->setObjectName(QString::fromUtf8("registerPage"));
         layoutWidget = new QWidget(registerPage);
@@ -849,7 +1268,7 @@ public:
 
         user_name_edit = new QLineEdit(frame_user_name_2);
         user_name_edit->setObjectName(QString::fromUtf8("user_name_edit"));
-        user_name_edit->setStyleSheet(QString::fromUtf8(""));
+        user_name_edit->setStyleSheet(QString::fromUtf8("font: 14pt \"\351\273\221\344\275\223\";"));
         user_name_edit->setClearButtonEnabled(true);
 
         horizontalLayout_14->addWidget(user_name_edit);
@@ -913,7 +1332,7 @@ public:
 
         pwd_edit = new QLineEdit(frame_pwd_2);
         pwd_edit->setObjectName(QString::fromUtf8("pwd_edit"));
-        pwd_edit->setStyleSheet(QString::fromUtf8(""));
+        pwd_edit->setStyleSheet(QString::fromUtf8("font: 14pt \"\351\273\221\344\275\223\";"));
         pwd_edit->setEchoMode(QLineEdit::Password);
         pwd_edit->setClearButtonEnabled(true);
 
@@ -977,6 +1396,7 @@ public:
 
         email_edit = new QLineEdit(frame_email);
         email_edit->setObjectName(QString::fromUtf8("email_edit"));
+        email_edit->setStyleSheet(QString::fromUtf8("font: 14pt \"\351\273\221\344\275\223\";"));
         email_edit->setClearButtonEnabled(true);
 
         horizontalLayout_19->addWidget(email_edit);
@@ -1035,6 +1455,7 @@ public:
 
         code_edit = new QLineEdit(frame_code);
         code_edit->setObjectName(QString::fromUtf8("code_edit"));
+        code_edit->setStyleSheet(QString::fromUtf8("font: 14pt \"\351\273\221\344\275\223\";"));
 
         horizontalLayout_25->addWidget(code_edit);
 
@@ -1175,6 +1596,487 @@ public:
         verticalLayout_3->addItem(verticalSpacer_17);
 
         frame_login->addWidget(registerPage);
+        forgetPage = new QWidget();
+        forgetPage->setObjectName(QString::fromUtf8("forgetPage"));
+        layoutWidget_3 = new QWidget(forgetPage);
+        layoutWidget_3->setObjectName(QString::fromUtf8("layoutWidget_3"));
+        layoutWidget_3->setGeometry(QRect(10, 10, 481, 581));
+        verticalLayout_5 = new QVBoxLayout(layoutWidget_3);
+        verticalLayout_5->setSpacing(6);
+        verticalLayout_5->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_5->setObjectName(QString::fromUtf8("verticalLayout_5"));
+        verticalLayout_5->setContentsMargins(0, 0, 0, 0);
+        verticalSpacer_22 = new QSpacerItem(20, 13, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_5->addItem(verticalSpacer_22);
+
+        horizontalLayout_31 = new QHBoxLayout();
+        horizontalLayout_31->setSpacing(6);
+        horizontalLayout_31->setObjectName(QString::fromUtf8("horizontalLayout_31"));
+        horizontalSpacer_60 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_31->addItem(horizontalSpacer_60);
+
+        label_forget = new QLabel(layoutWidget_3);
+        label_forget->setObjectName(QString::fromUtf8("label_forget"));
+        label_forget->setFont(font);
+
+        horizontalLayout_31->addWidget(label_forget);
+
+        horizontalSpacer_61 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_31->addItem(horizontalSpacer_61);
+
+
+        verticalLayout_5->addLayout(horizontalLayout_31);
+
+        verticalSpacer_26 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_5->addItem(verticalSpacer_26);
+
+        horizontalLayout_32 = new QHBoxLayout();
+        horizontalLayout_32->setSpacing(6);
+        horizontalLayout_32->setObjectName(QString::fromUtf8("horizontalLayout_32"));
+        horizontalSpacer_62 = new QSpacerItem(80, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_32->addItem(horizontalSpacer_62);
+
+        frame_err_4 = new QFrame(layoutWidget_3);
+        frame_err_4->setObjectName(QString::fromUtf8("frame_err_4"));
+        frame_err_4->setStyleSheet(QString::fromUtf8("#frame_user_name::!hover{\n"
+"\n"
+"      border: 1px solid #c7c7c7;\n"
+"      border-radius: 2px;\n"
+"	  margin-top: 0ex\n"
+"\n"
+"}\n"
+"#frame_user_name::hover{\n"
+"      border: 1px solid #58a6ee;\n"
+"      border-radius: 2px;\n"
+"	  margin-top: 0ex\n"
+"}"));
+        frame_err_4->setFrameShape(QFrame::StyledPanel);
+        frame_err_4->setFrameShadow(QFrame::Raised);
+        gridLayout_14 = new QGridLayout(frame_err_4);
+        gridLayout_14->setSpacing(6);
+        gridLayout_14->setContentsMargins(11, 11, 11, 11);
+        gridLayout_14->setObjectName(QString::fromUtf8("gridLayout_14"));
+        horizontalLayout_33 = new QHBoxLayout();
+        horizontalLayout_33->setSpacing(6);
+        horizontalLayout_33->setObjectName(QString::fromUtf8("horizontalLayout_33"));
+        horizontalSpacer_63 = new QSpacerItem(10, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_33->addItem(horizontalSpacer_63);
+
+        err_logo_4 = new QLabel(frame_err_4);
+        err_logo_4->setObjectName(QString::fromUtf8("err_logo_4"));
+        sizePolicy1.setHeightForWidth(err_logo_4->sizePolicy().hasHeightForWidth());
+        err_logo_4->setSizePolicy(sizePolicy1);
+        err_logo_4->setMinimumSize(QSize(30, 30));
+        err_logo_4->setMaximumSize(QSize(30, 30));
+        err_logo_4->setPixmap(QPixmap(QString::fromUtf8(":/res/pic/icon_error_tip.png")));
+        err_logo_4->setScaledContents(true);
+
+        horizontalLayout_33->addWidget(err_logo_4);
+
+        err_msg_4 = new QLabel(frame_err_4);
+        err_msg_4->setObjectName(QString::fromUtf8("err_msg_4"));
+        err_msg_4->setStyleSheet(QString::fromUtf8("color: rgb(255, 0, 0);\n"
+"font: 12pt \"\351\273\221\344\275\223\";"));
+
+        horizontalLayout_33->addWidget(err_msg_4);
+
+
+        gridLayout_14->addLayout(horizontalLayout_33, 1, 0, 1, 1);
+
+
+        horizontalLayout_32->addWidget(frame_err_4);
+
+        horizontalSpacer_64 = new QSpacerItem(80, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_32->addItem(horizontalSpacer_64);
+
+
+        verticalLayout_5->addLayout(horizontalLayout_32);
+
+        verticalSpacer_27 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_5->addItem(verticalSpacer_27);
+
+        horizontalLayout_34 = new QHBoxLayout();
+        horizontalLayout_34->setSpacing(6);
+        horizontalLayout_34->setObjectName(QString::fromUtf8("horizontalLayout_34"));
+        horizontalSpacer_65 = new QSpacerItem(80, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_34->addItem(horizontalSpacer_65);
+
+        frame_user_name_3 = new QFrame(layoutWidget_3);
+        frame_user_name_3->setObjectName(QString::fromUtf8("frame_user_name_3"));
+        frame_user_name_3->setStyleSheet(QString::fromUtf8("#frame_user_name_2::!hover{\n"
+"\n"
+"      border: 1px solid #c7c7c7;\n"
+"      border-radius: 2px;\n"
+"	  margin-top: 0ex\n"
+"\n"
+"}\n"
+"#frame_user_name_2::hover{\n"
+"      border: 1px solid #58a6ee;\n"
+"      border-radius: 2px;\n"
+"	  margin-top: 0ex\n"
+"}"));
+        frame_user_name_3->setFrameShape(QFrame::StyledPanel);
+        frame_user_name_3->setFrameShadow(QFrame::Raised);
+        gridLayout_15 = new QGridLayout(frame_user_name_3);
+        gridLayout_15->setSpacing(6);
+        gridLayout_15->setContentsMargins(11, 11, 11, 11);
+        gridLayout_15->setObjectName(QString::fromUtf8("gridLayout_15"));
+        horizontalLayout_41 = new QHBoxLayout();
+        horizontalLayout_41->setSpacing(6);
+        horizontalLayout_41->setObjectName(QString::fromUtf8("horizontalLayout_41"));
+        horizontalSpacer_77 = new QSpacerItem(10, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_41->addItem(horizontalSpacer_77);
+
+        label_user_name_3 = new QLabel(frame_user_name_3);
+        label_user_name_3->setObjectName(QString::fromUtf8("label_user_name_3"));
+        sizePolicy1.setHeightForWidth(label_user_name_3->sizePolicy().hasHeightForWidth());
+        label_user_name_3->setSizePolicy(sizePolicy1);
+        label_user_name_3->setMinimumSize(QSize(30, 30));
+        label_user_name_3->setMaximumSize(QSize(30, 30));
+        label_user_name_3->setScaledContents(true);
+
+        horizontalLayout_41->addWidget(label_user_name_3);
+
+        user_name_edit_2 = new QLineEdit(frame_user_name_3);
+        user_name_edit_2->setObjectName(QString::fromUtf8("user_name_edit_2"));
+        user_name_edit_2->setStyleSheet(QString::fromUtf8("font: 14pt \"\351\273\221\344\275\223\";"));
+        user_name_edit_2->setClearButtonEnabled(true);
+
+        horizontalLayout_41->addWidget(user_name_edit_2);
+
+
+        gridLayout_15->addLayout(horizontalLayout_41, 1, 0, 1, 1);
+
+
+        horizontalLayout_34->addWidget(frame_user_name_3);
+
+        horizontalSpacer_78 = new QSpacerItem(80, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_34->addItem(horizontalSpacer_78);
+
+
+        verticalLayout_5->addLayout(horizontalLayout_34);
+
+        horizontalLayout_42 = new QHBoxLayout();
+        horizontalLayout_42->setSpacing(6);
+        horizontalLayout_42->setObjectName(QString::fromUtf8("horizontalLayout_42"));
+        horizontalSpacer_79 = new QSpacerItem(80, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_42->addItem(horizontalSpacer_79);
+
+        frame_pwd_3 = new QFrame(layoutWidget_3);
+        frame_pwd_3->setObjectName(QString::fromUtf8("frame_pwd_3"));
+        frame_pwd_3->setStyleSheet(QString::fromUtf8("#frame_pwd_2::!hover{\n"
+"\n"
+"      border: 1px solid #c7c7c7;\n"
+"      border-radius: 2px;\n"
+"	  margin-top: 0ex\n"
+"\n"
+"}\n"
+"#frame_pwd_2::hover{\n"
+"      border: 1px solid #58a6ee;\n"
+"      border-radius: 2px;\n"
+"	  margin-top: 0ex\n"
+"}"));
+        frame_pwd_3->setFrameShape(QFrame::StyledPanel);
+        frame_pwd_3->setFrameShadow(QFrame::Raised);
+        gridLayout_18 = new QGridLayout(frame_pwd_3);
+        gridLayout_18->setSpacing(6);
+        gridLayout_18->setContentsMargins(11, 11, 11, 11);
+        gridLayout_18->setObjectName(QString::fromUtf8("gridLayout_18"));
+        horizontalLayout_43 = new QHBoxLayout();
+        horizontalLayout_43->setSpacing(6);
+        horizontalLayout_43->setObjectName(QString::fromUtf8("horizontalLayout_43"));
+        horizontalSpacer_80 = new QSpacerItem(10, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_43->addItem(horizontalSpacer_80);
+
+        label_pwd_3 = new QLabel(frame_pwd_3);
+        label_pwd_3->setObjectName(QString::fromUtf8("label_pwd_3"));
+        sizePolicy1.setHeightForWidth(label_pwd_3->sizePolicy().hasHeightForWidth());
+        label_pwd_3->setSizePolicy(sizePolicy1);
+        label_pwd_3->setMinimumSize(QSize(30, 30));
+        label_pwd_3->setMaximumSize(QSize(30, 30));
+        label_pwd_3->setScaledContents(true);
+
+        horizontalLayout_43->addWidget(label_pwd_3);
+
+        pwd_edit_2 = new QLineEdit(frame_pwd_3);
+        pwd_edit_2->setObjectName(QString::fromUtf8("pwd_edit_2"));
+        pwd_edit_2->setStyleSheet(QString::fromUtf8("font: 14pt \"\351\273\221\344\275\223\";"));
+        pwd_edit_2->setEchoMode(QLineEdit::Password);
+        pwd_edit_2->setClearButtonEnabled(true);
+
+        horizontalLayout_43->addWidget(pwd_edit_2);
+
+
+        gridLayout_18->addLayout(horizontalLayout_43, 0, 0, 1, 1);
+
+
+        horizontalLayout_42->addWidget(frame_pwd_3);
+
+        horizontalSpacer_81 = new QSpacerItem(80, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_42->addItem(horizontalSpacer_81);
+
+
+        verticalLayout_5->addLayout(horizontalLayout_42);
+
+        verticalSpacer_28 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_5->addItem(verticalSpacer_28);
+
+        horizontalLayout_44 = new QHBoxLayout();
+        horizontalLayout_44->setSpacing(6);
+        horizontalLayout_44->setObjectName(QString::fromUtf8("horizontalLayout_44"));
+        horizontalSpacer_82 = new QSpacerItem(80, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_44->addItem(horizontalSpacer_82);
+
+        frame_email_3 = new QFrame(layoutWidget_3);
+        frame_email_3->setObjectName(QString::fromUtf8("frame_email_3"));
+        frame_email_3->setStyleSheet(QString::fromUtf8("#frame_email::!hover{\n"
+"\n"
+"      border: 1px solid #c7c7c7;\n"
+"      border-radius: 2px;\n"
+"	  margin-top: 0ex\n"
+"\n"
+"}\n"
+"#frame_email::hover{\n"
+"      border: 1px solid #58a6ee;\n"
+"      border-radius: 2px;\n"
+"	  margin-top: 0ex\n"
+"}\n"
+"\n"
+"#frame_email{\n"
+"    border: 1px solid #696969;\n"
+"    border-radius: 5px;\n"
+"}"));
+        frame_email_3->setFrameShape(QFrame::StyledPanel);
+        frame_email_3->setFrameShadow(QFrame::Raised);
+        gridLayout_19 = new QGridLayout(frame_email_3);
+        gridLayout_19->setSpacing(6);
+        gridLayout_19->setContentsMargins(11, 11, 11, 11);
+        gridLayout_19->setObjectName(QString::fromUtf8("gridLayout_19"));
+        horizontalLayout_45 = new QHBoxLayout();
+        horizontalLayout_45->setSpacing(6);
+        horizontalLayout_45->setObjectName(QString::fromUtf8("horizontalLayout_45"));
+        horizontalSpacer_83 = new QSpacerItem(10, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_45->addItem(horizontalSpacer_83);
+
+        email_edit_3 = new QLineEdit(frame_email_3);
+        email_edit_3->setObjectName(QString::fromUtf8("email_edit_3"));
+        email_edit_3->setStyleSheet(QString::fromUtf8("font: 14pt \"\351\273\221\344\275\223\";"));
+        email_edit_3->setClearButtonEnabled(true);
+
+        horizontalLayout_45->addWidget(email_edit_3);
+
+
+        gridLayout_19->addLayout(horizontalLayout_45, 1, 0, 1, 1);
+
+
+        horizontalLayout_44->addWidget(frame_email_3);
+
+        horizontalSpacer_84 = new QSpacerItem(80, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_44->addItem(horizontalSpacer_84);
+
+
+        verticalLayout_5->addLayout(horizontalLayout_44);
+
+        horizontalLayout_46 = new QHBoxLayout();
+        horizontalLayout_46->setSpacing(6);
+        horizontalLayout_46->setObjectName(QString::fromUtf8("horizontalLayout_46"));
+        horizontalSpacer_85 = new QSpacerItem(80, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_46->addItem(horizontalSpacer_85);
+
+        frame_code_3 = new QFrame(layoutWidget_3);
+        frame_code_3->setObjectName(QString::fromUtf8("frame_code_3"));
+        frame_code_3->setStyleSheet(QString::fromUtf8("#frame_code::!hover{\n"
+"\n"
+"      border: 1px solid #c7c7c7;\n"
+"      border-radius: 2px;\n"
+"	  margin-top: 0ex\n"
+"\n"
+"}\n"
+"#frame_code::hover{\n"
+"      border: 1px solid #58a6ee;\n"
+"      border-radius: 2px;\n"
+"	  margin-top: 0ex\n"
+"}\n"
+"\n"
+"#frame_code{\n"
+"    border: 1px solid #696969;\n"
+"    border-radius: 5px;\n"
+"}"));
+        frame_code_3->setFrameShape(QFrame::StyledPanel);
+        frame_code_3->setFrameShadow(QFrame::Raised);
+        gridLayout_20 = new QGridLayout(frame_code_3);
+        gridLayout_20->setSpacing(6);
+        gridLayout_20->setContentsMargins(11, 11, 11, 11);
+        gridLayout_20->setObjectName(QString::fromUtf8("gridLayout_20"));
+        horizontalLayout_47 = new QHBoxLayout();
+        horizontalLayout_47->setSpacing(6);
+        horizontalLayout_47->setObjectName(QString::fromUtf8("horizontalLayout_47"));
+        horizontalSpacer_86 = new QSpacerItem(10, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_47->addItem(horizontalSpacer_86);
+
+        code_edit_3 = new QLineEdit(frame_code_3);
+        code_edit_3->setObjectName(QString::fromUtf8("code_edit_3"));
+        code_edit_3->setStyleSheet(QString::fromUtf8("font: 14pt \"\351\273\221\344\275\223\";"));
+
+        horizontalLayout_47->addWidget(code_edit_3);
+
+        getcodeButton_3 = new QPushButton(frame_code_3);
+        getcodeButton_3->setObjectName(QString::fromUtf8("getcodeButton_3"));
+        getcodeButton_3->setStyleSheet(QString::fromUtf8("QPushButton {\n"
+"     background-color: transparent;\n"
+"     border: none;\n"
+"	 color: rgb(255, 85, 0);\n"
+"}"));
+
+        horizontalLayout_47->addWidget(getcodeButton_3);
+
+
+        gridLayout_20->addLayout(horizontalLayout_47, 1, 0, 1, 1);
+
+
+        horizontalLayout_46->addWidget(frame_code_3);
+
+        horizontalSpacer_87 = new QSpacerItem(80, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_46->addItem(horizontalSpacer_87);
+
+
+        verticalLayout_5->addLayout(horizontalLayout_46);
+
+        verticalSpacer_29 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_5->addItem(verticalSpacer_29);
+
+        horizontalLayout_48 = new QHBoxLayout();
+        horizontalLayout_48->setSpacing(6);
+        horizontalLayout_48->setObjectName(QString::fromUtf8("horizontalLayout_48"));
+        horizontalSpacer_88 = new QSpacerItem(28, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_48->addItem(horizontalSpacer_88);
+
+        horizontalSpacer_89 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_48->addItem(horizontalSpacer_89);
+
+        btn_login_page = new QPushButton(layoutWidget_3);
+        btn_login_page->setObjectName(QString::fromUtf8("btn_login_page"));
+        btn_login_page->setFont(font1);
+
+        horizontalLayout_48->addWidget(btn_login_page);
+
+        horizontalSpacer_90 = new QSpacerItem(80, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
+
+        horizontalLayout_48->addItem(horizontalSpacer_90);
+
+
+        verticalLayout_5->addLayout(horizontalLayout_48);
+
+        verticalSpacer_30 = new QSpacerItem(20, 13, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_5->addItem(verticalSpacer_30);
+
+        horizontalLayout_49 = new QHBoxLayout();
+        horizontalLayout_49->setSpacing(6);
+        horizontalLayout_49->setObjectName(QString::fromUtf8("horizontalLayout_49"));
+        horizontalSpacer_91 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_49->addItem(horizontalSpacer_91);
+
+        btn_submit = new QPushButton(layoutWidget_3);
+        btn_submit->setObjectName(QString::fromUtf8("btn_submit"));
+        sizePolicy1.setHeightForWidth(btn_submit->sizePolicy().hasHeightForWidth());
+        btn_submit->setSizePolicy(sizePolicy1);
+        btn_submit->setMinimumSize(QSize(320, 50));
+        btn_submit->setMaximumSize(QSize(320, 50));
+        btn_submit->setFont(font2);
+
+        horizontalLayout_49->addWidget(btn_submit);
+
+        horizontalSpacer_92 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_49->addItem(horizontalSpacer_92);
+
+
+        verticalLayout_5->addLayout(horizontalLayout_49);
+
+        verticalSpacer_31 = new QSpacerItem(20, 13, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_5->addItem(verticalSpacer_31);
+
+        horizontalLayout_50 = new QHBoxLayout();
+        horizontalLayout_50->setSpacing(6);
+        horizontalLayout_50->setObjectName(QString::fromUtf8("horizontalLayout_50"));
+        horizontalSpacer_93 = new QSpacerItem(13, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_50->addItem(horizontalSpacer_93);
+
+        btn_wx_3 = new QPushButton(layoutWidget_3);
+        btn_wx_3->setObjectName(QString::fromUtf8("btn_wx_3"));
+        sizePolicy1.setHeightForWidth(btn_wx_3->sizePolicy().hasHeightForWidth());
+        btn_wx_3->setSizePolicy(sizePolicy1);
+        btn_wx_3->setMinimumSize(QSize(50, 50));
+        btn_wx_3->setMaximumSize(QSize(50, 50));
+
+        horizontalLayout_50->addWidget(btn_wx_3);
+
+        horizontalSpacer_94 = new QSpacerItem(13, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_50->addItem(horizontalSpacer_94);
+
+        btn_qq_3 = new QPushButton(layoutWidget_3);
+        btn_qq_3->setObjectName(QString::fromUtf8("btn_qq_3"));
+        sizePolicy1.setHeightForWidth(btn_qq_3->sizePolicy().hasHeightForWidth());
+        btn_qq_3->setSizePolicy(sizePolicy1);
+        btn_qq_3->setMinimumSize(QSize(50, 50));
+        btn_qq_3->setMaximumSize(QSize(50, 50));
+
+        horizontalLayout_50->addWidget(btn_qq_3);
+
+        horizontalSpacer_95 = new QSpacerItem(13, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_50->addItem(horizontalSpacer_95);
+
+        btn_wb_3 = new QPushButton(layoutWidget_3);
+        btn_wb_3->setObjectName(QString::fromUtf8("btn_wb_3"));
+        sizePolicy1.setHeightForWidth(btn_wb_3->sizePolicy().hasHeightForWidth());
+        btn_wb_3->setSizePolicy(sizePolicy1);
+        btn_wb_3->setMinimumSize(QSize(50, 50));
+        btn_wb_3->setMaximumSize(QSize(50, 50));
+
+        horizontalLayout_50->addWidget(btn_wb_3);
+
+        horizontalSpacer_96 = new QSpacerItem(13, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_50->addItem(horizontalSpacer_96);
+
+
+        verticalLayout_5->addLayout(horizontalLayout_50);
+
+        verticalSpacer_32 = new QSpacerItem(20, 13, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_5->addItem(verticalSpacer_32);
+
+        frame_login->addWidget(forgetPage);
 
         horizontalLayout_8->addWidget(frame_login);
 
@@ -1288,8 +2190,18 @@ public:
         QObject::connect(getcodeButton, SIGNAL(clicked()), LoginGUI, SLOT(GetCode()));
         QObject::connect(btn_register, SIGNAL(clicked()), LoginGUI, SLOT(RegisterPage()));
         QObject::connect(btn_register_2, SIGNAL(clicked()), LoginGUI, SLOT(Register()));
+        QObject::connect(btn_username, SIGNAL(clicked()), LoginGUI, SLOT(LoginPage()));
+        QObject::connect(getcodeButton_2, SIGNAL(clicked()), LoginGUI, SLOT(GetCode()));
+        QObject::connect(btn_wb, SIGNAL(clicked()), LoginGUI, SLOT(EmailPage()));
+        QObject::connect(btn_wb_2, SIGNAL(clicked()), LoginGUI, SLOT(EmailPage()));
+        QObject::connect(btn_email_login, SIGNAL(clicked()), LoginGUI, SLOT(EmailLogin()));
+        QObject::connect(btn_login_page, SIGNAL(clicked()), LoginGUI, SLOT(LoginPage()));
+        QObject::connect(btn_forget, SIGNAL(clicked()), LoginGUI, SLOT(ForgetPage()));
+        QObject::connect(btn_submit, SIGNAL(clicked()), LoginGUI, SLOT(ForgetPassword()));
+        QObject::connect(btn_wb_3, SIGNAL(clicked()), LoginGUI, SLOT(EmailPage()));
+        QObject::connect(getcodeButton_3, SIGNAL(clicked()), LoginGUI, SLOT(GetCode()));
 
-        frame_login->setCurrentIndex(0);
+        frame_login->setCurrentIndex(3);
 
 
         QMetaObject::connectSlotsByName(LoginGUI);
@@ -1317,6 +2229,15 @@ public:
         btn_wx->setText(QString());
         btn_qq->setText(QString());
         btn_wb->setText(QString());
+        label_email->setText(QApplication::translate("LoginGUI", "\351\202\256\347\256\261\347\231\273\351\231\206", nullptr));
+        err_logo_3->setText(QString());
+        err_msg_3->setText(QString());
+        email_edit_2->setText(QString());
+        email_edit_2->setPlaceholderText(QApplication::translate("LoginGUI", "\351\202\256\347\256\261", nullptr));
+        code_edit_2->setPlaceholderText(QApplication::translate("LoginGUI", "\351\252\214\350\257\201\347\240\201", nullptr));
+        getcodeButton_2->setText(QApplication::translate("LoginGUI", "\350\216\267\345\217\226\351\252\214\350\257\201\347\240\201", nullptr));
+        btn_username->setText(QApplication::translate("LoginGUI", "\344\275\277\347\224\250\347\224\250\346\210\267\345\220\215\347\231\273\351\231\206", nullptr));
+        btn_email_login->setText(QApplication::translate("LoginGUI", "\347\231\273\351\231\206", nullptr));
         label_register_2->setText(QApplication::translate("LoginGUI", "\346\263\250\345\206\214", nullptr));
         err_logo_2->setText(QString());
         err_msg_2->setText(QString());
@@ -1335,6 +2256,24 @@ public:
         btn_wx_2->setText(QString());
         btn_qq_2->setText(QString());
         btn_wb_2->setText(QString());
+        label_forget->setText(QApplication::translate("LoginGUI", "\345\277\230\350\256\260\345\257\206\347\240\201", nullptr));
+        err_logo_4->setText(QString());
+        err_msg_4->setText(QString());
+        label_user_name_3->setText(QString());
+        user_name_edit_2->setText(QString());
+        user_name_edit_2->setPlaceholderText(QApplication::translate("LoginGUI", "\347\224\250\346\210\267\345\220\215", nullptr));
+        label_pwd_3->setText(QString());
+        pwd_edit_2->setText(QString());
+        pwd_edit_2->setPlaceholderText(QApplication::translate("LoginGUI", "\346\226\260\345\257\206\347\240\201", nullptr));
+        email_edit_3->setText(QString());
+        email_edit_3->setPlaceholderText(QApplication::translate("LoginGUI", "\351\202\256\347\256\261", nullptr));
+        code_edit_3->setPlaceholderText(QApplication::translate("LoginGUI", "\351\252\214\350\257\201\347\240\201", nullptr));
+        getcodeButton_3->setText(QApplication::translate("LoginGUI", "\350\216\267\345\217\226\351\252\214\350\257\201\347\240\201", nullptr));
+        btn_login_page->setText(QApplication::translate("LoginGUI", "\347\233\264\346\216\245\347\231\273\351\231\206", nullptr));
+        btn_submit->setText(QApplication::translate("LoginGUI", "\346\217\220\344\272\244", nullptr));
+        btn_wx_3->setText(QString());
+        btn_qq_3->setText(QString());
+        btn_wb_3->setText(QString());
         btn_1->setText(QApplication::translate("LoginGUI", "\347\262\211\347\272\242", nullptr));
         btn_2->setText(QApplication::translate("LoginGUI", "\351\273\204\350\211\262", nullptr));
         btn_3->setText(QApplication::translate("LoginGUI", "\346\265\205\347\264\253", nullptr));

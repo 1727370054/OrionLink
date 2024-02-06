@@ -54,8 +54,10 @@ bool AuthDAO::Install()
         `ol_username` VARCHAR(128) ,                           \
         `ol_password` VARCHAR(1024) ,                          \
         `ol_rolename` VARCHAR(128) ,                           \
+        `ol_email`    VARCHAR(128) ,                           \
         PRIMARY KEY(`id`),                                     \
-        UNIQUE KEY `ol_username_UNIQUE` (`ol_username`)        \
+        UNIQUE KEY `ol_username_UNIQUE` (`ol_username`),       \
+        UNIQUE KEY `ol_email_UNIQUE` (`ol_email`)              \
         );";
 
     if (!oldb_->Query(sql.c_str(), sql.size()))
@@ -88,6 +90,7 @@ bool AuthDAO::AddUser(msg::AddUserReq* user)
     data["ol_username"] = user->username().c_str();
     data["ol_password"] = user->password().c_str();
     data["ol_rolename"] = user->rolename().c_str();
+    data["ol_email"] = user->email().c_str();
 
     Mutex lock(&auth_mutex);
     if (!oldb_)
@@ -189,6 +192,105 @@ bool AuthDAO::Login(const msg::LoginReq* user_req, msg::LoginRes* user_res, int 
     user_res->set_username(username);
     
     return BuildToken(username, rolename, user_res, timeout_sec);
+}
+
+bool AuthDAO::EmailLogin(const msg::EmailLoginReq* user_req, msg::LoginRes* user_res, int timeout_sec)
+{
+    string token = "";
+    user_res->set_desc(LoginRes::ERROR);
+
+    Mutex lock(&auth_mutex);
+    if (!oldb_)
+    {
+        token = "mysql not init";
+        LOGERROR(token.c_str());
+        user_res->set_token(token);
+        return false;
+    }
+
+    if (user_req->email().empty())
+    {
+        token = "email is empty";
+        LOGERROR(token.c_str());
+        user_res->set_token(token);
+        return false;
+    }
+
+    string table = AUTH_TABLE;
+    stringstream ss;
+    ss << "select ol_username,ol_rolename, ol_email from " << table;
+    ss << " where ol_email='" << user_req->email() << "'";
+
+    auto rows = oldb_->GetResult(ss.str().c_str());
+    if (rows.size() == 0)
+    {
+        token = "email not exists!";
+        LOGERROR(token);
+        user_res->set_token(token);
+        return false;
+    }
+
+    string username = rows[0][0].data;
+    string rolename = rows[0][1].data;
+    user_res->set_rolename(rolename);
+    user_res->set_username(username);
+
+    return BuildToken(username, rolename, user_res, timeout_sec);
+}
+
+bool AuthDAO::ForgetPassword(const msg::RegisterUserReq* user_req, msg::MessageRes* user_res)
+{
+    string desc = "";
+    user_res->set_return_(MessageRes::USER_NOT_EXISTS);
+
+    Mutex lock(&auth_mutex);
+    if (!oldb_)
+    {
+        desc = "mysql not init";
+        LOGERROR(desc.c_str());  
+        user_res->set_desc(desc);
+        return false;
+    }
+
+    if (user_req->email().empty() || user_req->username().empty())
+    {
+        desc = "username or email is empty";
+        LOGERROR(desc.c_str());
+        user_res->set_desc(desc);
+        return false;
+    }
+
+    string table = AUTH_TABLE;
+    stringstream ss;
+    ss << "select ol_email from " << table;
+    ss << " where ol_username='" << user_req->username() << "'";
+
+    auto rows = oldb_->GetResult(ss.str().c_str());
+    if (rows.size() == 0)
+    {
+        desc = "user not exists!";
+        LOGERROR(desc);
+        user_res->set_desc(desc);
+        return false;
+    }
+
+    string email = rows[0][0].data;
+    if (email != user_req->email())
+    {
+        desc = "bind email error!";
+        LOGERROR(desc);
+        user_res->set_return_(MessageRes::BIND_EMAIL_ERR);
+        user_res->set_desc(desc);
+        return false;
+    }
+
+    table = AUTH_TABLE;
+    stringstream where;
+    where << " where ol_username='" << user_req->username() << "'";
+    KVData data;
+    data["ol_password"] = user_req->password().c_str();
+
+    return oldb_->Update(data, table, where.str()) != -1;
 }
 
 bool AuthDAO::CheckToken(msg::MsgHead* head, msg::LoginRes* user_res, int timeout_sec)

@@ -41,6 +41,14 @@ public:
     /// @brief 接收用户注册请求
     void RegisterUserReq(msg::MsgHead* head, Msg* msg);
 
+    //////////////////////////////////////////////////////////////////
+    /// @brief 邮箱登陆请求
+    void EmailLonginReq(msg::MsgHead* head, Msg* msg);
+
+    //////////////////////////////////////////////////////////////////
+    /// @brief 忘记密码请求
+    void ForgetPasswordReq(msg::MsgHead* head, Msg* msg);
+
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 清理过期token
     void TimerCallback() override;

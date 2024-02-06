@@ -24,7 +24,7 @@ static constexpr ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema* schemas = n
 static constexpr ::PROTOBUF_NAMESPACE_ID::Message* const* file_default_instances = nullptr;
 
 const char descriptor_table_protodef_msg_5ftype_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\016msg_type.proto\022\003msg*\372\005\n\007MsgType\022\023\n\017NON"
+  "\n\016msg_type.proto\022\003msg*\352\006\n\007MsgType\022\023\n\017NON"
   "E_DO_NOT_USE\020\000\022\021\n\rMSG_LOGIN_REQ\020\001\022\021\n\rMSG"
   "_LOGIN_RES\020\002\022\017\n\013MSG_DIR_REQ\020\003\022\017\n\013MSG_DIR"
   "_RES\020\004\022\024\n\020MSG_REGISTER_REQ\020\005\022\024\n\020MSG_REGI"
@@ -41,9 +41,12 @@ const char descriptor_table_protodef_msg_5ftype_2eproto[] PROTOBUF_SECTION_VARIA
   "SG_CHECK_TOKEN_RES\020\322\001\022\024\n\017MSG_ADD_LOG_REQ"
   "\020\323\001\022\026\n\021MSG_GET_AUTH_CODE\020\324\001\022\032\n\025MSG_REGIS"
   "TER_USER_REQ\020\325\001\022\032\n\025MSG_REGISTER_USER_RES"
-  "\020\326\001\022\035\n\027MSG_GET_OUT_SERVICE_REQ\020\374\377\003\022\035\n\027MS"
-  "G_GET_OUT_SERVICE_RES\020\375\377\003\022\023\n\rMSG_HEART_R"
-  "EQ\020\376\377\003\022\022\n\014MSG_MAX_TYPE\020\377\377\003b\006proto3"
+  "\020\326\001\022\030\n\023MSG_EMAIL_LOGIN_REQ\020\327\001\022\030\n\023MSG_EMA"
+  "IL_LOGIN_RES\020\330\001\022\034\n\027MSG_FORGET_PASSWORD_R"
+  "EQ\020\331\001\022\034\n\027MSG_FORGET_PASSWORD_RES\020\332\001\022\035\n\027M"
+  "SG_GET_OUT_SERVICE_REQ\020\374\377\003\022\035\n\027MSG_GET_OU"
+  "T_SERVICE_RES\020\375\377\003\022\023\n\rMSG_HEART_REQ\020\376\377\003\022\022"
+  "\n\014MSG_MAX_TYPE\020\377\377\003b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_msg_5ftype_2eproto_deps[1] = {
 };
@@ -52,7 +55,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_msg
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_msg_5ftype_2eproto_once;
 static bool descriptor_table_msg_5ftype_2eproto_initialized = false;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_msg_5ftype_2eproto = {
-  &descriptor_table_msg_5ftype_2eproto_initialized, descriptor_table_protodef_msg_5ftype_2eproto, "msg_type.proto", 794,
+  &descriptor_table_msg_5ftype_2eproto_initialized, descriptor_table_protodef_msg_5ftype_2eproto, "msg_type.proto", 906,
   &descriptor_table_msg_5ftype_2eproto_once, descriptor_table_msg_5ftype_2eproto_sccs, descriptor_table_msg_5ftype_2eproto_deps, 0, 0,
   schemas, file_default_instances, TableStruct_msg_5ftype_2eproto::offsets,
   file_level_metadata_msg_5ftype_2eproto, 0, file_level_enum_descriptors_msg_5ftype_2eproto, file_level_service_descriptors_msg_5ftype_2eproto,
@@ -94,6 +97,10 @@ bool MsgType_IsValid(int value) {
     case 212:
     case 213:
     case 214:
+    case 215:
+    case 216:
+    case 217:
+    case 218:
     case 65532:
     case 65533:
     case 65534:
