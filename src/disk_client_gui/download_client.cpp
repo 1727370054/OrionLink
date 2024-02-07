@@ -129,9 +129,9 @@ void DownloadClient::DownloadSliceReq(msg::MsgHead* head, Msg* msg)
         {
             cerr << "file is not complete" << endl;
             iFileManager::GetInstance()->FileCheck(2, false);
-			Drop();
-			DelFile(local_path_, false);
-			return;
+	    Drop();
+	    DelFile(local_path_, false);
+	    return;
         }
 
         Drop();
