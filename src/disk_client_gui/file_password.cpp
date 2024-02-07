@@ -11,6 +11,6 @@ FilePassword::~FilePassword()
 }
 void FilePassword::accept()
 {
-    password = ui.passwordEdit->text().toLocal8Bit();
+    password = ui.passwordEdit->text().toUtf8().constData();
     QDialog::accept();
 }

@@ -85,7 +85,7 @@ void DiskClientGUI::RefreshData(disk::FileInfoList file_list, std::string cur_di
     remote_dir_ = cur_dir;
     file_list_ = file_list;
     QString view_dir = "";
-    QString dir_str = QString::fromLocal8Bit(cur_dir.c_str());
+    QString dir_str = QString::fromUtf8(cur_dir.c_str());
     auto dir_list = dir_str.split("/");
     for (const auto& dir : dir_list)
     {
@@ -129,8 +129,9 @@ void DiskClientGUI::RefreshData(disk::FileInfoList file_list, std::string cur_di
             file_type += "文件";
         }
         
-        QString qname = QString::fromLocal8Bit(filename.c_str());
+        QString qname = QString::fromUtf8(filename.c_str());
         QString qfile_type = QString::fromLocal8Bit(file_type.c_str());
+        //QString qfile_type = file_type.c_str();
         //QString qname = filename.c_str(); /// 服务器在linux跑开放
         tab->setItem(0, 1, new QTableWidgetItem(QIcon(iconpath.c_str()), qname));
         tab->setItem(0, 2, new QTableWidgetItem(file.filetime().c_str()));
@@ -180,8 +181,10 @@ void DiskClientGUI::DirRename(QTableWidgetItem* item)
     if (!is_new_dir) return;
     if (item->row() == 0 && item->column() == 1)
     {
-        string dir = item->text().toLocal8Bit();
-        if (dir == "新建文件夹") return;
+        string tmp = item->text().toLocal8Bit();
+        if (tmp == "新建文件夹")
+            return;
+        string dir = item->text().toUtf8().constData();
         ifm_->NewDir(remote_dir_ + "/" + dir);
     }
 }
@@ -200,7 +203,7 @@ void DiskClientGUI::Rename()
 
     auto first = rows.begin();
     tab->editItem(tab->item(*first, 1)); 
-    string name = tab->item(*first, 1)->text().toLocal8Bit();
+    string name = tab->item(*first, 1)->text().toUtf8().constData();
     old_filename = remote_dir_;
     old_filename += "/";
     old_filename += name;
@@ -211,7 +214,7 @@ void DiskClientGUI::Rename(QTableWidgetItem* item)
     if (!is_rename)
         return;
     
-    string name = item->text().toLocal8Bit();
+    string name = item->text().toUtf8().constData();
     
     string new_filename = remote_dir_;
     new_filename += "/";
@@ -403,7 +406,7 @@ void DiskClientGUI::DoubleClicked(int row, int column)
 {
     auto item = ui->filetableWidget->item(row, 1);
     QString dir = item->text();
-    std::string filename = dir.toLocal8Bit();
+    std::string filename = dir.toUtf8().constData();
 
     for (const auto& file : file_list_.files())
     {
@@ -459,7 +462,7 @@ void DiskClientGUI::Delete()
 
     for (const auto& row : rows)
     {
-        filename = tab->item(row, 1)->text().toLocal8Bit();
+        filename = tab->item(row, 1)->text().toUtf8().constData();
         disk::FileInfo file_info;
         file_info.set_filename(filename);
         file_info.set_filedir(remote_dir_);
@@ -499,7 +502,8 @@ void DiskClientGUI::Upload()
         this_thread::sleep_for(10ms);
         QFileInfo file_info(file_path);
         disk::FileInfo task;
-        task.set_filename(file_info.fileName().toLocal8Bit());
+        task.set_is_dir(false);
+        task.set_filename(file_info.fileName().toUtf8().constData());
         task.set_filedir(remote_dir_);
         task.set_local_path(file_path.toLocal8Bit());
         ifm_->UploadFile(task);
@@ -527,17 +531,18 @@ void DiskClientGUI::Download()
     task_gui->SetDownButtonChecked();
     for (auto row : rows)
     {
-        this_thread::sleep_for(10ms);
         disk::FileInfo task;
         //获取选择的文件名
         auto item = tab->item(row, 1);
-        string filename = item->text().toLocal8Bit();
+        string filename = item->text().toUtf8().constData();
         
         task.set_filename(filename);
         task.set_filedir(remote_dir_);
+        task.set_is_dir(false);
         if (localpath[localpath.size() - 1] != "/" && localpath[localpath.size() - 1] != "\\")
             localpath += "/";
-        task.set_local_path(localpath.toStdString() + filename);
+        string tmp = item->text().toLocal8Bit();
+        task.set_local_path(localpath.toStdString() + tmp);
         ifm_->DownloadFile(task);
     }
 }
@@ -618,6 +623,8 @@ void DiskClientGUI::QuitLogin()
         ui->username_label->setText(login.username().c_str());
         if (ui->username_label->text() != "root")
             ui->adduserButton->hide();
+        else
+            ui->adduserButton->show();
         Refresh();
         this->show();
     }

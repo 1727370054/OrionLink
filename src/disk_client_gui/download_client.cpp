@@ -140,6 +140,7 @@ void DownloadClient::DownloadSliceReq(msg::MsgHead* head, Msg* msg)
 
 void DownloadClient::Drop()
 {
+    begin_recv_data_size_ = -1;
     ofs_.close();
     ClearTimer();
     Close();

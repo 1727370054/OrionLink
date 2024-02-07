@@ -22,7 +22,7 @@ void TaskItemGUI::SetTask(disk::FileTask task)
     ui->filetime->setText(task.tasktime().c_str());
 
     //文件名
-    QString filename = QString::fromLocal8Bit(task.file().filename().c_str());
+    QString filename = QString::fromUtf8(task.file().filename().c_str());
     ui->filename->setText(filename);
 
     //文件大小

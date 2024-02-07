@@ -2201,7 +2201,7 @@ public:
         QObject::connect(btn_wb_3, SIGNAL(clicked()), LoginGUI, SLOT(EmailPage()));
         QObject::connect(getcodeButton_3, SIGNAL(clicked()), LoginGUI, SLOT(GetCode()));
 
-        frame_login->setCurrentIndex(3);
+        frame_login->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(LoginGUI);
@@ -2219,10 +2219,10 @@ public:
         err_logo->setText(QString());
         err_msg->setText(QApplication::translate("LoginGUI", "\346\255\243\345\234\250\347\231\273\351\231\206 ...", nullptr));
         label_user_name->setText(QString());
-        lineE_user_name->setText(QApplication::translate("LoginGUI", "root", nullptr));
+        lineE_user_name->setText(QString());
         lineE_user_name->setPlaceholderText(QString());
         label_pwd->setText(QString());
-        lineE_pwd->setText(QApplication::translate("LoginGUI", "123456", nullptr));
+        lineE_pwd->setText(QString());
         btn_forget->setText(QApplication::translate("LoginGUI", "\345\277\230\350\256\260\345\257\206\347\240\201?", nullptr));
         btn_register->setText(QApplication::translate("LoginGUI", "\346\263\250\345\206\214", nullptr));
         btn_login->setText(QApplication::translate("LoginGUI", "\347\231\273\351\231\206", nullptr));

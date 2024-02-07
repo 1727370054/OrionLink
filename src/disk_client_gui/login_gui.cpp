@@ -81,8 +81,8 @@ void LoginGUI::Login()
 {
     ui->frame_err->show();
     ui->err_msg->setText(QString::fromLocal8Bit("正在登陆 ..."));
-    string username = ui->lineE_user_name->text().toLocal8Bit();
-    string password = ui->lineE_pwd->text().toLocal8Bit();
+    string username = ui->lineE_user_name->text().toUtf8().constData();
+    string password = ui->lineE_pwd->text().toUtf8().constData();
     if (username.empty() || password.empty()) 
     {
         ui->err_msg->setText(QString::fromLocal8Bit("用户名或密码不能为空!"));
@@ -141,10 +141,10 @@ void LoginGUI::Register()
     ui->btn_register_2->setText(QString::fromLocal8Bit("正在注册..."));
     ui->btn_register_2->setEnabled(false);
 
-    string username = ui->user_name_edit->text().toLocal8Bit();
-    string password = ui->pwd_edit->text().toLocal8Bit();
-    string email = ui->email_edit->text().toLocal8Bit();
-    string code = ui->code_edit->text().toLocal8Bit();
+    string username = ui->user_name_edit->text().toUtf8().constData();
+    string password = ui->pwd_edit->text().toUtf8().constData();
+    string email = ui->email_edit->text().toUtf8().constData();
+    string code = ui->code_edit->text().toUtf8().constData();
 
     msg::RegisterUserReq req;
     req.set_username(username);
@@ -263,8 +263,8 @@ void LoginGUI::EmailLogin()
     ui->btn_email_login->setText(QString::fromLocal8Bit("正在登陆..."));
     ui->btn_email_login->setEnabled(false);
 
-    string email = ui->email_edit_2->text().toLocal8Bit();
-    string code = ui->code_edit_2->text().toLocal8Bit();
+    string email = ui->email_edit_2->text().toUtf8().constData();
+    string code = ui->code_edit_2->text().toUtf8().constData();
 
     AuthClient::GetInstance()->EmailLoginReq(email, code);
 
@@ -319,10 +319,10 @@ void LoginGUI::ForgetPassword()
     ui->btn_submit->setText(QString::fromLocal8Bit("正在提交..."));
     ui->btn_submit->setEnabled(false);
 
-    string username = ui->user_name_edit_2->text().toLocal8Bit();
-    string password = ui->pwd_edit_2->text().toLocal8Bit();
-    string email = ui->email_edit_3->text().toLocal8Bit();
-    string code = ui->code_edit_3->text().toLocal8Bit();
+    string username = ui->user_name_edit_2->text().toUtf8().constData();
+    string password = ui->pwd_edit_2->text().toUtf8().constData();
+    string email = ui->email_edit_3->text().toUtf8().constData();
+    string code = ui->code_edit_3->text().toUtf8().constData();
 
     msg::RegisterUserReq req;
     req.set_username(username);

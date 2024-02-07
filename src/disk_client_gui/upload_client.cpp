@@ -163,6 +163,7 @@ void UploadClient::UploadFileRes(msg::MsgHead* head, Msg* msg)
     /// 开始发送文件时，获取已经发送的值，要保证缓冲已经发送成功
     /// 根据协议，接收到该函数对应消息的反馈，缓冲已经发送完成 
     begin_send_data_size_ = send_data_size();
+
     /// 开始发送文件
     SendSlice();
 }
@@ -200,6 +201,7 @@ void UploadClient::UploadFileEndRes(msg::MsgHead* head, Msg* msg)
 
 void UploadClient::Drop()
 {
+    begin_send_data_size_ = -1;
     ifs_.close();
     ClearTimer();
     Close();
@@ -209,7 +211,10 @@ void UploadClient::Drop()
 void UploadClient::TimerCallback()
 {
     if (begin_send_data_size_ < 0)
+    {
         return;
+    }
+
     auto size = BufferSize();
 
     int sended = send_data_size() - begin_send_data_size_ - size;
