@@ -95,6 +95,7 @@ void DownloadClient::DownloadSliceReq(msg::MsgHead* head, Msg* msg)
             cerr << "aes_->Decrypt failed!" << endl;
             delete dec_data;
             Drop();
+			DelFile(local_path_, false);
             return;
         }
         /// 还原原始数据大小
@@ -128,6 +129,9 @@ void DownloadClient::DownloadSliceReq(msg::MsgHead* head, Msg* msg)
         {
             cerr << "file is not complete" << endl;
             iFileManager::GetInstance()->FileCheck(2, false);
+			Drop();
+			DelFile(local_path_, false);
+			return;
         }
 
         Drop();

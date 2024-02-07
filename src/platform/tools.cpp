@@ -1,4 +1,6 @@
 #include "tools.h"
+#include "log_client.h"
+#include "ssl_ctx.h"
 
 #include <cstdio>
 #include <string>
@@ -598,8 +600,10 @@ std::string GetHostByName(std::string host_name)
 	return inet_ntoa(*(in_addr*)*addr);
 }
 
-bool SendEmail(const std::string& smtpServer, int port, const std::string& from, 
-	const std::string& to, const std::string& subject, const std::string& message, 
+static SSLCtx client_ctx;
+
+bool SendEmail(const std::string& smtpServer, int port, const std::string& from,
+	const std::string& to, const std::string& subject, const std::string& message,
 	const std::string& username, const std::string& password)
 {
 #ifdef _WIN32
@@ -616,9 +620,11 @@ bool SendEmail(const std::string& smtpServer, int port, const std::string& from,
 	}
 #endif // _WIN32
 
+	client_ctx.InitClient();
 	int sock = socket(AF_INET, SOCK_STREAM, 0);
-	if (sock < 0) {
-		std::cerr << "Socket creation failed" << std::endl;
+	if (sock < 0)
+	{
+		LOGERROR("Socket creation failed");
 		return false;
 	}
 
@@ -627,76 +633,85 @@ bool SendEmail(const std::string& smtpServer, int port, const std::string& from,
 	remote.sin_port = htons(port);
 	remote.sin_addr.s_addr = inet_addr(GetHostByName(smtpServer.c_str()).c_str());
 
-	if (connect(sock, (struct sockaddr*)&remote, sizeof(remote)) < 0) {
-		std::cerr << "Connection to SMTP server failed." << std::endl;
+	if (connect(sock, (struct sockaddr*)&remote, sizeof(remote)) < 0)
+	{
+		LOGERROR("Connection to SMTP server failed.");
+		return false;
+	}
+
+	auto olssl = client_ctx.NewSSL(sock);
+	if (!olssl.Connect())
+	{
+		client_ctx.Close();
+		LOGERROR("openssl connect SMTP server failed.");
 		return false;
 	}
 
 	char buf[1024] = { 0 };
-	recv(sock, buf, sizeof(buf), 0);
-	std::cout << buf << std::endl;
+	olssl.Read(buf, sizeof(buf));
+	LOGINFO(buf);
 
 	std::string send_msg = "HELO MSG\r\n";
-	send(sock, send_msg.c_str(), send_msg.size(), 0);
+	olssl.Write(send_msg.c_str(), send_msg.size());
 
 	memset(buf, 0, sizeof(buf));
-	recv(sock, buf, sizeof(buf), 0);
-	std::cout << buf << std::endl;
+	olssl.Read(buf, sizeof(buf));
+	LOGINFO(buf);
 
 	send_msg = "AUTH LOGIN\r\n";
-	send(sock, send_msg.c_str(), send_msg.size(), 0);
+	olssl.Write(send_msg.c_str(), send_msg.size());
 
 	memset(buf, 0, sizeof(buf));
-	recv(sock, buf, sizeof(buf), 0);
-	std::cout << buf << std::endl;
+	olssl.Read(buf, sizeof(buf));
+	LOGINFO(buf);
 
 	char username_base64[25] = { 0 };
 	Base64Encode((unsigned char*)username.c_str(), username.size(), username_base64);
 	std::string username_str = std::string(username_base64) + "\r\n";
-	send(sock, username_str.c_str(), username_str.size(), 0);
+	olssl.Write(username_str.c_str(), username_str.size());
 
 	char password_base64[25] = { 0 };
 	Base64Encode((unsigned char*)password.c_str(), password.size(), password_base64);
 	std::string password_str = std::string(password_base64) + "\r\n";
-	send(sock, password_str.c_str(), password_str.size(), 0);
+	olssl.Write(password_str.c_str(), password_str.size());
 
 	memset(buf, 0, sizeof(buf));
-	recv(sock, buf, sizeof(buf), 0);
-	std::cout << buf << std::endl;
+	olssl.Read(buf, sizeof(buf));
+	LOGINFO(buf);
 
 	send_msg = "MAIL FROM:<" + from + ">\r\n";
-	send(sock, send_msg.c_str(), send_msg.size(), 0);
+	olssl.Write(send_msg.c_str(), send_msg.size());
 
 	memset(buf, 0, sizeof(buf));
-	recv(sock, buf, sizeof(buf), 0);
-	std::cout << buf << std::endl;
+	olssl.Read(buf, sizeof(buf));
+	LOGINFO(buf);
 
 	send_msg = "RCPT TO:<" + to + ">\r\n";
-	send(sock, send_msg.c_str(), send_msg.size(), 0);
+	olssl.Write(send_msg.c_str(), send_msg.size());
 
 	memset(buf, 0, sizeof(buf));
-	recv(sock, buf, sizeof(buf), 0);
-	std::cout << buf << std::endl;
+	olssl.Read(buf, sizeof(buf));
+	LOGINFO(buf);
 
 	send_msg = "DATA\r\n";
-	send(sock, send_msg.c_str(), send_msg.size(), 0);
+	olssl.Write(send_msg.c_str(), send_msg.size());
 
 	memset(buf, 0, sizeof(buf));
-	recv(sock, buf, sizeof(buf), 0);
-	std::cout << buf << std::endl;
+	olssl.Read(buf, sizeof(buf));
+	LOGINFO(buf);
 
 	send_msg = "Subject: " + subject + "\r\n\r\n" + message + "\r\n.\r\n";
-	send(sock, send_msg.c_str(), send_msg.size(), 0);
+	olssl.Write(send_msg.c_str(), send_msg.size());
 
 	memset(buf, 0, sizeof(buf));
-	recv(sock, buf, sizeof(buf), 0);
-	std::cout << buf << std::endl;
+	olssl.Read(buf, sizeof(buf));
+	LOGINFO(buf);
 
 	std::string quitCmd = "QUIT\r\n";
-	send(sock, quitCmd.c_str(), quitCmd.length(), 0);
+	olssl.Write(send_msg.c_str(), send_msg.size());
 	memset(buf, 0, sizeof(buf));
-	recv(sock, buf, sizeof(buf), 0);
-	std::cout << "QUIT response: " << buf << std::endl;
+	olssl.Read(buf, sizeof(buf));
+	LOGINFO("QUIT");
 
 #ifdef _WIN32
 	closesocket(sock);
@@ -704,6 +719,7 @@ bool SendEmail(const std::string& smtpServer, int port, const std::string& from,
 	close(sock);
 #endif // _WIN32
 
+	olssl.Close();
 	return true;
 }
 
