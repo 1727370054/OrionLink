@@ -372,14 +372,14 @@ border-radius: 10px;
 }
 
 #btn_wb{
-    background-image:url(:/res/pic/wb.png);
+    background-image:url(:/res/pic/email.png);
     background-position:center;
     background-repeat:no-repeat;
     border:none;
 }
 
 #btn_wb:hover{
-    background-image:url(:/res/pic/wb-hover.png);
+    background-image:url(:/res/pic/email-hover.png);
     background-position:center;
     background-repeat:no-repeat;
     border:none;

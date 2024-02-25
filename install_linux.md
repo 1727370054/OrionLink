@@ -1,107 +1,120 @@
 # Linux 下 OrionLink 编译安装说明
 
-## 1 依赖编译安装 (tools 目录下)
+## 1 依赖编译安装
 
-    # 先安装一些公共的工具
-    apt-get install perl g++ make automake libtool unzip
+```shell
+# 先安装一些公共的工具
+apt-get install perl g++ make automake libtool unzip
+```
 
 ### zlib （protobuf，libevent） （压缩）
 
-    tar -xvf zlib-1.2.11.tar.gz
-    cd zlib-1.2.11/
-    ./configure
-    make -j32
-    make install
-    # 安装在 /usr/local/include/ /usr/local/lib 目录下
+```shell
+tar -xvf zlib-1.2.11.tar.gz
+cd zlib-1.2.11/
+./configure
+make -j32
+make install
+# 安装在 /usr/local/include/ /usr/local/lib 目录下
+```
 
 ### openssl （libevent） （安全加密）
 
-    tar -xvf openssl-1.1.1.tar.gz
-    cd openssl-1.1.1/
-    ./config
-    make -j32
-    make install
-    # openssl 命令行 /usr/local/bin
-    #配置安装在 /usr/local/ssl
-    #头文件/usr/local/include/openssl
-    #so库文件/usr/local/lib
+```shell
+tar -xvf openssl-1.1.1.tar.gz
+cd openssl-1.1.1/
+./config
+make -j32
+make install
+# openssl 命令行 /usr/local/bin
+#配置安装在 /usr/local/ssl
+#头文件/usr/local/include/openssl
+#so库文件/usr/local/lib
+```
 
 ### protobuf （通信协议）
 
-    unzip protobuf-all-3.8.0.zip
-    cd protobuf-3.8.0/
-    ./configure
-    make -j32
-    make install
-    #安装在 /usr/local/include/google/protobuf
-    # protoc /usr/local/bin
-    # so库文件 /usr/local/lib
+```shell
+unzip protobuf-all-3.8.0.zip
+cd protobuf-3.8.0/
+./configure
+make -j32
+make install
+#安装在 /usr/local/include/google/protobuf
+# protoc /usr/local/bin
+# so库文件 /usr/local/lib
+```
 
 ### libevent （网络通信）
 
-    unzip libevent-master.zip
-    ./autogen.sh
-    ./configure
-    make -j32
-    make install
-    #安装在 /usr/local/lib /usr/local/include
+```shell
+unzip libevent-master.zip
+./autogen.sh
+./configure
+make -j32
+make install
+#安装在 /usr/local/lib /usr/local/include
+```
 
-## platform （公共通信库）编译安装 依赖 libevent protobuf openssl
+### 安装 mysql
 
-    cd src/platform
-    # 生成proto对应的c++代码
-    make proto
-    make -j32
-    make install
-    # 安装到 /usr/lib/libplatform.so
+```shell
+sudo apt-get install mysql-server
+/etc/mysql/debian.cnf文件，在这个文件中有系统默认给我们分配的用户名和密码
+mysql -u debian-sys-maint -p
+set password for 'root'@'localhost' = password('yourpass')
+```
 
-## orion_link_db （数据库 DAO） 编译安装
 
-    apt-get install libmysqlclient-dev
-    make -j32
-    # 安装在 /usr/lib/liboldb.so
 
-## 安装 mysql
+## 2 安装运行OrionLink 
 
-    sudo apt-get install mysql-server
-    /etc/mysql/debian.cnf文件，在这个文件中有系统默认给我们分配的用户名和密码
-    mysql -u debian-sys-maint -p
-    set password for 'root'@'localhost' = password('yourpass')
+### 预备工作
 
-## register_server （注册中心）编译安装 依赖 xplatform
++ 生成openssl证书和私钥
 
-    cd src/register_server
-    make -j32
-    stop_register_server
-    make install
-    start_register_server
+```shell
 
-    #后面需要做成守护进程，并添加watchdog
-    # 第一次运行需要输入数据库信息，数据库ip，用户，密码（暂时没有加密存储，后面考虑用aes做加密）
+```
 
-## config_server(配置中心) 编译安装，依赖 LXMysql xplatform register_client（源码编入）
++ 先进入 src/api_gateway 目录
 
-    cd src/config_server
-    make -j32
-    stop_config_server
-    make install
-    start_config_server
+```shell
+cd src/api_gateway
+```
 
-## api_gateway （网关）编译安装，依赖 platform register_client（源码编入） config_client（源码编入）
++ 注释掉代码
 
-    cd src/api_gateway
-    make -j32
-    ./api_gateway  &
-    #后面需要做成守护进程，并添加watchdog
+````c++
+````
 
-## test_pb_service (测试微服务) 依赖 xplatform register_client（源码编入） config_client（源码编入）
++ 进入bin目录开始编译
 
-    cd src/test_pb_service
-    make -j32
-    ./test_pb_service  &
+````shell
+sudo build_all.sh
+````
 
-## test_service_client (测试微服务的客户端) 依赖 xplatform register_client（源码编入） config_client（源码编入）
+### 运行
 
-    cd src/test_service_client
-    make -j32
-    ./test_service_client &
++ 添加数据库连接配置文件
+
+````shell
+# 先进入mysql客户端创建orion_link数据库 
+sudo build_mysql_conf # 填写用户名、密码、数据库名称、端口号
+````
+
++ 先运行注册中心、网关、鉴权中心和配置中心
+
+```shell
+sudo start_register_server
+sudo start_config_server
+sudo start_api_gateway
+sudo start_auth
+```
+
++ 运行云盘客户端、注册==root==用户
++ 运行配置管理工具，添加网关配置
+
+````
+````
+
