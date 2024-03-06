@@ -61,7 +61,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">bin\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\bin</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">temp\obj\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">config_gui</TargetName>
     <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</IgnoreImportLibrary>
@@ -73,7 +73,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;form;core_base;temp\moc;temp\ui;\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;form;core_base;temp\moc;temp\ui;\include;..\comm_proto;..\config_client;..\platform;..\..\include\protobuf;..\auth;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>temp\obj\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
@@ -92,8 +92,8 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\opensslx86\lib;C:\Utils\my_sql\mysql-5.6.11-win32\lib;C:\Utils\postgresqlx86\pgsql\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>platform.lib;libprotobuf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -193,9 +193,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\auth\auth_client.cpp" />
+    <ClCompile Include="..\comm_proto\msg_comm.pb.cc" />
+    <ClCompile Include="..\comm_proto\msg_type.pb.cc" />
     <ClCompile Include="..\config_client\config_client.cpp" />
-    <ClCompile Include="..\platform\msg_comm.pb.cc" />
-    <ClCompile Include="..\platform\msg_type.pb.cc" />
     <ClCompile Include="core_base\appdata.cpp" />
     <ClCompile Include="core_base\appinit.cpp" />
     <ClCompile Include="core_base\base64helper.cpp" />
@@ -210,11 +210,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\auth\auth_client.h" />
+    <ClInclude Include="..\comm_proto\msg_comm.pb.h" />
+    <ClInclude Include="..\comm_proto\msg_type.pb.h" />
     <ClInclude Include="..\config_client\config_client.h" />
-    <ClInclude Include="..\platform\msg_comm.pb.h" />
-    <ClInclude Include="..\platform\msg_type.pb.h" />
     <ClInclude Include="core_base\appdata.h" />
     <QtMoc Include="login_gui.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="temp\ui\ui_frmmain.h" />
     <ClInclude Include="temp\ui\ui_login_gui.h" />
     <QtMoc Include="core_base\appinit.h" />
@@ -302,6 +303,12 @@
     <None Include="core_qss\qss\blacksoft\radiobutton_unchecked.png" />
     <None Include="core_qss\qss\blacksoft\radiobutton_unchecked_disable.png" />
     <None Include="core_base\qrc\qm\widgets.qm" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="config_gui.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="ol_config.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <Import Project="$(QtMsBuild)\qt.targets" Condition="Exists('$(QtMsBuild)\qt.targets')" />

@@ -33,8 +33,6 @@ void GetDirClient::GetDirRes(msg::MsgHead* head, Msg* msg)
         return;
     }
 
-    cout << file_list.DebugString() << endl;
-
     iFileManager::GetInstance()->RefreshData(file_list, cur_dir_);
     /// 获取上传下载服务器列表
     GetService();

@@ -1,0 +1,42 @@
+﻿syntax = "proto3";
+package msg;
+
+enum MsgType
+{
+	NONE_DO_NOT_USE = 0;
+
+	MSG_LOGIN_REQ = 1;				/// 登陆请求 LoginReq
+	MSG_LOGIN_RES = 2;				/// 登陆响应 LoginRes
+	MSG_DIR_REQ = 3;				/// 请求目录列表 DirReq
+	MSG_DIR_RES = 4;				/// 返回目录列表响应 DirRes
+	MSG_REGISTER_REQ = 5;			/// 注册服务请求 RegisterReq
+	MSG_REGISTER_RES = 6;			/// 注册服务响应 MessageRes
+	MSG_GET_SERVICE_REQ = 7;		/// 发现服务的请求 GetServiceReq
+	MSG_GET_SERVICE_RES = 8;		/// 发现服务的响应 ServiceMap
+	MSG_SAVE_CONFIG_REQ = 9;		/// 上传配置请求 Config
+	MSG_SAVE_CONFIG_RES = 10;		/// 上传配置响应 MessageRes
+	MSG_LOAD_CONFIG_REQ = 11;		/// 下载配置请求 LoadConfigReq
+	MSG_LOAD_CONFIG_RES = 12;		/// 下载配置响应 Config
+	MSG_LOAD_ALL_CONFIG_REQ = 13;	/// 下载所有配置请求 LoadAllConfigReq
+	MSG_LOAD_ALL_CONFIG_RES = 14;	/// 下载所有配置响应 ConfigList
+	MSG_DEL_CONFIG_REQ = 15;		/// 删除配置的请求 LoadConfigReq
+	MSG_DEL_CONFIG_RES = 16;		/// 删除配置的响应 MessageRes
+	MSG_ADD_USER_REQ  = 17;			/// 添加用户请求 AddUserReq
+	MSG_ADD_USER_RES = 18;			/// 添加用户响应 MessageRes
+	MSG_CHANGE_PASSWORD_REQ = 19;	/// ChangePasswordReq
+	MSG_CHANGE_PASSWORD_RES = 208;	/// MessageRes
+	MSG_CHECK_TOKEN_REQ = 209;		/// MessageRes
+	MSG_CHECK_TOKEN_RES = 210;		///	LoginRes
+	MSG_ADD_LOG_REQ = 211;			/// 添加日志 AddLogReq，不做响应
+	MSG_GET_AUTH_CODE = 212;		/// 获取验证码请求 GetAuthCode，不做响应
+	MSG_REGISTER_USER_REQ = 213;	/// 用户注册请求 RegisterUserReq
+	MSG_REGISTER_USER_RES = 214;	/// 用户注册响应 MessageRes
+	MSG_EMAIL_LOGIN_REQ = 215;		/// 邮箱登陆请求 EmailLoginReq
+	MSG_EMAIL_LOGIN_RES = 216;		/// 邮箱登陆响应 LoginRes
+	MSG_FORGET_PASSWORD_REQ = 217;	/// 忘记密码请求 RegisterUserReq
+	MSG_FORGET_PASSWORD_RES = 218;	/// 忘记密码响应 MessageRes
+	MSG_GET_OUT_SERVICE_REQ = 65532;/// GetServiceReq 获取外部微服务，只能获取is_find=true的微服务 GetServiceReq
+	MSG_GET_OUT_SERVICE_RES = 65533;/// ServiceList
+	MSG_HEART_REQ = 65534;			//心跳
+	MSG_MAX_TYPE  = 65535;
+}

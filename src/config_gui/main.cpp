@@ -24,6 +24,7 @@ int main(int argc, char *argv[])
     QUIHelper::setFont();
     QUIHelper::setCode();
 
+    QApplication::setWindowIcon(QIcon(":/ol_config.ico"));
     //加载样式表
     QFile file(":/qss/blacksoft.css");
     if (file.open(QFile::ReadOnly)) {

@@ -72,7 +72,6 @@ bool UploadClient::set_file_info(disk::FileInfo& file_info)
     }
     ifs_.clear();
     ifs_.seekg(0, ios_base::beg);
-    cout << file_info_.DebugString() << endl;
 
     if (file_info_.is_enc())
     {

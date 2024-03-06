@@ -62,17 +62,8 @@
     <ClCompile Include="..\auth\auth_client.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\platform\msg_comm.pb.cc">
-      <Filter>pb</Filter>
-    </ClCompile>
-    <ClCompile Include="..\platform\msg_type.pb.cc">
-      <Filter>pb</Filter>
-    </ClCompile>
     <ClCompile Include="disk_client_gui.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\disk_proto\disk_client_gui.pb.cc">
-      <Filter>pb</Filter>
     </ClCompile>
     <ClCompile Include="ifile_manager.cpp">
       <Filter>Source Files</Filter>
@@ -103,6 +94,15 @@
     </ClCompile>
     <ClCompile Include="add_user.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\disk_proto\disk_client_gui.pb.cc">
+      <Filter>pb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\comm_proto\msg_comm.pb.cc">
+      <Filter>pb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\comm_proto\msg_type.pb.cc">
+      <Filter>pb</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -246,17 +246,8 @@
     <ClInclude Include="..\auth\auth_client.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\platform\msg_comm.pb.h">
-      <Filter>pb</Filter>
-    </ClInclude>
-    <ClInclude Include="..\platform\msg_type.pb.h">
-      <Filter>pb</Filter>
-    </ClInclude>
     <ClInclude Include="ui_disk_client_gui.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\disk_proto\disk_client_gui.pb.h">
-      <Filter>pb</Filter>
     </ClInclude>
     <ClInclude Include="file_manager.h">
       <Filter>Header Files</Filter>
@@ -276,10 +267,31 @@
     <ClInclude Include="ui_file_password.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\disk_proto\disk_client_gui.pb.h">
+      <Filter>pb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\comm_proto\msg_comm.pb.h">
+      <Filter>pb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\comm_proto\msg_type.pb.h">
+      <Filter>pb</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource1.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="disk_client_gui.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="disk_client_gui.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="disk_logo.ico" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,233 @@
+﻿syntax = "proto3";	// 版本号
+package msg;		// 命名空间
+
+import "msg_type.proto";
+ 
+/// 消息头
+message MsgHead
+{
+	int32 msg_size = 1;			/// 消息大小(不包含头部)		
+	MsgType msg_type = 2;		/// 消息类型
+	bytes token = 3;			/// 令牌(登陆消息则为空)
+	string service_name = 4;	/// 微服务名称(用于路由)
+	int64 router_id = 5;	    /// 路由标识
+	string username =  6;		/// 用户名(用于鉴权)
+	string rolename = 7;		/// 角色名(用于鉴权)
+	bytes md5 = 8;				/// 消息内容md5校验
+	int64 offset = 9;			/// 数据偏移
+}
+
+/// 通用响应 
+message MessageRes
+{
+	enum Return
+	{
+		OK = 0;					/// 成功
+		ERROR = 1;				/// 失败 注册和忘记密码响应时(验证码错误)
+		USER_EXISTS = 2;		/// 注册响应时(用户已存在)
+		USER_NOT_EXISTS = 3;	/// 忘记密码响应时(用户不存在)
+		BIND_EMAIL_ERR = 4;		/// 该用户绑定的邮箱不正确
+	}
+	Return return = 1;
+	bytes desc = 2;				/// 响应描述
+}
+
+/// 心跳
+message MsgHeart
+{
+	int64 count = 1;
+}
+
+enum LogLevel
+{
+	LOG_DEBUG = 0;
+	LOG_INFO = 1;
+	LOG_ERROR = 2;
+	LOG_FATAL = 3;
+}
+
+message AddLogReq
+{
+	string service_name = 1;
+	string service_ip = 2;
+	int32 service_port = 3;
+	bytes log_txt = 4;
+	int32 log_time = 5;
+	LogLevel log_level = 6;
+	string filename = 7;
+	int32 line = 8;
+}
+
+/// 用户注册 微服务架构的用户系统，只为了做单点登录，不涉及权限，权限有具体的业务处理
+/// 系统只有一个root用户
+/// MSG_ADD_USER
+message AddUserReq
+{
+	string username = 1;		/// 用户名
+	bytes password = 2;			/// md5后的密码
+	string rolename = 3;		/// 角色名称，为了后期拓展角色权限
+	string email = 4;
+}
+
+/// 用户登陆请求 MSG_LOGIN_REQ
+message LoginReq
+{
+	string username = 1;		/// 用户名
+	bytes password = 2;			/// md5后的密码
+}
+
+/// 用户登陆响应 MSG_LOGIN_RES
+message LoginRes
+{
+	enum LoginResType
+	{
+		NONE = 0;			    /// 未处理
+		OK = 1;					/// 登陆成功
+		LOGGING  = 2;		    /// 登录中
+		ERROR = 3;				/// 用户名或密码错误
+		NOUSER = 4;				/// 用户不存在
+		SERVER_ERROR = 5;		///	服务端连接错误
+	}
+	LoginResType desc = 1;
+	bytes token = 2;			/// 登陆成功返回令牌，失败为空
+	/// token 超时时间戳
+	int32 expired_time = 3;
+	string rolename = 4;
+	string username = 5;
+}
+
+/// MSG_GET_AUTH_CODE
+message GetAuthCode
+{
+	string email = 1;
+}
+
+/// MSG_REGISTER_USER_REQ
+message RegisterUserReq
+{
+	string username = 1;
+	bytes password = 2;
+	string email = 3;
+	bytes code = 4;
+	int32 expired_time = 5;  /// 验证码超时时间
+}
+
+message EmailLoginReq
+{
+	string email = 1;
+	bytes code = 2;
+}
+
+/// 目录列表请求 MSG_DIR_REQ
+message DirReq
+{
+	string path = 1;
+}
+
+/// 目录列表响应 MSG_DIR_RES
+message DirRes
+{
+	enum DirResType
+	{
+		OK = 0;					/// 目录获取成功
+		ERROR = 1;				/// 目录获取失败
+		NODIR = 2;				/// 目录不存在
+	}
+	message Dir
+	{
+		string filename = 1;
+		int32 filesize = 2;
+	}
+	DirResType desc = 1;
+	repeated Dir dirs = 2;		/// 目录文件列表
+}
+
+// 服务注册请求 MSG_REGISTER_REQ
+/*message RegisterReq
+{
+	string name = 1;			/// 微服务名称
+	string ip = 2;				/// 微服务ip
+	int32 port = 3;				/// 微服务端口
+}*/
+
+enum ServiceType
+{
+	ONE = 0;					/// 只取一类服务
+	ALL = 1;					/// 获取所有服务
+}
+
+// 服务注册请求 MSG_REGISTER_REQ
+message ServiceInfo
+{
+	string name = 1;
+	string ip = 2;
+	int32 port = 3;
+	bool is_find = 4;			/// 是否可以被外网发现，默认不可以
+}
+
+message ServiceList
+{
+	repeated ServiceInfo services = 1;
+	string name = 2;
+}
+
+/// 微服务列表
+message ServiceMap
+{
+	map<string, ServiceList> service_map = 1;
+	MessageRes response = 2;
+	ServiceType type = 3;
+}
+
+/// 发现服务请求 MSG_GET_SERVICE_REQ
+message GetServiceReq
+{
+	string name = 1;			/// 服务名称
+	ServiceType type = 2;
+}
+
+/// 存储配置内容
+message Config
+{
+	string service_name = 1;
+	int32 service_port  = 2;
+	string service_ip   = 3;
+	bytes private_pb    = 4;	/// 存储微服务单独的配置信息(pb数据)
+	bytes protocol	    = 5;	/// 存储微服务单独的配置信息(未序列化的描述信息) --
+}								/// -- 让配置管理工具通过反射机制生成对应的message对象，反序列化 private_pb 数据
+
+/// 下载配置的请求
+message LoadConfigReq
+{
+	string service_ip = 1;
+	int32 service_port = 2;
+}
+
+message DirConfig
+{
+	string root = 1;
+}
+
+/// 获取所有配置请求 MSG_LOAD_ALL_CONFIG_REQ
+message LoadAllConfigReq
+{
+	int32 page = 1;				/// 分页的第几页 从第一页开始
+	int32 page_count = 2;		/// 每页显示的记录数量
+}
+
+/// 响应配置列表 MSG_LOAD_ALL_CONFIG_RES
+/// 只包含微服务名称、IP、端口 
+message ConfigList
+{
+	repeated Config configs = 1;
+}
+
+/// 网关的配置项
+message GatewayConfig
+{
+	bool is_ssl = 1;			/// 是否开启ssl通信
+	string crt_path = 2;		/// 证书路径
+	string key_path = 3;		/// 私钥路径
+	string ca_path = 4;			/// 证书签名验证路径
+	int32 server_port = 5;	    /// 服务启动端口(非ssl:API_GATEWAY_PORT ssl:API_GATEWAY_SSL_PORT) 
+}

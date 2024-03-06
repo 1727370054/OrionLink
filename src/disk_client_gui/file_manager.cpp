@@ -80,7 +80,6 @@ void FileManager::UploadFile(disk::FileInfo& file_info)
         file_info.set_is_enc(true);
         file_info.set_password(pass);
     }
-    cout << file_info.DebugString() << endl;
 
     auto upload_client = UploadClient::Create();
     if (upload_client == nullptr) return;

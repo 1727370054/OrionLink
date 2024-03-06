@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="/">
+    <file>ol_config.ico</file>
     <file>image/branch_open.png</file>
     <file>image/main_about.png</file>
     <file>image/main_company.png</file>

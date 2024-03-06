@@ -10,8 +10,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "disk_client_gui", "disk_cli
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "platform", "..\platform\platform.vcxproj", "{45C2BFC6-8556-4A86-899D-1B6D0EECD0F0}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "OL云盘", "..\OL云盘\OL云盘.vdproj", "{04E92F30-A18A-4984-AFE6-27123F421A9F}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -36,14 +34,6 @@ Global
 		{45C2BFC6-8556-4A86-899D-1B6D0EECD0F0}.Release|x64.Build.0 = Release|x64
 		{45C2BFC6-8556-4A86-899D-1B6D0EECD0F0}.Release|x86.ActiveCfg = Release|Win32
 		{45C2BFC6-8556-4A86-899D-1B6D0EECD0F0}.Release|x86.Build.0 = Release|Win32
-		{04E92F30-A18A-4984-AFE6-27123F421A9F}.Debug|x64.ActiveCfg = Debug
-		{04E92F30-A18A-4984-AFE6-27123F421A9F}.Debug|x64.Build.0 = Debug
-		{04E92F30-A18A-4984-AFE6-27123F421A9F}.Debug|x86.ActiveCfg = Debug
-		{04E92F30-A18A-4984-AFE6-27123F421A9F}.Debug|x86.Build.0 = Debug
-		{04E92F30-A18A-4984-AFE6-27123F421A9F}.Release|x64.ActiveCfg = Release
-		{04E92F30-A18A-4984-AFE6-27123F421A9F}.Release|x64.Build.0 = Release
-		{04E92F30-A18A-4984-AFE6-27123F421A9F}.Release|x86.ActiveCfg = Release
-		{04E92F30-A18A-4984-AFE6-27123F421A9F}.Release|x86.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

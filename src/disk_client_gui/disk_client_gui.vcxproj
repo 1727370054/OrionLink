@@ -61,24 +61,24 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\bin</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">login</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">OLCloundDisk</TargetName>
     <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</IgnoreImportLibrary>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\bin</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">login</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">OLCloundDisk</TargetName>
     <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</IgnoreImportLibrary>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;release;\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\GeneratedFiles\$(ConfigurationName);.\GeneratedFiles;.;release;\include;..\disk_proto;..\platform;..\auth;.\custom_control;..\..\include\protobuf;..\comm_proto;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zc:rvalueCast -Zc:inline -Zc:strictStrings -Zc:throwingNew -Zc:referenceBinding -Zc:__cplusplus -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>release\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
       <DebugInformationFormat>None</DebugInformationFormat>
-      <DisableSpecificWarnings>4577;4467;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4577;4467;4996;4251;4100;4819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ExceptionHandling>Sync</ExceptionHandling>
       <ObjectFileName>release\</ObjectFileName>
       <Optimization>MaxSpeed</Optimization>
@@ -93,14 +93,14 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>shell32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\opensslx86\lib;C:\Utils\my_sql\mysql-5.6.11-win32\lib;C:\Utils\postgresqlx86\pgsql\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>platform.lib;libprotobuf.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreImportLibrary>true</IgnoreImportLibrary>
       <LinkIncremental>false</LinkIncremental>
-      <OutputFile>$(OutDir)\login.exe</OutputFile>
+      <OutputFile>$(OutDir)\OLCloundDisk.exe</OutputFile>
       <RandomizedBaseAddress>true</RandomizedBaseAddress>
       <SubSystem>Windows</SubSystem>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -158,7 +158,7 @@
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreImportLibrary>true</IgnoreImportLibrary>
-      <OutputFile>$(OutDir)\login.exe</OutputFile>
+      <OutputFile>$(OutDir)\OLCloundDisk.exe</OutputFile>
       <RandomizedBaseAddress>true</RandomizedBaseAddress>
       <SubSystem>Windows</SubSystem>
       <SuppressStartupBanner>true</SuppressStartupBanner>
@@ -193,9 +193,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\auth\auth_client.cpp" />
+    <ClCompile Include="..\comm_proto\msg_comm.pb.cc" />
+    <ClCompile Include="..\comm_proto\msg_type.pb.cc" />
     <ClCompile Include="..\disk_proto\disk_client_gui.pb.cc" />
-    <ClCompile Include="..\platform\msg_comm.pb.cc" />
-    <ClCompile Include="..\platform\msg_type.pb.cc" />
     <ClCompile Include="add_user.cpp" />
     <ClCompile Include="custom_control\message_box.cpp" />
     <ClCompile Include="disk_client_gui.cpp" />
@@ -276,14 +276,16 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\auth\auth_client.h" />
-    <ClInclude Include="..\disk_proto\disk_client_gui.pb.h" />
-    <ClInclude Include="..\platform\msg_comm.pb.h" />
-    <ClInclude Include="..\platform\msg_type.pb.h" />
     <QtMoc Include="task_list_gui.h" />
     <QtMoc Include="task_item_gui.h" />
     <QtMoc Include="add_user.h" />
+    <ClInclude Include="..\comm_proto\msg_comm.pb.h" />
+    <ClInclude Include="..\comm_proto\msg_type.pb.h" />
+    <ClInclude Include="..\disk_proto\disk_client_gui.pb.h" />
     <ClInclude Include="download_client.h" />
     <QtMoc Include="file_password.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="resource1.h" />
     <ClInclude Include="ui_file_password.h" />
     <ClInclude Include="ui_task_list_gui.h" />
     <ClInclude Include="upload_client.h" />
@@ -294,6 +296,12 @@
     <QtMoc Include="ifile_manager.h" />
     <ClInclude Include="ui_disk_client_gui.h" />
     <ClInclude Include="ui_login_gui.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="disk_client_gui.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="disk_logo.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <Import Project="$(QtMsBuild)\qt.targets" Condition="Exists('$(QtMsBuild)\qt.targets')" />

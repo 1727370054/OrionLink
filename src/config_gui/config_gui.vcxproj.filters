@@ -45,6 +45,9 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="pb">
+      <UniqueIdentifier>{3a51d6e7-d8d3-4bef-9c1f-11164b2ec56b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="core_base\appdata.cpp">
@@ -74,17 +77,17 @@
     <ClCompile Include="..\config_client\config_client.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\platform\msg_comm.pb.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\platform\msg_type.pb.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="login_gui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\auth\auth_client.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\comm_proto\msg_comm.pb.cc">
+      <Filter>pb</Filter>
+    </ClCompile>
+    <ClCompile Include="..\comm_proto\msg_type.pb.cc">
+      <Filter>pb</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -115,12 +118,6 @@
     <ClInclude Include="..\config_client\config_client.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\platform\msg_comm.pb.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\platform\msg_type.pb.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="temp\ui\ui_frmmain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -129,6 +126,15 @@
     </ClInclude>
     <ClInclude Include="..\auth\auth_client.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\comm_proto\msg_comm.pb.h">
+      <Filter>pb</Filter>
+    </ClInclude>
+    <ClInclude Include="..\comm_proto\msg_type.pb.h">
+      <Filter>pb</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -284,5 +290,11 @@
     <QtMoc Include="login_gui.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="config_gui.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="ol_config.ico" />
   </ItemGroup>
 </Project>
