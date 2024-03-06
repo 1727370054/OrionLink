@@ -113,7 +113,7 @@ void AuthHandle::GetAuthCodeReq(msg::MsgHead* head, Msg* msg)
     text += "[OL云盘]团队";
 
     string smtp_server = "smtp.163.com";
-    int smtp_port = 25;
+    int smtp_port = 994; /// 163邮箱的smtp的SSL的端口为994端口
     string username = "你的邮箱地址";
     string password = "密码";
     string subject = "验证码";
