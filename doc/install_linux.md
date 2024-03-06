@@ -163,6 +163,19 @@ sudo start_auth
 
 **注：其他的微服务配置安装上面的流程配置**
 
+### 添加邮箱发送验证码配置
+
++ 进入 src/auth 目录
++ 打开 auth_handle.cpp 文件
++ 找到 AuthHandle::GetAuthCodeReq 函数
+
+```c++
+string smtp_server = "smtp.163.com"; /// 更换为自己的 smtp 服务的IP地址或者域名
+int smtp_port = 994; /// 更换该 smtp 服务的SSL端口 163邮箱的smtp的SSL的端口为994端口
+string username = "你的邮箱地址"; /// 填写自己的邮箱地址
+string password = "密码"; /// 填写自己的 smtp 服务的授权码 授权码是用于登录第三方邮件客户端的专用密码
+```
+
 
 
 ### 运行
