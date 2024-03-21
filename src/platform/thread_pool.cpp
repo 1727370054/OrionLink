@@ -14,6 +14,7 @@
 #endif
 
 using namespace std;
+using namespace std::chrono_literals;
 
 /// 管理所有线程对象
 static atomic<bool> is_exit_all(false);

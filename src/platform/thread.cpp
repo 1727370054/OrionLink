@@ -17,7 +17,7 @@
 using namespace std;
 
 Thread::Thread()
-    :id_(0), notify_send_fd_(0), base_(nullptr)
+    : id_(0), notify_send_fd_(0), base_(nullptr)
 {
 }
 
@@ -51,7 +51,7 @@ void Thread::Main()
     {
         /// 一次处理多个消息
         event_base_loop(base_, EVLOOP_NONBLOCK);
-        this_thread::sleep_for(1ms);
+        this_thread::sleep_for(std::chrono::milliseconds(1));
     }
 
     event_base_free(base_);
@@ -61,11 +61,10 @@ void Thread::Main()
     LOGINFO(ss.str().c_str());
 }
 
-
 /// 激活线程任务回调函数
-static void NotifyCallBack(int fd, short what, void * arg)
+static void NotifyCallBack(int fd, short what, void *arg)
 {
-    Thread * t = static_cast<Thread *>(arg);
+    Thread *t = static_cast<Thread *>(arg);
     if (!t)
     {
         LOGERROR("NotifyCallBack - this is null");
@@ -76,7 +75,7 @@ static void NotifyCallBack(int fd, short what, void * arg)
 
 void Thread::Notify(int fd, short what)
 {
-    char buf[2] = { 0 };
+    char buf[2] = {0};
 #ifdef _WIN32
     int result = recv(fd, buf, 1, 0);
 #else
@@ -90,7 +89,7 @@ void Thread::Notify(int fd, short what)
     LOGDEBUG(ss.str().c_str());
 
     /// 获取任务,初始化任务
-    Task * task = nullptr;
+    Task *task = nullptr;
     tasks_mutex_.lock();
     if (tasks_.empty())
     {
@@ -131,7 +130,7 @@ bool Thread::Setup()
     this->notify_send_fd_ = fds[1];
 
     /// 创建libevent上下文(无锁)
-    event_config * ev_conf = event_config_new();
+    event_config *ev_conf = event_config_new();
     event_config_set_flag(ev_conf, EVENT_BASE_FLAG_NOLOCK);
     this->base_ = event_base_new_with_config(ev_conf);
     event_config_free(ev_conf);
@@ -142,13 +141,13 @@ bool Thread::Setup()
     }
 
     /// 添加管道监听事件，用于激活线程执行任务
-    event * ev = event_new(base_, fds[0], EV_READ | EV_PERSIST, NotifyCallBack, this);
+    event *ev = event_new(base_, fds[0], EV_READ | EV_PERSIST, NotifyCallBack, this);
     event_add(ev, 0);
-    
+
     return true;
 }
 
-void Thread::AddTask(Task * task)
+void Thread::AddTask(Task *task)
 {
     if (!task)
         return;
@@ -163,7 +162,7 @@ void Thread::AddTask(Task * task)
 void Thread::Activate()
 {
 #ifdef _WIN32
-    int result = send(this->notify_send_fd_,"c", 1, 0);
+    int result = send(this->notify_send_fd_, "c", 1, 0);
 #else
     int result = write(this->notify_send_fd_, "c", 1);
 #endif // _WIN32

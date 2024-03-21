@@ -13,7 +13,7 @@ class ServiceProxy
 public:
     ~ServiceProxy();
 
-    static ServiceProxy* GetInstance()
+    static ServiceProxy *GetInstance()
     {
         static ServiceProxy service_proxy;
         return &service_proxy;
@@ -26,12 +26,12 @@ public:
     /// @param event RouterHandle 对象
     /// @return 发送成功返回true，否则相反
     ///////////////////////////////////////////////////////////////////////////
-    bool SendMsg(msg::MsgHead* head, Msg *msg, MsgEvent * event);
+    bool SendMsg(msg::MsgHead *head, Msg *msg, MsgEvent *event);
 
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 清理消息回调
     /// @param event 事件对象指针
-    void DeleteEvent(MsgEvent* event);
+    void DeleteEvent(MsgEvent *event);
 
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 开启自动重连的线程，定时向注册中心请求微服务列表，与微服务建立连接
@@ -47,12 +47,12 @@ public:
 
 private:
     ServiceProxy();
-    ServiceProxy(const ServiceProxy&) = delete;
-    ServiceProxy& operator=(const ServiceProxy&) = delete;
+    ServiceProxy(const ServiceProxy &) = delete;
+    ServiceProxy &operator=(const ServiceProxy &) = delete;
 
 private:
     /// 存放各个微服务连接对象
-    std::map<std::string, std::vector<ServiceProxyClient*>> client_map_;
+    std::map<std::string, std::vector<ServiceProxyClient *>> client_map_;
     std::mutex client_map_mutex_;
 
     /// 记录上一次轮询索引
@@ -60,11 +60,10 @@ private:
 
     /// 用于清理 callback_task_ 缓存 (需要知道 RouterHandle 对应的 ServiceProxyClient
     /// 方便调用对应的 DeleteEvent 函数)
-    std::map<MsgEvent*, ServiceProxyClient*> callbacks_;
+    std::map<MsgEvent *, ServiceProxyClient *> callbacks_;
     std::mutex callbacks_mutex_;
 
-    std::atomic_bool is_exit_ = false;
+    std::atomic_bool is_exit_{false};
 };
 
 #endif // SERVICE_PROXY_H
-

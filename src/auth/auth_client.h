@@ -19,12 +19,12 @@ class AuthClient : public ServiceClient
 public:
     ~AuthClient();
 
-    static AuthClient* GetInstance()
+    static AuthClient *GetInstance()
     {
         static AuthClient auth_client;
         auth_client.set_auto_delete(false);
         auth_client.set_timer_ms(1000);
-        SSLCtx* ssl_ctx_ = new SSLCtx();
+        SSLCtx *ssl_ctx_ = new SSLCtx();
         ssl_ctx_->InitClient();
         auth_client.set_ssl_ctx(ssl_ctx_);
         return &auth_client;
@@ -66,14 +66,14 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 发送添加用户的请求
     /// @param add_user 用户信息
-    void AddUserReq(msg::AddUserReq* add_user);
+    void AddUserReq(msg::AddUserReq *add_user);
 
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 获取登陆响应信息，如果token快要过期，会自动发送更新请求
     /// @param username 用户名
     /// @param out_info 返回的登陆信息
     /// @param timeout_ms 检测的超时时间，但如果连接异常则立刻返回
-    bool GetLoginInfo(std::string username, msg::LoginRes* out_info, int timeout_ms);
+    bool GetLoginInfo(std::string username, msg::LoginRes *out_info, int timeout_ms);
 
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 检查token 是否有效 更新本地的 login 登录数据
@@ -81,11 +81,11 @@ public:
 
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 发送获取验证码请求
-    void GetAuthCodeReq(const std::string& email);
+    void GetAuthCodeReq(const std::string &email);
 
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 发送注册请求
-    void RegisterUserReq(msg::RegisterUserReq& req);
+    void RegisterUserReq(msg::RegisterUserReq &req);
 
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 获取注册结果和获取忘记密码结果
@@ -96,7 +96,7 @@ public:
 
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 发送忘记密码请求
-    void ForgetPasswordReq(msg::RegisterUserReq& req);
+    void ForgetPasswordReq(msg::RegisterUserReq &req);
 
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 清理上一次登陆用户缓存
@@ -105,30 +105,32 @@ public:
     virtual void TimerCallback() override;
 
     std::string cur_username() { return cur_username_; }
+
 private:
     AuthClient();
-    AuthClient(const AuthClient&) = delete;
-    AuthClient& operator=(const AuthClient&) = delete;
+    AuthClient(const AuthClient &) = delete;
+    AuthClient &operator=(const AuthClient &) = delete;
 
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 接收登陆的响应
     /// @param head 反序列化后消息头部
     /// @param msg 序列化的消息内容码
-    void LoginRes(msg::MsgHead* head, Msg* msg);
+    void LoginRes(msg::MsgHead *head, Msg *msg);
 
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 添加用户的响应
     /// @param head 反序列化后消息头部
     /// @param msg 序列化的消息内容
-    void AddUserRes(msg::MsgHead* head, Msg* msg);
+    void AddUserRes(msg::MsgHead *head, Msg *msg);
 
-    void CheckTokenRes(msg::MsgHead* head, Msg* msg);
+    void CheckTokenRes(msg::MsgHead *head, Msg *msg);
 
-    void RegisterUserRes(msg::MsgHead* head, Msg* msg);
+    void RegisterUserRes(msg::MsgHead *head, Msg *msg);
 
-    void EmailLoginRes(msg::MsgHead* head, Msg* msg);
+    void EmailLoginRes(msg::MsgHead *head, Msg *msg);
 
-    void ForgetPasswordRes(msg::MsgHead* head, Msg* msg);
+    void ForgetPasswordRes(msg::MsgHead *head, Msg *msg);
+
 private:
     /// 当前登陆的用户名
     std::string cur_username_ = "";
@@ -138,11 +140,10 @@ private:
 
     std::mutex cur_login_mutex_;
 
-    SSLCtx* ssl_ctx_ = nullptr;
+    SSLCtx *ssl_ctx_ = nullptr;
 
     /// 用于获取注册结果
-    std::atomic<int> result_ = 0;
+    std::atomic<int> result_{0};
 };
 
 #endif // AUTH_CLIENT_H
-

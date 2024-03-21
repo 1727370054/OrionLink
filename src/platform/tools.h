@@ -16,7 +16,7 @@
 #include <list>
 #include <vector>
 #include <iostream>
-#include <sstream> 
+#include <sstream>
 
 XCOM_API std::string GetDirData(std::string path);
 
@@ -37,43 +37,43 @@ XCOM_API std::string GetFileSuffix(std::string filename);
 
 XCOM_API std::string GetSizeString(long long size);
 
-XCOM_API std::string FormatDir(const std::string& dir);
+XCOM_API std::string FormatDir(const std::string &dir);
 
-XCOM_API void StringSplit(std::vector<std::string>& vec, std::string str, std::string find);
+XCOM_API void StringSplit(std::vector<std::string> &vec, std::string str, std::string find);
 
 XCOM_API void NewDir(std::string path);
 
 XCOM_API void DelFile(std::string path, bool is_dir);
 
-XCOM_API void DeleteDirectoryAndFiles(const std::string& path);
+XCOM_API void DeleteDirectoryAndFiles(const std::string &path);
 
-XCOM_API long long GetDirSize(const char* path);
+XCOM_API long long GetDirSize(const char *path);
 
-XCOM_API bool GetDiskSize(const char* path, unsigned long long *avail, unsigned long long * total, unsigned long long* free);
+XCOM_API bool GetDiskSize(const char *path, unsigned long long *avail, unsigned long long *total, unsigned long long *free);
 
-XCOM_API bool Rename(const char* old_filename, const char* new_filename);
+XCOM_API bool Rename(const char *old_filename, const char *new_filename);
 
 ///////////////////////////////////////////////////////////////////////////
-/// @brief 生成md5 128bit(16字节) 
+/// @brief 生成md5 128bit(16字节)
 /// @param in_data 输入数据
 /// @param in_data_size 输入数据的字节数
 /// @param out_md 输出的MD5数据(16字节)
-XCOM_API unsigned char* OLMD5(const unsigned char* in_data, unsigned long in_data_size, unsigned char* out_md);
+XCOM_API unsigned char *OLMD5(const unsigned char *in_data, unsigned long in_data_size, unsigned char *out_md);
 
 ///////////////////////////////////////////////////////////////////////////
 /// @brief 生成md5 128bit(16字节) 再经过base64转化为字符串
 /// @param in_data 输入数据
 /// @param in_data_size 输入数据的字节数
 /// @return 输出的MD5 base64 数据(24字节)
-XCOM_API std::string OLMD5_base64(const unsigned char* in_data, unsigned long in_data_size);
+XCOM_API std::string OLMD5_base64(const unsigned char *in_data, unsigned long in_data_size);
 
 ///////////////////////////////////////////////////////////////////////////
 /// @brief 生成base64 返回编码后字节大小
-XCOM_API int Base64Encode(const unsigned char* in, int len, char* out_base64);
+XCOM_API int Base64Encode(const unsigned char *in, int len, char *out_base64);
 
 ///////////////////////////////////////////////////////////////////////////
 /// @brief 解码base64 返回解码字节大小
-XCOM_API int Base64Decode(const char* in, int len, unsigned char* out_data);
+XCOM_API int Base64Decode(const char *in, int len, unsigned char *out_data);
 
 ///////////////////////////////////////////////////////////////////////////
 /// @brief 通过域名获取IP地址(只取第一个)
@@ -86,15 +86,14 @@ XCOM_API std::string GetHostByName(std::string host_name);
 ///////////////////////////////////////////////////////////////////////////
 /// @brief 同过smtp协议发送发送邮件
 /// @param smtpServer 可以使用域名
-XCOM_API bool SendEmail(const std::string& smtpServer, int port, const std::string& from,
-    const std::string& to, const std::string& subject, const std::string& message, const std::string& username,
-    const std::string& password);
+XCOM_API bool SendEmail(const std::string &smtpServer, int port, const std::string &from,
+                        const std::string &to, const std::string &subject, const std::string &message, const std::string &username,
+                        const std::string &password);
 
 // 生成指定长度的纯数字验证码
 XCOM_API std::string GenerateNumericCode(int length);
 
 /*********************************时间格式***********************************
-/*
 %a 星期几的简写
 %A 星期几的全称
 %b 月份的简写
@@ -137,8 +136,8 @@ XCOM_API std::string GetCurTime(int timestamp, std::string format = "%F %T");
 class XCOM_API Mutex
 {
 public:
-    Mutex(std::mutex* mtx)
-        :mtx_(mtx)
+    Mutex(std::mutex *mtx)
+        : mtx_(mtx)
     {
         mtx_->lock();
     }
@@ -146,8 +145,9 @@ public:
     {
         mtx_->unlock();
     }
+
 private:
-    std::mutex* mtx_;
+    std::mutex *mtx_;
 };
 
 #endif
@@ -155,7 +155,7 @@ private:
 class XCOM_API OLAES
 {
 public:
-    static OLAES* Create();
+    static OLAES *Create();
     ///////////////////////////////////////////////////////////////////////////
     /// @brief 秘钥长度 128位（16字节） 192位 （24字节） 256位 (32字节)
     /// 长度不能超过32字节，返回失败
@@ -164,7 +164,7 @@ public:
     /// @param key_size 秘钥长度 字节 <=32 会自动补秘钥
     /// @param is_enc true 加密 false 解密
     /// @return 设置成功失败
-    virtual bool SetKey(const char* key, int key_byte_size, bool is_enc) = 0;
+    virtual bool SetKey(const char *key, int key_byte_size, bool is_enc) = 0;
 
     /// @brief 清理空间，删除对象
     virtual void Drop() = 0;
@@ -175,7 +175,6 @@ public:
     /// @param in_size 输入数据大小
     /// @param out 输出 数据空间要保证16字节的倍数
     /// @return  输出大小，失败返回<=0
-    virtual long long Decrypt(const unsigned char* in, long long in_size, unsigned char* out) = 0;
-    virtual long long Encrypt(const unsigned char* in, long long in_size, unsigned char* out) = 0;
+    virtual long long Decrypt(const unsigned char *in, long long in_size, unsigned char *out) = 0;
+    virtual long long Encrypt(const unsigned char *in, long long in_size, unsigned char *out) = 0;
 };
-

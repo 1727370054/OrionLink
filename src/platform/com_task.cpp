@@ -7,6 +7,7 @@
 #include <thread>
 #include <mutex>
 #include <cstring>
+#include <chrono>
 #include <event2/event.h>
 #include <event2/buffer.h>
 #include <event2/bufferevent.h>
@@ -14,7 +15,7 @@
 
 using namespace std;
 
-XCOM_API const char* GetPortName(unsigned short port)
+XCOM_API const char *GetPortName(unsigned short port)
 {
     switch (port)
     {
@@ -81,7 +82,7 @@ void ComTask::set_server_ip(const char *ip)
     strncpy(this->server_ip_, ip, sizeof(server_ip_));
 }
 
-void ComTask::set_client_ip(const char* ip)
+void ComTask::set_client_ip(const char *ip)
 {
     strncpy(this->client_ip_, ip, sizeof(client_ip_));
 }
@@ -115,13 +116,13 @@ bool ComTask::InitBufferevent(int sock)
         if (sock < 0) /// 客户端
         {
             bev_ = bufferevent_openssl_socket_new(base_, sock, olssl.ssl(),
-                   BUFFEREVENT_SSL_CONNECTING, BEV_OPT_CLOSE_ON_FREE /*bufferevent_free函数会同时关闭ssl和socket*/
+                                                  BUFFEREVENT_SSL_CONNECTING, BEV_OPT_CLOSE_ON_FREE /*bufferevent_free函数会同时关闭ssl和socket*/
             );
         }
         else /// 服务端
         {
             bev_ = bufferevent_openssl_socket_new(base_, sock, olssl.ssl(),
-                   BUFFEREVENT_SSL_ACCEPTING, BEV_OPT_CLOSE_ON_FREE /*bufferevent_free函数会同时关闭ssl和socket*/
+                                                  BUFFEREVENT_SSL_ACCEPTING, BEV_OPT_CLOSE_ON_FREE /*bufferevent_free函数会同时关闭ssl和socket*/
             );
         }
 
@@ -135,8 +136,8 @@ bool ComTask::InitBufferevent(int sock)
     /// 设置读超时时间
     if (read_timeout_ms_ > 0)
     {
-        timeval read_tv = { read_timeout_ms_ / 1000,
-            (read_timeout_ms_ % 1000) * 1000};
+        timeval read_tv = {read_timeout_ms_ / 1000,
+                           (read_timeout_ms_ % 1000) * 1000};
         bufferevent_set_timeouts(bev_, &read_tv, 0);
     }
 
@@ -329,7 +330,7 @@ bool ComTask::WaitConnected(int timeout_sec)
     {
         if (is_connected())
             return true;
-        this_thread::sleep_for(10ms);
+        this_thread::sleep_for(std::chrono::milliseconds(10));
     }
     return is_connected();
 }

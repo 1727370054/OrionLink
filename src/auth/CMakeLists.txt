@@ -1,0 +1,6 @@
+set(LIB_SRC auth_client.cpp)
+set(SRC_LIST auth_server_main.cpp auth_dao.cpp auth_handle.cpp auth_server.cpp)
+add_executable(auth ${SRC_LIST})
+add_library(auth_client SHARED ${LIB_SRC})
+target_link_libraries(auth event pthread platform protobuf oldb ssl register_client config_client)
+target_link_libraries(auth_client event pthread platform protobuf oldb ssl register_client config_client)
