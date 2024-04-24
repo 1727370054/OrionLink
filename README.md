@@ -47,7 +47,7 @@
 - 异步日志处理和网络传输。
 - 日志数据通过MySQL进行持久化存储。
 
-## 客户端和服务端实现
+## 客户端和服务端功能
 
 ### 客户端（QT开发）
 - 用户友好的界面，展示文件列表和磁盘空间。
@@ -63,3 +63,25 @@
 
 ## 快速开始
 请按照doc目录下的install_linux.md系统的安装和部署。
+
+# 项目架构图
+## 系统架构图
+![系统架构图](https://github.com/1727370054/OrionLink/assets/134593215/cb8d4251-fbed-4c39-b81a-fba74d745563)
+## 服务交互图
+![系统交互图](https://github.com/1727370054/OrionLink/assets/134593215/cc75c5ef-e3b2-4951-b74a-2031d5120a44)
+
+# 客户端安装
+## 云盘客户端
+在bin目录下，下载OL云盘.msi安装包安装
+## 配置管理工具
+在bin目录下，下载OL微服务配置管理工具.msi安装包安装
+
+# 客户端部分功能界面展示
+## 登陆界面
+![登陆界面](https://github.com/1727370054/OrionLink/assets/134593215/bb95218e-9c1d-44c8-be6c-9b4372faa120)
+## 主界面
+![主界面](https://github.com/1727370054/OrionLink/assets/134593215/97dac910-0640-4d7d-b88f-9b530086fd8f)
+
+## 传输任务界面
+![传输界面](https://github.com/1727370054/OrionLink/assets/134593215/fc902265-2dd2-4e06-a8e5-12d4c66ccdb6)
+
